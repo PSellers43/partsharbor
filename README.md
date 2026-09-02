@@ -28,7 +28,7 @@ docs/                  Static site served by GitHub Pages
   terms/               Terms of service
   refund/              Refund policy
   css/styles.css       Site styles
-  assets/previews/     Kit file preview images (SVG)
+  assets/previews/     Kit file preview PNGs (counter sign, labels, notice, title card)
 .github/workflows/     GitHub Pages deploy workflow
 ```
 
