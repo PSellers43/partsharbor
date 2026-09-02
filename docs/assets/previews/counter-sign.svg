@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <rect width="500" height="500" fill="#fff" stroke="#000" stroke-width="2"/>
+  <!-- Warning triangle -->
+  <polygon points="40,50 70,102 10,102" fill="#f5c518" stroke="#000" stroke-width="2"/>
+  <text x="40" y="88" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">!</text>
+  <text x="85" y="85" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#000">WARNING:</text>
+  <!-- Body text -->
+  <text font-family="Arial, sans-serif" font-size="11" fill="#000">
+    <tspan x="20" y="130">Handling passenger or off-highway motor vehicle parts can expose</tspan>
+    <tspan x="20" y="148">you to chemicals such as phthalates and lead, which can cause</tspan>
+    <tspan x="20" y="166">cancer and reproductive harm. To minimize exposure, service the</tspan>
+    <tspan x="20" y="184">vehicle in a well-ventilated area, wear gloves, and wash your</tspan>
+    <tspan x="20" y="202">hands. For more information see</tspan>
+    <tspan x="20" y="220">www.P65Warnings.ca.gov/motor-vehicle-parts.</tspan>
+  </text>
+  <text x="20" y="480" font-family="Arial, sans-serif" font-size="7" fill="#999">PartsHarbor  not legal advice. Uses OEHHA published safe-harbor methods.</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+  <rect width="600" height="800" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="300" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#000">WRITTEN NOTICE</text>
+  <text x="300" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#666">California Code of Regulations, title 27, section 25600.2 only. No extra duties. This is not legal advice.</text>
+  <line x1="40" y1="95" x2="560" y2="95" stroke="#ccc" stroke-width="1"/>
+  <text x="40" y="120" font-family="Arial, sans-serif" font-size="11" fill="#000">Date: _______________</text>
+  <text x="40" y="145" font-family="Arial, sans-serif" font-size="11" fill="#000">To: Authorized agent for _______________ (shop name)</text>
+  <text x="40" y="170" font-family="Arial, sans-serif" font-size="11" fill="#000">From: _______________ (manufacturer / producer / distributor)</text>
+  <text x="40" y="195" font-family="Arial, sans-serif" font-size="11" fill="#000">Re: Proposition 65 warning materials (Cal. Code Regs. tit. 27, § 25600.2)</text>
+  <text font-family="Arial, sans-serif" font-size="10" fill="#333">
+    <tspan x="40" y="230">This notice identifies products that may result in exposure to chemicals</tspan>
+    <tspan x="40" y="248">listed under California Proposition 65. Warning materials (labels, signs,</tspan>
+    <tspan x="40" y="266">internet language) are enclosed, including the passenger or off-highway</tspan>
+    <tspan x="40" y="284">motor vehicle parts warning (27 CCR § 25607.51).</tspan>
+    <tspan x="40" y="312">Product name/description: _______________</tspan>
+    <tspan x="40" y="330">Identifying information (UPC, SKU, etc.): _______________</tspan>
+    <tspan x="40" y="358">The retail seller is responsible for placing and maintaining the provided</tspan>
+    <tspan x="40" y="376">warning materials. This notice must be renewed annually.</tspan>
+  </text>
+  <text x="40" y="420" font-family="Arial, sans-serif" font-size="10" fill="#333">Sender: Name _______________  Title _______________</text>
+  <text x="40" y="440" font-family="Arial, sans-serif" font-size="10" fill="#333">Company _______________  Email _______________  Phone _______________</text>
+  <text x="40" y="470" font-family="Arial, sans-serif" font-size="10" fill="#333">Signature: _______________</text>
+  <text x="300" y="780" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#999">PartsHarbor  not legal advice. Uses OEHHA published safe-harbor methods. · Page 1 of 2</text>
+</svg>

@@ -1,0 +1,505 @@
+/* PartsHarbor — print-shop / parts-counter aesthetic */
+
+:root {
+  --ink: #1c1c1e;
+  --paper: #f4f0e6;
+  --paper-dark: #e8e2d4;
+  --yellow: #f5c518;
+  --yellow-dark: #c9a012;
+  --muted: #6b6560;
+  --border: #2a2a2c;
+  --white: #fafaf8;
+  --max-width: 1080px;
+  --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "Consolas", "Monaco", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--yellow-dark);
+}
+
+/* Accent stripe (title-card motif) */
+.accent-stripe {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: var(--yellow);
+  z-index: 100;
+}
+
+/* Header */
+.site-header {
+  background: var(--ink);
+  color: var(--white);
+  padding: 1rem 1.5rem;
+  border-bottom: 3px solid var(--yellow);
+}
+
+.header-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--white);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+.logo:hover {
+  color: var(--yellow);
+}
+
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}
+
+.site-nav a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--yellow);
+}
+
+/* Hero */
+.hero {
+  background: var(--ink);
+  color: var(--white);
+  padding: 3.5rem 1.5rem 4rem;
+}
+
+.hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.03em;
+}
+
+.hero .tagline {
+  font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+  color: #aaa;
+  margin: 0 0 1.5rem;
+  font-weight: 400;
+}
+
+.hero .lead {
+  font-size: 1.1rem;
+  color: #ccc;
+  max-width: 42rem;
+  margin: 0 0 2rem;
+}
+
+.hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 3px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-primary {
+  background: var(--yellow);
+  color: var(--ink);
+  border-color: var(--yellow);
+}
+
+.btn-primary:hover {
+  background: var(--yellow-dark);
+  border-color: var(--yellow-dark);
+  color: var(--ink);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--white);
+  border-color: #555;
+}
+
+.btn-secondary:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--paper-dark);
+}
+
+.btn-outline:hover {
+  border-color: var(--yellow-dark);
+  color: var(--yellow-dark);
+}
+
+.btn-disabled {
+  background: #333;
+  color: #888;
+  border-color: #444;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.launch-note {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Main content */
+main {
+  padding: 0 1.5rem;
+}
+
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--paper-dark);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section h2 {
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.section h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.5rem;
+}
+
+.section p,
+.section li {
+  color: #333;
+}
+
+.section ul {
+  padding-left: 1.25rem;
+}
+
+.section li {
+  margin-bottom: 0.4rem;
+}
+
+/* Pricing cards */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.price-card {
+  background: var(--white);
+  border: 2px solid var(--paper-dark);
+  padding: 1.75rem;
+  border-radius: 2px;
+}
+
+.price-card.featured {
+  border-color: var(--yellow);
+  box-shadow: 0 0 0 1px var(--yellow);
+}
+
+.price-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.price {
+  font-size: 2.25rem;
+  font-weight: 800;
+  margin: 0.5rem 0;
+  letter-spacing: -0.03em;
+}
+
+.price-note {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Preview gallery */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.preview-card {
+  background: var(--white);
+  border: 1px solid var(--paper-dark);
+  overflow: hidden;
+}
+
+.preview-card img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  object-position: top;
+  background: #fff;
+}
+
+.preview-card figcaption {
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-top: 1px solid var(--paper-dark);
+}
+
+/* Disclaimer box */
+.disclaimer {
+  background: var(--white);
+  border-left: 4px solid var(--yellow);
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.disclaimer strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--ink);
+}
+
+/* Demo section */
+.demo-placeholder {
+  background: var(--ink);
+  border-radius: 2px;
+  overflow: hidden;
+  max-width: 800px;
+}
+
+.demo-placeholder img {
+  width: 100%;
+  opacity: 0.85;
+}
+
+.demo-caption {
+  padding: 1.25rem 1.5rem;
+  background: #222;
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+.demo-caption h3 {
+  color: var(--white);
+  margin: 0 0 0.5rem;
+}
+
+/* Legal pages */
+.legal-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.legal-page h1 {
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+}
+
+.legal-page .updated {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.legal-page h2 {
+  font-size: 1.25rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.legal-page p,
+.legal-page li {
+  color: #333;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--ink);
+  color: #999;
+  padding: 2.5rem 1.5rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.footer-inner p {
+  margin: 0 0 0.75rem;
+}
+
+.footer-inner a {
+  color: var(--yellow);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-links a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--yellow);
+}
+
+/* Who it's for tags */
+.audience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.tag {
+  background: var(--paper-dark);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  border-radius: 2px;
+  color: var(--ink);
+}
+
+/* Kit contents list */
+.kit-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.kit-list li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--paper-dark);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.kit-list li::before {
+  content: "▸";
+  color: var(--yellow-dark);
+  flex-shrink: 0;
+}
+
+/* Fulfillment steps */
+.steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+}
+
+.steps li {
+  counter-increment: step;
+  padding: 1rem 0 1rem 3rem;
+  position: relative;
+  border-bottom: 1px solid var(--paper-dark);
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 2rem;
+  height: 2rem;
+  background: var(--ink);
+  color: var(--yellow);
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 2.5rem 1.25rem 3rem;
+  }
+
+  .section {
+    padding: 2.5rem 0;
+  }
+
+  .accent-stripe {
+    width: 3px;
+  }
+}
