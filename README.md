@@ -1,29 +1,35 @@
 # PartsHarbor
 
-**Prop 65, for the parts counter.**
+Print-ready California Prop 65 safe-harbor materials for motor-vehicle-parts sellers.
 
 PartsHarbor is a digital download business selling print-ready California Proposition 65 safe-harbor materials for people selling passenger and off-highway motor vehicle parts into California.
 
 ## Live site
 
-The public marketing site is published with GitHub Pages:
+The public marketing site is published with GitHub Pages.
 
-**https://psellers43.github.io/partsharbor/**
+| Environment | URL |
+|-------------|-----|
+| Staging (GitHub Pages) | https://psellers43.github.io/partsharbor/ |
+| Intended custom domain | https://partsharbor.biz (requires DNS configuration — not verified live from this repo) |
 
-| Page | URL |
-|------|-----|
-| Home | https://psellers43.github.io/partsharbor/ |
-| Demo | https://psellers43.github.io/partsharbor/demo/ |
-| Privacy Policy | https://psellers43.github.io/partsharbor/privacy/ |
-| Terms of Service | https://psellers43.github.io/partsharbor/terms/ |
-| Refund Policy | https://psellers43.github.io/partsharbor/refund/ |
+| Page | Path |
+|------|------|
+| Home | `/` |
+| Demo | `/demo/` |
+| Privacy Policy | `/privacy/` |
+| Terms of Service | `/terms/` |
+| Refund Policy | `/refund/` |
+
+Custom domain is configured via `docs/CNAME` (`partsharbor.biz`). Point DNS A/CNAME records at GitHub Pages and enable the custom domain in repository Settings → Pages when ready.
 
 ## Repository layout
 
 ```
 docs/                  Static site served by GitHub Pages
+  CNAME                Custom domain (partsharbor.biz)
   index.html           Home — product, pricing, kit contents, demo section
-  demo/                Demo video page (placeholder until MP4 is added)
+  demo/                Demo walkthrough page (video placeholder until MP4 is added)
   privacy/             Privacy policy
   terms/               Terms of service
   refund/              Refund policy
@@ -50,14 +56,14 @@ cd docs
 python3 -m http.server 8080
 ```
 
-Open http://localhost:8080/ (paths match production except the `/partsharbor/` prefix).
+Open http://localhost:8080/ (paths match production except the `/partsharbor/` prefix on GitHub Pages).
 
 ## Product
 
 - **Shop Kit** — $29 one-time digital download (zip of print-ready Prop 65 files)
 - **Warning Updates** — optional $12/month file updates if OEHHA changes the published warning
 
-Checkout is not live yet. The site uses a waitlist email CTA: patrick.ferrparts@gmail.com
+Checkout is not live yet. The site uses a waitlist email CTA: sales.partsharbor@gmail.com
 
 ## Demo video
 
@@ -65,7 +71,7 @@ Add `docs/assets/partsharbor-shop-kit-demo.mp4` and uncomment the `<video>` bloc
 
 ## Contact
 
-Patrick Sellers — patrick.ferrparts@gmail.com
+sales.partsharbor@gmail.com
 
 ---
 
