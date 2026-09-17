@@ -371,29 +371,6 @@ main {
   max-width: 42rem;
 }
 
-#who .section-header,
-#fulfillment .section-header,
-#demo .section-header {
-  text-align: center;
-}
-
-#who .section-header p,
-#demo .section-header p {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#who .audience-tags {
-  justify-content: center;
-}
-
-#who .disclaimer,
-#fulfillment .steps {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .section-alt {
   background: var(--bg-subtle);
   margin-left: calc(-50vw + 50%);
