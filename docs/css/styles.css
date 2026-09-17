@@ -343,13 +343,13 @@ a:hover {
 /* ── Layout ── */
 
 main {
-  padding: 0 1.5rem;
+  padding: 0;
 }
 
 .section {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 4.5rem 0;
+  padding: 4.5rem 1.5rem;
 }
 
 .section-header {
@@ -804,7 +804,7 @@ blockquote.disclaimer {
 .legal-page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 3rem 0 4rem;
+  padding: 3rem 1.5rem 4rem;
 }
 
 .legal-page h2 {
@@ -1096,7 +1096,7 @@ blockquote.disclaimer {
   }
 
   .section {
-    padding: 3rem 0;
+    padding: 3rem 1.5rem;
   }
 
   .price-card {
