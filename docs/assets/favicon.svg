@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="PartsHarbor">
+  <rect width="32" height="32" rx="6" fill="#0c1222"/>
+  <rect x="1" y="1" width="30" height="30" rx="5" fill="none" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="16" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#ffffff">PH</text>
+</svg>
