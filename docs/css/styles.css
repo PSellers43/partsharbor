@@ -371,25 +371,19 @@ main {
   max-width: 42rem;
 }
 
-/* Centered content column; text stays left-aligned inside */
-#who .section-header,
-#fulfillment .section-header,
-#demo .section-header,
-#who .audience-tags,
-#who .disclaimer,
-#fulfillment .steps,
-#demo .demo-showcase {
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .section-alt {
   background: var(--bg-subtle);
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding-left: max(1.5rem, calc(50vw - 50%));
-  padding-right: max(1.5rem, calc(50vw - 50%));
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.section-inner {
+  width: min(var(--max-width), calc(100% - 3rem));
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .section h3 {
