@@ -6,17 +6,15 @@ PartsHarbor is a digital download business selling print-ready California Propos
 
 ## Live site
 
-The public marketing site is published with GitHub Pages:
+The public marketing site will be **https://partsharbor.biz** (custom domain via `docs/CNAME`). DNS is not live yet; until it is, GitHub Pages serves the site at the project URL below as staging.
 
-**https://psellers43.github.io/partsharbor/**
-
-| Page | URL |
-|------|-----|
-| Home | https://psellers43.github.io/partsharbor/ |
-| Demo | https://psellers43.github.io/partsharbor/demo/ |
-| Privacy Policy | https://psellers43.github.io/partsharbor/privacy/ |
-| Terms of Service | https://psellers43.github.io/partsharbor/terms/ |
-| Refund Policy | https://psellers43.github.io/partsharbor/refund/ |
+| Page | Public URL (when DNS is live) | Staging (GitHub Pages) |
+|------|-------------------------------|-------------------------|
+| Home | https://partsharbor.biz/ | https://psellers43.github.io/partsharbor/ |
+| Demo | https://partsharbor.biz/demo/ | https://psellers43.github.io/partsharbor/demo/ |
+| Privacy Policy | https://partsharbor.biz/privacy/ | https://psellers43.github.io/partsharbor/privacy/ |
+| Terms of Service | https://partsharbor.biz/terms/ | https://psellers43.github.io/partsharbor/terms/ |
+| Refund Policy | https://partsharbor.biz/refund/ | https://psellers43.github.io/partsharbor/refund/ |
 
 ## Repository layout
 
@@ -40,8 +38,9 @@ After merging to `main`, enable GitHub Pages in the repository settings if not a
 
 1. Go to **Settings → Pages**
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**
+3. When DNS is ready, point **partsharbor.biz** at GitHub Pages (the deploy artifact includes `docs/CNAME`). Until then, use the staging URL in the table above.
 
-The workflow uploads the `docs/` folder and deploys to the project site URL above.
+The workflow uploads the `docs/` folder (including `docs/CNAME` for the custom domain) and deploys to GitHub Pages.
 
 ## Local preview
 
@@ -57,7 +56,7 @@ Open http://localhost:8080/ (paths match production except the `/partsharbor/` p
 - **Shop Kit** — $29 one-time digital download (zip of print-ready Prop 65 files)
 - **Warning Updates** — optional $12/month file updates if OEHHA changes the published warning
 
-Checkout is not live yet. The site uses a waitlist email CTA: patrick.ferrparts@gmail.com
+Checkout is not live yet. The site uses a waitlist email CTA: sales.partsharbor@gmail.com
 
 ## Demo video
 
@@ -65,7 +64,7 @@ Add `docs/assets/partsharbor-shop-kit-demo.mp4` and uncomment the `<video>` bloc
 
 ## Contact
 
-Patrick Sellers — patrick.ferrparts@gmail.com
+Patrick Sellers — sales.partsharbor@gmail.com
 
 ---
 
