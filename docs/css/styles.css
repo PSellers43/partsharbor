@@ -945,6 +945,15 @@ blockquote.disclaimer {
   color: #64748b;
 }
 
+.video-block .demo-caption a {
+  color: #cbd5e1;
+  text-decoration: none;
+}
+
+.video-block .demo-caption a:hover {
+  color: var(--bg);
+}
+
 .demo-actions {
   display: flex;
   flex-wrap: wrap;
@@ -988,6 +997,38 @@ blockquote.disclaimer {
   max-width: 28rem;
   line-height: 1.6;
   font-size: 0.8125rem;
+}
+
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1rem;
+}
+
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: #94a3b8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.footer-social-link:hover {
+  color: var(--bg);
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.footer-social-link svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
 }
 
 .footer-links {
