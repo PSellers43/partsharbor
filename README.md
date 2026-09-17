@@ -1,6 +1,6 @@
 # PartsHarbor
 
-**Prop 65, for the parts counter.**
+Print-ready California Prop 65 safe-harbor materials for motor-vehicle-parts sellers.
 
 PartsHarbor is a digital download business selling print-ready California Proposition 65 safe-harbor materials for people selling passenger and off-highway motor vehicle parts into California.
 
@@ -20,8 +20,9 @@ The public marketing site will be **https://partsharbor.biz** (custom domain via
 
 ```
 docs/                  Static site served by GitHub Pages
+  CNAME                Custom domain (partsharbor.biz)
   index.html           Home — product, pricing, kit contents, demo section
-  demo/                Demo video page (placeholder until MP4 is added)
+  demo/                Demo walkthrough page (video placeholder until MP4 is added)
   privacy/             Privacy policy
   terms/               Terms of service
   refund/              Refund policy
@@ -49,7 +50,7 @@ cd docs
 python3 -m http.server 8080
 ```
 
-Open http://localhost:8080/ (paths match production except the `/partsharbor/` prefix).
+Open http://localhost:8080/ (paths match production except the `/partsharbor/` prefix on GitHub Pages).
 
 ## Product
 
