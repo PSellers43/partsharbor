@@ -238,7 +238,11 @@ a:hover {
   line-height: 1.12;
   margin: 0 0 1rem;
   letter-spacing: -0.035em;
-  max-width: 18ch;
+  max-width: 26ch;
+}
+
+.hero-phrase {
+  white-space: nowrap;
 }
 
 .hero .tagline {
@@ -997,6 +1001,11 @@ blockquote.disclaimer {
 @media (max-width: 600px) {
   .hero {
     padding: 3.5rem 1.25rem 4rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.625rem, 4.5vw, 2.75rem);
+    max-width: none;
   }
 
   .section {
