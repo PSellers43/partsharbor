@@ -1,0 +1,3 @@
+WARNING: Handling passenger or off-highway motor vehicle parts can expose you to chemicals such as phthalates and lead, which can cause cancer and reproductive harm. To minimize exposure, service the vehicle in a well-ventilated area, wear gloves, and wash your hands. For more information see www.P65Warnings.ca.gov/motor-vehicle-parts.
+
+(PartsHarbor sample blurb for catalogs/feeds — adapt as needed. Not legal advice.)

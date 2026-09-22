@@ -1,0 +1,26 @@
+Amazon internet warning notes (27 CCR § 25602(b))
+Not legal advice. Uses OEHHA published safe-harbor methods.
+
+If you use a hyperlink on the product display page, 27 CCR § 25602(b)(1)(B) requires a clearly marked hyperlink using the word WARNING or the words CA WARNING or CALIFORNIA WARNING on the product display page that links to the warning.
+
+Hyperlink text (anchor text) must be only one of:
+
+    WARNING
+    CA WARNING
+    CALIFORNIA WARNING
+
+Do not use other hyperlink text such as "Prop 65", "click here", or "more info".
+
+The destination page or module must display this exact 27 CCR § 25607.51 sentence:
+
+WARNING: Handling passenger or off-highway motor vehicle parts can expose you to chemicals such as phthalates and lead, which can cause cancer and reproductive harm. To minimize exposure, service the vehicle in a well-ventilated area, wear gloves, and wash your hands. For more information see www.P65Warnings.ca.gov/motor-vehicle-parts.
+
+Other internet methods in 27 CCR § 25602(b)(1) (use one or more):
+
+    (A) a warning on the product display page, or
+    (B) the hyperlink method above, or
+    (C) an otherwise prominently displayed warning provided to the purchaser prior to completing the purchase. The warning is not prominently displayed if the purchaser must search for it in the general content of the website.
+
+If the product is also sold on the internet, 27 CCR § 25607.50(a)(3)(B) requires a warning that uses 27 CCR § 25602(b) methods in addition to a posted counter sign. A 5x5 sign at the shop does not take the place of the internet method.
+
+Amazon listing tools change. Paste the hyperlink or the full sentence into the field Amazon provides for California Proposition 65 warnings, keeping the hyperlink text limited to WARNING, CA WARNING, or CALIFORNIA WARNING when a hyperlink is used.

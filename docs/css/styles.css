@@ -1144,6 +1144,277 @@ blockquote.disclaimer {
 
 /* ── Responsive ── */
 
+/* ── Digest & resources ── */
+
+.issue-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.issue-list li {
+  margin: 0;
+}
+
+.issue-list a {
+  display: block;
+  padding: 1rem 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: var(--navy);
+  font-weight: 600;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.issue-list a:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+  color: var(--accent);
+}
+
+.issue-list .issue-meta {
+  display: block;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.digest-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+
+.stat-card .stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.stat-card .stat-label {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.content-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+.content-page h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2rem 0 0.75rem;
+  color: var(--navy);
+}
+
+.content-page h2:first-of-type {
+  margin-top: 0;
+}
+
+.content-page p,
+.content-page li {
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.content-page ul {
+  padding-left: 1.25rem;
+}
+
+.cta-panel {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.75rem;
+  margin-top: 2.5rem;
+}
+
+.cta-panel h2 {
+  margin-top: 0;
+  font-size: 1.125rem;
+}
+
+.cta-panel .cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.cta-panel .btn-secondary {
+  color: var(--navy);
+  border-color: var(--border-strong);
+  background: var(--bg);
+}
+
+.cta-panel .btn-secondary:hover {
+  background: var(--bg-muted);
+  color: var(--navy);
+}
+
+.resource-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.resource-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.0625rem;
+  color: var(--navy);
+}
+
+.resource-card p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+/* ── Checklist (print-friendly) ── */
+
+.checklist-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.checklist-section:last-of-type {
+  border-bottom: none;
+}
+
+.checklist-section h2 {
+  font-size: 1.125rem;
+  margin: 0 0 0.75rem;
+  color: var(--navy);
+}
+
+.checklist-items {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.75rem;
+}
+
+.checklist-items li {
+  position: relative;
+  padding: 0.375rem 0 0.375rem 1.75rem;
+  font-size: 0.9375rem;
+}
+
+.checklist-items li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  color: var(--text-muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.checklist-help {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.checklist-help strong {
+  color: var(--text);
+}
+
+.print-hint {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.print-hint button {
+  font: inherit;
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.print-hint button:hover {
+  color: var(--accent-hover);
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .nav-toggle,
+  .no-print,
+  .print-hint,
+  .cta-panel,
+  .legal-back,
+  .demo-actions {
+    display: none !important;
+  }
+
+  .page-hero {
+    background: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0 0 1rem;
+  }
+
+  .section,
+  .content-page,
+  .legal-page {
+    padding: 0;
+    max-width: none;
+  }
+
+  body {
+    font-size: 11pt;
+    color: #000;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    word-break: break-all;
+  }
+
+  .checklist-items li::before {
+    content: "☐";
+  }
+}
+
 @media (max-width: 600px) {
   .hero {
     padding: 3.5rem 1.25rem 4rem;
