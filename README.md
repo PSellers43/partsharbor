@@ -54,7 +54,8 @@ Open http://localhost:8080/ (paths match production except the `/partsharbor/` p
 
 ## Product
 
-- **Shop Kit** — $29 one-time digital download (zip of print-ready Prop 65 files)
+- **Shop Kit Starter** — $19 one-time (counter sign PDF + EN/ES labels)
+- **Shop Kit** — $29 one-time digital download (full print kit + starter listing notes)
 - **Warning Updates** — optional $12/month file updates if OEHHA changes the published warning
 
 Checkout is not live yet. The site uses a waitlist email CTA: sales.partsharbor@gmail.com
