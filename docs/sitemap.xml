@@ -26,6 +26,26 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://partsharbor.biz/guides/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://partsharbor.biz/guides/ebay-listing-vs-packing-slip/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://partsharbor.biz/guides/posted-sign-vs-internet-warning/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://partsharbor.biz/guides/motor-vehicle-parts-safe-harbor-wording/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://partsharbor.biz/channel-ops/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
