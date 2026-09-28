@@ -16,6 +16,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://partsharbor.biz/digest/2026-09-28/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://partsharbor.biz/digest/2026-09-21/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
