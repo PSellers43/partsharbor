@@ -1239,6 +1239,40 @@ blockquote.disclaimer {
   padding-left: 1.25rem;
 }
 
+.content-page h3 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--navy);
+}
+
+.content-page .table-wrap {
+  overflow-x: auto;
+  margin: 1rem 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+.content-page table.digest-notices {
+  width: 100%;
+  min-width: 36rem;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.content-page table.digest-notices th,
+.content-page table.digest-notices td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.625rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.content-page table.digest-notices th {
+  background: var(--bg-subtle);
+  font-weight: 600;
+  color: var(--navy);
+}
+
 .cta-panel {
   background: var(--bg-subtle);
   border: 1px solid var(--border);
