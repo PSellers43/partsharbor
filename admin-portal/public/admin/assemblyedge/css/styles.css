@@ -2675,30 +2675,37 @@ body[data-role="cm"] .cm-strip {
 }
 .precinct-map-tooltip {
   position: absolute;
-  z-index: 6;
+  z-index: 24;
   max-width: min(240px, 92%);
   padding: 10px 12px;
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: var(--surface-2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background-color: var(--bg-panel);
+  color: var(--text);
+  opacity: 1;
+  box-shadow: var(--shadow);
   pointer-events: none;
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.45;
+  isolation: isolate;
 }
 .precinct-tooltip-title {
   font-weight: 650;
   color: var(--text);
+  opacity: 1;
 }
 .precinct-tooltip-place {
-  color: var(--text-muted);
+  color: var(--text);
+  opacity: 1;
   margin-top: 2px;
+  font-size: 12px;
 }
 .precinct-tooltip-also,
 .precinct-tooltip-county,
 .precinct-tooltip-votes {
   font-size: 11px;
-  color: var(--text-dim);
+  color: var(--text-muted);
+  opacity: 1;
   margin-top: 4px;
 }
 .precinct-tooltip-margin {
@@ -2751,7 +2758,9 @@ body[data-role="cm"] .cm-strip {
   color: #1a0808;
 }
 [data-theme="light"] .precinct-map-tooltip {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  background-color: var(--bg-panel);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
 }
 .focus-precinct-search-wrap {
   display: block;
