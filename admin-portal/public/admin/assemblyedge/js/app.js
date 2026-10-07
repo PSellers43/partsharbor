@@ -302,24 +302,29 @@
       return;
     }
 
-    const w = 360;
-    const h = 420;
-    const feats = AE.focusMap.featurePaths(w, h);
-    const caSilhouette =
-      "M42,18 L318,22 L340,88 L332,180 L300,260 L248,320 L180,368 L92,352 L38,280 L28,160 Z";
-
-    const shapes = feats
+    const w = 400;
+    const h = 480;
+    const layers = AE.focusMap.featurePaths(w, h);
+    const contextShapes = layers.context
+      .map(
+        (f) =>
+          `<path class="district-context" aria-hidden="true" data-context-ad="${f.code}" d="${f.d}"></path>`
+      )
+      .join("");
+    const beachShapes = layers.beachhead
       .map(
         (f) =>
           `<path class="district-shape ${f.band.class}" tabindex="0" role="link" aria-label="${f.code} focus score ${f.score}" data-district="${f.id}" d="${f.d}"></path>`
       )
       .join("");
 
+    const attr = AE.focusMap.attributionHtml();
     wrap.innerHTML = `
-      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg" aria-label="California beachhead focus map">
-        <path class="map-silhouette" d="${caSilhouette}" aria-hidden="true"></path>
-        ${shapes}
-      </svg>`;
+      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg" aria-label="California Assembly focus map, CRC 2020 boundaries">
+        <g class="map-context-layer">${contextShapes}</g>
+        <g class="map-beachhead-layer">${beachShapes}</g>
+      </svg>
+      <p class="focus-map-attribution">${attr}</p>`;
 
     wrap.querySelectorAll("[data-district]").forEach((path) => {
       const go = () => navigate("district", { districtId: path.dataset.district, tab: "threat" });
@@ -337,7 +342,8 @@
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#b8860b"></span> High focus (70+)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#8b6914"></span> Elevated (50–69)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#5c4a12"></span> Watch (&lt;50)</span>
-        <span class="focus-legend-item"><span class="chip chip-demo">Threat Index illustrative</span></span>`;
+        <span class="focus-legend-item"><span class="chip chip-demo">Threat Index illustrative</span></span>
+        <span class="focus-legend-item">Gray outlines = other ADs (context)</span>`;
     }
 
     if (rank) {
