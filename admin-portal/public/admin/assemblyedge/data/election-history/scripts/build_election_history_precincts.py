@@ -131,7 +131,7 @@ CA_COUNTY_NAMES = {
 
 
 def fetch_bytes(url: str) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "AssemblyEdge-election-history/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "MajorityIQ-election-history/1.0"})
     with urllib.request.urlopen(req, timeout=180) as resp:
         return resp.read()
 

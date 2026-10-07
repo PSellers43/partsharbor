@@ -1,4 +1,4 @@
-/* AssemblyEdge — ballot returns (ABEV-style) loader + panels */
+/* MajorityIQ — ballot returns (ABEV-style) loader + panels */
 
 window.AE = window.AE || {};
 

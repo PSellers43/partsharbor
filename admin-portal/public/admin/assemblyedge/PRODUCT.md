@@ -1,4 +1,4 @@
-# AssemblyEdge — Product vision (prototype)
+# MajorityIQ — Product vision (prototype)
 
 ## What “state of the art” means here
 

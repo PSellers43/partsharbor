@@ -1,4 +1,4 @@
-# Demography + registration mix (AssemblyEdge Focus drill)
+# Demography + registration mix (MajorityIQ Focus drill)
 
 Static JSON for beachhead Assembly districts: **ACS 5-year** demographics and **CA SOS** voter registration party mix. Consumed by the Focus intra-district drill panel (`js/demography.js`).
 
@@ -25,7 +25,7 @@ data/demography/
 
 ## Refresh
 
-From the AssemblyEdge static root (`admin-portal/public/admin/assemblyedge/`):
+From the MajorityIQ static root (`admin-portal/public/admin/assemblyedge/`):
 
 ```bash
 python3 data/demography/scripts/build_demography_json.py

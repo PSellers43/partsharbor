@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "product": "AssemblyEdge",
+  "product": "MajorityIQ",
   "generated_at": "2026-10-07T02:08:12.022013Z",
   "data_as_of": "2026-10-07T02:04:48.582597Z",
   "source": {
@@ -22,7 +22,7 @@
       "RCPT_CD (multi-GB; period totals via SMRY)",
       "EXPN_CD (multi-GB; period totals via SMRY)"
     ],
-    "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of AssemblyEdge."
+    "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of MajorityIQ."
   },
   "cycle_year": 2026,
   "matching": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Documented limitations in CALACCESS.md.",

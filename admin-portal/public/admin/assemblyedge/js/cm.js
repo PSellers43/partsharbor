@@ -1,4 +1,4 @@
-/* AssemblyEdge — Campaign Manager layer (localStorage decision log + checklist) */
+/* MajorityIQ — Campaign Manager layer (localStorage decision log + checklist) */
 
 (function () {
   "use strict";

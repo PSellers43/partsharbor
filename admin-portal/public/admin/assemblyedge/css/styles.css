@@ -1,4 +1,33 @@
-/* AssemblyEdge — premium war-room UI */
+/* MajorityIQ — premium war-room UI */
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/Inter-Regular.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/Inter-Medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/Inter-SemiBold.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/Inter-Bold.woff2") format("woff2");
+}
 
 :root {
   --bg: #0b0d10;
@@ -19,8 +48,8 @@
   --ok: #3dd68c;
   --ok-soft: rgba(61, 214, 140, 0.15);
   --purple: #a78bfa;
-  --font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --mono: "IBM Plex Mono", "SF Mono", ui-monospace, monospace;
+  --font: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "SF Mono", ui-monospace, "Cascadia Code", monospace;
   --radius: 10px;
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
   --demo-badge: #f0b429;
@@ -150,16 +179,10 @@ button {
   padding: 4px 0;
 }
 .brand-mark {
+  flex-shrink: 0;
   width: 28px;
   height: 28px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, #3d8bfd, #1a4a9e);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 11px;
-  color: #fff;
-  letter-spacing: -0.02em;
+  display: block;
 }
 .brand-text {
   display: flex;
@@ -167,18 +190,30 @@ button {
   align-items: flex-start;
   min-width: 0;
   line-height: 1.25;
+  max-width: 100%;
 }
-.brand-name {
+.brand-wordmark {
+  display: block;
+  font-family: var(--font);
   font-weight: 700;
   font-size: 15px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.brand-majority {
+  color: var(--text);
+}
+.brand-iq {
+  color: var(--accent);
 }
 .brand-sub {
   font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
   margin-left: 0;
-  margin-top: 1px;
+  margin-top: 2px;
+  line-height: 1.2;
 }
 
 .nav-links {
@@ -2127,8 +2162,11 @@ body[data-role="cm"] .cm-strip {
     width: 100%;
     align-items: flex-start;
   }
-  .brand-name {
+  .brand-wordmark {
     font-size: 14px;
+  }
+  .brand-sub {
+    font-size: 10.5px;
   }
   .nav-links {
     grid-area: links;

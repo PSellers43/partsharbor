@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-AssemblyEdge CAL-ACCESS daily ingest
+MajorityIQ CAL-ACCESS daily ingest
 ====================================
 Downloads the official CA Secretary of State raw ZIP, extracts needed TSVs,
 maps committees to beachhead Assembly districts, and emits JSON for the
@@ -809,7 +809,7 @@ def run_pipeline(extract_dir: Path, zip_path: Optional[Path], skip_download_meta
     LATEST_DIR.mkdir(parents=True, exist_ok=True)
     out = {
         "schema_version": 1,
-        "product": "AssemblyEdge",
+        "product": "MajorityIQ",
         "generated_at": as_of,
         "data_as_of": zip_as_of or as_of,
         "source": {
@@ -831,7 +831,7 @@ def run_pipeline(extract_dir: Path, zip_path: Optional[Path], skip_download_meta
                 "RCPT_CD (multi-GB; period totals via SMRY)",
                 "EXPN_CD (multi-GB; period totals via SMRY)",
             ],
-            "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of AssemblyEdge.",
+            "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of MajorityIQ.",
         },
         "cycle_year": cycle_year,
         "matching": beach.get("matching_notes"),
@@ -859,7 +859,7 @@ def run_pipeline(extract_dir: Path, zip_path: Optional[Path], skip_download_meta
 
 
 def main(argv: Optional[List[str]] = None) -> int:
-    p = argparse.ArgumentParser(description="AssemblyEdge CAL-ACCESS daily ingest")
+    p = argparse.ArgumentParser(description="MajorityIQ CAL-ACCESS daily ingest")
     p.add_argument("--skip-download", action="store_true", help="Use existing dated ZIP / extract")
     p.add_argument("--force-download", action="store_true", help="Re-download even if today's ZIP exists")
     p.add_argument("--zip", type=str, default="", help="Path to an existing dbwebexport ZIP")

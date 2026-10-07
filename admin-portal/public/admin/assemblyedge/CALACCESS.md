@@ -1,4 +1,4 @@
-# CAL-ACCESS → AssemblyEdge Money panel
+# CAL-ACCESS → MajorityIQ Money panel
 
 ## How to run
 
@@ -46,7 +46,7 @@ Edit patterns in `data/calaccess/beachheads.json` to improve matches; re-run the
 - Data: **California Secretary of State**, Political Reform Division, CAL-ACCESS raw extract.
 - Official page: https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity
 - Download: https://campaignfinance.cdn.sos.ca.gov/dbwebexport.zip
-- AssemblyEdge is **not** an official FPPC, SOS, or caucus product and does not provide legal or compliance advice.
+- MajorityIQ is **not** an official FPPC, SOS, or caucus product and does not provide legal or compliance advice.
 - No voter-file PII is used. Contributor addresses from raw tables are not surfaced in the Money JSON.
 
 ## Disk / ops notes

@@ -1,4 +1,4 @@
-/* AssemblyEdge — precinct election history loader (Focus drill overlay) */
+/* MajorityIQ — precinct election history loader (Focus drill overlay) */
 
 window.AE = window.AE || {};
 

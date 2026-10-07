@@ -25,7 +25,7 @@ export function applySecurityHeaders(headers, isProduction) {
   headers.set("Pragma", "no-cache");
 }
 
-/** CSP for AssemblyEdge (Google Fonts on the prototype shell). */
+/** CSP for MajorityIQ desk (self-hosted fonts; static shell under /admin/assemblyedge/). */
 export function applyAssemblyEdgeSecurityHeaders(headers, isProduction) {
   headers.set("X-Content-Type-Options", "nosniff");
   headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -35,8 +35,8 @@ export function applyAssemblyEdgeSecurityHeaders(headers, isProduction) {
     [
       "default-src 'self'",
       "script-src 'self'",
-      "style-src 'self' https://fonts.googleapis.com",
-      "font-src 'self' https://fonts.gstatic.com",
+      "style-src 'self'",
+      "font-src 'self'",
       "img-src 'self' data:",
       "connect-src 'self'",
       "frame-ancestors 'none'",

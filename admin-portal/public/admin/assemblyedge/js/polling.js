@@ -1,4 +1,4 @@
-/* AssemblyEdge — public polling loader + gap helpers */
+/* MajorityIQ — public polling loader + gap helpers */
 
 window.AE = window.AE || {};
 

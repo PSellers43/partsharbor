@@ -1,4 +1,4 @@
-/* AssemblyEdge — focus / opportunity score + map helpers */
+/* MajorityIQ — focus / opportunity score + map helpers */
 
 window.AE = window.AE || {};
 

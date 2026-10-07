@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build AssemblyEdge ballot-return (ABEV-style) JSON for beachhead Assembly districts.
+"""Build MajorityIQ ballot-return (ABEV-style) JSON for beachhead Assembly districts.
 
 Sources (free / public):
   - UC Berkeley Statewide Database (SWDB) Statement of Vote by SR precinct (addist filter)
@@ -84,7 +84,7 @@ PARTY_IDS = [
 
 
 def fetch_bytes(url: str, timeout: int = 180) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "AssemblyEdge-abev-build/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "MajorityIQ-abev-build/1.0"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
 
@@ -233,7 +233,7 @@ def probe_live_sos_vbm() -> dict:
     """Best-effort HEAD on SOS VoteCal VBM PDFs (county-level; not AD)."""
     for url in LIVE_VBM_PDF_CANDIDATES:
         try:
-            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "AssemblyEdge-abev-build/1.0"})
+            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "MajorityIQ-abev-build/1.0"})
             with urllib.request.urlopen(req, timeout=30) as resp:
                 if resp.status == 200:
                     return {
@@ -364,9 +364,9 @@ def main() -> int:
                 "assembly_district_limitation": "PDF is county-level; AD aggregation requires county feeds or SWDB-style precinct joins.",
             },
             "inspiration": {
-                "label": "Civiq ABEV (statewide ballot return tracker)",
-                "url": "https://abev.civiq.vote/",
-                "note": "AssemblyEdge shows beachhead AD depth, not a statewide clone.",
+                "label": "Public statewide ballot-return trackers",
+                "url": "",
+                "note": "MajorityIQ shows beachhead AD depth, not a statewide clone.",
             },
         },
         "gaps": all_gaps,
