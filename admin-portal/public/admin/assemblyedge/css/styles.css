@@ -3791,34 +3791,71 @@ body[data-role="cm"] .cm-strip {
 }
 .social-sentiment-chart {
   width: 100%;
-  max-width: 420px;
+  max-width: none;
 }
 .social-sentiment-svg {
   width: 100%;
-  height: auto;
   display: block;
+}
+.social-sentiment-svg-panel {
+  height: 200px;
+  min-height: 180px;
+}
+.social-sentiment-svg-compact {
+  height: 44px;
+  min-height: 40px;
+}
+.social-vol-bar {
+  fill: var(--text-muted);
+  opacity: 0.22;
+}
+.social-sent-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+  opacity: 0.45;
+}
+.social-sent-grid-zero {
+  stroke: var(--text-dim);
+  stroke-width: 1.25;
+  opacity: 0.85;
 }
 .social-sent-line-r {
   stroke: var(--danger);
-  stroke-width: 2;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
 }
 .social-sent-line-d {
   stroke: var(--accent);
-  stroke-width: 2;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
 }
 .social-sent-line-net {
   stroke: var(--purple);
-  stroke-width: 1.5;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
 }
-.social-sent-axis {
-  stroke: var(--border);
-  stroke-width: 1;
-  stroke-dasharray: 4 3;
+.social-sent-line-flat {
+  opacity: 0.55;
+  stroke-dasharray: 3 3;
+}
+.social-sent-dot-r {
+  fill: var(--danger);
+}
+.social-sent-dot-d {
+  fill: var(--accent);
+}
+.social-sent-dot-net {
+  fill: var(--purple);
 }
 .social-sent-y-label,
 .social-sent-x-label {
   fill: var(--text-dim);
-  font-size: 9px;
+  font-size: 11px;
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+.social-sent-y-label-zero {
+  fill: var(--text-muted);
+  font-weight: 600;
 }
 .social-post-sentiment {
   margin-bottom: 6px;
@@ -3864,6 +3901,10 @@ body[data-role="cm"] .cm-strip {
   }
   .social-sentiment-chart {
     max-width: 100%;
+  }
+  .social-sentiment-svg-panel {
+    height: 160px;
+    min-height: 160px;
   }
   .social-post-head {
     flex-direction: column;

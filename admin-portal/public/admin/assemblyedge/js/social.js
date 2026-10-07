@@ -116,97 +116,136 @@ window.AE = window.AE || {};
     return rows.slice(-limit);
   }
 
+  function scoredPostCount(row) {
+    if (!row) return 0;
+    return ((row.candidate_posts && row.candidate_posts.n) || 0) + ((row.mentions && row.mentions.n) || 0);
+  }
+
   function chartHasEnoughData(rows) {
-    if (!rows || rows.length < 2) return false;
-    let scoredDays = 0;
-    rows.forEach((r) => {
-      const n =
-        ((r.candidate_posts && r.candidate_posts.n) || 0) +
-        ((r.mentions && r.mentions.n) || 0);
-      if (n > 0) scoredDays += 1;
-    });
-    return scoredDays >= 2;
+    if (!rows || !rows.length) return false;
+    return rows.some((r) => scoredPostCount(r) > 0);
+  }
+
+  function districtHasScoredHistory(districtId) {
+    return chartHasEnoughData(historyForDistrict(districtId, CHART_DAYS));
+  }
+
+  function formatHistoryStartLabel(iso) {
+    if (!iso) return "this week";
+    try {
+      const d = new Date(iso.length === 10 ? iso + "T12:00:00" : iso);
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "America/Los_Angeles" });
+    } catch {
+      return iso.slice(0, 10);
+    }
+  }
+
+  function xAt(i, count, pad, innerW) {
+    if (count <= 1) return pad.l + innerW / 2;
+    return pad.l + (i / (count - 1)) * innerW;
   }
 
   function svgLineChart(rows, opts) {
     opts = opts || {};
-    const w = opts.width || 320;
-    const h = opts.height || opts.compact ? 36 : 132;
-    const pad = opts.compact ? { t: 4, r: 4, b: 4, l: 4 } : { t: 12, r: 12, b: 28, l: 36 };
+    const compact = !!opts.compact;
+    const w = opts.viewWidth || (compact ? 160 : 640);
+    const h = opts.viewHeight || (compact ? 44 : 200);
+    const pad = compact
+      ? { t: 6, r: 6, b: 6, l: 6 }
+      : { t: 16, r: 16, b: 36, l: 40 };
     const innerW = w - pad.l - pad.r;
     const innerH = h - pad.t - pad.b;
-    if (!rows.length) {
-      return `<svg class="social-sentiment-svg social-sentiment-empty" viewBox="0 0 ${w} ${h}" role="img" aria-label="No sentiment history"></svg>`;
-    }
-    const xStep = rows.length > 1 ? innerW / (rows.length - 1) : 0;
-    const yScale = (v) => pad.t + innerH * (1 - (v + 1) / 2);
+    const yScale = (v) => pad.t + innerH * (1 - (Math.max(-1, Math.min(1, v)) + 1) / 2);
+    const svgClass = compact ? "social-sentiment-svg social-sentiment-svg-compact" : "social-sentiment-svg social-sentiment-svg-panel";
 
-    const volMax = Math.max(
-      1,
-      ...rows.map((r) => ((r.candidate_posts && r.candidate_posts.n) || 0) + ((r.mentions && r.mentions.n) || 0))
-    );
+    if (!rows.length) {
+      return `<svg class="${svgClass}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="No sentiment history"></svg>`;
+    }
+
+    const n = rows.length;
+    const volMax = Math.max(1, ...rows.map((r) => scoredPostCount(r)));
+    const barW = compact ? Math.max(3, innerW / Math.max(n, 1) * 0.45) : Math.max(8, innerW / Math.max(n, 1) * 0.55);
 
     let bars = "";
     rows.forEach((r, i) => {
-      const vol = ((r.candidate_posts && r.candidate_posts.n) || 0) + ((r.mentions && r.mentions.n) || 0);
-      const bh = (vol / volMax) * innerH * 0.35;
-      const x = pad.l + i * xStep - (opts.compact ? 1 : 3);
-      bars += `<rect class="social-vol-bar" x="${x}" y="${pad.t + innerH - bh}" width="${opts.compact ? 3 : 6}" height="${bh}" opacity="0.18"><title>${escapeHtml(r.date)} · ${vol} scored post(s)</title></rect>`;
+      const vol = scoredPostCount(r);
+      const bh = vol > 0 ? Math.max(3, (vol / volMax) * innerH * 0.32) : 0;
+      const x = xAt(i, n, pad, innerW) - barW / 2;
+      bars += `<rect class="social-vol-bar" x="${x.toFixed(1)}" y="${(pad.t + innerH - bh).toFixed(1)}" width="${barW.toFixed(1)}" height="${bh.toFixed(1)}"><title>${escapeHtml(r.date)} · ${vol} scored post(s)</title></rect>`;
     });
 
-    function poly(side, cls) {
+    let grid = "";
+    if (!compact) {
+      [-1, -0.5, 0, 0.5, 1].forEach((v) => {
+        const y = yScale(v);
+        const cls = v === 0 ? "social-sent-grid-zero" : "social-sent-grid";
+        grid += `<line class="${cls}" x1="${pad.l}" y1="${y.toFixed(1)}" x2="${pad.l + innerW}" y2="${y.toFixed(1)}" />`;
+      });
+    } else {
+      const y0 = yScale(0);
+      grid += `<line class="social-sent-grid-zero" x1="${pad.l}" y1="${y0.toFixed(1)}" x2="${pad.l + innerW}" y2="${y0.toFixed(1)}" />`;
+    }
+
+    function lineForSide(side, cls, dotCls) {
       const pts = [];
+      let out = "";
       rows.forEach((r, i) => {
         const bucket = r[side];
         if (!bucket || bucket.n < 1 || bucket.avg == null) return;
-        const x = pad.l + i * xStep;
-        pts.push(`${x},${yScale(bucket.avg)}`);
+        const x = xAt(i, n, pad, innerW);
+        const y = yScale(bucket.avg);
+        pts.push({ x, y, r, bucket });
       });
-      if (pts.length < 2) return "";
-      return `<polyline class="${cls}" fill="none" points="${pts.join(" ")}" />`;
+      if (pts.length >= 2) {
+        out += `<polyline class="${cls}" fill="none" points="${pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ")}" />`;
+      }
+      pts.forEach((p) => {
+        const label = side === "toward_r" ? "R-side" : "D-side";
+        out += `<circle class="social-sent-dot ${dotCls}" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${compact ? 2.5 : 4.5}"><title>${escapeHtml(p.r.date)} · ${label} ${p.bucket.avg} (n=${p.bucket.n})</title></circle>`;
+      });
+      return out;
     }
 
-    function polyNet(cls) {
+    function lineForNet() {
       const pts = [];
       rows.forEach((r, i) => {
         if (r.net == null) return;
-        const x = pad.l + i * xStep;
-        pts.push(`${x},${yScale(Math.max(-1, Math.min(1, r.net)))}`);
+        pts.push({ x: xAt(i, n, pad, innerW), y: yScale(r.net), r });
       });
-      if (pts.length < 2) return "";
-      return `<polyline class="${cls}" fill="none" points="${pts.join(" ")}" />`;
-    }
-
-    let dots = "";
-    if (!opts.compact) {
-      rows.forEach((r, i) => {
-        ["toward_r", "toward_d"].forEach((side) => {
-          const bucket = r[side];
-          if (!bucket || bucket.n < 1 || bucket.avg == null) return;
-          const x = pad.l + i * xStep;
-          const y = yScale(bucket.avg);
-          const label = side === "toward_r" ? "R-side" : "D-side";
-          dots += `<circle class="social-sent-dot social-sent-dot-${side === "toward_r" ? "r" : "d"}" cx="${x}" cy="${y}" r="3"><title>${escapeHtml(r.date)} · ${label} tone ${bucket.avg} (n=${bucket.n})</title></circle>`;
-        });
+      let out = "";
+      if (pts.length >= 2) {
+        out += `<polyline class="social-sent-line-net" fill="none" points="${pts.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" ")}" />`;
+      }
+      pts.forEach((p) => {
+        out += `<circle class="social-sent-dot social-sent-dot-net" cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.5"><title>${escapeHtml(p.r.date)} · net ${p.r.net}</title></circle>`;
       });
+      if (!pts.length) {
+        const y0 = yScale(0);
+        out += `<line class="social-sent-line-net social-sent-line-flat" x1="${pad.l}" y1="${y0.toFixed(1)}" x2="${pad.l + innerW}" y2="${y0.toFixed(1)}" />`;
+      }
+      return out;
     }
 
     let axis = "";
-    if (!opts.compact) {
-      axis += `<line class="social-sent-axis" x1="${pad.l}" y1="${yScale(0)}" x2="${pad.l + innerW}" y2="${yScale(0)}" />`;
-      axis += `<text class="social-sent-y-label" x="${pad.l - 6}" y="${yScale(1) + 3}" text-anchor="end">+1</text>`;
-      axis += `<text class="social-sent-y-label" x="${pad.l - 6}" y="${yScale(0) + 3}" text-anchor="end">0</text>`;
-      axis += `<text class="social-sent-y-label" x="${pad.l - 6}" y="${yScale(-1) + 3}" text-anchor="end">−1</text>`;
-      const first = rows[0].date && rows[0].date.slice(5);
-      const last = rows[rows.length - 1].date && rows[rows.length - 1].date.slice(5);
-      axis += `<text class="social-sent-x-label" x="${pad.l}" y="${h - 6}">${escapeHtml(first || "")}</text>`;
-      axis += `<text class="social-sent-x-label" x="${pad.l + innerW}" y="${h - 6}" text-anchor="end">${escapeHtml(last || "")}</text>`;
+    if (!compact) {
+      axis += `<text class="social-sent-y-label" x="${pad.l - 8}" y="${yScale(1) + 4}" text-anchor="end">+1</text>`;
+      axis += `<text class="social-sent-y-label" x="${pad.l - 8}" y="${yScale(0.5) + 4}" text-anchor="end">+0.5</text>`;
+      axis += `<text class="social-sent-y-label social-sent-y-label-zero" x="${pad.l - 8}" y="${yScale(0) + 4}" text-anchor="end">0</text>`;
+      axis += `<text class="social-sent-y-label" x="${pad.l - 8}" y="${yScale(-0.5) + 4}" text-anchor="end">−0.5</text>`;
+      axis += `<text class="social-sent-y-label" x="${pad.l - 8}" y="${yScale(-1) + 4}" text-anchor="end">−1</text>`;
+      rows.forEach((r, i) => {
+        const x = xAt(i, n, pad, innerW);
+        const label = r.date ? r.date.slice(5) : "";
+        axis += `<text class="social-sent-x-label" x="${x.toFixed(1)}" y="${h - 10}" text-anchor="middle">${escapeHtml(label)}</text>`;
+      });
     }
 
-    const lines = opts.compact
-      ? polyNet("social-sent-line-net")
-      : poly("toward_r", "social-sent-line-r") + poly("toward_d", "social-sent-line-d");
-    return `<svg class="social-sentiment-svg${opts.compact ? " social-sentiment-svg-compact" : ""}" viewBox="0 0 ${w} ${h}" role="img" aria-label="Daily sentiment trend">${bars}${axis}${lines}${dots}</svg>`;
+    const lines = compact
+      ? lineForNet()
+      : lineForSide("toward_r", "social-sent-line-r", "social-sent-dot-r") +
+        lineForSide("toward_d", "social-sent-line-d", "social-sent-dot-d");
+
+    return `<svg class="${svgClass}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Daily sentiment trend">${bars}${grid}${axis}${lines}</svg>`;
   }
 
   function renderSentimentChartSection(districtId) {
@@ -218,13 +257,18 @@ window.AE = window.AE || {};
       ((latest.toward_r && latest.toward_r.n > 0 && latest.toward_r.n < MIN_SIDE_N) ||
         (latest.toward_d && latest.toward_d.n > 0 && latest.toward_d.n < MIN_SIDE_N));
 
+    const historyNote =
+      rows.length < 7
+        ? `<p class="social-sentiment-note social-sentiment-thin">History builds daily from ${escapeHtml(formatHistoryStartLabel(AE.socialData.as_of || rows[0].date))}.</p>`
+        : "";
+
     if (!enough) {
       return `
         <section class="social-sentiment-wrap" aria-label="Daily sentiment trend">
           <h4 class="social-subtitle">Daily sentiment trend</h4>
           <div class="social-sentiment-note social-sentiment-thin">
             <span class="chip chip-demo">Not enough data</span>
-            Need at least two days with scored posts in the last ${CHART_DAYS} days. Scores are AI-estimated tone from public X text — not polling.
+            No scored posts yet for this district. Scores are AI-estimated tone from public X text — not polling.
           </div>
         </section>`;
     }
@@ -233,6 +277,7 @@ window.AE = window.AE || {};
       <section class="social-sentiment-wrap" aria-label="Daily sentiment trend">
         <h4 class="social-subtitle">Daily sentiment trend</h4>
         <p class="social-sentiment-note">AI-estimated tone from public X posts and mentions (−1 negative → +1 positive). <strong>Not polling.</strong> Faint bars = scored post count that day.</p>
+        ${historyNote}
         ${
           lowSample
             ? `<p class="social-sentiment-note social-sentiment-thin"><span class="chip chip-demo">Low sample</span> Side sample size under ${MIN_SIDE_N} on the latest day — interpret with caution.</p>`
@@ -242,7 +287,7 @@ window.AE = window.AE || {};
           <span class="social-legend-r">R-side tone</span>
           <span class="social-legend-d">D-side tone</span>
         </div>
-        <div class="social-sentiment-chart">${svgLineChart(rows, { width: 320, height: 132, compact: false })}</div>
+        <div class="social-sentiment-chart">${svgLineChart(rows, { compact: false })}</div>
       </section>`;
   }
 
@@ -256,15 +301,28 @@ window.AE = window.AE || {};
         ${districts
           .map((d) => {
             const rows = historyForDistrict(d.id, CHART_DAYS);
+            const hasData = districtHasScoredHistory(d.id);
             const nets = rows.map((r) => (r.net != null ? r.net : null)).filter((v) => v != null);
             const trend =
-              nets.length >= 2 ? (nets[nets.length - 1] > nets[0] ? "↑" : nets[nets.length - 1] < nets[0] ? "↓" : "→") : "—";
+              nets.length >= 2 ? (nets[nets.length - 1] > nets[0] ? "↑" : nets[nets.length - 1] < nets[0] ? "↓" : "→") : "";
             const latestNet = nets.length ? nets[nets.length - 1] : null;
+            const netLabel = !hasData
+              ? "No X posts yet"
+              : latestNet != null
+                ? `${latestNet >= 0 ? "+" : ""}${latestNet.toFixed(2)}${trend ? " " + trend : ""}`
+                : `Neutral ${trend}`.trim();
             return `
               <button type="button" class="social-spark-cell" data-district-social-open="${d.id}" role="listitem">
                 <span class="social-spark-code">${escapeHtml(d.code)}</span>
-                <span class="social-spark-net">${latestNet != null ? (latestNet >= 0 ? "+" : "") + latestNet.toFixed(2) : "n/a"} ${trend}</span>
-                ${svgLineChart(rows, { width: 120, height: 36, compact: true })}
+                <span class="social-spark-net">${escapeHtml(netLabel)}</span>
+                ${
+                  hasData
+                    ? svgLineChart(rows, { compact: true })
+                    : svgLineChart(
+                        [{ date: "—", net: 0 }, { date: "—", net: 0 }],
+                        { compact: true }
+                      )
+                }
               </button>`;
           })
           .join("")}
