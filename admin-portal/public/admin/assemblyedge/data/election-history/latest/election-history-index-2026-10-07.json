@@ -1,10 +1,11 @@
 {
-  "schema_version": 1,
-  "updated_at": "2026-10-07T18:37:36Z",
+  "schema_version": 2,
+  "updated_at": "2026-10-07T19:11:46Z",
   "sources": {
     "swdb_g22": "https://statewidedatabase.org/d20/g22.html",
     "swdb_g24": "https://statewidedatabase.org/d20/g24.html",
-    "note": "Two-party Assembly margin by SR precinct; not a voter file."
+    "census_places": "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_06_place_500k.zip",
+    "note": "Two-party Assembly margin by SR precinct; place labels from Census TIGER overlaps. Not a voter file."
   },
   "districts": [
     {
@@ -12,6 +13,8 @@
       "code": "AD-7",
       "file": "ad-7-precincts.geojson",
       "precinct_count": 212,
+      "place_primary_matched": 211,
+      "place_primary_matched_pct": 99.5,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -23,6 +26,8 @@
       "code": "AD-27",
       "file": "ad-27-precincts.geojson",
       "precinct_count": 121,
+      "place_primary_matched": 77,
+      "place_primary_matched_pct": 63.6,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -34,6 +39,8 @@
       "code": "AD-36",
       "file": "ad-36-precincts.geojson",
       "precinct_count": 174,
+      "place_primary_matched": 67,
+      "place_primary_matched_pct": 38.5,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -45,6 +52,8 @@
       "code": "AD-47",
       "file": "ad-47-precincts.geojson",
       "precinct_count": 234,
+      "place_primary_matched": 166,
+      "place_primary_matched_pct": 70.9,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -56,6 +65,8 @@
       "code": "AD-58",
       "file": "ad-58-precincts.geojson",
       "precinct_count": 122,
+      "place_primary_matched": 122,
+      "place_primary_matched_pct": 100.0,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -66,7 +77,9 @@
       "id": "ad-74",
       "code": "AD-74",
       "file": "ad-74-precincts.geojson",
-      "precinct_count": 105,
+      "precinct_count": 113,
+      "place_primary_matched": 113,
+      "place_primary_matched_pct": 100.0,
       "races": [
         "g22_asm",
         "g24_asm"

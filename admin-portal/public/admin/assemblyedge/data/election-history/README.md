@@ -9,6 +9,9 @@ Static **SR precinct** GeoJSON for beachhead Assembly districts: real two-party 
 | Precinct results (2022 & 2024 General) | SWDB SOV by SR precinct — `ASSDEM*` vs `ASSREP*` | [g22](https://statewidedatabase.org/d20/g22.html) · [g24](https://statewidedatabase.org/d20/g24.html) |
 | Precinct boundaries | SWDB SR precinct shapefiles (`srprec_*_g22_v01_shp.zip`, g24 v01 fallback) | Same county folders under `/pub/data/G22/c###/` and `/pub/data/G24/c###/` |
 | AD clip | CRC 2020 Assembly (`data/map/ca-assembly-crc-2020.geojson`) | [CRC maps](https://wedrawthelines.ca.gov/) |
+| City / town labels | Census TIGER/Line 2020 cartographic places (incorporated + CDPs) | [cb_2020_06_place_500k](https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_06_place_500k.zip) |
+
+Each precinct feature includes overlapping place names (primary place by area share, plus others ≥10%), county name, area (sq mi), and 2022/2024 two-party Assembly margins with winner when available.
 
 **Not included:** voter file, modeled scores (e.g. Optiq-style), contact fields, or precinct registration.
 
@@ -38,7 +41,9 @@ Or:
 ./scripts/update-election-history.sh
 ```
 
-Requires Python 3, `shapely`, and `pyshp`; network access to SWDB and (for boundaries) cached assembly GeoJSON. Commit updated `latest/*` after verify. No Worker deploy secrets required.
+Requires Python 3, `shapely`, and `pyshp`; network access to SWDB, Census TIGER places zip, and cached assembly GeoJSON. The build joins places to clipped precinct polygons (same overlap rules as the Focus UI). Commit updated `latest/*` after verify. No Worker deploy secrets required.
+
+Manifest rows include `place_primary_matched` and `place_primary_matched_pct` (share of precincts whose largest overlapping Census place covers ≥50% of precinct area).
 
 ## County coverage (beachheads)
 

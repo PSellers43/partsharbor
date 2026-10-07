@@ -2659,10 +2659,242 @@ body[data-role="cm"] .cm-strip {
   opacity: 0.22;
 }
 .focus-drill-wrap .focus-drill-precinct:hover,
-.focus-drill-wrap .focus-drill-precinct:focus-visible {
+.focus-drill-wrap .focus-drill-precinct:focus-visible,
+.focus-drill-wrap .focus-drill-precinct.is-hovered {
   stroke: var(--purple);
   stroke-width: 1.2;
   outline: none;
+}
+.focus-drill-wrap .focus-drill-precinct.is-selected {
+  stroke: #f0b429;
+  stroke-width: 2;
+  filter: brightness(1.08);
+}
+.focus-drill-wrap {
+  position: relative;
+}
+.precinct-map-tooltip {
+  position: absolute;
+  z-index: 6;
+  max-width: min(240px, 92%);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.precinct-tooltip-title {
+  font-weight: 650;
+  color: var(--text);
+}
+.precinct-tooltip-place {
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.precinct-tooltip-also,
+.precinct-tooltip-county,
+.precinct-tooltip-votes {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+.precinct-tooltip-margin {
+  margin-top: 8px;
+}
+.margin-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  border: 1px solid transparent;
+}
+.margin-chip-d-strong {
+  background: #1e5a9e;
+  color: #f4f8fc;
+  border-color: rgba(255, 255, 255, 0.12);
+}
+.margin-chip-d-lean {
+  background: #5c8fd4;
+  color: #0a1628;
+  border-color: rgba(30, 90, 158, 0.35);
+}
+.margin-chip-r-strong {
+  background: #8b2323;
+  color: #fdf4f4;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+.margin-chip-r-lean {
+  background: #c45c5c;
+  color: #1a0808;
+  border-color: rgba(139, 35, 35, 0.35);
+}
+.margin-chip-tie {
+  background: #7a8494;
+  color: #f2f4f7;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.margin-chip-nodata {
+  background: var(--surface-3, #3a3f47);
+  color: var(--text-dim);
+  border-color: var(--border-subtle);
+}
+[data-theme="light"] .margin-chip-d-lean {
+  color: #0a1628;
+}
+[data-theme="light"] .margin-chip-r-lean {
+  color: #1a0808;
+}
+[data-theme="light"] .precinct-map-tooltip {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+.focus-precinct-search-wrap {
+  display: block;
+  margin: 12px 0 8px;
+}
+.focus-precinct-search {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+}
+.precinct-detail-card {
+  margin: 10px 0 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.precinct-detail-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.precinct-detail-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+}
+.precinct-detail-sub {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.precinct-detail-close {
+  all: unset;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--text-dim);
+  padding: 0 4px;
+}
+.precinct-detail-close:hover {
+  color: var(--text);
+}
+.precinct-detail-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 12px;
+  margin: 12px 0 0;
+  font-size: 12px;
+}
+.precinct-detail-facts dt {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.precinct-detail-facts dd {
+  margin: 2px 0 0;
+  color: var(--text);
+}
+.precinct-detail-section-label {
+  margin: 12px 0 6px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+.precinct-detail-places {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+.precinct-detail-places li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+}
+.precinct-detail-races {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.precinct-detail-race {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.precinct-detail-race-label {
+  min-width: 6.5rem;
+  color: var(--text-dim);
+  font-size: 11px;
+}
+.precinct-detail-race-meta {
+  flex: 1 1 100%;
+  font-size: 11px;
+  color: var(--text-dim);
+  padding-left: 0;
+}
+.precinct-detail-swing {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.precinct-detail-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.focus-rank-btn {
+  all: unset;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+}
+.focus-rank-btn.is-selected {
+  background: rgba(240, 180, 41, 0.1);
+  border-radius: 8px;
+  outline: 1px solid rgba(240, 180, 41, 0.35);
+}
+.focus-rank-label {
+  flex: 1 1 100%;
+  font-size: 12px;
+  line-height: 1.35;
+}
+.focus-rank-meta {
+  flex: 1 1 100%;
+  font-size: 10px;
+  color: var(--text-dim);
 }
 .focus-drill-wrap .focus-drill-place:focus-visible {
   filter: brightness(1.12);

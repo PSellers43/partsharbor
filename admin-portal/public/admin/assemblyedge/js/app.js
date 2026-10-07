@@ -26,6 +26,9 @@
       "margin-strong-r": true,
       "margin-nodata": false,
     },
+    focusDrillSelectedPrecinct: null,
+    focusDrillPrecinctSearch: "",
+    focusDrillMapBounds: null,
   };
 
   /* ——— Theme ——— */
@@ -309,14 +312,37 @@
   /* ——— Focus map ——— */
   function openFocusDrill(districtId) {
     state.focusDrillId = districtId;
+    state.focusDrillSelectedPrecinct = null;
+    state.focusDrillMapBounds = null;
     AE.focusDrill.setHash(districtId);
     renderFocusMapPage();
   }
 
   function closeFocusDrill() {
     state.focusDrillId = null;
+    state.focusDrillSelectedPrecinct = null;
+    state.focusDrillMapBounds = null;
     AE.focusDrill.setHash(null);
     renderFocusMapPage();
+  }
+
+  function selectFocusDrillPrecinct(precinctId, opts) {
+    opts = opts || {};
+    state.focusDrillSelectedPrecinct = precinctId || null;
+    if (opts.pan && precinctId) {
+      const props = AE.electionHistory.precinctProps(state.focusDrillId, precinctId);
+      if (props && props.bbox) {
+        const vb = AE.electionHistory.viewBoxForBbox(props.bbox);
+        if (vb) state.focusDrillMapBounds = vb;
+      }
+    }
+    renderFocusDrillMap();
+  }
+
+  function clearFocusDrillPrecinctDetail() {
+    state.focusDrillSelectedPrecinct = null;
+    state.focusDrillMapBounds = null;
+    renderFocusDrillMap();
   }
 
   function focusDrillFilterBands() {
@@ -356,6 +382,8 @@
       inp.addEventListener("change", () => {
         if (!inp.checked) return;
         state.focusDrillMode = inp.value === "history" ? "history" : "focus";
+        state.focusDrillSelectedPrecinct = null;
+        state.focusDrillMapBounds = null;
         renderFocusDrillMap();
       });
     });
@@ -366,6 +394,142 @@
         renderFocusDrillMap();
       });
     }
+    const searchInp = $("#focus-drill-precinct-search");
+    if (searchInp && !searchInp.dataset.bound) {
+      searchInp.dataset.bound = "1";
+      searchInp.addEventListener("input", () => {
+        state.focusDrillPrecinctSearch = searchInp.value.trim().toLowerCase();
+        renderFocusDrillMap();
+      });
+    }
+  }
+
+  function bindFocusDrillPrecinctMap(wrap, districtId, precinctRows) {
+    if (!wrap || state.focusDrillMode !== "history") return;
+    const svg = wrap.querySelector(".focus-drill-svg");
+    if (!svg) return;
+
+    let tooltip = wrap.querySelector(".precinct-map-tooltip");
+    if (!tooltip) {
+      tooltip = document.createElement("div");
+      tooltip.className = "precinct-map-tooltip";
+      tooltip.hidden = true;
+      wrap.appendChild(tooltip);
+    }
+
+    const byId = {};
+    precinctRows.forEach((p) => {
+      byId[p.id] = p;
+    });
+
+    function showTooltip(row, clientX, clientY) {
+      if (!row) {
+        tooltip.hidden = true;
+        return;
+      }
+      tooltip.innerHTML = AE.electionHistory.tooltipHtml(row, state.focusDrillRace);
+      tooltip.hidden = false;
+      const rect = wrap.getBoundingClientRect();
+      let left = clientX - rect.left + 12;
+      let top = clientY - rect.top + 12;
+      tooltip.style.left = left + "px";
+      tooltip.style.top = top + "px";
+      requestAnimationFrame(() => {
+        const tr = tooltip.getBoundingClientRect();
+        if (left + tr.width > rect.width - 4) left = Math.max(4, rect.width - tr.width - 4);
+        if (top + tr.height > rect.height - 4) top = Math.max(4, top - tr.height - 20);
+        tooltip.style.left = left + "px";
+        tooltip.style.top = top + "px";
+      });
+    }
+
+    svg.querySelectorAll("[data-precinct]").forEach((path) => {
+      const id = path.dataset.precinct;
+      const row = byId[id];
+      path.addEventListener("mouseenter", () => {
+        svg.querySelectorAll(".focus-drill-precinct.is-hovered").forEach((el) => el.classList.remove("is-hovered"));
+        path.classList.add("is-hovered");
+      });
+      path.addEventListener("mousemove", (e) => showTooltip(row, e.clientX, e.clientY));
+      path.addEventListener("mouseleave", () => {
+        path.classList.remove("is-hovered");
+        tooltip.hidden = true;
+      });
+      const activate = () => {
+        selectFocusDrillPrecinct(id, { pan: true });
+        const rankEl = document.querySelector(`[data-rank-precinct="${CSS.escape(id)}"]`);
+        rankEl?.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      };
+      path.addEventListener("click", activate);
+      path.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activate();
+        }
+      });
+    });
+  }
+
+  function renderFocusDrillPrecinctAside(districtId, sortedPrecincts, inHistory) {
+    const searchWrap = $("#focus-drill-precinct-search-wrap");
+    const detail = $("#focus-drill-precinct-detail");
+    const rank = $("#focus-drill-rank");
+    if (searchWrap) searchWrap.hidden = !inHistory;
+    if (!inHistory) {
+      if (detail) {
+        detail.hidden = true;
+        detail.innerHTML = "";
+      }
+      return;
+    }
+
+    const q = state.focusDrillPrecinctSearch;
+    let list = sortedPrecincts;
+    if (q) {
+      list = list.filter((p) => AE.electionHistory.searchHaystack(p).indexOf(q) >= 0);
+    }
+
+    const selected = state.focusDrillSelectedPrecinct;
+    let selectedRow = null;
+    if (selected) {
+      selectedRow = list.find((p) => p.id === selected) || sortedPrecincts.find((p) => p.id === selected) || null;
+    }
+
+    if (detail) {
+      if (selectedRow) {
+        detail.hidden = false;
+        detail.innerHTML = AE.electionHistory.detailCardHtml(selectedRow, state.focusDrillRace);
+        detail.querySelector(".precinct-detail-close")?.addEventListener("click", clearFocusDrillPrecinctDetail);
+      } else {
+        detail.hidden = true;
+        detail.innerHTML = "";
+      }
+    }
+
+    const searchInp = $("#focus-drill-precinct-search");
+    if (searchInp && searchInp.value !== state.focusDrillPrecinctSearch) {
+      searchInp.value = state.focusDrillPrecinctSearch;
+    }
+
+    if (!rank) return;
+    rank.innerHTML = list.length
+      ? list.slice(0, 48).map((p) => {
+          const meta =
+            p.demPct != null
+              ? `${p.demPct}% two-party Dem · ${p.votes != null ? p.votes.toLocaleString() + " votes" : ""}`
+              : "";
+          const sel = p.id === selected ? " is-selected" : "";
+          return `<button type="button" class="focus-rank-item focus-rank-btn${sel}" data-rank-precinct="${p.id}">
+            <span class="focus-rank-label">${AE.electionHistory.precinctRankTitle(p)}</span>
+            ${AE.electionHistory.marginChipHtml(p.margin)}
+            <span class="focus-rank-meta">${meta}</span>
+          </button>`;
+        }).join("")
+      : `<p class="empty-state" style="padding:8px 0">${q ? "No precincts match that city." : "No precinct results for this contest."}</p>`;
+
+    rank.querySelectorAll("[data-rank-precinct]").forEach((btn) => {
+      btn.addEventListener("click", () => selectFocusDrillPrecinct(btn.dataset.rankPrecinct, { pan: true }));
+    });
   }
 
   function renderFocusDrillLegend() {
@@ -494,6 +658,15 @@
 
     const w = 400;
     const h = 480;
+    let mapBounds = null;
+    if (inHistory && state.focusDrillMapBounds) {
+      mapBounds = {
+        minLon: state.focusDrillMapBounds.minLon,
+        maxLon: state.focusDrillMapBounds.maxLon,
+        minLat: state.focusDrillMapBounds.minLat,
+        maxLat: state.focusDrillMapBounds.maxLat,
+      };
+    }
 
     if (inHistory && (histErr || !AE.electionPrecinctGeo[districtId])) {
       wrap.innerHTML = `<div class="empty-state"><h3>Election history unavailable</h3><p>${histErr || "Loading precinct layer…"}</p></div>`;
@@ -515,23 +688,28 @@
     let precinctShapes = "";
     let ariaLabel = "Intra-district focus heat map";
 
+    let histPrecinctRows = [];
     if (inHistory) {
       const histLayers = AE.electionHistory.precinctPaths(
         districtId,
         w,
         h,
         state.focusDrillRace,
-        focusDrillFilterBands()
+        focusDrillFilterBands(),
+        mapBounds
       );
+      histPrecinctRows = histLayers.precincts;
       if (histLayers.outline) {
         outline = `<path class="focus-drill-outline" d="${histLayers.outline}" aria-hidden="true"></path>`;
       }
       ariaLabel = "Precinct election history map";
+      const selectedId = state.focusDrillSelectedPrecinct;
       precinctShapes = histLayers.precincts
-        .map(
-          (p) =>
-            `<path class="focus-drill-precinct ${p.band.class}" tabindex="0" role="img" aria-label="Precinct ${p.id} ${p.band.label}" data-precinct="${p.id}" d="${p.d}"></path>`
-        )
+        .map((p) => {
+          const sel = p.id === selectedId ? " is-selected" : "";
+          const placeLabel = p.placePrimary ? ` · ${p.placePrimary}` : "";
+          return `<path class="focus-drill-precinct ${p.band.class}${sel}" tabindex="0" role="button" aria-label="Precinct ${p.srprec || p.id}${placeLabel} ${p.band.label}" data-precinct="${p.id}" d="${p.d}"></path>`;
+        })
         .join("");
       placeShapes = placeLayers.places
         .map((p) => `<path class="focus-drill-place ${p.band.class}" aria-hidden="true" d="${p.d}"></path>`)
@@ -557,51 +735,31 @@
       demoPanel.innerHTML = AE.demography.renderPanel(districtId);
     }
 
-    if (rank) {
-      if (inHistory) {
-        const histLayers = AE.electionHistory.precinctPaths(
-          districtId,
-          w,
-          h,
-          state.focusDrillRace,
-          focusDrillFilterBands()
-        );
-        const sorted = histLayers.precincts
-          .filter((p) => p.hasData)
-          .slice()
-          .sort((a, b) => Math.abs(a.margin) - Math.abs(b.margin));
-        rank.innerHTML = sorted.length
-          ? sorted
-              .slice(0, 24)
-              .map((p) => {
-                const meta =
-                  p.demPct != null
-                    ? `${p.demPct}% two-party Dem · ${p.votes != null ? p.votes.toLocaleString() + " votes" : ""}`
-                    : "";
-                return `<div class="focus-rank-item">
-            <span>Precinct ${p.srprec || p.id}</span>
-            <span class="chip chip-live">${p.band.label}</span>
-            <span style="font-size:10px;color:var(--text-dim)">${meta}</span>
-          </div>`;
-              })
-              .join("")
-          : `<p class="empty-state" style="padding:8px 0">No precinct results for this contest.</p>`;
-      } else {
-        const sorted = placeLayers.places.slice().sort((a, b) => b.score - a.score);
-        rank.innerHTML = sorted
-          .map((p) => {
-            const meta =
-              p.hasData && p.demPct != null
-                ? `2022 Asm ${p.demPct}% D · turnout ${p.turnoutPct}%`
-                : "No g22 overlap";
-            return `<div class="focus-rank-item">
+    if (inHistory) {
+      const sorted = histPrecinctRows
+        .filter((p) => p.hasData)
+        .slice()
+        .sort((a, b) => Math.abs(a.margin) - Math.abs(b.margin));
+      renderFocusDrillPrecinctAside(districtId, sorted, true);
+    } else if (rank) {
+      renderFocusDrillPrecinctAside(districtId, [], false);
+      const sorted = placeLayers.places.slice().sort((a, b) => b.score - a.score);
+      rank.innerHTML = sorted
+        .map((p) => {
+          const meta =
+            p.hasData && p.demPct != null
+              ? `2022 Asm ${p.demPct}% D · turnout ${p.turnoutPct}%`
+              : "No g22 overlap";
+          return `<div class="focus-rank-item">
             <span>${p.name}</span>
             <span class="chip ${p.band.class === "focus-high" ? "chip-gap" : "chip-demo"}">${p.score} · ${p.band.label}</span>
             <span style="font-size:10px;color:var(--text-dim)">${meta}</span>
           </div>`;
-          })
-          .join("");
-      }
+        })
+        .join("");
+    }
+    if (inHistory) {
+      bindFocusDrillPrecinctMap(wrap, districtId, histPrecinctRows);
     }
     renderFocusDrillLegend();
   }

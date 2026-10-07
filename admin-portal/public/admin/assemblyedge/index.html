@@ -148,6 +148,11 @@
               <h3 class="card-title" id="focus-drill-aside-title">Intra-district score <span class="chip chip-demo" id="focus-drill-aside-chip">2022 g22 proxy</span></h3>
               <p class="focus-formula" id="focus-drill-formula"></p>
               <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">DEMO / illustrative focus from public precinct results aggregated to Census places — not a voter-file or field targeting model.</p>
+              <label class="focus-precinct-search-wrap" id="focus-drill-precinct-search-wrap" hidden>
+                <span class="sr-only">Filter precincts by city or town</span>
+                <input type="search" id="focus-drill-precinct-search" class="focus-precinct-search" placeholder="Filter by city / town…" autocomplete="off" />
+              </label>
+              <div id="focus-drill-precinct-detail" class="precinct-detail-card" hidden></div>
               <div id="focus-drill-rank" class="focus-rank-list"></div>
             </div>
             <div class="card focus-map-aside" id="focus-drill-demography" aria-label="District demography and registration mix"></div>
