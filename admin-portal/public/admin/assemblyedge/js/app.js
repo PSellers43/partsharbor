@@ -955,6 +955,7 @@
     renderDistrictPollingStrip(d);
     renderThreat(d);
     renderMoney(d);
+    renderSocial(d);
     renderAds(d);
     renderNarrative(d);
     renderRival(d);
@@ -1044,6 +1045,13 @@
     const live = AE.liveMoney;
     if (!live || !live.districts) return null;
     return live.districts[districtId] || null;
+  }
+
+  function renderSocial(d) {
+    const el = $("#social-panel");
+    if (!el || !AE.social) return;
+    el.innerHTML = AE.social.renderPanel(d.id);
+    AE.social.bindPanel(d.id);
   }
 
   function renderMoney(d) {
@@ -1245,6 +1253,24 @@
     return `<p style="margin:0 0 8px">${badge} As of <strong>${asOf || "—"}</strong></p><ul class="brief-bullets" style="margin:0">${top}</ul>${lateLine}`;
   }
 
+  function renderCMSocialSparklines() {
+    const wrap = $("#cm-social-spark-wrap");
+    if (!wrap || !AE.social || !AE.social.renderBoardSparklines) return;
+    wrap.innerHTML = `
+      <h3 class="card-title">X sentiment · all beachheads <span class="chip chip-demo">AI tone est.</span></h3>
+      <p class="social-sentiment-note" style="margin:0 0 10px;font-size:12px">Daily net tone sparklines from public X posts — <strong>not polling</strong>. Click a district for the Social panel.</p>
+      ${AE.social.renderBoardSparklines()}`;
+    wrap.querySelectorAll("[data-district-social-open]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-district-social-open");
+        if (id) {
+          setDeskDistrictId(id);
+          navigate("district", { districtId: id, tab: "social" });
+        }
+      });
+    });
+  }
+
   function renderCMLiveIntel() {
     const wrap = $("#cm-live-intel");
     if (!wrap) return;
@@ -1253,7 +1279,13 @@
     const ehMeta = AE.electionHistory && AE.electionHistory.districtMeta ? AE.electionHistory.districtMeta(d.id) : null;
     const demoPanel =
       AE.demography && AE.demography.renderPanel ? AE.demography.renderPanel(d.id) : `<p>Demography not loaded.</p>`;
+    const socialLine = AE.social && AE.social.boardLine ? AE.social.boardLine(d.id) : "";
     wrap.innerHTML = `
+      <div class="card cm-social-signal">
+        <h3 class="card-title">X signal <span class="chip chip-live">Read-only</span></h3>
+        <div class="cm-social-line">${socialLine}</div>
+        <p style="margin:10px 0 0;font-size:12px"><button type="button" class="btn btn-ghost btn-sm" data-open-district-social="${d.id}">Social panel</button></p>
+      </div>
       <div class="card">
         <h3 class="card-title">CAL-ACCESS money</h3>
         ${renderDeskMoneySummary(d.id)}
@@ -1276,6 +1308,9 @@
         }
       </div>
       <div class="card cm-live-demography">${demoPanel}</div>`;
+    wrap.querySelector(`[data-open-district-social="${d.id}"]`)?.addEventListener("click", () =>
+      navigate("district", { districtId: d.id, tab: "social" })
+    );
     wrap.querySelector(`[data-open-district-money="${d.id}"]`)?.addEventListener("click", () =>
       navigate("district", { districtId: d.id, tab: "money" })
     );
@@ -1356,6 +1391,11 @@
       bullets.push(`Precinct layers: ${ehMeta.races?.length ? ehMeta.races.join(", ") : "g22/g24 Assembly"} on Focus map drill-down.`);
     }
 
+    if (AE.social && AE.social.briefBullet) {
+      const socialBullet = AE.social.briefBullet(d.id);
+      if (socialBullet) bullets.push(socialBullet);
+    }
+
     const headline = `${d.code} · ${d.incumbent} (${d.party}) — live feeds brief (${meta.label} demo TI ${d.threatIndex})`;
     return {
       weekOf: briefWeekLabel(),
@@ -1387,11 +1427,15 @@
     }
     if (state.page === "district") {
       const d = AE.districts.find((x) => x.id === state.districtId);
-      if (d) renderDistrictPollingStrip(d);
+      if (d) {
+        renderDistrictPollingStrip(d);
+        if (state.tab === "social") renderSocial(d);
+      }
     }
     if (state.page === "focus-map") renderFocusMapPage();
     if (state.page === "cm") {
       renderCMAbev();
+      renderCMSocialSparklines();
       renderCMLiveIntel();
     }
   }
@@ -1669,6 +1713,7 @@
     renderChecklist();
     renderDoctrineSidebar();
     renderCMAbev();
+    renderCMSocialSparklines();
     renderCMLiveIntel();
   }
 
@@ -1820,6 +1865,12 @@
         label: `${deskDistrict().code} · Money`,
         hint: "Tab",
         run: () => navigate("district", { districtId: state.deskDistrictId, tab: "money" }),
+      },
+      {
+        id: "tab-social",
+        label: `${deskDistrict().code} · Social`,
+        hint: "Tab",
+        run: () => navigate("district", { districtId: state.deskDistrictId, tab: "social" }),
       },
       {
         id: "tab-ads",
@@ -2142,6 +2193,7 @@
       AE.abev.load(),
       AE.lateMoney.load(),
       AE.focusMap.loadGeo(),
+      AE.social && AE.social.load ? AE.social.load() : Promise.resolve(),
     ]).then(refreshIntelViews);
     applyFocusHash();
     if (state.page !== "focus-map") {

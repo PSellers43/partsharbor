@@ -55,6 +55,50 @@ def test_swing_ad7():
     print(f"OK AD-7 swing toward R precinct count {count}")
 
 
+def test_late_money_ad36():
+    data = load_json("data/calaccess/latest/late-money-by-district.json")
+    dist = data["districts"]["ad-36"]
+    seven = dist["totals"]["seven_day"]
+    assert seven > 100_000, seven
+    print(f"OK AD-36 late money 7-day ${seven:,.2f}")
+
+
+def test_social_gonzalez_ad36():
+    feed = load_json("data/social/latest/social-feed.json")
+    block = feed["districts"]["AD-36"]
+    gonz = [
+        p
+        for p in block["posts"]
+        if "gonzalez" in (p.get("candidate") or "").lower()
+    ]
+    assert len(gonz) >= 8, len(gonz)
+    print(f"OK AD-36 Gonzalez candidate posts {len(gonz)}")
+
+
+def test_social_attacks_ad36():
+    feed = load_json("data/social/latest/social-feed.json")
+    posts = feed["districts"]["AD-36"]["posts"]
+    post_attacks = [p for p in posts if "attack" in (p.get("flags") or [])]
+    mention_attacks = [
+        m
+        for m in feed.get("mentions", [])
+        if m.get("district") == "AD-36" and "attack" in (m.get("flags") or [])
+    ]
+    total = len(post_attacks) + len(mention_attacks)
+    assert total >= 1, total
+    print(f"OK AD-36 attack-flagged items {total} (posts {len(post_attacks)}, mentions {len(mention_attacks)})")
+
+
+def test_social_sentiment_ad36_trend():
+    feed = load_json("data/social/latest/social-feed.json")
+    rows = [r for r in feed.get("sentiment_history", []) if r.get("district") == "AD-36"]
+    assert len(rows) >= 2, len(rows)
+    nets = [r["net"] for r in rows if r.get("net") is not None]
+    assert len(nets) >= 2, nets
+    delta = nets[-1] - nets[0]
+    print(f"OK AD-36 sentiment {len(rows)} days · net Δ {delta:+.3f} (latest {nets[-1]:+.3f})")
+
+
 def test_rancho_tight():
     with open(ROOT / "data/election-history/latest/ad-7-precincts.geojson", encoding="utf-8") as f:
         geo = json.load(f)
@@ -76,6 +120,10 @@ def main():
         test_registration_compare,
         test_abev_ad36,
         test_swing_ad7,
+        test_late_money_ad36,
+        test_social_gonzalez_ad36,
+        test_social_attacks_ad36,
+        test_social_sentiment_ad36_trend,
         test_rancho_tight,
     ]
     for t in tests:

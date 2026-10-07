@@ -220,6 +220,7 @@
         <div class="tabs no-print" role="tablist" aria-label="District sections">
           <button type="button" class="tab active" role="tab" data-tab="threat">Threat Index</button>
           <button type="button" class="tab" role="tab" data-tab="money">Money</button>
+          <button type="button" class="tab" role="tab" data-tab="social">Social</button>
           <button type="button" class="tab" role="tab" data-tab="ads">Ads</button>
           <button type="button" class="tab" role="tab" data-tab="narrative">Narrative</button>
           <button type="button" class="tab" role="tab" data-tab="rival">Rival</button>
@@ -228,6 +229,7 @@
 
         <div id="tab-threat" class="tab-panel active" role="tabpanel"><div id="threat-panel"></div></div>
         <div id="tab-money" class="tab-panel" role="tabpanel"><div id="money-panel"></div></div>
+        <div id="tab-social" class="tab-panel" role="tabpanel"><div id="social-panel"></div></div>
         <div id="tab-ads" class="tab-panel" role="tabpanel"><div id="ads-panel"></div></div>
         <div id="tab-narrative" class="tab-panel" role="tabpanel"><div id="narrative-panel"></div></div>
         <div id="tab-rival" class="tab-panel" role="tabpanel"><div id="rival-panel"></div></div>
@@ -261,7 +263,7 @@
       <p id="cm-mode-blurb" class="cm-mode-blurb"></p>
       <div class="card ask-cm-panel" id="ask-cm-panel" aria-label="Ask the desk">
         <h3 class="card-title">Ask the desk <span class="chip chip-demo">Deterministic-first</span></h3>
-        <p class="ask-cm-desc">Natural-language questions over loaded desk JSON — money, precinct history, registration, ballot baselines. No voter file.</p>
+        <p class="ask-cm-desc">Natural-language questions over loaded desk JSON — money, late contributions (497), precinct history, registration, ballot baselines, and X social digest. No voter file.</p>
         <form id="ask-cm-form" class="ask-cm-form">
           <label class="sr-only" for="ask-cm-input">Question</label>
           <input id="ask-cm-input" class="ask-cm-input" type="text" placeholder="e.g. How much IE money hit AD-58 this week?" autocomplete="off" maxlength="280" />
@@ -270,6 +272,7 @@
         <div class="ask-suggestions" id="ask-cm-suggestions" role="list"></div>
         <div id="ask-cm-result" class="ask-cm-result" aria-live="polite"></div>
       </div>
+      <div id="cm-social-spark-wrap" class="card cm-social-spark-wrap" aria-label="Beachhead X sentiment sparklines"></div>
       <div id="cm-abev-wrap" class="card abev-cm-wrap" aria-label="Ballot return pulse"></div>
       <div id="cm-live-intel" class="cm-live-intel" aria-label="Live beachhead feeds"></div>
       <div class="cm-layout">
@@ -433,6 +436,7 @@
   <script src="js/election-history.js"></script>
   <script src="js/abev.js"></script>
   <script src="js/late-money.js"></script>
+  <script src="js/social.js"></script>
   <script src="js/ask.js"></script>
   <script src="js/app.js"></script>
 </body>
