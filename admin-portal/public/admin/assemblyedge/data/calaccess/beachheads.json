@@ -124,8 +124,8 @@
         }
       ],
       "primary_non_advancing": [
-        {"name": "Tomas Oliva", "name_patterns": ["OLIVA"], "committee_patterns": ["TOMAS OLIVA", "OLIVA FOR ASSEMBLY"]},
-        {"name": "Oscar Ortiz", "name_patterns": ["ORTIZ"], "committee_patterns": ["OSCAR ORTIZ", "ORTIZ FOR ASSEMBLY"]}
+        {"name": "Tomas Oliva", "name_patterns": ["OLIVA", "TOMAS OLIVA"], "committee_patterns": ["TOMAS OLIVA", "OLIVA FOR ASSEMBLY"]},
+        {"name": "Oscar F. Ortiz", "name_patterns": ["ORTIZ", "OSCAR ORTIZ", "OSCAR F ORTIZ"], "committee_patterns": ["OSCAR ORTIZ", "ORTIZ FOR ASSEMBLY"]}
       ]
     },
     {

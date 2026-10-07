@@ -7,11 +7,33 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = ROOT / "data" / "calaccess" / "scripts"
 
 
 def load_json(rel: str):
     with open(ROOT / rel, encoding="utf-8") as f:
         return json.load(f)
+
+
+def test_certified_roster_all_districts():
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS))
+    from roster_from_beachheads import certified_roster_by_district
+
+    beach = load_json("data/calaccess/beachheads.json")
+    expected_by_id = certified_roster_by_district(beach)
+    money = load_json("data/calaccess/latest/money-by-district.json")
+    for did, expected in sorted(expected_by_id.items()):
+        dist = money["districts"][did]
+        actual = [
+            {"name": c["name"], "role": c["role"], "party": c.get("party")}
+            for c in dist["candidates"]
+        ]
+        exp_sorted = sorted(expected, key=lambda x: x["name"])
+        act_sorted = sorted(actual, key=lambda x: x["name"])
+        assert act_sorted == exp_sorted, (did, act_sorted, exp_sorted)
+    print(f"OK certified roster matches beachheads for {len(expected_by_id)} districts")
 
 
 def test_ad58_incumbent_roster():
@@ -140,6 +162,7 @@ def test_rancho_tight():
 
 def main():
     tests = [
+        test_certified_roster_all_districts,
         test_ad58_incumbent_roster,
         test_ad27_open_seat,
         test_ie_ad58,

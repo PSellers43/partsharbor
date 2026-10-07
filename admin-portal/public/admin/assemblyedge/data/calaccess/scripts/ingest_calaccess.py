@@ -428,48 +428,7 @@ def pick_candidate_committees(
 
     claim_primary_non_advancing(district, cycle_year, claimed_filer_ids, cand_filings)
 
-    # Discover extra 2026 opponent committees not in known list
-    extras = []
-    for r in cand_filings:
-        if r["filer_id"] in claimed_filer_ids:
-            continue
-        if str(cycle_year) not in r["filer"]:
-            continue
-        if "FOR ASSEMBLY" not in r["filer"].upper():
-            continue
-        if r["entity"] not in ("CTL", "CAO"):
-            continue
-        # skip if looks like ballot measure
-        if "BALLOT MEASURE" in r["filer"].upper():
-            continue
-        extras.append(r)
-    # unique by filer
-    seen = set()
-    for r in sorted(extras, key=lambda x: x["rpt"] or datetime.min, reverse=True):
-        if r["filer_id"] in seen or r["filer_id"] in claimed_filer_ids:
-            continue
-        seen.add(r["filer_id"])
-        latest_amend = {}
-        for rr in cand_filings:
-            if rr["filer_id"] != r["filer_id"]:
-                continue
-            latest_amend[rr["filing_id"]] = max(latest_amend.get(rr["filing_id"], -1), rr["amend_id"])
-        results.append({
-            "role": "Opponent",
-            "name": r["cand"] or r["filer"],
-            "display_name": r["cand"] or r["filer"],
-            "party": None,
-            "match_quality": "discovered",
-            "match_score": 55,
-            "match_reason": f"auto-discovered 2026 CTL in AD-{dist}",
-            "filer_id": r["filer_id"],
-            "committee_name": r["filer"],
-            "filing_ids": sorted(latest_amend.keys()),
-            "filing_amends": latest_amend,
-            "latest_rpt": r["rpt"].isoformat() if r["rpt"] else None,
-            "latest_thru": r["thru"].isoformat() if r["thru"] else None,
-        })
-        claimed_filer_ids.add(r["filer_id"])
+    # General-election roster is beachheads-only (SOS certified). Do not auto-add other CTL committees.
 
     return {"candidates": results, "claimed_filer_ids": claimed_filer_ids}
 

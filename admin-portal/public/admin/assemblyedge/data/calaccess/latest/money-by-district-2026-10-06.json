@@ -2187,95 +2187,6 @@
           },
           "live": true,
           "party": "D"
-        },
-        {
-          "role": "Opponent",
-          "name": "Oscar F. Ortiz",
-          "committee_name": "Oscar Ortiz for Assembly 2026",
-          "filer_id": "1480043",
-          "receipts": 286634.32,
-          "spend": 290903.53,
-          "cash_on_hand_latest": 8819.5,
-          "deltaReceipts": null,
-          "deltaSpend": null,
-          "series": [
-            36362.94,
-            72725.88,
-            109088.82,
-            145451.77,
-            181814.71,
-            218177.65,
-            254540.59,
-            290903.53
-          ],
-          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
-          "match_quality": "strong",
-          "match_score": 120,
-          "match_reason": "committee~OSCAR ORTIZ,name~ORTIZ,year=2026",
-          "provenance": {
-            "status": "live",
-            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
-            "filer_id": "1480043",
-            "committee_name": "Oscar Ortiz for Assembly 2026",
-            "filings": [
-              {
-                "filing_id": "3178648",
-                "amend_id": 0,
-                "receipts_period": 22790.0,
-                "spend_period": 41214.81,
-                "form": "F460",
-                "lines": {
-                  "5": "total contributions received (period)",
-                  "11": "total expenditures made (period)"
-                }
-              },
-              {
-                "filing_id": "3156364",
-                "amend_id": 1,
-                "receipts_period": 67593.0,
-                "spend_period": 149539.71,
-                "form": "F460",
-                "lines": {
-                  "5": "total contributions received (period)",
-                  "11": "total expenditures made (period)"
-                }
-              },
-              {
-                "filing_id": "3138835",
-                "amend_id": 2,
-                "receipts_period": 99677.26,
-                "spend_period": 51933.64,
-                "form": "F460",
-                "lines": {
-                  "5": "total contributions received (period)",
-                  "11": "total expenditures made (period)"
-                }
-              },
-              {
-                "filing_id": "3112978",
-                "amend_id": 0,
-                "receipts_period": 68474.63,
-                "spend_period": 36519.3,
-                "form": "F460",
-                "lines": {
-                  "5": "total contributions received (period)",
-                  "11": "total expenditures made (period)"
-                }
-              },
-              {
-                "filing_id": "3068979",
-                "amend_id": 0,
-                "receipts_period": 28099.43,
-                "spend_period": 11696.07,
-                "form": "F460",
-                "lines": {
-                  "5": "total contributions received (period)",
-                  "11": "total expenditures made (period)"
-                }
-              }
-            ]
-          },
-          "live": true
         }
       ],
       "ie": [
@@ -3333,16 +3244,6 @@
           "spend": 1760101.91,
           "live": true,
           "party": "D"
-        },
-        {
-          "name": "Oscar F. Ortiz",
-          "role": "Opponent",
-          "match_quality": "strong",
-          "filer_id": "1480043",
-          "committee_name": "Oscar Ortiz for Assembly 2026",
-          "receipts": 286634.32,
-          "spend": 290903.53,
-          "live": true
         }
       ],
       "ie_count": 12

@@ -3,11 +3,13 @@
 from __future__ import annotations
 
 import json
-import shutil
 from pathlib import Path
+
+from roster_from_beachheads import certified_roster_by_district
 
 ROOT = Path(__file__).resolve().parents[1]
 LATEST = ROOT / "latest"
+BEACHHEADS_PATH = ROOT / "beachheads.json"
 
 # Roles / parties / names to apply (filer_id from existing matched committees)
 CANDIDATE_PATCH = {
@@ -42,7 +44,7 @@ PRIMARY_DROP_BY_DISTRICT = {
     "ad-47": {"Jason Byors", "Lucas Pinon"},
     "ad-58": {"Paco Licea"},
     "ad-74": {"Chris Duncan"},
-    "ad-36": {"Tomas Oliva", "Oscar Ortiz"},
+    "ad-36": {"Tomas Oliva", "Oscar Ortiz", "Oscar F. Ortiz"},
     "ad-27": PRIMARY_DROP_AD27,
 }
 
@@ -77,7 +79,29 @@ ROLE_PARTY_FIX = {
 }
 
 
-def patch_candidates(candidates: list, district_id: str) -> list:
+def apply_certified_roster_filter(candidates: list, roster_entries: list) -> list:
+    """Keep only SOS-certified general candidates; sync role and party from beachheads."""
+    if not roster_entries:
+        return candidates
+    by_name = {e["name"]: e for e in roster_entries}
+    allowed = set(by_name.keys())
+    out = []
+    for c in candidates:
+        nm = c.get("name") or ""
+        if nm in NAME_FIXES:
+            nm = NAME_FIXES[nm]
+            c = {**c, "name": nm}
+        if nm not in allowed:
+            continue
+        exp = by_name[nm]
+        out.append({**c, "role": exp["role"], "party": exp["party"]})
+    out.sort(key=lambda x: (0 if x.get("role") == "Incumbent" else 1, x.get("name") or ""))
+    if roster_entries and roster_entries[0].get("role", "").startswith("Open seat"):
+        out.sort(key=lambda x: (0 if "R" in str(x.get("role")) else 1, x.get("name") or ""))
+    return out
+
+
+def patch_candidates(candidates: list, district_id: str, roster_entries: list | None = None) -> list:
     patch = CANDIDATE_PATCH.get(district_id, {})
     remove_filers = set(REMOVE_FILER.get(district_id, ()))
     out = []
@@ -109,12 +133,16 @@ def patch_candidates(candidates: list, district_id: str) -> list:
         out.sort(key=lambda x: (0 if x.get("role") == "Incumbent" else 1, x.get("name") or ""))
     if district_id == "ad-27":
         out.sort(key=lambda x: (0 if "R" in str(x.get("role")) else 1, x.get("name") or ""))
+    if roster_entries is not None:
+        out = apply_certified_roster_filter(out, roster_entries)
     return out
 
 
-def patch_money_doc(doc: dict) -> None:
+def patch_money_doc(doc: dict, roster_by_district: dict) -> None:
     for did, dist in (doc.get("districts") or {}).items():
-        dist["candidates"] = patch_candidates(dist.get("candidates") or [], did)
+        dist["candidates"] = patch_candidates(
+            dist.get("candidates") or [], did, roster_by_district.get(did)
+        )
         for ie in dist.get("ie") or []:
             for t in ie.get("targets") or []:
                 if t in NAME_FIXES:
@@ -127,7 +155,9 @@ def patch_money_doc(doc: dict) -> None:
         did = row.get("id")
         if not did:
             continue
-        row["candidates"] = patch_candidates(row.get("candidates") or [], did)
+        row["candidates"] = patch_candidates(
+            row.get("candidates") or [], did, roster_by_district.get(did)
+        )
 
 
 def build_filer_map(doc: dict) -> dict:
@@ -151,6 +181,10 @@ def patch_late_doc(doc: dict, filer_map: dict) -> None:
 
 
 def main() -> None:
+    with open(BEACHHEADS_PATH, encoding="utf-8") as f:
+        beach = json.load(f)
+    roster_by_district = certified_roster_by_district(beach)
+
     money_files = [
         LATEST / "money-by-district.json",
         LATEST / "money-by-district-2026-10-07.json",
@@ -161,7 +195,7 @@ def main() -> None:
             continue
         with open(path, encoding="utf-8") as f:
             doc = json.load(f)
-        patch_money_doc(doc)
+        patch_money_doc(doc, roster_by_district)
         with open(path, "w", encoding="utf-8") as f:
             json.dump(doc, f, indent=2)
             f.write("\n")
@@ -174,7 +208,9 @@ def main() -> None:
         for row in mr.get("report") or []:
             did = row.get("id")
             if did:
-                row["candidates"] = patch_candidates(row.get("candidates") or [], did)
+                row["candidates"] = patch_candidates(
+                    row.get("candidates") or [], did, roster_by_district.get(did)
+                )
         with open(match_report_path, "w", encoding="utf-8") as f:
             json.dump(mr, f, indent=2)
             f.write("\n")
