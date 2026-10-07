@@ -2604,6 +2604,66 @@ body[data-role="cm"] .cm-strip {
 .focus-drill-wrap .focus-drill-place.focus-mid { fill: #8b6914; }
 .focus-drill-wrap .focus-drill-place.focus-low { fill: #5c4a12; }
 .focus-drill-wrap .focus-drill-place:hover,
+.focus-drill-layer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 10px 12px 0;
+  font-size: 12px;
+}
+.focus-layer-label {
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 10px;
+}
+.focus-layer-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.focus-drill-race-select {
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  color: var(--text);
+  max-width: 100%;
+}
+.focus-drill-gap-banner {
+  margin: 8px 12px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: rgba(184, 134, 11, 0.12);
+  border: 1px solid rgba(184, 134, 11, 0.35);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.focus-drill-wrap .focus-drill-precinct {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 0.35;
+  vector-effect: non-scaling-stroke;
+  transition: fill 0.15s ease, opacity 0.15s ease;
+}
+.focus-drill-wrap .focus-drill-precinct.margin-strong-d { fill: #1e5a9e; }
+.focus-drill-wrap .focus-drill-precinct.margin-lean-d { fill: #5c8fd4; }
+.focus-drill-wrap .focus-drill-precinct.margin-tossup { fill: #7a8494; }
+.focus-drill-wrap .focus-drill-precinct.margin-lean-r { fill: #c45c5c; }
+.focus-drill-wrap .focus-drill-precinct.margin-strong-r { fill: #8b2323; }
+.focus-drill-wrap .focus-drill-precinct.margin-nodata { fill: #3a3f47; opacity: 0.45; }
+.focus-drill-wrap .focus-drill-places-layer.is-dimmed .focus-drill-place {
+  opacity: 0.22;
+}
+.focus-drill-wrap .focus-drill-precinct:hover,
+.focus-drill-wrap .focus-drill-precinct:focus-visible {
+  stroke: var(--purple);
+  stroke-width: 1.2;
+  outline: none;
+}
 .focus-drill-wrap .focus-drill-place:focus-visible {
   filter: brightness(1.12);
   outline: none;
