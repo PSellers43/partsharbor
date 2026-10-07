@@ -103,18 +103,43 @@
           <p class="page-desc">Tracked beachheads on a simplified CA Assembly map. Color = transparent focus / opportunity score (prototype).</p>
         </div>
       </div>
-      <div class="focus-map-layout">
-        <div class="card focus-map-card">
-          <div id="focus-map-wrap" class="focus-map-wrap"></div>
-          <div class="focus-legend" id="focus-legend" aria-label="Score legend"></div>
+      <div id="focus-statewide-view">
+        <div class="focus-map-layout">
+          <div class="card focus-map-card">
+            <div id="focus-map-wrap" class="focus-map-wrap"></div>
+            <div class="focus-legend" id="focus-legend" aria-label="Score legend"></div>
+          </div>
+          <aside class="card focus-map-aside">
+            <h3 class="card-title">Score formula <span class="chip chip-demo">Prototype</span></h3>
+            <p class="focus-formula">Focus score (0–100) = <strong>40%</strong> Threat Index (demo desk signal) + <strong>35%</strong> money pressure (LIVE CAL-ACCESS spend totals when matched, else TI proxy) + <strong>25%</strong> polling gap severity (no recent public poll → higher).</p>
+            <p style="margin:12px 0 0;font-size:12px;color:var(--text-dim)">Tap a highlighted beachhead district for an intra-district city/area heat map (2022 g22 proxy).</p>
+            <button type="button" class="btn" data-page-jump="methodology" style="margin-top:14px">Methodology &amp; trust</button>
+            <div id="focus-rank-list" class="focus-rank-list"></div>
+          </aside>
         </div>
-        <aside class="card focus-map-aside">
-          <h3 class="card-title">Score formula <span class="chip chip-demo">Prototype</span></h3>
-          <p class="focus-formula">Focus score (0–100) = <strong>40%</strong> Threat Index (demo desk signal) + <strong>35%</strong> money pressure (LIVE CAL-ACCESS spend totals when matched, else TI proxy) + <strong>25%</strong> polling gap severity (no recent public poll → higher).</p>
-          <p style="margin:12px 0 0;font-size:12px;color:var(--text-dim)">Higher score = more operator attention on this prototype desk — not a win probability.</p>
-          <button type="button" class="btn" data-page-jump="methodology" style="margin-top:14px">Methodology &amp; trust</button>
-          <div id="focus-rank-list" class="focus-rank-list"></div>
-        </aside>
+      </div>
+      <div id="focus-drill-view" class="focus-drill-view" hidden>
+        <button type="button" class="back-link focus-drill-back" id="focus-drill-back">← Statewide focus map</button>
+        <div class="focus-drill-header">
+          <div>
+            <h2 class="page-title" style="margin:0;font-size:1.35rem" id="focus-drill-title">AD-7 · Intra-district focus</h2>
+            <p class="page-desc" id="focus-drill-desc">Where to prioritize field and persuasion — cities/CDPs colored by illustrative 2022 Assembly competitiveness + turnout proxy.</p>
+          </div>
+          <button type="button" class="btn" id="focus-drill-district-detail">District desk</button>
+        </div>
+        <div class="focus-map-layout">
+          <div class="card focus-map-card">
+            <div id="focus-drill-wrap" class="focus-map-wrap focus-drill-wrap"></div>
+            <div class="focus-legend focus-drill-filters" id="focus-drill-legend" aria-label="Drill-down filters"></div>
+            <p class="focus-map-attribution" id="focus-drill-attribution"></p>
+          </div>
+          <aside class="card focus-map-aside">
+            <h3 class="card-title">Intra-district score <span class="chip chip-demo">2022 g22 proxy</span></h3>
+            <p class="focus-formula" id="focus-drill-formula"></p>
+            <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">DEMO / illustrative focus from public precinct results aggregated to Census places — not a voter-file or field targeting model.</p>
+            <div id="focus-drill-rank" class="focus-rank-list"></div>
+          </aside>
+        </div>
       </div>
     </section>
 
@@ -338,6 +363,7 @@
   <script src="js/cm.js"></script>
   <script src="js/polling.js"></script>
   <script src="js/focus-map.js"></script>
+  <script src="js/focus-drill.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

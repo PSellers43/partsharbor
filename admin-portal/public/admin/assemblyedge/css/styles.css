@@ -2574,8 +2574,74 @@ body[data-role="cm"] .cm-strip {
   text-decoration: underline;
 }
 
+.focus-drill-view {
+  margin-top: 4px;
+}
+.focus-drill-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 14px;
+}
+.focus-drill-back {
+  margin-bottom: 4px;
+}
+.focus-drill-wrap .focus-drill-outline {
+  fill: none;
+  stroke: rgba(255, 230, 168, 0.85);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.focus-drill-wrap .focus-drill-place {
+  stroke: rgba(20, 22, 28, 0.45);
+  stroke-width: 0.6;
+  cursor: default;
+  transition: filter 0.12s ease;
+}
+.focus-drill-wrap .focus-drill-place.focus-high { fill: #b8860b; }
+.focus-drill-wrap .focus-drill-place.focus-mid { fill: #8b6914; }
+.focus-drill-wrap .focus-drill-place.focus-low { fill: #5c4a12; }
+.focus-drill-wrap .focus-drill-place:hover,
+.focus-drill-wrap .focus-drill-place:focus-visible {
+  filter: brightness(1.12);
+  outline: none;
+}
+.focus-filter-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+.focus-filter-check input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+.focus-drill-link {
+  all: unset;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-left: 6px;
+}
+.focus-drill-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.focus-rank-item {
+  flex-wrap: wrap;
+}
+
 @media (max-width: 900px) {
   .focus-map-layout {
     grid-template-columns: 1fr;
+  }
+  .focus-drill-header .btn {
+    width: 100%;
   }
 }
