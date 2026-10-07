@@ -68,7 +68,7 @@ window.AE = window.AE || {};
         return res.json();
       })
       .then((json) => {
-        json._bounds = AE.focusMap.computeBounds({ features: json.features || [] });
+        json._bounds = AE.focusMap.computeBounds({ features: json.features || [], outline: json.outline });
         indexGeojson(districtId, json);
         AE.electionPrecinctGeo[districtId] = json;
         return json;
@@ -140,24 +140,19 @@ window.AE = window.AE || {};
     if (!bbox || bbox.length !== 4) return null;
     const pad = padRatio != null ? padRatio : 0.12;
     const [minLon, minLat, maxLon, maxLat] = bbox;
-    const wLon = maxLon - minLon || 0.02;
-    const hLat = maxLat - minLat || 0.02;
-    const pxLon = wLon * (1 + pad * 2);
-    const pxLat = hLat * (1 + pad * 2);
-    const cx = (minLon + maxLon) / 2;
-    const cy = (minLat + maxLat) / 2;
-    const aspect = MAP_W / MAP_H;
-    let viewW = pxLon;
-    let viewH = pxLat;
-    if (viewW / viewH > aspect) viewH = viewW / aspect;
-    else viewW = viewH * aspect;
-    const minX = cx - viewW / 2;
-    const minY = cy - viewH / 2;
+    const raw = {
+      minLon: minLon - (maxLon - minLon) * pad,
+      maxLon: maxLon + (maxLon - minLon) * pad,
+      minLat: minLat - (maxLat - minLat) * pad,
+      maxLat: maxLat + (maxLat - minLat) * pad,
+    };
+    const fitted = AE.focusMap.fitDrillBounds(raw, MAP_W, MAP_H);
     return {
-      minLon: minX,
-      minLat: minY,
-      maxLon: minX + viewW,
-      maxLat: minY + viewH,
+      minLon: fitted.minLon,
+      minLat: fitted.minLat,
+      maxLon: fitted.maxLon,
+      maxLat: fitted.maxLat,
+      cosLat: fitted.cosLat,
       viewBox: `0 0 ${MAP_W} ${MAP_H}`,
     };
   };
@@ -212,7 +207,9 @@ window.AE = window.AE || {};
   AE.electionHistory.precinctPaths = function (districtId, width, height, raceId, filterBands, boundsOverride) {
     const geo = AE.electionPrecinctGeo[districtId];
     if (!geo || !geo.features) return { outline: "", precincts: [] };
-    const bounds = boundsOverride || geo._bounds || AE.focusDrill.bounds(districtId);
+    const bounds =
+      boundsOverride ||
+      AE.focusMap.fitDrillBounds(geo._bounds || AE.focusDrill.bounds(districtId), width, height);
     const precincts = [];
 
     (geo.features || []).forEach((f) => {
@@ -226,12 +223,12 @@ window.AE = window.AE || {};
       let d = "";
       if (geom.type === "Polygon") {
         geom.coordinates.forEach((ring) => {
-          d += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+          d += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
         });
       } else if (geom.type === "MultiPolygon") {
         geom.coordinates.forEach((poly) => {
           poly.forEach((ring) => {
-            d += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+            d += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
           });
         });
       }
@@ -243,7 +240,13 @@ window.AE = window.AE || {};
       const og = geo.outline;
       if (og.type === "Polygon") {
         og.coordinates.forEach((ring) => {
-          outline += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+          outline += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
+        });
+      } else if (og.type === "MultiPolygon") {
+        og.coordinates.forEach((poly) => {
+          poly.forEach((ring) => {
+            outline += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
+          });
         });
       }
     }

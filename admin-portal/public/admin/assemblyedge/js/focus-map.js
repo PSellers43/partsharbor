@@ -74,7 +74,8 @@ window.AE = window.AE || {};
       });
   };
 
-  AE.focusMap.computeBounds = function (geo) {
+  AE.focusMap.computeBounds = function (geo, options) {
+    options = options || {};
     let minLon = Infinity;
     let maxLon = -Infinity;
     let minLat = Infinity;
@@ -96,16 +97,68 @@ window.AE = window.AE || {};
     (geo.features || []).forEach((f) => {
       if (f.geometry && f.geometry.coordinates) walkCoords(f.geometry.coordinates);
     });
+    const outline = geo.outline || options.outline;
+    if (outline && outline.coordinates) walkCoords(outline.coordinates);
 
     if (!Number.isFinite(minLon)) return DEFAULT_BOUNDS;
-    const padLon = (maxLon - minLon) * 0.02 || 0.1;
-    const padLat = (maxLat - minLat) * 0.02 || 0.1;
+    const padRatio = options.padRatio != null ? options.padRatio : 0.02;
+    const padLon = (maxLon - minLon) * padRatio || 0.1;
+    const padLat = (maxLat - minLat) * padRatio || 0.1;
     return {
       minLon: minLon - padLon,
       maxLon: maxLon + padLon,
       minLat: minLat - padLat,
       maxLat: maxLat + padLat,
     };
+  };
+
+  AE.focusMap.mergeBounds = function (boxes) {
+    if (!boxes || !boxes.length) return DEFAULT_BOUNDS;
+    return boxes.reduce(
+      (acc, b) => ({
+        minLon: Math.min(acc.minLon, b.minLon),
+        maxLon: Math.max(acc.maxLon, b.maxLon),
+        minLat: Math.min(acc.minLat, b.minLat),
+        maxLat: Math.max(acc.maxLat, b.maxLat),
+      }),
+      {
+        minLon: Infinity,
+        maxLon: -Infinity,
+        minLat: Infinity,
+        maxLat: -Infinity,
+      }
+    );
+  };
+
+  /** Drill maps: cos(lat) lon scale + expand to SVG aspect (does not affect statewide map). */
+  AE.focusMap.fitDrillBounds = function (bounds, width, height) {
+    const b = bounds || DEFAULT_BOUNDS;
+    const refLat = (b.minLat + b.maxLat) / 2;
+    const cosLat = Math.cos((refLat * Math.PI) / 180);
+    const minX = b.minLon * cosLat;
+    const maxX = b.maxLon * cosLat;
+    const minY = b.minLat;
+    const maxY = b.maxLat;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    let spanX = maxX - minX || 0.02;
+    let spanY = maxY - minY || 0.02;
+    const targetAspect = width / height;
+    if (spanX / spanY > targetAspect) spanY = spanX / targetAspect;
+    else spanX = spanY * targetAspect;
+    return {
+      minLon: (cx - spanX / 2) / cosLat,
+      maxLon: (cx + spanX / 2) / cosLat,
+      minLat: cy - spanY / 2,
+      maxLat: cy + spanY / 2,
+      cosLat,
+    };
+  };
+
+  AE.focusMap.drillCosLat = function (bounds) {
+    if (bounds && bounds.cosLat != null) return bounds.cosLat;
+    const refLat = bounds ? (bounds.minLat + bounds.maxLat) / 2 : 36;
+    return Math.cos((refLat * Math.PI) / 180);
   };
 
   AE.focusMap.bounds = function () {
@@ -138,11 +191,23 @@ window.AE = window.AE || {};
     return [x, y];
   };
 
-  AE.focusMap.ringToPath = function (ring, width, height, bounds) {
+  /** Focus drill / election history maps (cos lat + shared bounds). */
+  AE.focusMap.projectDrill = function (lon, lat, width, height, bounds) {
+    const b = bounds || DEFAULT_BOUNDS;
+    const cosLat = AE.focusMap.drillCosLat(b);
+    const minX = b.minLon * cosLat;
+    const maxX = b.maxLon * cosLat;
+    const x = ((lon * cosLat - minX) / (maxX - minX)) * width;
+    const y = height - ((lat - b.minLat) / (b.maxLat - b.minLat)) * height;
+    return [x, y];
+  };
+
+  AE.focusMap.ringToPath = function (ring, width, height, bounds, mode) {
+    const projectFn = mode === "drill" ? AE.focusMap.projectDrill : AE.focusMap.project;
     return (
       ring
         .map((pt, i) => {
-          const [x, y] = AE.focusMap.project(pt[0], pt[1], width, height, bounds);
+          const [x, y] = projectFn(pt[0], pt[1], width, height, bounds);
           return (i === 0 ? "M" : "L") + x.toFixed(2) + " " + y.toFixed(2);
         })
         .join(" ") + " Z"

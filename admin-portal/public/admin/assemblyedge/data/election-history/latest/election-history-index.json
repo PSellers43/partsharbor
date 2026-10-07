@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-07T19:11:46Z",
+  "updated_at": "2026-10-07T23:07:30Z",
   "sources": {
     "swdb_g22": "https://statewidedatabase.org/d20/g22.html",
     "swdb_g24": "https://statewidedatabase.org/d20/g24.html",
@@ -12,9 +12,9 @@
       "id": "ad-7",
       "code": "AD-7",
       "file": "ad-7-precincts.geojson",
-      "precinct_count": 212,
-      "place_primary_matched": 211,
-      "place_primary_matched_pct": 99.5,
+      "precinct_count": 256,
+      "place_primary_matched": 247,
+      "place_primary_matched_pct": 96.5,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -25,9 +25,9 @@
       "id": "ad-27",
       "code": "AD-27",
       "file": "ad-27-precincts.geojson",
-      "precinct_count": 121,
-      "place_primary_matched": 77,
-      "place_primary_matched_pct": 63.6,
+      "precinct_count": 159,
+      "place_primary_matched": 97,
+      "place_primary_matched_pct": 61.0,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -51,9 +51,9 @@
       "id": "ad-47",
       "code": "AD-47",
       "file": "ad-47-precincts.geojson",
-      "precinct_count": 234,
-      "place_primary_matched": 166,
-      "place_primary_matched_pct": 70.9,
+      "precinct_count": 268,
+      "place_primary_matched": 185,
+      "place_primary_matched_pct": 69.0,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -64,9 +64,9 @@
       "id": "ad-58",
       "code": "AD-58",
       "file": "ad-58-precincts.geojson",
-      "precinct_count": 122,
-      "place_primary_matched": 122,
-      "place_primary_matched_pct": 100.0,
+      "precinct_count": 157,
+      "place_primary_matched": 156,
+      "place_primary_matched_pct": 99.4,
       "races": [
         "g22_asm",
         "g24_asm"
@@ -77,9 +77,9 @@
       "id": "ad-74",
       "code": "AD-74",
       "file": "ad-74-precincts.geojson",
-      "precinct_count": 113,
-      "place_primary_matched": 113,
-      "place_primary_matched_pct": 100.0,
+      "precinct_count": 121,
+      "place_primary_matched": 120,
+      "place_primary_matched_pct": 99.2,
       "races": [
         "g22_asm",
         "g24_asm"

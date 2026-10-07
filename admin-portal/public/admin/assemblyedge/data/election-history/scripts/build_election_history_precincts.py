@@ -353,12 +353,14 @@ def place_overlap_props(geom, precinct_area: float, places: list[dict], tree: ST
     }
 
 
-def sov_for_ad(rows: list[dict], ad_dist: str) -> dict[str, dict]:
-    target = int(ad_dist)
+def sov_by_srprec(rows: list[dict]) -> dict[str, dict]:
+    """Map SR precinct id → Assembly two-party stats for the county file.
+
+    SWDB's addist column reflects registration district lines; for CRC 2020
+    beachhead clips we join by srprec for shapes intersecting the AD polygon.
+    """
     out = {}
     for row in rows:
-        if int(num(row.get("addist"))) != target:
-            continue
         srprec = (row.get("srprec") or "").strip()
         if not srprec:
             continue
@@ -414,7 +416,7 @@ def build_district(
             if not rows:
                 gaps.append(f"AD-{dist}: missing SOV for {race_id} in county {cid:03d}")
                 continue
-            race_stats[race_id].update(sov_for_ad(rows, dist))
+            race_stats[race_id].update(sov_by_srprec(rows))
 
         # Prefer g22 boundaries (stable, smaller); fall back to g24 if g22 shapes fail
         shapes = []

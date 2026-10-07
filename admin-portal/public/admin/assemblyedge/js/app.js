@@ -707,13 +707,16 @@
 
     const w = 400;
     const h = 480;
-    let mapBounds = null;
+    let mapBounds = AE.focusDrill.sharedMapBounds
+      ? AE.focusDrill.sharedMapBounds(districtId, w, h)
+      : AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), w, h);
     if (inHistory && state.focusDrillMapBounds) {
       mapBounds = {
         minLon: state.focusDrillMapBounds.minLon,
         maxLon: state.focusDrillMapBounds.maxLon,
         minLat: state.focusDrillMapBounds.minLat,
         maxLat: state.focusDrillMapBounds.maxLat,
+        cosLat: state.focusDrillMapBounds.cosLat,
       };
     }
 
@@ -734,7 +737,8 @@
       districtId,
       w,
       h,
-      inHistory ? { "focus-high": true, "focus-mid": true, "focus-low": true } : focusDrillFilterBands()
+      inHistory ? { "focus-high": true, "focus-mid": true, "focus-low": true } : focusDrillFilterBands(),
+      mapBounds
     );
     let outline = placeLayers.outline
       ? `<path class="focus-drill-outline" d="${placeLayers.outline}" aria-hidden="true"></path>`
@@ -755,7 +759,9 @@
         mapBounds
       );
       histPrecinctRows = histLayers.precincts;
-      if (histLayers.outline) {
+      if (placeLayers.outline) {
+        outline = `<path class="focus-drill-outline" d="${placeLayers.outline}" aria-hidden="true"></path>`;
+      } else if (histLayers.outline) {
         outline = `<path class="focus-drill-outline" d="${histLayers.outline}" aria-hidden="true"></path>`;
       }
       ariaLabel = "Precinct election history map";

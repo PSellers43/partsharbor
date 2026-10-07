@@ -45,7 +45,7 @@ window.AE = window.AE || {};
         return res.json();
       })
       .then((json) => {
-        json._bounds = AE.focusMap.computeBounds({ features: json.features || [] });
+        json._bounds = AE.focusMap.computeBounds({ features: json.features || [], outline: json.outline });
         AE.intraGeo[districtId] = json;
         return json;
       })
@@ -61,6 +61,21 @@ window.AE = window.AE || {};
     return AE.focusMap.bounds();
   };
 
+  /** One fit box for outline, places, and precinct overlays (includes CRC outline + both layers). */
+  AE.focusDrill.sharedMapBounds = function (districtId, width, height) {
+    const boxes = [];
+    const intra = AE.intraGeo[districtId];
+    const hist = AE.electionPrecinctGeo && AE.electionPrecinctGeo[districtId];
+    if (intra) {
+      boxes.push(AE.focusMap.computeBounds({ features: intra.features || [], outline: intra.outline }));
+    }
+    if (hist) {
+      boxes.push(AE.focusMap.computeBounds({ features: hist.features || [], outline: hist.outline }));
+    }
+    if (!boxes.length) return AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), width, height);
+    return AE.focusMap.fitDrillBounds(AE.focusMap.mergeBounds(boxes), width, height);
+  };
+
   AE.focusDrill.attributionHtml = function (districtId) {
     const g = AE.intraGeo[districtId];
     if (!g || !g.source) {
@@ -73,10 +88,12 @@ window.AE = window.AE || {};
     );
   };
 
-  AE.focusDrill.placePaths = function (districtId, width, height, filterBands) {
+  AE.focusDrill.placePaths = function (districtId, width, height, filterBands, boundsOverride) {
     const geo = AE.intraGeo[districtId];
     if (!geo || !geo.features) return { outline: "", places: [] };
-    const bounds = AE.focusDrill.bounds(districtId);
+    const bounds =
+      boundsOverride ||
+      AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), width, height);
     const places = [];
 
     (geo.features || []).forEach((f) => {
@@ -89,12 +106,12 @@ window.AE = window.AE || {};
       let d = "";
       if (geom.type === "Polygon") {
         geom.coordinates.forEach((ring) => {
-          d += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+          d += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
         });
       } else if (geom.type === "MultiPolygon") {
         geom.coordinates.forEach((poly) => {
           poly.forEach((ring) => {
-            d += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+            d += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
           });
         });
       }
@@ -116,11 +133,17 @@ window.AE = window.AE || {};
       const og = geo.outline;
       if (og.type === "Polygon") {
         og.coordinates.forEach((ring) => {
-          outline += AE.focusMap.ringToPath(ring, width, height, bounds) + " ";
+          outline += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
+        });
+      } else if (og.type === "MultiPolygon") {
+        og.coordinates.forEach((poly) => {
+          poly.forEach((ring) => {
+            outline += AE.focusMap.ringToPath(ring, width, height, bounds, "drill") + " ";
+          });
         });
       }
     }
 
-    return { outline: outline.trim(), places };
+    return { outline: outline.trim(), places, bounds };
   };
 })();
