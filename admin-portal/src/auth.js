@@ -1,43 +1,20 @@
-import argon2 from "argon2";
-import crypto from "node:crypto";
-import { getConfig } from "./config.js";
+import { createHash, createHmac } from "node:crypto";
 import {
   clearLoginFailures,
+  countRecentLoginAttemptsByIp,
   getAdminByUsername,
+  purgeOldLoginAttempts,
   recordFailedLogin,
   recordLoginAttempt,
-  countRecentLoginAttemptsByIp,
-  purgeOldLoginAttempts,
 } from "./db.js";
+import { verifyPassword } from "./password.js";
 
-/** Fixed dummy hash so verification timing is similar when username is unknown. */
-let dummyHashPromise;
+/** Precomputed Argon2id PHC (m=8192,t=2,p=1) for timing-safe failed lookups. */
+const DUMMY_PASSWORD_HASH =
+  "$argon2id$v=19$m=8192,p=1,t=2$9JgfnzDgo2B6qgo/racdgQ$bhqq05kU53eEkm34szxn4hiRsUbXq8tAQDwzXY5Ys9w";
 
-async function getDummyHash() {
-  if (!dummyHashPromise) {
-    dummyHashPromise = argon2.hash("partsharbor-timing-dummy", {
-      type: argon2.argon2id,
-      memoryCost: 19456,
-      timeCost: 2,
-      parallelism: 1,
-    });
-  }
-  return dummyHashPromise;
-}
-
-export async function hashPassword(plain) {
-  const { argon2: params } = getConfig();
-  return argon2.hash(plain, {
-    type: argon2.argon2id,
-    memoryCost: params.memoryCost,
-    timeCost: params.timeCost,
-    parallelism: params.parallelism,
-  });
-}
-
-export function hashClientIp(ip) {
-  const { sessionSecret } = getConfig();
-  return crypto.createHmac("sha256", sessionSecret).update(String(ip)).digest("hex");
+export function hashClientIp(ip, sessionSecret) {
+  return createHmac("sha256", sessionSecret).update(String(ip)).digest("hex");
 }
 
 export function normalizeUsername(input) {
@@ -45,46 +22,53 @@ export function normalizeUsername(input) {
 }
 
 function usernameKey(username) {
-  return crypto.createHash("sha256").update(username).digest("hex");
+  return createHash("sha256").update(username).digest("hex");
 }
 
 export function isAccountLocked(admin) {
   if (!admin?.locked_until) return false;
-  return admin.locked_until > Date.now();
+  return Number(admin.locked_until) > Date.now();
 }
 
-export async function verifyLogin(usernameInput, password, clientIp) {
-  const { login } = getConfig();
+/**
+ * @param {import('@cloudflare/workers-types').D1Database} db
+ */
+export async function verifyLogin(db, config, usernameInput, password, clientIp) {
+  const { login } = config;
   const username = normalizeUsername(usernameInput);
   const key = usernameKey(username || "empty");
 
-  purgeOldLoginAttempts(Date.now() - login.ipWindowMs * 2);
+  await purgeOldLoginAttempts(db, Date.now() - login.ipWindowMs * 2);
 
-  const ipHash = hashClientIp(clientIp);
-  const ipAttempts = countRecentLoginAttemptsByIp(ipHash, Date.now() - login.ipWindowMs);
+  const ipHash = hashClientIp(clientIp, config.sessionSecret);
+  const ipAttempts = await countRecentLoginAttemptsByIp(
+    db,
+    ipHash,
+    Date.now() - login.ipWindowMs,
+  );
   if (ipAttempts >= login.ipMaxAttempts) {
     return { ok: false, reason: "rate_limited" };
   }
 
-  recordLoginAttempt(ipHash, key);
+  await recordLoginAttempt(db, ipHash, key);
 
-  const admin = username ? getAdminByUsername(username) : null;
-  const hashToVerify = admin?.password_hash ?? (await getDummyHash());
+  const admin = username ? await getAdminByUsername(db, username) : null;
+  const hashToVerify = admin?.password_hash ?? DUMMY_PASSWORD_HASH;
 
   let passwordOk = false;
   try {
-    passwordOk = await argon2.verify(hashToVerify, password || "");
+    passwordOk = await verifyPassword(password || "", String(hashToVerify));
   } catch {
     passwordOk = false;
   }
 
   if (!admin || !passwordOk || isAccountLocked(admin)) {
     if (admin && !isAccountLocked(admin)) {
-      recordFailedLogin(admin.id);
+      await recordFailedLogin(db, admin.id, login.accountMaxFailures, login.accountLockMs);
     }
     return { ok: false, reason: "invalid" };
   }
 
-  clearLoginFailures(admin.id);
+  await clearLoginFailures(db, admin.id);
   return { ok: true, admin: { id: admin.id, username: admin.username } };
 }

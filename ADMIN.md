@@ -1,105 +1,145 @@
 # PartsHarbor admin portal
 
-Secure, server-side admin authentication for PartsHarbor operations. The public marketing site under `docs/` stays on **GitHub Pages** (static only). This portal is a small **Node.js** service you run separately—GitHub Pages cannot host real sessions or password verification.
+Secure, server-side admin authentication for PartsHarbor operations. The public marketing site under `docs/` stays on **GitHub Pages** (static only). The admin portal is a **Cloudflare Worker** with **D1** (SQLite) for sessions and credentials.
 
 ## Architecture
 
 | Surface | Hosting | Auth |
 |--------|---------|------|
 | Public site (`partsharbor.biz`) | GitHub Pages → `docs/` | None |
-| Admin (`/admin/login`, `/admin`) | Node app in `admin-portal/` | Server-side SQLite sessions + Argon2id |
+| Admin (`/admin/login`, `/admin`) | Cloudflare Worker + D1 | Server-side sessions + Argon2id |
 
-**Recommended production URL:** `https://admin.partsharbor.biz` (DNS A/AAAA or CNAME to your host). The app serves routes at `/admin/login` and `/admin` on whatever origin you bind. Keeping admin on its own subdomain avoids mixing cookies with the static site and simplifies TLS + CSP.
+**Production URL:** `https://admin.partsharbor.biz` (Cloudflare custom domain on the Worker) or `*.workers.dev` until DNS is attached.
+
+The Express + local SQLite stack from the initial portal PR has been **removed**; this Worker is the only supported runtime.
 
 ## Security controls (implemented)
 
-- **Passwords:** Argon2id via the `argon2` package; only hashes stored in SQLite (`admin-portal/data/admin-portal.db`, gitignored).
-- **Sessions:** Stored server-side in SQLite; cookie is `HttpOnly`, `Secure` in production, `SameSite=Strict`, rolling max-age (default 8h). Production cookie names use the `__Host-` prefix (requires HTTPS and `Path=/`).
-- **CSRF:** `csrf-csrf` double-submit cookie on `POST /admin/login` and `POST /admin/logout`.
-- **Brute force:** IP rate limit (express-rate-limit) plus per-account failed-attempt counter and temporary lockout in SQLite.
-- **User enumeration:** Single generic message for bad credentials; unknown usernames still run Argon2 verify against a dummy hash.
-- **Headers:** Helmet (CSP, frame-ancestors / X-Frame-Options, HSTS in production, Referrer-Policy, etc.).
-- **Logout:** `session.destroy()` removes the server-side session and clears session + CSRF cookies.
-- **Secrets:** `SESSION_SECRET` from environment only—never commit `.env` or the SQLite DB.
+- **Passwords:** Argon2id PHC strings in D1. Runtime hashing uses the [`argon2id`](https://www.npmjs.com/package/argon2id) Wasm module (OpenPGP.js build). Bootstrap uses the Node [`argon2`](https://www.npmjs.com/package/argon2) package with identical parameters—see `scripts/cross-verify-argon.mjs`.
+- **Sessions:** Stored in D1; cookie `HttpOnly`, `Secure` in production, `SameSite=Strict`, rolling max-age (default 8h). Production uses `__Host-` cookie names.
+- **CSRF:** Double-submit cookie on `POST /admin/login` and `POST /admin/logout`.
+- **Brute force:** IP attempt logging + per-account lockout in D1 (same thresholds as the original portal).
+- **User enumeration:** Generic invalid-credentials message; unknown usernames still verify against a fixed dummy Argon2 hash.
+- **Headers:** CSP, `X-Frame-Options`, HSTS in production, `Referrer-Policy`, `no-store` caching.
+- **Logout:** Deletes D1 session row and clears cookies.
+- **Secrets:** `SESSION_SECRET` via Wrangler secret / `.dev.vars` only.
+
+### Argon2 on Workers (read this)
+
+Cloudflare **Workers Free** enforces about **10 ms CPU time per HTTP request** (see [Workers limits](https://developers.cloudflare.com/workers/platform/limits/)). Argon2id is deliberately slow; even with Wasm, login may exceed 10 ms CPU and return **1102 / exceeded CPU** on Free.
+
+| Tier | Recommendation |
+|------|----------------|
+| **Workers Free ($0)** | Default params in `wrangler.toml`: `m=8192`, `t=2`, `p=1`. May work intermittently; monitor Metrics → **Exceeded CPU**. If login fails after deploy, reduce `ARGON2_PASSES` to `1` via Vars or upgrade. |
+| **Workers Paid** | Safer for admin login; you can raise `cpu_ms` and use stronger Argon2 settings. |
+
+We do **not** downgrade to PBKDF2 on the Worker while keeping the same security story—Argon2id stays the algorithm; you tune params or plan tier for CPU headroom.
 
 ### SameSite=Strict
 
-Login is same-site form POST to the admin origin, so **Strict** is appropriate and is what we set. If you later add cross-site OAuth to this app, you may need `Lax` for the OAuth callback leg only—document that change explicitly.
+Same-site form POST to the admin origin; **Strict** is correct. Revisit only if you add cross-site OAuth.
 
-### HSTS
-
-HSTS is sent when `NODE_ENV=production`. Terminate TLS at your platform (Fly, Render, nginx, Cloudflare). After you confirm HTTPS works everywhere on the admin host, consider enabling HSTS preload at the registrar/CDN level.
-
-## Local development
+## Local development (`wrangler dev`)
 
 ```bash
 cd admin-portal
-cp .env.example .env
-# Edit .env: set SESSION_SECRET (32+ chars), e.g. openssl rand -base64 48
+cp .dev.vars.example .dev.vars
+# Set SESSION_SECRET (≥32 chars), e.g. openssl rand -base64 48
 
 npm install
-npm run bootstrap-admin   # interactive password, or ADMIN_BOOTSTRAP_PASSWORD for CI
-npm run dev
+npm run db:migrate:local
+npm run bootstrap-admin          # local D1 only; uses --file insert (PHC $ chars safe)
+npm run dev                      # http://localhost:8787
 ```
-
-Open http://127.0.0.1:8787/admin/login
 
 **Test flow**
 
-1. Sign in with the bootstrapped username (default `admin`, override with `ADMIN_USERNAME` at bootstrap).
-2. Confirm dashboard shows username and masked session id.
-3. Log out → should return to login; back button to dashboard should require login again.
+1. Open http://localhost:8787/admin/login  
+2. Sign in (default user `admin` after bootstrap)  
+3. Dashboard → logout → login again  
+
+`wrangler dev` uses a **local** D1 database under `.wrangler/` (not committed). Re-run bootstrap after wiping local state.
 
 ## Bootstrap (first admin)
 
-Run **once** on each new environment (laptop, staging, production):
+**Local D1**
 
 ```bash
 cd admin-portal
+npm run db:migrate:local
 npm run bootstrap-admin
 ```
 
-- Refuses to run if an admin row already exists (no silent overwrite).
-- Password min length 12 characters.
-- Non-interactive (automation): set `ADMIN_BOOTSTRAP_PASSWORD` and optionally `ADMIN_USERNAME` for that single run only—do not leave the password in persistent env on the server.
+**Production D1** (after remote migrations)
 
-To rotate password today: add a small SQL migration or re-run bootstrap on a fresh DB (document your ops process; a dedicated `rotate-admin-password` script can be added later).
+```bash
+npm run db:migrate:remote
+ADMIN_BOOTSTRAP_PASSWORD='…' npm run bootstrap-admin:remote
+```
 
-## Environment variables
+- Refuses to run if an admin row already exists.  
+- Password minimum 12 characters.  
+- Use `ADMIN_USERNAME` optionally for the first user.  
+- Never commit `.dev.vars`, bootstrap passwords, or production D1 dumps.
 
-See `admin-portal/.env.example`. Required for production:
+## Cloudflare deploy (free account)
 
-| Variable | Purpose |
-|----------|---------|
-| `SESSION_SECRET` | Session signing + CSRF secret (≥32 chars) |
-| `NODE_ENV=production` | Secure cookies, HSTS, `__Host-` cookie names |
-| `TRUST_PROXY=1` | Correct client IP behind Fly/Render/nginx |
+### One-time setup
 
-Optional: `HOST`, `PORT`, `ADMIN_DATA_DIR`, `SESSION_MAX_AGE_SEC`, `ADMIN_USERNAME` (bootstrap only).
+1. Install Wrangler and log in: `npx wrangler login`
+2. Create D1 database:
+   ```bash
+   cd admin-portal
+   npx wrangler d1 create partsharbor-admin
+   ```
+3. Copy the returned `database_id` into `admin-portal/wrangler.toml` under `[[d1_databases]]`.
+4. Apply migrations remotely:
+   ```bash
+   npm run db:migrate:remote
+   ```
+5. Set secrets and production flag:
+   ```bash
+   npx wrangler secret put SESSION_SECRET
+   # paste ≥32 random bytes
+   ```
+   In the Cloudflare dashboard (or `wrangler.toml` `[vars]`), set `ENVIRONMENT=production` for Secure cookies and HSTS.
 
-## Deploy options (pick one)
+6. Bootstrap the **remote** admin (once):
+   ```bash
+   ADMIN_BOOTSTRAP_PASSWORD='…' npm run bootstrap-admin:remote
+   ```
 
-GitHub Pages **cannot** run this app. Choose a host that runs Node 20+ with persistent disk (or attached volume) for SQLite:
+7. Deploy:
+   ```bash
+   npm run deploy
+   ```
 
-1. **Fly.io / Render / Railway** — run `npm start` from `admin-portal/`, set secrets in the dashboard, mount a volume at `admin-portal/data` if the platform has ephemeral filesystem.
-2. **VPS + systemd + nginx** — reverse proxy to `127.0.0.1:8787`, TLS via Certbot.
-3. **Cloudflare Tunnel** — expose the admin process without opening inbound ports; still use TLS on the public hostname.
+8. Smoke test: `GET https://<your-worker>/healthz` → `ok`, then login → logout in the browser.
 
-Example `Dockerfile` is included in `admin-portal/Dockerfile` for container hosts.
+### Custom domain (`admin.partsharbor.biz`)
 
-After deploy:
+1. Workers & Pages → your Worker → **Settings → Domains & Routes** → **Add Custom Domain** → `admin.partsharbor.biz`.
+2. Cloudflare DNS (zone for `partsharbor.biz`) must be on Cloudflare; the UI adds the required records.
+3. Confirm HTTPS and `ENVIRONMENT=production`, then repeat login/logout.
 
-1. Set `SESSION_SECRET` and `NODE_ENV=production`, `TRUST_PROXY=1`.
-2. Run bootstrap **on that environment** (SSH or one-off release command)—do not copy production `admin-portal.db` from your laptop unless you intend to clone credentials.
-3. Point `admin.partsharbor.biz` (or your chosen host) at the service.
-4. Verify `/healthz` returns `ok`, then complete login → logout manually.
+Until DNS is ready, use the `*.workers.dev` URL from `wrangler deploy`.
 
-## What we explicitly did not do
+### Wrangler variables (non-secret)
 
-- No client-only “fake” login on GitHub Pages.
-- No default password in the repository.
-- No AssemblyEdge or other tools wired in this shell (future routes can sit behind `requireAuth` in `src/server.js`).
+| Name | Purpose |
+|------|---------|
+| `ENVIRONMENT` | `production` → Secure cookies, HSTS, `__Host-` names |
+| `ARGON2_MEMORY_KIB` | Argon2 memory (KiB), default `8192` |
+| `ARGON2_PASSES` | Argon2 time cost, default `2` |
+| `ARGON2_PARALLELISM` | Default `1` |
+| `SESSION_MAX_AGE_SEC` | Session cookie lifetime, default `28800` (8h) |
+
+## What we did not do
+
+- No client-only auth on GitHub Pages.  
+- No default password in the repo.  
+- No AssemblyEdge tools in this shell.
 
 ## Threat model (short)
 
-Protects against casual credential stuffing, CSRF on admin forms, session theft via non-HttpOnly cookies, and clickjacking. Does **not** replace MFA, hardware keys, or enterprise IdP—add those when ops scale. Keep the admin URL non-obfuscated but unlinked from the public site; security relies on strong passwords, rate limits, and TLS—not obscurity.
+Protects against casual credential stuffing, CSRF on admin forms, session theft via non-HttpOnly cookies, and clickjacking. Does **not** replace MFA or enterprise IdP. Relies on strong passwords, rate limits, TLS, and Cloudflare edge protections—not URL secrecy.

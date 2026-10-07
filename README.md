@@ -18,14 +18,14 @@ The public marketing site will be **https://partsharbor.biz** (custom domain via
 
 ## Admin portal (separate from GitHub Pages)
 
-Operations login lives in **`admin-portal/`** — a Node.js app with server-side sessions (not static HTML auth). GitHub Pages cannot run it; deploy the admin service to your Node host and point a hostname such as `admin.partsharbor.biz` at it.
+Operations login lives in **`admin-portal/`** — a **Cloudflare Worker + D1** app with server-side sessions (not static HTML auth). GitHub Pages cannot run it; deploy with Wrangler and point `admin.partsharbor.biz` (or `*.workers.dev`) at the Worker.
 
-See **[ADMIN.md](./ADMIN.md)** for bootstrap, secrets, local run, and security assumptions.
+See **[ADMIN.md](./ADMIN.md)** for bootstrap, secrets, `wrangler dev`, deploy, and Workers Free CPU notes.
 
 ## Repository layout
 
 ```
-admin-portal/          Secure admin login + dashboard (Node.js, deploy separately)
+admin-portal/          Secure admin login + dashboard (Cloudflare Worker + D1)
 docs/                  Static site served by GitHub Pages
   CNAME                Custom domain (partsharbor.biz)
   index.html           Home — product, pricing, kit contents, demo section
