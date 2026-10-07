@@ -1,0 +1,9 @@
+# Admin portal — never commit secrets or runtime data
+admin-portal/.env
+admin-portal/data/*.db
+admin-portal/data/*.db-*
+admin-portal/node_modules/
+
+# OS / editor
+.DS_Store
+*.swp

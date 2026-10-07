@@ -16,9 +16,16 @@ The public marketing site will be **https://partsharbor.biz** (custom domain via
 | Terms of Service | https://partsharbor.biz/terms/ | https://psellers43.github.io/partsharbor/terms/ |
 | Refund Policy | https://partsharbor.biz/refund/ | https://psellers43.github.io/partsharbor/refund/ |
 
+## Admin portal (separate from GitHub Pages)
+
+Operations login lives in **`admin-portal/`** — a Node.js app with server-side sessions (not static HTML auth). GitHub Pages cannot run it; deploy the admin service to your Node host and point a hostname such as `admin.partsharbor.biz` at it.
+
+See **[ADMIN.md](./ADMIN.md)** for bootstrap, secrets, local run, and security assumptions.
+
 ## Repository layout
 
 ```
+admin-portal/          Secure admin login + dashboard (Node.js, deploy separately)
 docs/                  Static site served by GitHub Pages
   CNAME                Custom domain (partsharbor.biz)
   index.html           Home — product, pricing, kit contents, demo section
