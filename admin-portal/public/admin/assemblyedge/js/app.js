@@ -381,6 +381,11 @@
         <g class="focus-drill-places-layer">${placeShapes}</g>
       </svg>`;
 
+    const demoPanel = $("#focus-drill-demography");
+    if (demoPanel && AE.demography && AE.demography.renderPanel) {
+      demoPanel.innerHTML = AE.demography.renderPanel(districtId);
+    }
+
     if (rank) {
       const sorted = layers.places.slice().sort((a, b) => b.score - a.score);
       rank.innerHTML = sorted
@@ -1314,7 +1319,12 @@
     applyTheme();
     applyRole();
     bind();
-    Promise.all([loadLiveMoney(), AE.polling.load(), AE.focusMap.loadGeo()]).then(refreshPollingViews);
+    Promise.all([
+      loadLiveMoney(),
+      AE.polling.load(),
+      AE.demography.load(),
+      AE.focusMap.loadGeo(),
+    ]).then(refreshPollingViews);
     applyFocusHash();
     if (state.page !== "focus-map") {
       if (state.role === "cm") {

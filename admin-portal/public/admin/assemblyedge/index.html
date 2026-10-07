@@ -133,11 +133,14 @@
             <div class="focus-legend focus-drill-filters" id="focus-drill-legend" aria-label="Drill-down filters"></div>
             <p class="focus-map-attribution" id="focus-drill-attribution"></p>
           </div>
-          <aside class="card focus-map-aside">
-            <h3 class="card-title">Intra-district score <span class="chip chip-demo">2022 g22 proxy</span></h3>
-            <p class="focus-formula" id="focus-drill-formula"></p>
-            <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">DEMO / illustrative focus from public precinct results aggregated to Census places — not a voter-file or field targeting model.</p>
-            <div id="focus-drill-rank" class="focus-rank-list"></div>
+          <aside class="focus-drill-aside-stack">
+            <div class="card focus-map-aside">
+              <h3 class="card-title">Intra-district score <span class="chip chip-demo">2022 g22 proxy</span></h3>
+              <p class="focus-formula" id="focus-drill-formula"></p>
+              <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">DEMO / illustrative focus from public precinct results aggregated to Census places — not a voter-file or field targeting model.</p>
+              <div id="focus-drill-rank" class="focus-rank-list"></div>
+            </div>
+            <div class="card focus-map-aside" id="focus-drill-demography" aria-label="District demography and registration mix"></div>
           </aside>
         </div>
       </div>
@@ -364,6 +367,7 @@
   <script src="js/polling.js"></script>
   <script src="js/focus-map.js"></script>
   <script src="js/focus-drill.js"></script>
+  <script src="js/demography.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
