@@ -1108,7 +1108,8 @@
             Candidate WoW is n/a from period summaries; IE WoW uses expenditure dates when present.
             Name↔district matching is imperfect — see <code>CALACCESS.md</code>.
           </p>
-        </div>`;
+        </div>
+        ${AE.lateMoney && AE.lateMoney.renderPanel ? AE.lateMoney.renderPanel(d.id, false) : ""}`;
       return;
     }
 
@@ -1169,6 +1170,7 @@
         }
         if (state.page === "focus-map") renderFocusMapPage();
         if (state.page === "portfolio") renderPortfolio();
+        refreshLateMoneyViews();
       })
       .catch((err) => {
         AE.liveMoney = null;
@@ -1236,7 +1238,11 @@
           `<li><strong>${AE.CM.escapeHtml(r.name)}</strong> · spend ${formatMoneyExact(r.spend)} · receipts ${formatMoneyExact(r.receipts)}</li>`
       )
       .join("");
-    return `<p style="margin:0 0 8px">${badge} As of <strong>${asOf || "—"}</strong></p><ul class="brief-bullets" style="margin:0">${top}</ul>`;
+    const lateLine =
+      AE.lateMoney && AE.lateMoney.briefLine
+        ? `<p class="intel-teaser-desc" style="margin:8px 0 0;font-size:12.5px;line-height:1.45">${AE.CM.escapeHtml(AE.lateMoney.briefLine(districtId))}</p>`
+        : "";
+    return `<p style="margin:0 0 8px">${badge} As of <strong>${asOf || "—"}</strong></p><ul class="brief-bullets" style="margin:0">${top}</ul>${lateLine}`;
   }
 
   function renderCMLiveIntel() {
@@ -1252,6 +1258,9 @@
         <h3 class="card-title">CAL-ACCESS money</h3>
         ${renderDeskMoneySummary(d.id)}
         <p style="margin:10px 0 0;font-size:12px"><button type="button" class="btn btn-ghost btn-sm" data-open-district-money="${d.id}">Full money panel</button></p>
+      </div>
+      <div class="card late-money-cm-card">
+        ${AE.lateMoney && AE.lateMoney.renderPanel ? AE.lateMoney.renderPanel(d.id, true) : "<p class=\"intel-teaser-desc\">Late money module not loaded.</p>"}
       </div>
       <div class="card">
         <h3 class="card-title">Polling &amp; gaps</h3>
@@ -1360,7 +1369,17 @@
     };
   }
 
+  function refreshLateMoneyViews() {
+    if (state.page === "district") {
+      const d = AE.districts.find((x) => x.id === state.districtId);
+      if (d) renderMoney(d);
+    }
+    if (state.page === "cm") renderCMLiveIntel();
+    if (state.page === "brief") renderBrief();
+  }
+
   function refreshIntelViews() {
+    refreshLateMoneyViews();
     if (state.page === "polling") renderPollingPage();
     if (state.page === "portfolio") {
       renderPollingTeaser();
@@ -1511,6 +1530,10 @@
     }
     const isDeep = d.id === "ad-7";
     const b = isDeep ? AE.brief["ad-7"] : templatedBriefContent(d);
+    const briefBullets = [...(b.bullets || [])];
+    if (AE.lateMoney && AE.lateMoney.briefLine) {
+      briefBullets.push(AE.CM.escapeHtml(AE.lateMoney.briefLine(d.id)));
+    }
     const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
     const el = $("#brief-body");
     const demoChip = isDeep
@@ -1532,7 +1555,7 @@
         ${demoChip}
         <h2 class="brief-headline">${b.headline}</h2>
         <ul class="brief-bullets">
-          ${b.bullets.map((x) => `<li>${x}</li>`).join("")}
+          ${briefBullets.map((x) => `<li>${x}</li>`).join("")}
         </ul>
         <h3 class="card-title">Recommended decision types</h3>
         <div class="brief-decisions">
@@ -2117,6 +2140,7 @@
       AE.demography.load(),
       AE.electionHistory.loadIndex(),
       AE.abev.load(),
+      AE.lateMoney.load(),
       AE.focusMap.loadGeo(),
     ]).then(refreshIntelViews);
     applyFocusHash();

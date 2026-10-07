@@ -65,6 +65,21 @@ F460_SPEND_LINE = "11"
 
 PT = timezone(timedelta(hours=-7))  # America/Los_Angeles approx (PST/PDT label handled separately)
 
+# 2026 general election — FPPC 90-day late reporting period (Form 497 / 496).
+# Manual 2 Ch. 11: $1,000+ contributions made/received during the 90 days before the
+# election, including election day (https://www.fppc.ca.gov/).
+GENERAL_ELECTION_DATE = datetime(2026, 11, 3)
+LATE_REPORTING_PERIOD_DAYS = 90
+# Calendar start = election minus 90 days (2026-08-05 through 2026-11-03 inclusive).
+LATE_MONEY_WINDOW_START = GENERAL_ELECTION_DATE - timedelta(days=LATE_REPORTING_PERIOD_DAYS)
+
+
+def contrib_in_late_period(cdate: Optional[datetime]) -> bool:
+    if not cdate:
+        return False
+    d = cdate.date()
+    return LATE_MONEY_WINDOW_START.date() <= d <= GENERAL_ELECTION_DATE.date()
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -667,6 +682,459 @@ def build_ie_entities(ie_slots: List[dict], as_of: datetime) -> List[dict]:
     return entities
 
 
+def person_display_name(namf: str, naml: str, namt: str = "", nams: str = "") -> str:
+    parts = [(namt or "").strip(), (namf or "").strip(), (naml or "").strip(), (nams or "").strip()]
+    return " ".join(p for p in parts if p).strip() or "Unknown"
+
+
+def load_f497_cover_index(extract_dir: Path, filer_ids: Set[str]) -> Dict[str, dict]:
+    """Latest-amend F497 cover row per FILING_ID for the given filer IDs."""
+    if not filer_ids:
+        return {}
+    path = extract_dir / "CVR_CAMPAIGN_DISCLOSURE_CD.TSV"
+    best: Dict[str, dict] = {}
+    with open_tsv(path) as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            if (row.get("FORM_TYPE") or "").strip().upper() != "F497":
+                continue
+            fid = (row.get("FILER_ID") or "").strip()
+            if fid not in filer_ids:
+                continue
+            filing_id = (row.get("FILING_ID") or "").strip()
+            if not filing_id:
+                continue
+            try:
+                aid = int((row.get("AMEND_ID") or "0").strip() or 0)
+            except ValueError:
+                aid = 0
+            prev = best.get(filing_id)
+            if not prev or aid > int(prev.get("_amend_id") or 0):
+                filer = person_display_name(
+                    row.get("FILER_NAMF") or "",
+                    row.get("FILER_NAML") or "",
+                )
+                best[filing_id] = {
+                    "filing_id": filing_id,
+                    "amend_id": aid,
+                    "filer_id": fid,
+                    "filer_name": filer or fid,
+                    "rpt_date": parse_dt(row.get("RPT_DATE")),
+                    "_amend_id": aid,
+                }
+    return best
+
+
+def s497_entity_label(row: dict) -> str:
+    return person_display_name(
+        row.get("ENTY_NAMF") or "",
+        row.get("ENTY_NAML") or "",
+        row.get("ENTY_NAMT") or "",
+        row.get("ENTY_NAMS") or "",
+    )
+
+
+def s497_cand_label(row: dict) -> str:
+    return person_display_name(
+        row.get("CAND_NAMF") or "",
+        row.get("CAND_NAML") or "",
+        row.get("CAND_NAMT") or "",
+        row.get("CAND_NAMS") or "",
+    )
+
+
+def election_date_ok(elec_dt: Optional[datetime], cycle_year: int) -> bool:
+    """Keep rows tied to the cycle general or unset election date."""
+    if not elec_dt:
+        return True
+    if elec_dt.date() == GENERAL_ELECTION_DATE.date():
+        return True
+    if elec_dt.year == cycle_year and elec_dt >= datetime(cycle_year, 6, 1):
+        return True
+    return False
+
+
+def collect_late_s497_items(
+    extract_dir: Path,
+    district: dict,
+    filer_to_district: Dict[str, str],
+    beach_dist_nos: Set[str],
+    cycle_year: int,
+) -> Tuple[List[dict], int]:
+    """
+    Form 497 schedule lines for a district (latest amend per filing only).
+    Returns (items in tracking window, count of linked F497 filings for district filers).
+    """
+    dist_no = district["dist_no"]
+    dist_id = district["id"]
+    filer_ids = {fid for fid, did in filer_to_district.items() if did == dist_id}
+    covers = load_f497_cover_index(extract_dir, filer_ids)
+    filing_amends = {fid: c["amend_id"] for fid, c in covers.items()}
+    if not filing_amends:
+        return [], 0
+
+    items: List[dict] = []
+    seen_keys: Set[Tuple[str, int, str]] = set()
+    path = extract_dir / "S497_CD.TSV"
+    with open_tsv(path) as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            filing_id = (row.get("FILING_ID") or "").strip()
+            if filing_id not in filing_amends:
+                continue
+            try:
+                aid = int((row.get("AMEND_ID") or "0").strip() or 0)
+            except ValueError:
+                continue
+            if aid != filing_amends[filing_id]:
+                continue
+            tran_id = (row.get("TRAN_ID") or "").strip() or str(row.get("LINE_ITEM") or "")
+            dedupe_key = (filing_id, aid, tran_id)
+            if dedupe_key in seen_keys:
+                continue
+            seen_keys.add(dedupe_key)
+
+            cover = covers[filing_id]
+            office = (row.get("OFFICE_CD") or "").strip().upper()
+            line_dist = norm_dist(row.get("DIST_NO"))
+            elec_dt = parse_dt(row.get("ELEC_DATE"))
+            cdate = parse_dt(row.get("CTRIB_DATE"))
+
+            assigned = cover["filer_id"] in filer_ids
+            if not assigned and office == "ASM" and line_dist == dist_no and line_dist in beach_dist_nos:
+                if election_date_ok(elec_dt, cycle_year):
+                    assigned = True
+            if not assigned:
+                continue
+
+            form = (row.get("FORM_TYPE") or "").strip().upper()
+            direction = "received" if form == "F497P1" else ("made" if form == "F497P2" else "unknown")
+            try:
+                amt = float((row.get("AMOUNT") or "0").strip() or 0)
+            except ValueError:
+                amt = 0.0
+            sup_opp = (row.get("SUP_OPP_CD") or "").strip().upper()
+            side = "support" if sup_opp == "S" else ("oppose" if sup_opp == "O" else None)
+            entity = s497_entity_label(row)
+            cand = s497_cand_label(row)
+            employer = (row.get("CTRIB_EMP") or "").strip() or None
+            occupation = (row.get("CTRIB_OCC") or "").strip() or None
+
+            in_period = contrib_in_late_period(cdate)
+
+            items.append({
+                "filing_id": filing_id,
+                "amend_id": aid,
+                "tran_id": tran_id,
+                "form": form,
+                "direction": direction,
+                "amount": money(amt),
+                "contrib_date": cdate.date().isoformat() if cdate else None,
+                "report_date": cover["rpt_date"].date().isoformat() if cover.get("rpt_date") else None,
+                "committee_filer_id": cover["filer_id"],
+                "committee_name": cover["filer_name"],
+                "entity": entity[:160],
+                "entity_type": (row.get("ENTITY_CD") or "").strip().upper() or None,
+                "candidate": cand[:120] if cand else None,
+                "side": side,
+                "employer": employer[:120] if employer else None,
+                "occupation": occupation[:60] if occupation else None,
+                "in_period": in_period,
+            })
+
+    return items, len(covers)
+
+
+def collect_late_ie_items(
+    cvr_rows: List[dict],
+    extract_dir: Path,
+    dist: str,
+    candidate_names: List[str],
+    cycle_year: int,
+) -> List[dict]:
+    """Independent expenditure lines (S496) with expenditure dates in the late-money window."""
+    covers = [
+        r for r in cvr_rows
+        if r["dist"] == dist and r["form"] in ("F496", "F465")
+    ]
+    covers = [
+        r for r in covers
+        if (r["rpt"] and r["rpt"].year >= cycle_year - 1)
+        or (r["elect"] and r["elect"].year >= cycle_year - 1)
+    ]
+    best: Dict[str, dict] = {}
+    for r in covers:
+        prev = best.get(r["filing_id"])
+        if not prev or r["amend_id"] > prev["amend_id"]:
+            best[r["filing_id"]] = r
+    filing_amends = {fid: r["amend_id"] for fid, r in best.items()}
+    if not filing_amends:
+        return []
+
+    name_norms = [norm_name(n) for n in candidate_names if n]
+    out: List[dict] = []
+    path = extract_dir / "S496_CD.TSV"
+    with open_tsv(path) as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            fid = (row.get("FILING_ID") or "").strip()
+            if fid not in filing_amends:
+                continue
+            try:
+                aid = int((row.get("AMEND_ID") or "0").strip() or 0)
+            except ValueError:
+                continue
+            if aid != filing_amends[fid]:
+                continue
+            exp_dt = parse_dt(row.get("EXP_DATE"))
+            if not exp_dt:
+                continue
+            if not contrib_in_late_period(exp_dt):
+                continue
+            try:
+                amt = float((row.get("AMOUNT") or "0").strip() or 0)
+            except ValueError:
+                amt = 0.0
+            cover = best[fid]
+            side = "support" if cover["sup_opp"] == "S" else ("oppose" if cover["sup_opp"] == "O" else "unknown")
+            target = cover["cand"] or "unknown"
+            tgt = norm_name(target)
+            if name_norms and tgt and tgt != "UNKNOWN":
+                if not any(n in tgt or tgt in n for n in name_norms if len(n) > 3):
+                    if not any(n.split()[-1] in tgt for n in name_norms if n):
+                        continue
+            out.append({
+                "filing_id": fid,
+                "amend_id": aid,
+                "tran_id": (row.get("TRAN_ID") or "").strip() or None,
+                "amount": money(amt),
+                "exp_date": exp_dt.date().isoformat(),
+                "filer_id": cover["filer_id"],
+                "name": cover["filer"][:120],
+                "side": side,
+                "target": target[:120],
+                "description": ((row.get("EXPN_DSCR") or "").strip() or None),
+            })
+    return out
+
+
+def build_late_money_district_payload(
+    district: dict,
+    district_money: dict,
+    cvr_rows: List[dict],
+    extract_dir: Path,
+    filer_to_district: Dict[str, str],
+    beach_dist_nos: Set[str],
+    cycle_year: int,
+) -> dict:
+    cand_names = [c.get("name") or "" for c in district_money.get("candidates") or []]
+    cand_names.append(district["incumbent"]["name"])
+    for o in district.get("known_opponents") or []:
+        cand_names.append(o.get("name") or "")
+
+    s497_items, linked_f497 = collect_late_s497_items(
+        extract_dir, district, filer_to_district, beach_dist_nos, cycle_year
+    )
+    period_items = [i for i in s497_items if i.get("in_period")]
+    ie_items = collect_late_ie_items(
+        cvr_rows, extract_dir, district["dist_no"], cand_names, cycle_year
+    )
+
+    try:
+        as_of_date = datetime.strptime(extract_dir.name, "%Y-%m-%d").date()
+    except ValueError:
+        as_of_date = datetime.now(PT).date()
+    win_start = LATE_MONEY_WINDOW_START.date()
+    win_end = GENERAL_ELECTION_DATE.date()
+
+    def sum_amount(rows: List[dict], key: str = "amount") -> float:
+        return money(sum(float(r.get(key) or 0) for r in rows))
+
+    period_total = sum_amount(period_items)
+    received_total = sum_amount([i for i in period_items if i["direction"] == "received"])
+    made_total = sum_amount([i for i in period_items if i["direction"] == "made"])
+    ie_total = sum_amount(ie_items)
+    ie_support = sum_amount([i for i in ie_items if i["side"] == "support"])
+    ie_oppose = sum_amount([i for i in ie_items if i["side"] == "oppose"])
+
+    seven_start = max(win_start, as_of_date - timedelta(days=6))
+    last_24h_total = sum_amount(
+        [i for i in period_items if i.get("contrib_date") == as_of_date.isoformat()]
+    )
+    seven_day_total = sum_amount(
+        [
+            i for i in period_items
+            if i.get("contrib_date")
+            and seven_start.isoformat() <= i["contrib_date"] <= as_of_date.isoformat()
+        ]
+    )
+    ie_last_24h = sum_amount([i for i in ie_items if i.get("exp_date") == as_of_date.isoformat()])
+    ie_seven_day = sum_amount(
+        [
+            i for i in ie_items
+            if i.get("exp_date")
+            and seven_start.isoformat() <= i["exp_date"] <= as_of_date.isoformat()
+        ]
+    )
+
+    # Daily buckets across the full FPPC 90-day period (sparkline + timeline)
+    day_cursor = win_start
+    daily_buckets: List[dict] = []
+    sparkline: List[float] = []
+    while day_cursor <= win_end:
+        iso = day_cursor.isoformat()
+        day_rows = [i for i in period_items if i.get("contrib_date") == iso]
+        amt = sum_amount(day_rows)
+        daily_buckets.append({"date": iso, "amount": amt, "count": len(day_rows)})
+        sparkline.append(amt)
+        day_cursor += timedelta(days=1)
+
+    # Top donors: received contributions only, aggregate by contributor entity
+    donor_agg: Dict[str, dict] = {}
+    for i in period_items:
+        if i["direction"] != "received":
+            continue
+        key = norm_name(i.get("entity") or "")
+        if not key:
+            continue
+        slot = donor_agg.setdefault(key, {
+            "name": i.get("entity") or "Unknown",
+            "amount": 0.0,
+            "count": 0,
+            "employer": i.get("employer"),
+        })
+        slot["amount"] += float(i.get("amount") or 0)
+        slot["count"] += 1
+    top_donors = sorted(donor_agg.values(), key=lambda x: -x["amount"])[:8]
+    for d in top_donors:
+        d["amount"] = money(d["amount"])
+
+    recent = sorted(
+        period_items,
+        key=lambda x: (x.get("contrib_date") or "", x.get("report_date") or ""),
+        reverse=True,
+    )[:60]
+
+    recent_ie = sorted(ie_items, key=lambda x: x.get("exp_date") or "", reverse=True)[:20]
+
+    return {
+        "id": district["id"],
+        "code": district["code"],
+        "dist_no": district["dist_no"],
+        "as_of_date": as_of_date.isoformat(),
+        "window": {
+            "start": win_start.isoformat(),
+            "end": win_end.isoformat(),
+            "days": LATE_REPORTING_PERIOD_DAYS,
+            "election_date": win_end.isoformat(),
+            "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)",
+        },
+        "linked_f497_filings": linked_f497,
+        "totals": {
+            "period_contributions": money(period_total),
+            "period_contribution_reports": len(period_items),
+            "received": money(received_total),
+            "made": money(made_total),
+            "last_24h": money(last_24h_total),
+            "seven_day": money(seven_day_total),
+            "ie_period": money(ie_total),
+            "ie_last_24h": money(ie_last_24h),
+            "ie_seven_day": money(ie_seven_day),
+            "ie_support": money(ie_support),
+            "ie_oppose": money(ie_oppose),
+            "ie_reports": len(ie_items),
+        },
+        "sparkline": sparkline,
+        "daily_buckets": daily_buckets,
+        "top_donors": top_donors,
+        "recent_contributions": recent,
+        "recent_ie": recent_ie,
+        "empty": len(period_items) == 0 and len(ie_items) == 0,
+    }
+
+
+def build_late_money_bundle(
+    beach: dict,
+    districts_money: Dict[str, dict],
+    cvr_rows: List[dict],
+    extract_dir: Path,
+    as_of: str,
+    zip_as_of: Optional[str],
+) -> dict:
+    cycle_year = int(beach.get("cycle_year") or 2026)
+    beach_dist_nos = {d["dist_no"] for d in beach["districts"]}
+    filer_to_district: Dict[str, str] = {}
+    for d in beach["districts"]:
+        did = d["id"]
+        dm = districts_money.get(did) or {}
+        for c in dm.get("candidates") or []:
+            fid = c.get("filer_id")
+            if fid:
+                filer_to_district[str(fid)] = did
+
+    districts_out = {}
+    summary = []
+    for d in beach["districts"]:
+        dm = districts_money.get(d["id"]) or {}
+        payload = build_late_money_district_payload(
+            d, dm, cvr_rows, extract_dir, filer_to_district, beach_dist_nos, cycle_year
+        )
+        districts_out[d["id"]] = payload
+        t = payload["totals"]
+        summary.append({
+            "id": d["id"],
+            "code": d["code"],
+            "linked_f497_filings": payload["linked_f497_filings"],
+            "period_contribution_reports": t["period_contribution_reports"],
+            "period_contributions": t["period_contributions"],
+            "seven_day": t["seven_day"],
+            "ie_reports": t["ie_reports"],
+            "ie_period": t["ie_period"],
+        })
+
+    return {
+        "schema_version": 1,
+        "generated_at": as_of,
+        "data_as_of": zip_as_of or as_of,
+        "election_date": GENERAL_ELECTION_DATE.date().isoformat(),
+        "window_start": LATE_MONEY_WINDOW_START.date().isoformat(),
+        "window_end": GENERAL_ELECTION_DATE.date().isoformat(),
+        "window_days": LATE_REPORTING_PERIOD_DAYS,
+        "fppc_reference": "https://www.fppc.ca.gov/siteassets/documents/tad/manuals/campaign/manual_2/Manual_2_Ch_11_Additional_Reports.pdf",
+        "source": {
+            "publisher": "California Secretary of State — Political Reform Division",
+            "dataset": "CAL-ACCESS raw data (daily ZIP)",
+            "url": OFFICIAL_ZIP_URL,
+            "page": OFFICIAL_PAGE,
+            "tables_used": [
+                "CVR_CAMPAIGN_DISCLOSURE_CD (F497 covers)",
+                "S497_CD (Form 497 late contributions made/received)",
+                "S496_CD (Form 496 independent expenditures, window-filtered)",
+            ],
+            "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement.",
+            "notes": [
+                "District linkage: matched candidate committee filer IDs from beachhead roster + ASM/DIST_NO on S497 lines when election date matches the cycle.",
+                "Amendments: latest AMEND_ID per FILING_ID; schedule rows deduped by TRAN_ID.",
+                "Tracking window: FPPC 90-day election cycle ending on the configured general election date.",
+                "Last 24h / 7-day totals use contribution (497) or expenditure (496) dates vs export as-of date.",
+                "Street addresses from raw filings are not exported.",
+            ],
+        },
+        "districts": districts_out,
+        "summary_report": summary,
+    }
+
+
+def write_late_money_json(bundle: dict, extract_dir: Path) -> Path:
+    LATEST_DIR.mkdir(parents=True, exist_ok=True)
+    dest = LATEST_DIR / "late-money-by-district.json"
+    with open(dest, "w", encoding="utf-8") as f:
+        json.dump(bundle, f, indent=2)
+        f.write("\n")
+    log(f"[ok] wrote {dest}")
+    dated = LATEST_DIR / f"late-money-by-district-{extract_dir.name}.json"
+    shutil.copy2(dest, dated)
+    log(f"[ok] wrote {dated}")
+    return dest
+
+
 def candidate_series_placeholder(receipts: float, spend: float) -> List[float]:
     """Even pace placeholder series from cycle totals (no daily candidate ledger without RCPT/EXPN)."""
     if not spend:
@@ -824,7 +1292,7 @@ def run_pipeline(extract_dir: Path, zip_path: Optional[Path], skip_download_meta
                 "CVR_CAMPAIGN_DISCLOSURE_CD",
                 "SMRY_CD",
                 "S496_CD",
-                "S497_CD (reserved / late contributions; not yet in Money rollups)",
+                "S497_CD (Form 497 late contributions — see late-money-by-district.json)",
                 "FILERNAME_CD (available for enrichment)",
             ],
             "tables_skipped": [
@@ -855,6 +1323,17 @@ def run_pipeline(extract_dir: Path, zip_path: Optional[Path], skip_download_meta
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump({"generated_at": as_of, "report": match_report}, f, indent=2)
         f.write("\n")
+
+    log("[late-money] building FPPC 90-day Form 497 / 496 rollups…")
+    late_bundle = build_late_money_bundle(beach, districts_out, cvr_rows, extract_dir, as_of, zip_as_of)
+    write_late_money_json(late_bundle, extract_dir)
+    for row in late_bundle["summary_report"]:
+        log(
+            f"  {row['code']}: F497 filings linked={row['linked_f497_filings']} "
+            f"period497={row['period_contribution_reports']} (${row['period_contributions']:,.2f}) "
+            f"7d=${row['seven_day']:,.2f} period496={row['ie_reports']} (${row['ie_period']:,.2f})"
+        )
+
     return dest
 
 

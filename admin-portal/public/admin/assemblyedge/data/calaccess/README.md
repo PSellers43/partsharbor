@@ -19,7 +19,7 @@ Official California Secretary of State **daily raw ZIP** → district money JSON
 | `CVR_CAMPAIGN_DISCLOSURE_CD.TSV` | Cover pages: filer, candidate, `OFFICE_CD=ASM`, `DIST_NO`, Form 460/496/465, support/oppose |
 | `SMRY_CD.TSV` | Form 460 summary lines — **line 5** = total contributions (period), **line 11** = total expenditures |
 | `S496_CD.TSV` | Late independent expenditure amounts (Form 496 schedule) |
-| `S497_CD.TSV` | Late contributions (extracted; reserved for future Money/alerts wiring) |
+| `S497_CD.TSV` | Form 497 late contributions (made/received) → `late-money-by-district.json` |
 | `FILERNAME_CD.TSV` | Filer names (available for enrichment) |
 
 **Not expanded (too large):** `RCPT_CD.TSV` (~3.8 GB), `EXPN_CD.TSV` (~3.1 GB). Period committee totals come from `SMRY_CD` instead of itemizing every receipt/expense.
@@ -36,6 +36,8 @@ data/calaccess/
   latest/
     money-by-district.json           # consumed by the prototype
     money-by-district-YYYY-MM-DD.json
+    late-money-by-district.json      # Form 497/496 final-27-day window
+    late-money-by-district-YYYY-MM-DD.json
     match-report.json
 ```
 

@@ -149,6 +149,14 @@ window.AE = window.AE || {};
       };
     }
 
+    if (/late money|late contribution|form\s*497|\b497\b/.test(q) && districtId) {
+      return {
+        intent: "late_money_district",
+        districtId,
+        limit: Math.min(limit, 20),
+      };
+    }
+
     if (/swung|swing|shift|moved/.test(q) && /(2022|2024|precinct)/.test(q)) {
       return {
         intent: "precinct_swing",
@@ -228,6 +236,8 @@ window.AE = window.AE || {};
         return execPrecinctSwing(q);
       case "ie_week_spend":
         return Promise.resolve(execIeWeekSpend(q));
+      case "late_money_district":
+        return Promise.resolve(execLateMoneyDistrict(q));
       case "registration_compare":
         return Promise.resolve(execRegistrationCompare(q));
       case "abev_mail_returns":
@@ -366,6 +376,72 @@ window.AE = window.AE || {};
         query: q,
       };
     });
+  }
+
+  function execLateMoneyDistrict(q) {
+    const districtId = q.districtId || "ad-7";
+    const row = AE.lateMoney && AE.lateMoney.districtRow ? AE.lateMoney.districtRow(districtId) : null;
+    const meta = AE.lateMoney && AE.lateMoney.meta ? AE.lateMoney.meta() : null;
+    const asOf = meta && (meta.data_as_of || meta.generated_at);
+    if (!row) {
+      return {
+        ok: false,
+        title: `Late money · ${districtLabel(districtId)}`,
+        summary: AE.lateMoneyLoadError
+          ? "Late-money JSON failed to load."
+          : "No late-money row for this district.",
+        rows: [],
+        sources: [sourceMeta("CAL-ACCESS late-money-by-district", asOf)],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    const t = row.totals || {};
+    const win = row.window || {};
+    const recent = (row.recent_contributions || []).slice(0, q.limit || 15);
+    return {
+      ok: true,
+      title: `Late money · ${districtLabel(districtId)} · FPPC 90-day period`,
+      summary:
+        `${formatMoneyFull(t.period_contributions)} on ${t.period_contribution_reports || 0} Form 497 lines ` +
+        `(${win.start || "—"} → ${win.end || "—"}). Last 24h ${formatMoneyFull(t.last_24h)} · 7-day ${formatMoneyFull(t.seven_day)} · ` +
+        `IE ${formatMoneyFull(t.ie_period)} (${t.ie_reports || 0} S496 lines).`,
+      columns: [
+        { key: "date", label: "Date" },
+        { key: "entity", label: "Contributor / recipient" },
+        { key: "direction", label: "497" },
+        { key: "amount", label: "Amount" },
+      ],
+      rows: recent.map((r) => ({
+        date: r.contrib_date || "—",
+        entity: r.entity,
+        direction: r.direction,
+        amount: formatMoneyFull(r.amount),
+      })),
+      totals: {
+        period_497: t.period_contributions,
+        last_24h: t.last_24h,
+        seven_day: t.seven_day,
+        ie_period: t.ie_period,
+      },
+      sources: [
+        sourceMeta(
+          "CAL-ACCESS · S497 + S496 (90-day FPPC window)",
+          asOf,
+          meta && meta.source && meta.source.url
+        ),
+      ],
+      deepLinks: [
+        {
+          label: `Open ${districtLabel(districtId)} · Money tab`,
+          type: "district-tab",
+          districtId,
+          tab: "money",
+        },
+      ],
+      mode: "deterministic",
+      query: q,
+    };
   }
 
   function execIeWeekSpend(q) {

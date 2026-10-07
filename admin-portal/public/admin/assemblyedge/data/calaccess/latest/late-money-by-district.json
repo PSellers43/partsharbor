@@ -1,0 +1,1285 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-07T21:16:34.954880Z",
+  "data_as_of": "2026-10-07T21:05:17.725231Z",
+  "election_date": "2026-11-03",
+  "window_start": "2026-10-07",
+  "window_end": "2026-11-03",
+  "window_days": 27,
+  "source": {
+    "publisher": "California Secretary of State \u2014 Political Reform Division",
+    "dataset": "CAL-ACCESS raw data (daily ZIP)",
+    "url": "https://campaignfinance.cdn.sos.ca.gov/dbwebexport.zip",
+    "page": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
+    "tables_used": [
+      "CVR_CAMPAIGN_DISCLOSURE_CD (F497 covers)",
+      "S497_CD (Form 497 late contributions made/received)",
+      "S496_CD (Form 496 independent expenditures, window-filtered)"
+    ],
+    "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement.",
+    "notes": [
+      "District linkage: matched candidate committee filer IDs from beachhead roster + ASM/DIST_NO on S497 lines when election date matches the cycle.",
+      "Amendments: latest AMEND_ID per FILING_ID; schedule rows deduped by TRAN_ID.",
+      "Tracking window: final 27 days before the configured general election date.",
+      "Street addresses from raw filings are not exported."
+    ]
+  },
+  "districts": {
+    "ad-7": {
+      "id": "ad-7",
+      "code": "AD-7",
+      "dist_no": "7",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 213,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    },
+    "ad-47": {
+      "id": "ad-47",
+      "code": "AD-47",
+      "dist_no": "47",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 196,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    },
+    "ad-58": {
+      "id": "ad-58",
+      "code": "AD-58",
+      "dist_no": "58",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 237,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    },
+    "ad-74": {
+      "id": "ad-74",
+      "code": "AD-74",
+      "dist_no": "74",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 131,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    },
+    "ad-36": {
+      "id": "ad-36",
+      "code": "AD-36",
+      "dist_no": "36",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 266,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    },
+    "ad-27": {
+      "id": "ad-27",
+      "code": "AD-27",
+      "dist_no": "27",
+      "window": {
+        "start": "2026-10-07",
+        "end": "2026-11-03",
+        "days": 27,
+        "election_date": "2026-11-03"
+      },
+      "linked_f497_filings": 321,
+      "totals": {
+        "window_contributions": 0.0,
+        "window_contribution_reports": 0,
+        "received": 0.0,
+        "made": 0.0,
+        "daily": 0.0,
+        "seven_day": 0.0,
+        "ie_window": 0.0,
+        "ie_support": 0.0,
+        "ie_oppose": 0.0,
+        "ie_reports": 0
+      },
+      "sparkline": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "daily_buckets": [
+        {
+          "date": "2026-10-07",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-08",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-09",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-10",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-11",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-12",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-13",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-14",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-15",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-16",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-17",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-18",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-19",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-20",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-21",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-22",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-23",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-24",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-25",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-26",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-27",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-28",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-29",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-30",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-10-31",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-01",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-02",
+          "amount": 0.0,
+          "count": 0
+        },
+        {
+          "date": "2026-11-03",
+          "amount": 0.0,
+          "count": 0
+        }
+      ],
+      "top_donors": [],
+      "recent_contributions": [],
+      "recent_ie": [],
+      "empty": true
+    }
+  },
+  "summary_report": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "linked_f497_filings": 213,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "linked_f497_filings": 196,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "linked_f497_filings": 237,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "linked_f497_filings": 131,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "linked_f497_filings": 266,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "linked_f497_filings": 321,
+      "window_contribution_reports": 0,
+      "window_contributions": 0.0,
+      "ie_reports": 0,
+      "ie_window": 0.0
+    }
+  ]
+}
