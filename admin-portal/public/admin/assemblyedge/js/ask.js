@@ -149,7 +149,7 @@ window.AE = window.AE || {};
       };
     }
 
-    if (/swing|shift|moved/.test(q) && /(2022|2024|precinct)/.test(q)) {
+    if (/swung|swing|shift|moved/.test(q) && /(2022|2024|precinct)/.test(q)) {
       return {
         intent: "precinct_swing",
         districtId: districtId || "ad-7",
