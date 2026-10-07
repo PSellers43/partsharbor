@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T02:08:12.022013Z",
+  "generated_at": "2026-10-07T15:47:40.866421Z",
   "report": [
     {
       "id": "ad-7",
@@ -47,7 +47,7 @@
           "live": true
         }
       ],
-      "ie_count": 9
+      "ie_count": 11
     },
     {
       "id": "ad-47",
@@ -171,7 +171,7 @@
           "live": true
         }
       ],
-      "ie_count": 3
+      "ie_count": 4
     },
     {
       "id": "ad-36",
