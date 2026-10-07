@@ -1,6 +1,6 @@
-# Public polling refresh (AssemblyEdge beachheads)
+# Public polling refresh (MajorityIQ beachheads)
 
-Curated **horse-race** public polls for tracked Assembly districts. AssemblyEdge never invents poll numbers — only rows with a labeled source belong here.
+Curated **horse-race** public polls for tracked Assembly districts. MajorityIQ never invents poll numbers — only rows with a labeled source belong here.
 
 ## File
 
@@ -17,7 +17,7 @@ Curated **horse-race** public polls for tracked Assembly districts. AssemblyEdge
 3. Optional **`history`**: older public polls (newest first) for sparklines; still cite sources.
 4. Do **not** paste election-night results or forecast models as “polls.”
 5. Campaign-commissioned surveys are allowed when disclosed; set `sponsor` and prefer independent/public pollsters when available.
-6. Commit and deploy static assets; reload AssemblyEdge — the **Polling & gaps** page picks up `latest.json` via `fetch` (no build step).
+6. Commit and deploy static assets; reload MajorityIQ — the **Polling & gaps** page picks up `latest.json` via `fetch` (no build step).
 
 ## UI behavior
 

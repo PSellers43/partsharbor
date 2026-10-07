@@ -20,9 +20,9 @@
       "assembly_district_limitation": "PDF is county-level; AD aggregation requires county feeds or SWDB-style precinct joins."
     },
     "inspiration": {
-      "label": "Civiq ABEV (statewide ballot return tracker)",
-      "url": "https://abev.civiq.vote/",
-      "note": "AssemblyEdge shows beachhead AD depth, not a statewide clone."
+      "label": "Public statewide ballot-return trackers",
+      "url": "",
+      "note": "MajorityIQ shows beachhead AD depth, not a statewide clone."
     }
   },
   "gaps": [],

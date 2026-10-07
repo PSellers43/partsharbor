@@ -1,4 +1,4 @@
-# Election history — precinct margins (AssemblyEdge Focus drill)
+# Election history — precinct margins (MajorityIQ Focus drill)
 
 Static **SR precinct** GeoJSON for beachhead Assembly districts: real two-party **Assembly** margins from the UC Berkeley Statewide Database (SWDB), clipped to CRC 2020 AD boundaries. Consumed by the Focus intra-district drill **Election history** layer (`js/election-history.js`).
 
@@ -29,7 +29,7 @@ data/election-history/
 
 ## Refresh
 
-From the AssemblyEdge static root (`admin-portal/public/admin/assemblyedge/`):
+From the MajorityIQ static root (`admin-portal/public/admin/assemblyedge/`):
 
 ```bash
 python3 data/election-history/scripts/build_election_history_precincts.py

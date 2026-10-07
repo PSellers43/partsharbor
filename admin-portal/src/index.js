@@ -257,9 +257,12 @@ app.get("/admin", async (c) => {
   );
 });
 
+/** Legacy URL prefix (static assets on disk). MajorityIQ is the product name. */
 const ASSEMBLYEDGE_PREFIX = "/admin/assemblyedge";
+/** Canonical alias — same authenticated app, rewritten to legacy asset paths. */
+const MAJORITYIQ_PREFIX = "/admin/majorityiq";
 
-async function serveAssemblyEdge(c) {
+async function serveMajorityIQDesk(c) {
   const session = c.get("session");
   const config = c.get("config");
   if (!session.admin?.id) {
@@ -283,13 +286,21 @@ async function serveAssemblyEdge(c) {
     );
   }
 
-  const assetResponse = await assets.fetch(c.req.raw);
+  const incoming = new URL(c.req.url);
+  let assetPath = incoming.pathname;
+  if (assetPath.startsWith(MAJORITYIQ_PREFIX)) {
+    assetPath =
+      ASSEMBLYEDGE_PREFIX + assetPath.slice(MAJORITYIQ_PREFIX.length) || `${ASSEMBLYEDGE_PREFIX}/`;
+  }
+  const assetUrl = new URL(assetPath + incoming.search, incoming.origin);
+  const assetRequest = new Request(assetUrl.toString(), c.req.raw);
+  const assetResponse = await assets.fetch(assetRequest);
   if (assetResponse.status === 404) {
     return htmlBody(
       c,
       renderError({
         title: "Not found",
-        message: "That AssemblyEdge asset does not exist.",
+        message: "That MajorityIQ asset does not exist.",
         status: 404,
       }),
       404,
@@ -305,7 +316,9 @@ async function serveAssemblyEdge(c) {
 }
 
 app.get(ASSEMBLYEDGE_PREFIX, (c) => c.redirect(`${ASSEMBLYEDGE_PREFIX}/`, 302));
-app.get(`${ASSEMBLYEDGE_PREFIX}/*`, serveAssemblyEdge);
+app.get(`${ASSEMBLYEDGE_PREFIX}/*`, serveMajorityIQDesk);
+app.get(MAJORITYIQ_PREFIX, (c) => c.redirect(`${MAJORITYIQ_PREFIX}/`, 302));
+app.get(`${MAJORITYIQ_PREFIX}/*`, serveMajorityIQDesk);
 
 app.post("/admin/logout", async (c) => {
   const config = c.get("config");

@@ -48,7 +48,7 @@ PLACE_MAX_PTS = 48
 
 
 def fetch_bytes(url: str) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "AssemblyEdge-build/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "MajorityIQ-build/1.0"})
     with urllib.request.urlopen(req, timeout=180) as resp:
         return resp.read()
 

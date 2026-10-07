@@ -56,18 +56,18 @@ npm run dev                      # http://localhost:8787
 
 1. Open http://localhost:8787/admin/login  
 2. Sign in (default user `admin` after bootstrap)  
-3. Dashboard → **Open AssemblyEdge** (`/admin/assemblyedge/`) → logout → login again  
+3. Dashboard → **Open MajorityIQ** (`/admin/assemblyedge/` or `/admin/majorityiq/`) → logout → login again  
 
 `wrangler dev` uses a **local** D1 database under `.wrangler/` (not committed). Re-run bootstrap after wiping local state.
 
-### AssemblyEdge (authenticated prototype)
+### MajorityIQ (authenticated war-room desk)
 
-The AssemblyEdge interactive prototype lives under **`/admin/assemblyedge/`** (static files in `admin-portal/public/admin/assemblyedge/`). It is **not** published on GitHub Pages.
+The **MajorityIQ** interactive desk lives under **`/admin/assemblyedge/`** (static files in `admin-portal/public/admin/assemblyedge/`). The alias **`/admin/majorityiq/`** serves the same app. It is **not** published on GitHub Pages.
 
-- **Auth:** Same session cookie as the admin dashboard. Wrangler `run_worker_first` routes `/admin/assemblyedge` and `/admin/assemblyedge/*` through the Worker so unauthenticated clients cannot read AE HTML, JS, CSS, or CAL-ACCESS JSON from Workers Assets.
-- **Entry:** After sign-in, use **Open AssemblyEdge** on the dashboard, or open `/admin/assemblyedge/` directly (you will be redirected to login with a `next` return URL if needed).
+- **Auth:** Same session cookie as the admin dashboard. Wrangler `run_worker_first` routes `/admin/assemblyedge`, `/admin/assemblyedge/*`, `/admin/majorityiq`, and `/admin/majorityiq/*` through the Worker so unauthenticated clients cannot read desk HTML, JS, CSS, or CAL-ACCESS JSON from Workers Assets.
+- **Entry:** After sign-in, use **Open MajorityIQ** on the dashboard, or open `/admin/assemblyedge/` or `/admin/majorityiq/` directly (you will be redirected to login with a `next` return URL if needed).
 - **Redeploy:** From `admin-portal/`, run `npm run deploy` after changing AE static files or Worker code. No separate AE deploy step.
-- **Smoke (local):** After `npm run dev`, unauthenticated `GET /admin/assemblyedge/` → `302` to login; after sign-in, `GET /admin/assemblyedge/` returns the AE shell HTML and `/admin/assemblyedge/js/app.js` returns `200`; logout → AE URLs redirect to login again.
+- **Smoke (local):** After `npm run dev`, unauthenticated `GET /admin/assemblyedge/` → `302` to login; after sign-in, `GET /admin/assemblyedge/` returns the MajorityIQ shell HTML and `/admin/assemblyedge/js/app.js` returns `200`; logout → desk URLs redirect to login again.
 
 ## Bootstrap (first admin)
 
@@ -147,7 +147,7 @@ Until DNS is ready, use the `*.workers.dev` URL from `wrangler deploy`.
 
 - No client-only auth on GitHub Pages.  
 - No default password in the repo.  
-- AssemblyEdge is mounted only on the admin Worker (`/admin/assemblyedge/`), not on the public site.
+- MajorityIQ is mounted only on the admin Worker (`/admin/assemblyedge/` and `/admin/majorityiq/`), not on the public site.
 
 ## Threat model (short)
 

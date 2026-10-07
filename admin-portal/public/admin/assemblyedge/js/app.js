@@ -1,4 +1,4 @@
-/* AssemblyEdge prototype — vanilla SPA navigation + interactions */
+/* MajorityIQ prototype — vanilla SPA navigation + interactions */
 
 (function () {
   "use strict";
@@ -1518,7 +1518,7 @@
       <div class="brief-shell">
         <div class="brief-masthead">
           <div class="brief-masthead-main">
-            <div class="brief-product">AssemblyEdge · Monday Brief</div>
+            <div class="brief-product">MajorityIQ · Monday Brief</div>
             <div class="brief-week">${b.weekOf} · ${d.code} ${d.name}</div>
           </div>
           <div class="brief-masthead-aside">
@@ -1545,7 +1545,7 @@
             .join("")}
         </div>
         <div class="brief-footer">
-          AssemblyEdge prototype · Sources in production: CAL-ACCESS, Meta Ad Library, Google Ads Transparency, sourced news.
+          MajorityIQ prototype · Sources in production: CAL-ACCESS, Meta Ad Library, Google Ads Transparency, sourced news.
           Not an official FPPC, Secretary of State, or caucus product. Decision chips are guidance taxonomy only.
         </div>
       </div>`;

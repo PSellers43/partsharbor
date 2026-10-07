@@ -1,4 +1,4 @@
-/* AssemblyEdge — DEMO / ILLUSTRATIVE DATA ONLY
+/* MajorityIQ — DEMO / ILLUSTRATIVE DATA ONLY
    Not real CAL-ACCESS filings, polls, or ad library totals.
    Structure is plausible; figures are fictional for prototype UX. */
 

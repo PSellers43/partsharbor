@@ -1,6 +1,6 @@
 # Ballot returns (ABEV-style) — beachhead Assembly districts
 
-AssemblyEdge step 3: vote-by-mail / ballot-return progress for **AD-7, 27, 36, 47, 58, 74** (CRC 2020 lines). Inspired by [Civiq ABEV](https://abev.civiq.vote/) but scoped to beachhead depth—not a statewide clone.
+MajorityIQ step 3: vote-by-mail / ballot-return progress for **AD-7, 27, 36, 47, 58, 74** (CRC 2020 lines). Scoped to beachhead Assembly depth—not a statewide ballot-return clone.
 
 ## What ships in the UI
 

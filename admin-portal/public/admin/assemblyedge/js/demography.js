@@ -1,4 +1,4 @@
-/* AssemblyEdge — demography + registration loader (Focus drill panel) */
+/* MajorityIQ — demography + registration loader (Focus drill panel) */
 
 window.AE = window.AE || {};
 

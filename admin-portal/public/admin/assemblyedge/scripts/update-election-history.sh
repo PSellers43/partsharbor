@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Refresh SWDB precinct election history layers for AssemblyEdge Focus drill.
+# Refresh SWDB precinct election history layers for MajorityIQ Focus drill.
 # Downloads SWDB SOV + SR precinct shapes, Census TIGER places (city/CDP join), writes latest/*.geojson.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

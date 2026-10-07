@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cron-friendly daily CAL-ACCESS refresh for AssemblyEdge.
+# Cron-friendly daily CAL-ACCESS refresh for MajorityIQ.
 # Example crontab (PT): 30 7 * * * /path/to/assemblyedge-prototype/scripts/update-calaccess.sh >> /var/log/calaccess-update.log 2>&1
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"

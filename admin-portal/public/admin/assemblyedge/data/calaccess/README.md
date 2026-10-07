@@ -1,4 +1,4 @@
-# CAL-ACCESS ingest (AssemblyEdge)
+# CAL-ACCESS ingest (MajorityIQ)
 
 Official California Secretary of State **daily raw ZIP** → district money JSON for the prototype Money panel.
 
@@ -63,4 +63,4 @@ Name matching is **imperfect** (aliases, misspellings, ballot-measure committees
 
 ## Legal / attribution
 
-Public SOS CAL-ACCESS data. **Not** an FPPC, Secretary of State, or caucus endorsement. AssemblyEdge does not provide legal advice.
+Public SOS CAL-ACCESS data. **Not** an FPPC, Secretary of State, or caucus endorsement. MajorityIQ does not provide legal advice.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "updated_at": "2026-10-07T16:00:00-07:00",
-  "updated_by": "AssemblyEdge desk seed",
+  "updated_by": "MajorityIQ desk seed",
   "gap_recent_days": 90,
   "notes": "Horse-race polls only. Election results and model projections are not polls.",
   "districts": [

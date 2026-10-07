@@ -1,4 +1,4 @@
-/* AssemblyEdge — intra-district focus drill-down (cities / CDPs) */
+/* MajorityIQ — intra-district focus drill-down (cities / CDPs) */
 
 window.AE = window.AE || {};
 

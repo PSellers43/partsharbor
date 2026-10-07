@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build AssemblyEdge demography + voter-registration JSON for beachhead ADs.
+"""Build MajorityIQ demography + voter-registration JSON for beachhead ADs.
 
 Sources (free / public):
   - U.S. Census Bureau ACS 5-year (via Census Reporter API mirror, no key)
@@ -48,7 +48,7 @@ NS = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
 
 
 def fetch_bytes(url: str, timeout: int = 180) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "AssemblyEdge-demography-build/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "MajorityIQ-demography-build/1.0"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
 

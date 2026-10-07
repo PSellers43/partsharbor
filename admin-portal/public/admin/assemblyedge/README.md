@@ -1,4 +1,4 @@
-# AssemblyEdge — Interactive Prototype
+# MajorityIQ — Interactive Prototype
 
 Premium war-room desk for **CA Assembly Republican competitive intelligence** (District Threat Index). Static HTML/CSS/JS — no build step, no paid APIs.
 
