@@ -409,12 +409,12 @@
     const svg = wrap.querySelector(".focus-drill-svg");
     if (!svg) return;
 
-    let tooltip = wrap.querySelector(".precinct-map-tooltip");
+    let tooltip = document.querySelector(".precinct-map-tooltip");
     if (!tooltip) {
       tooltip = document.createElement("div");
       tooltip.className = "precinct-map-tooltip";
       tooltip.hidden = true;
-      wrap.appendChild(tooltip);
+      document.body.appendChild(tooltip);
     }
 
     const byId = {};
@@ -429,15 +429,23 @@
       }
       tooltip.innerHTML = AE.electionHistory.tooltipHtml(row, state.focusDrillRace);
       tooltip.hidden = false;
+      const theme = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
+      tooltip.dataset.theme = theme;
+      tooltip.style.backgroundColor = theme === "light" ? "#ffffff" : "#151a23";
+      tooltip.style.border = theme === "light" ? "1px solid #d5dbe6" : "1px solid #2a3140";
+      tooltip.style.transform = "translateZ(0)";
       const rect = wrap.getBoundingClientRect();
-      let left = clientX - rect.left + 12;
-      let top = clientY - rect.top + 12;
+      let left = clientX + 12;
+      let top = clientY + 12;
       tooltip.style.left = left + "px";
       tooltip.style.top = top + "px";
       requestAnimationFrame(() => {
         const tr = tooltip.getBoundingClientRect();
-        if (left + tr.width > rect.width - 4) left = Math.max(4, rect.width - tr.width - 4);
-        if (top + tr.height > rect.height - 4) top = Math.max(4, top - tr.height - 20);
+        const pad = 8;
+        if (left + tr.width > rect.right - pad) left = Math.max(rect.left + pad, rect.right - tr.width - pad);
+        if (left < rect.left + pad) left = rect.left + pad;
+        if (top + tr.height > rect.bottom - pad) top = Math.max(rect.top + pad, clientY - tr.height - 16);
+        if (top < rect.top + pad) top = rect.top + pad;
         tooltip.style.left = left + "px";
         tooltip.style.top = top + "px";
       });
@@ -670,8 +678,15 @@
 
     if (inHistory && (histErr || !AE.electionPrecinctGeo[districtId])) {
       wrap.innerHTML = `<div class="empty-state"><h3>Election history unavailable</h3><p>${histErr || "Loading precinct layer…"}</p></div>`;
+      const staleTip = document.querySelector(".precinct-map-tooltip");
+      if (staleTip) staleTip.hidden = true;
       renderFocusDrillLegend();
       return;
+    }
+
+    if (!inHistory) {
+      const staleTip = document.querySelector(".precinct-map-tooltip");
+      if (staleTip) staleTip.hidden = true;
     }
 
     const placeLayers = AE.focusDrill.placePaths(
