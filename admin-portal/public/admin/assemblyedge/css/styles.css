@@ -3192,3 +3192,65 @@ body[data-role="cm"] .cm-strip {
     width: 100%;
   }
 }
+
+/* Beachhead desk district selector (Board + Brief) */
+.desk-district-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.desk-district-label-inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.desk-district-label-text {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  font-weight: 650;
+  white-space: nowrap;
+}
+.desk-district-select {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  max-width: 100%;
+  min-width: 160px;
+}
+.brief-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.cm-live-intel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.cm-live-intel .card {
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .desk-district-select {
+    width: 100%;
+    min-width: 0;
+  }
+  .brief-header-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .brief-header-actions .btn {
+    width: 100%;
+  }
+}

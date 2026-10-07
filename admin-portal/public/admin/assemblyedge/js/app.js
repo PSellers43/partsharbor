@@ -6,9 +6,47 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
+  const DESK_BEACHHEAD_IDS = ["ad-7", "ad-27", "ad-36", "ad-47", "ad-58", "ad-74"];
+  const LS_DESK_DISTRICT = "ae-desk-district";
+
+  function readDeskDistrictId() {
+    const saved = localStorage.getItem(LS_DESK_DISTRICT);
+    return saved && DESK_BEACHHEAD_IDS.includes(saved) ? saved : "ad-7";
+  }
+
+  function deskDistrict() {
+    return AE.districts.find((x) => x.id === state.deskDistrictId) || AE.districts[0];
+  }
+
+  function setDeskDistrictId(id) {
+    if (!DESK_BEACHHEAD_IDS.includes(id)) return;
+    state.deskDistrictId = id;
+    localStorage.setItem(LS_DESK_DISTRICT, id);
+    syncDeskDistrictSelects();
+    if (state.page === "cm") renderCM();
+    if (state.page === "brief") renderBrief();
+  }
+
+  function deskDistrictSelectOptions(selectedId) {
+    return DESK_BEACHHEAD_IDS.map((id) => {
+      const d = AE.districts.find((x) => x.id === id);
+      if (!d) return "";
+      return `<option value="${id}"${id === selectedId ? " selected" : ""}>${d.code} · ${d.incumbent} (${d.party})</option>`;
+    }).join("");
+  }
+
+  function syncDeskDistrictSelects() {
+    const html = deskDistrictSelectOptions(state.deskDistrictId);
+    ["#desk-district-select-cm", "#desk-district-select-brief"].forEach((sel) => {
+      const el = $(sel);
+      if (el) el.innerHTML = html;
+    });
+  }
+
   const state = {
     page: "portfolio",
     districtId: "ad-7",
+    deskDistrictId: readDeskDistrictId(),
     tab: "threat",
     theme: localStorage.getItem("ae-theme") || "dark",
     role: (window.AE && AE.CM && AE.CM.getRole()) || localStorage.getItem("ae-role") || "analyst",
@@ -1156,14 +1194,168 @@
   function renderCMAbev() {
     const wrap = $("#cm-abev-wrap");
     if (!wrap || !AE.abev || !AE.abev.renderPanel) return;
+    const d = deskDistrict();
     if (AE.abevLoadError || !AE.abevData) {
-      wrap.innerHTML = `<h3 class="card-title">Ballot returns</h3><p class="intel-teaser-desc">${AE.abevLoadError || "Loading…"}</p>`;
+      wrap.innerHTML = `<h3 class="card-title">Ballot returns · ${d.code}</h3><p class="intel-teaser-desc">${AE.abevLoadError || "Loading…"}</p>`;
       return;
     }
-    wrap.innerHTML = `<h3 class="card-title" style="margin-bottom:10px">Ballot chase pulse · AD-7</h3>${AE.abev.renderPanel("ad-7", true)}${AE.abev.renderPortfolioStrip()}`;
+    wrap.innerHTML = `<h3 class="card-title" style="margin-bottom:10px">Ballot chase pulse · ${d.code}</h3>${AE.abev.renderPanel(d.id, true)}${AE.abev.renderPortfolioStrip()}`;
     wrap.querySelectorAll("[data-district-abev]").forEach((el) => {
-      el.addEventListener("click", () => navigate("focus-map", { focusDrillId: el.dataset.districtAbev }));
+      el.addEventListener("click", () => {
+        setDeskDistrictId(el.dataset.districtAbev);
+        navigate("cm");
+      });
     });
+  }
+
+  function renderDeskMoneySummary(districtId) {
+    const liveDist = liveDistrictMoney(districtId);
+    if (AE.liveMoneyLoadError) {
+      return `<p class="intel-teaser-desc">CAL-ACCESS unavailable (${AE.liveMoneyLoadError}).</p>`;
+    }
+    if (!liveDist) {
+      return `<p class="intel-teaser-desc">No CAL-ACCESS row for this beachhead.</p>`;
+    }
+    const asOf = formatAsOf((AE.liveMoney && (AE.liveMoney.data_as_of || AE.liveMoney.generated_at)) || "");
+    const badge =
+      liveDist.live && liveDist.status !== "weak"
+        ? `<span class="chip chip-live">LIVE CAL-ACCESS</span>`
+        : `<span class="chip chip-live-weak">${liveDist.status === "weak" ? "Weak match" : "Partial"}</span>`;
+    const rows = [...(liveDist.candidates || []), ...(liveDist.ie || [])].filter((r) => r.live !== false);
+    if (!rows.length) {
+      return `<p class="intel-teaser-desc">${badge} As of ${asOf || "—"} — no matched committees with filed totals yet.</p>`;
+    }
+    const top = rows
+      .slice()
+      .sort((a, b) => (b.spend || 0) - (a.spend || 0))
+      .slice(0, 4)
+      .map(
+        (r) =>
+          `<li><strong>${AE.CM.escapeHtml(r.name)}</strong> · spend ${formatMoneyExact(r.spend)} · receipts ${formatMoneyExact(r.receipts)}</li>`
+      )
+      .join("");
+    return `<p style="margin:0 0 8px">${badge} As of <strong>${asOf || "—"}</strong></p><ul class="brief-bullets" style="margin:0">${top}</ul>`;
+  }
+
+  function renderCMLiveIntel() {
+    const wrap = $("#cm-live-intel");
+    if (!wrap) return;
+    const d = deskDistrict();
+    const pollRow = AE.polling && AE.polling.districtRow(d.id);
+    const ehMeta = AE.electionHistory && AE.electionHistory.districtMeta ? AE.electionHistory.districtMeta(d.id) : null;
+    const demoPanel =
+      AE.demography && AE.demography.renderPanel ? AE.demography.renderPanel(d.id) : `<p>Demography not loaded.</p>`;
+    wrap.innerHTML = `
+      <div class="card">
+        <h3 class="card-title">CAL-ACCESS money</h3>
+        ${renderDeskMoneySummary(d.id)}
+        <p style="margin:10px 0 0;font-size:12px"><button type="button" class="btn btn-ghost btn-sm" data-open-district-money="${d.id}">Full money panel</button></p>
+      </div>
+      <div class="card">
+        <h3 class="card-title">Polling &amp; gaps</h3>
+        ${pollRow ? pollRowHtml(pollRow, true) : `<p class="intel-teaser-desc">Polling row missing.</p>`}
+      </div>
+      <div class="card">
+        <h3 class="card-title">Precinct history</h3>
+        ${
+          ehMeta
+            ? `<p style="margin:0 0 8px;font-size:12.5px;color:var(--text-muted)">SWDB g22/g24 Assembly layers on Focus map drill-down.</p>
+               <button type="button" class="btn btn-ghost btn-sm" data-open-focus="${d.id}">Open ${d.code} places map</button>`
+            : `<p class="intel-teaser-desc">Election history index not loaded.</p>`
+        }
+      </div>
+      <div class="card cm-live-demography">${demoPanel}</div>`;
+    wrap.querySelector(`[data-open-district-money="${d.id}"]`)?.addEventListener("click", () =>
+      navigate("district", { districtId: d.id, tab: "money" })
+    );
+    wrap.querySelector(`[data-open-focus="${d.id}"]`)?.addEventListener("click", () =>
+      navigate("focus-map", { focusDrillId: d.id })
+    );
+  }
+
+  function briefWeekLabel() {
+    try {
+      const now = new Date();
+      const mon = new Date(now);
+      mon.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+      return (
+        "Week of " +
+        mon.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "America/Los_Angeles" })
+      );
+    } catch {
+      return "Current week";
+    }
+  }
+
+  function templatedBriefContent(d) {
+    const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
+    const bullets = [];
+    bullets.push(
+      `Threat Index ${d.threatIndex} (${deltaFmt(d.delta7d)} / 7d) — status ${meta.label}. <em>Demo desk signal only</em> — not a prediction.`
+    );
+    bullets.push(`${d.incumbent} (${d.party}) · ${d.region}. Roster aligned to <code>beachheads.json</code> and public SOS/CAL-ACCESS context.`);
+
+    const liveDist = liveDistrictMoney(d.id);
+    if (liveDist && (liveDist.candidates || []).some((c) => c.live)) {
+      const spendTotal = [...(liveDist.candidates || []), ...(liveDist.ie || [])]
+        .filter((r) => r.live !== false)
+        .reduce((s, r) => s + (r.spend || 0), 0);
+      bullets.push(
+        `CAL-ACCESS (live): ${formatMoneyExact(spendTotal)} combined filed spend across matched committees (${liveDist.status === "weak" ? "weak name match — verify filings" : "SOS daily ZIP"}).`
+      );
+    } else if (AE.liveMoneyLoadError) {
+      bullets.push(`CAL-ACCESS: unavailable (${AE.liveMoneyLoadError}).`);
+    } else {
+      bullets.push("CAL-ACCESS: no matched live committees in bundle — gap until ingest matches filings.");
+    }
+
+    const abevRow = AE.abev && AE.abev.districtRow(d.id);
+    if (abevRow && abevRow.live) {
+      const live = abevRow.live;
+      bullets.push(
+        live.returned != null
+          ? `Ballot chase: ${AE.abev.formatPct(live.pct_of_registration, 1)} of SOV registration returned (live feed).`
+          : `Ballot chase: ${live.gap_label || "Live 2026 returns not published"} — historical SWDB pace shown on board.`
+      );
+    }
+
+    const pollRow = AE.polling && AE.polling.districtRow(d.id);
+    if (pollRow) {
+      if (pollRow.poll && AE.polling.isRecent(pollRow.poll)) {
+        const m = pollRow.poll.margin;
+        bullets.push(
+          `Public poll (${pollRow.poll.pollster}, field end ${pollRow.poll.field_end}): ${m.leader_name} ${m.leader_pct}% vs ${m.trailer_name} ${m.trailer_pct}%.`
+        );
+      } else if (pollRow.poll) {
+        bullets.push(`Polling gap: latest public poll stale (${pollRow.poll.field_end}) — ${pollRow.gap?.message || "no recent horse-race poll"}.`);
+      } else {
+        bullets.push(`Polling gap: ${pollRow.gap?.message || "No public horse-race poll on file"}.`);
+      }
+    }
+
+    const demoRow = AE.demography && AE.demography.districtRow(d.id);
+    if (demoRow && demoRow.registration && demoRow.registration.total) {
+      bullets.push(
+        `Registration (SOS worksheet): ${AE.demography.formatNumber(demoRow.registration.total)} voters in ${d.code} — public aggregate, not a voter file.`
+      );
+    }
+
+    const ehMeta = AE.electionHistory && AE.electionHistory.districtMeta ? AE.electionHistory.districtMeta(d.id) : null;
+    if (ehMeta) {
+      bullets.push(`Precinct layers: ${ehMeta.races?.length ? ehMeta.races.join(", ") : "g22/g24 Assembly"} on Focus map drill-down.`);
+    }
+
+    const headline = `${d.code} · ${d.incumbent} (${d.party}) — live feeds brief (${meta.label} demo TI ${d.threatIndex})`;
+    return {
+      weekOf: briefWeekLabel(),
+      headline,
+      bullets,
+      decisions: [
+        { type: "hold", label: "Hold & monitor", note: "Use live money + ballot pace; deep CM priorities ship first on AD-7." },
+        { type: "message", label: "Message check", note: "Confirm public poll / narrative gaps before major spend shifts." },
+      ],
+      statusClass: meta.class,
+    };
   }
 
   function refreshIntelViews() {
@@ -1177,7 +1369,10 @@
       if (d) renderDistrictPollingStrip(d);
     }
     if (state.page === "focus-map") renderFocusMapPage();
-    if (state.page === "cm") renderCMAbev();
+    if (state.page === "cm") {
+      renderCMAbev();
+      renderCMLiveIntel();
+    }
   }
 
   function renderAds(d) {
@@ -1306,9 +1501,19 @@
 
   /* ——— Brief ——— */
   function renderBrief() {
-    const d = AE.districts.find((x) => x.id === "ad-7");
-    const b = AE.brief["ad-7"];
+    const d = deskDistrict();
+    syncDeskDistrictSelects();
+    const desc = $("#brief-page-desc");
+    if (desc) {
+      desc.textContent = `One-page printable desk brief for ${d.code} (${d.incumbent}). Export uses your browser print / Save as PDF.`;
+    }
+    const isDeep = d.id === "ad-7";
+    const b = isDeep ? AE.brief["ad-7"] : templatedBriefContent(d);
+    const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
     const el = $("#brief-body");
+    const demoChip = isDeep
+      ? `<p class="chip chip-demo brief-demo-chip">DEMO / ILLUSTRATIVE — Deep desk narrative; not filed campaign data</p>`
+      : `<p class="chip chip-demo brief-demo-chip">Built from live CAL-ACCESS, ABEV, demography, polling gaps, and precinct index — Threat Index remains demo</p>`;
     el.innerHTML = `
       <div class="brief-shell">
         <div class="brief-masthead">
@@ -1317,12 +1522,12 @@
             <div class="brief-week">${b.weekOf} · ${d.code} ${d.name}</div>
           </div>
           <div class="brief-masthead-aside">
-            <span class="chip chip-elevated">Elevated</span>
+            <span class="chip ${isDeep ? "chip-elevated" : meta.class}">${meta.label}</span>
             <div class="brief-ti">${d.threatIndex} <span class="brief-ti-unit">TI</span></div>
-            <div class="brief-ti-delta">7d <span class="delta delta-up">${deltaFmt(d.delta7d)}</span></div>
+            <div class="brief-ti-delta">7d <span class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</span></div>
           </div>
         </div>
-        <p class="chip chip-demo brief-demo-chip">DEMO / ILLUSTRATIVE — Not filed campaign data</p>
+        ${demoChip}
         <h2 class="brief-headline">${b.headline}</h2>
         <ul class="brief-bullets">
           ${b.bullets.map((x) => `<li>${x}</li>`).join("")}
@@ -1349,11 +1554,14 @@
 
   /* ——— Campaign Manager ——— */
   function renderCM() {
-    const d = AE.districts.find((x) => x.id === "ad-7");
+    const d = deskDistrict();
+    syncDeskDistrictSelects();
     const ti = $("#cm-ti-value");
+    const tiLabel = $("#cm-ti-label");
+    if (tiLabel) tiLabel.textContent = `${d.code} Threat (demo)`;
     if (ti && d) {
       ti.textContent = d.threatIndex;
-      ti.style.color = "var(--danger)";
+      ti.style.color = d.status === "elevated" ? "var(--danger)" : d.status === "watch" ? "var(--warn)" : "var(--text)";
     }
     const mode = AE.CM.getRaceMode();
     $$(".mode-btn").forEach((b) => b.classList.toggle("active", b.dataset.mode === mode));
@@ -1363,8 +1571,20 @@
       blurb.innerHTML = `<strong>${modeMeta.label}</strong> — ${modeMeta.blurb} <span class="chip chip-demo">Demo mode switch</span>`;
     }
 
+    const isDeep = d.id === "ad-7";
     const list = $("#cm-priority-list");
     if (list) {
+      if (!isDeep) {
+        list.innerHTML = `<div class="empty-state" style="padding:20px 16px">
+          <h3>Deep desk coming for ${d.code}</h3>
+          <p>Money, ballot pace, and precinct data are live below. CM priority queue, factor breakdown, and illustrative alerts remain on <strong>AD-7</strong> until expanded.</p>
+          <button type="button" class="btn btn-primary" id="cm-open-ad7">Open AD-7 deep desk</button>
+        </div>`;
+        $("#cm-open-ad7")?.addEventListener("click", () => {
+          setDeskDistrictId("ad-7");
+          navigate("cm");
+        });
+      } else {
       const sorted = [...AE.cmPriorities].sort((a, b) => {
         const order = { high: 0, medium: 1, low: 2 };
         return order[a.urgency] - order[b.urgency];
@@ -1401,22 +1621,30 @@
           quickLog(btn.dataset.priority, btn.dataset.decision);
         });
       });
+      }
     }
 
     // Form selects
     const selP = $("#cm-log-priority");
     const selD = $("#cm-log-decision");
     if (selP) {
-      selP.innerHTML = AE.cmPriorities.map((p) => `<option value="${p.id}">${p.horizon} · ${p.title}</option>`).join("");
+      if (isDeep) {
+        selP.innerHTML = AE.cmPriorities.map((p) => `<option value="${p.id}">${p.horizon} · ${p.title}</option>`).join("");
+        selP.disabled = false;
+      } else {
+        selP.innerHTML = `<option value="">— Deep desk priorities on AD-7 —</option>`;
+        selP.disabled = true;
+      }
     }
     if (selD) {
-      selD.innerHTML = AE.cmDecisionTypes.map((d) => `<option value="${d.id}">${d.label}</option>`).join("");
+      selD.innerHTML = AE.cmDecisionTypes.map((dt) => `<option value="${dt.id}">${dt.label}</option>`).join("");
     }
 
     renderCMLog();
     renderChecklist();
     renderDoctrineSidebar();
     renderCMAbev();
+    renderCMLiveIntel();
   }
 
   function quickLog(priorityId, decisionId) {
@@ -1430,7 +1658,7 @@
       decision: decisionId,
       decisionLabel: dt ? dt.label : decisionId,
       note: "Quick mark from board",
-      district: "AD-7",
+      district: deskDistrict().code,
     });
     renderCMLog();
   }
@@ -1534,7 +1762,7 @@
       { id: "polling", label: "Polling & gaps", hint: "Go", run: () => navigate("polling") },
       { id: "focus", label: "Focus map", hint: "Go", run: () => navigate("focus-map") },
       { id: "cm", label: "CM Board · Today’s priorities", hint: "Go", run: () => navigate("cm") },
-      { id: "brief", label: "Monday Brief · AD-7", hint: "Go", run: () => navigate("brief") },
+      { id: "brief", label: `Monday Brief · ${deskDistrict().code}`, hint: "Go", run: () => navigate("brief") },
       { id: "method", label: "Methodology / Trust", hint: "Go", run: () => navigate("methodology") },
       {
         id: "role-cm",
@@ -1556,11 +1784,36 @@
           navigate("portfolio");
         },
       },
-      { id: "tab-threat", label: "AD-7 · Threat Index", hint: "Tab", run: () => navigate("district", { districtId: "ad-7", tab: "threat" }) },
-      { id: "tab-money", label: "AD-7 · Money", hint: "Tab", run: () => navigate("district", { districtId: "ad-7", tab: "money" }) },
-      { id: "tab-ads", label: "AD-7 · Ads", hint: "Tab", run: () => navigate("district", { districtId: "ad-7", tab: "ads" }) },
-      { id: "tab-narrative", label: "AD-7 · Narrative", hint: "Tab", run: () => navigate("district", { districtId: "ad-7", tab: "narrative" }) },
-      { id: "tab-alerts", label: "AD-7 · Alerts", hint: "Tab", run: () => navigate("district", { districtId: "ad-7", tab: "alerts" }) },
+      {
+        id: "tab-threat",
+        label: `${deskDistrict().code} · Threat Index`,
+        hint: "Tab",
+        run: () => navigate("district", { districtId: state.deskDistrictId, tab: "threat" }),
+      },
+      {
+        id: "tab-money",
+        label: `${deskDistrict().code} · Money`,
+        hint: "Tab",
+        run: () => navigate("district", { districtId: state.deskDistrictId, tab: "money" }),
+      },
+      {
+        id: "tab-ads",
+        label: "AD-7 · Ads (deep demo)",
+        hint: "Tab",
+        run: () => navigate("district", { districtId: "ad-7", tab: "ads" }),
+      },
+      {
+        id: "tab-narrative",
+        label: "AD-7 · Narrative (deep demo)",
+        hint: "Tab",
+        run: () => navigate("district", { districtId: "ad-7", tab: "narrative" }),
+      },
+      {
+        id: "tab-alerts",
+        label: "AD-7 · Alerts (deep demo)",
+        hint: "Tab",
+        run: () => navigate("district", { districtId: "ad-7", tab: "alerts" }),
+      },
       {
         id: "theme",
         label: state.theme === "light" ? "Switch to dark theme" : "Switch to light theme",
@@ -1666,11 +1919,18 @@
         decision: decisionId,
         decisionLabel: dt ? dt.label : decisionId,
         note,
-        district: "AD-7",
+        district: deskDistrict().code,
       });
       $("#cm-log-note").value = "";
       renderCMLog();
     });
+    const bindDeskSelect = (sel, handler) => {
+      if (!sel || sel.dataset.boundDesk) return;
+      sel.dataset.boundDesk = "1";
+      sel.addEventListener("change", handler);
+    };
+    bindDeskSelect($("#desk-district-select-cm"), (e) => setDeskDistrictId(e.target.value));
+    bindDeskSelect($("#desk-district-select-brief"), (e) => setDeskDistrictId(e.target.value));
     $("#cm-log-clear")?.addEventListener("click", () => {
       AE.CM.clearLog();
       renderCMLog();
@@ -1739,6 +1999,7 @@
     applyTheme();
     applyRole();
     bind();
+    syncDeskDistrictSelects();
     Promise.all([
       loadLiveMoney(),
       AE.polling.load(),
