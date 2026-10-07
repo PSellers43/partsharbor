@@ -129,13 +129,23 @@
         </div>
         <div class="focus-map-layout">
           <div class="card focus-map-card">
+            <div class="focus-drill-layer-bar" id="focus-drill-layer-bar" role="group" aria-label="Map layer">
+              <span class="focus-layer-label">Map layer</span>
+              <label class="focus-layer-option"><input type="radio" name="focus-drill-layer" value="focus" checked /> Focus score <span class="chip chip-demo" style="margin-left:4px">places</span></label>
+              <label class="focus-layer-option"><input type="radio" name="focus-drill-layer" value="history" /> Election history <span class="chip chip-live" style="margin-left:4px">precincts</span></label>
+              <label class="focus-layer-race-wrap" id="focus-drill-race-wrap" hidden>
+                <span class="sr-only">Contest</span>
+                <select id="focus-drill-race" class="focus-drill-race-select" aria-label="Election contest"></select>
+              </label>
+            </div>
+            <div id="focus-drill-gap-banner" class="focus-drill-gap-banner" hidden></div>
             <div id="focus-drill-wrap" class="focus-map-wrap focus-drill-wrap"></div>
             <div class="focus-legend focus-drill-filters" id="focus-drill-legend" aria-label="Drill-down filters"></div>
             <p class="focus-map-attribution" id="focus-drill-attribution"></p>
           </div>
           <aside class="focus-drill-aside-stack">
             <div class="card focus-map-aside">
-              <h3 class="card-title">Intra-district score <span class="chip chip-demo">2022 g22 proxy</span></h3>
+              <h3 class="card-title" id="focus-drill-aside-title">Intra-district score <span class="chip chip-demo" id="focus-drill-aside-chip">2022 g22 proxy</span></h3>
               <p class="focus-formula" id="focus-drill-formula"></p>
               <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">DEMO / illustrative focus from public precinct results aggregated to Census places — not a voter-file or field targeting model.</p>
               <div id="focus-drill-rank" class="focus-rank-list"></div>
@@ -315,7 +325,7 @@
             <li>Narrative heat — headline velocity + sentiment</li>
             <li>Poll movement — disclosed ranges only when available</li>
             <li>Polling &amp; gaps panel — curated <code>data/polling/latest.json</code> (public horse-race only)</li>
-            <li>Focus map — 40% TI + 35% money + 25% polling gap severity (prototype)</li>
+            <li>Focus map — 40% TI + 35% money + 25% polling gap severity (prototype); drill adds SWDB precinct Assembly margins (2022/2024) and ACS + SOS demography panels</li>
           </ul>
           <p style="margin-top:12px">Click any factor on AD-7 for an in-product methodology drawer.</p>
         </div>
@@ -368,6 +378,7 @@
   <script src="js/focus-map.js"></script>
   <script src="js/focus-drill.js"></script>
   <script src="js/demography.js"></script>
+  <script src="js/election-history.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
