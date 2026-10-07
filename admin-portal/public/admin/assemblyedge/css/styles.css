@@ -161,6 +161,13 @@ button {
   color: #fff;
   letter-spacing: -0.02em;
 }
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  line-height: 1.25;
+}
 .brand-name {
   font-weight: 700;
   font-size: 15px;
@@ -170,7 +177,8 @@ button {
   font-size: 11px;
   color: var(--text-muted);
   font-weight: 500;
-  margin-left: 2px;
+  margin-left: 0;
+  margin-top: 1px;
 }
 
 .nav-links {
@@ -2103,24 +2111,24 @@ body[data-role="cm"] .cm-strip {
   .app-nav {
     height: auto;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-columns: 1fr;
     grid-template-areas:
-      "brand actions"
-      "links links";
-    align-items: center;
-    gap: 8px 10px;
+      "brand"
+      "actions"
+      "links";
+    align-items: stretch;
+    gap: 10px;
     padding: 10px 12px;
   }
   .brand {
     grid-area: brand;
     margin-right: 0;
     min-width: 0;
+    width: 100%;
+    align-items: flex-start;
   }
   .brand-name {
     font-size: 14px;
-  }
-  .brand-sub {
-    display: block;
   }
   .nav-links {
     grid-area: links;
@@ -2143,8 +2151,9 @@ body[data-role="cm"] .cm-strip {
   .nav-actions {
     grid-area: actions;
     flex-wrap: wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 6px;
+    width: 100%;
     max-width: 100%;
   }
   .role-switch {
