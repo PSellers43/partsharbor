@@ -1,0 +1,4281 @@
+{
+  "schema_version": 1,
+  "product": "AssemblyEdge",
+  "generated_at": "2026-10-07T02:08:12.022013Z",
+  "data_as_of": "2026-10-07T02:04:48.582597Z",
+  "source": {
+    "publisher": "California Secretary of State \u2014 Political Reform Division",
+    "dataset": "CAL-ACCESS raw data (daily ZIP)",
+    "url": "https://campaignfinance.cdn.sos.ca.gov/dbwebexport.zip",
+    "page": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
+    "update_cadence": "Once per day (SOS)",
+    "zip_path": "data/calaccess/raw/dbwebexport-2026-10-06.zip",
+    "extract_dir": "data/calaccess/extract/2026-10-06",
+    "tables_used": [
+      "CVR_CAMPAIGN_DISCLOSURE_CD",
+      "SMRY_CD",
+      "S496_CD",
+      "S497_CD (reserved / late contributions; not yet in Money rollups)",
+      "FILERNAME_CD (available for enrichment)"
+    ],
+    "tables_skipped": [
+      "RCPT_CD (multi-GB; period totals via SMRY)",
+      "EXPN_CD (multi-GB; period totals via SMRY)"
+    ],
+    "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of AssemblyEdge."
+  },
+  "cycle_year": 2026,
+  "matching": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Documented limitations in CALACCESS.md.",
+  "districts": {
+    "ad-7": {
+      "id": "ad-7",
+      "code": "AD-7",
+      "dist_no": "7",
+      "focus": "deep",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Josh Hoover",
+          "committee_name": "Hoover for Assembly 2026",
+          "filer_id": "1476883",
+          "receipts": 1260889.55,
+          "spend": 768672.05,
+          "cash_on_hand_latest": 567893.43,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            96084.01,
+            192168.01,
+            288252.02,
+            384336.03,
+            480420.03,
+            576504.04,
+            672588.04,
+            768672.05
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~HOOVER FOR ASSEMBLY 2026,name~HOOVER,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1476883",
+            "committee_name": "Hoover for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199753",
+                "amend_id": 0,
+                "receipts_period": 181792.72,
+                "spend_period": 325172.46,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3157049",
+                "amend_id": 1,
+                "receipts_period": 81287.49,
+                "spend_period": 53720.67,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3181023",
+                "amend_id": 0,
+                "receipts_period": 115225.0,
+                "spend_period": 45596.75,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3139002",
+                "amend_id": 0,
+                "receipts_period": 183101.33,
+                "spend_period": 106889.41,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3071307",
+                "amend_id": 1,
+                "receipts_period": 334517.95,
+                "spend_period": 88997.39,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3115100",
+                "amend_id": 0,
+                "receipts_period": 353215.06,
+                "spend_period": 144154.19,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3013562",
+                "amend_id": 0,
+                "receipts_period": 11750.0,
+                "spend_period": 4141.18,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Amy Slavensky",
+          "committee_name": "Amy Slavensky for Assembly 2026",
+          "filer_id": "1484959",
+          "receipts": 1069635.09,
+          "spend": 886969.85,
+          "cash_on_hand_latest": 191923.71,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            110871.23,
+            221742.46,
+            332613.69,
+            443484.92,
+            554356.16,
+            665227.39,
+            776098.62,
+            886969.85
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~SLAVENSKY FOR ASSEMBLY 2026,name~SLAVENSKY,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1484959",
+            "committee_name": "Amy Slavensky for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199523",
+                "amend_id": 0,
+                "receipts_period": 689376.52,
+                "spend_period": 601804.08,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156428",
+                "amend_id": 2,
+                "receipts_period": 29589.86,
+                "spend_period": 29330.21,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3173935",
+                "amend_id": 0,
+                "receipts_period": 212132.76,
+                "spend_period": 142907.16,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138306",
+                "amend_id": 1,
+                "receipts_period": 109162.95,
+                "spend_period": 75327.85,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3113884",
+                "amend_id": 1,
+                "receipts_period": 29373.0,
+                "spend_period": 37600.55,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Vance Taylor",
+          "committee_name": "Vance Taylor for Assembly 2026",
+          "filer_id": "1483621",
+          "receipts": 27053.0,
+          "spend": 27053.0,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            3381.62,
+            6763.25,
+            10144.88,
+            13526.5,
+            16908.12,
+            20289.75,
+            23671.38,
+            27053.0
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~VANCE TAYLOR FOR ASSEMBLY,name~VANCE TAYLOR,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1483621",
+            "committee_name": "Vance Taylor for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3116158",
+                "amend_id": 0,
+                "receipts_period": 400.0,
+                "spend_period": 17273.42,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3102363",
+                "amend_id": 1,
+                "receipts_period": 26653.0,
+                "spend_period": 9779.58,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Chris Hoang",
+          "committee_name": "Hoang for Assembly 2026",
+          "filer_id": "1481833",
+          "receipts": 57383.0,
+          "spend": 57397.99,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            7174.75,
+            14349.5,
+            21524.25,
+            28698.99,
+            35873.74,
+            43048.49,
+            50223.24,
+            57397.99
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~HOANG FOR ASSEMBLY,name~HOANG,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1481833",
+            "committee_name": "Hoang for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3125198",
+                "amend_id": 0,
+                "receipts_period": 0.0,
+                "spend_period": 39615.46,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3104405",
+                "amend_id": 0,
+                "receipts_period": 52080.0,
+                "spend_period": 16181.32,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3062161",
+                "amend_id": 0,
+                "receipts_period": 5303.0,
+                "spend_period": 1601.21,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Legislative Action Victory PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 352528.32,
+          "deltaSpend": 50.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            128192.12,
+            64096.06,
+            64096.06,
+            96144.09
+          ],
+          "targets": [
+            "Amy Slavensky"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1494925",
+            "filing_ids": [
+              "3192656",
+              "3194332",
+              "3194479",
+              "3196708",
+              "3197327",
+              "3200959",
+              "3205328"
+            ],
+            "filing_id_count": 7
+          }
+        },
+        {
+          "name": "Keeping Californians Working, a Coalition of Insurance Agents, Energy, Education, and Health Care Providers",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 38597.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            38597.0
+          ],
+          "targets": [
+            "Amy Slavensky"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1365806",
+            "filing_ids": [
+              "3204355"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Californians to Preserve and Protect Local Jobs and Essential Community Services, sponsored by Hawaiian Gardens Casino",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 204122.63,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            102061.32,
+            34020.44,
+            68040.88
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1465492",
+            "filing_ids": [
+              "3194282",
+              "3196556",
+              "3201075",
+              "3203805"
+            ],
+            "filing_id_count": 4
+          }
+        },
+        {
+          "name": "Citizens and Communities for Fair Government, sponsored by California Commerce Club",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 186341.32,
+          "deltaSpend": -80.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            155284.43,
+            31056.89
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1461436",
+            "filing_ids": [
+              "3194189",
+              "3195619",
+              "3198185"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "Uber Innovation Political Action Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 164965.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            164965.5
+          ],
+          "targets": [
+            "JOSH HOOVER"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1439102",
+            "filing_ids": [
+              "3155764"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "California Alliance for Progress and Education, an alliance of business organizations",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 91487.72,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            91487.72
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1283921",
+            "filing_ids": [
+              "3204156",
+              "3205736"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 39525.32,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            39525.32
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1399192",
+            "filing_ids": [
+              "3205852"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "California Correctional Peace Officers Association Local Political Action Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 35000.0,
+          "deltaSpend": 0.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            17500.0,
+            17500.0
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "960532",
+            "filing_ids": [
+              "3150856",
+              "3153093"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "California Correctional Peace Officers Association Political Action Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 25000.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            25000.0
+          ],
+          "targets": [
+            "Josh Hoover"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "830349",
+            "filing_ids": [
+              "3205985"
+            ],
+            "filing_id_count": 1
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    },
+    "ad-47": {
+      "id": "ad-47",
+      "code": "AD-47",
+      "dist_no": "47",
+      "focus": "mapped",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Greg Wallis",
+          "committee_name": "Greg Wallis for Assembly 2026",
+          "filer_id": "1477044",
+          "receipts": 1558288.88,
+          "spend": 1246380.78,
+          "cash_on_hand_latest": 377899.65,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            155797.6,
+            311595.2,
+            467392.79,
+            623190.39,
+            778987.99,
+            934785.58,
+            1090583.18,
+            1246380.78
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~WALLIS FOR ASSEMBLY 2026,name~WALLIS,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1477044",
+            "committee_name": "Greg Wallis for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199872",
+                "amend_id": 0,
+                "receipts_period": 267745.29,
+                "spend_period": 534028.2,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3178815",
+                "amend_id": 0,
+                "receipts_period": 183850.92,
+                "spend_period": 152812.48,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3155889",
+                "amend_id": 0,
+                "receipts_period": 105979.59,
+                "spend_period": 60077.56,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138020",
+                "amend_id": 0,
+                "receipts_period": 213099.26,
+                "spend_period": 108529.28,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3112979",
+                "amend_id": 0,
+                "receipts_period": 351063.82,
+                "spend_period": 253802.25,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3069164",
+                "amend_id": 0,
+                "receipts_period": 436550.0,
+                "spend_period": 137131.01,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3010325",
+                "amend_id": 0,
+                "receipts_period": 0.0,
+                "spend_period": 0.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Leila Namvar",
+          "committee_name": "Leila Namvar for Assembly 2026",
+          "filer_id": "1484350",
+          "receipts": 460178.41,
+          "spend": 380628.37,
+          "cash_on_hand_latest": 82272.22,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            47578.55,
+            95157.09,
+            142735.64,
+            190314.18,
+            237892.73,
+            285471.28,
+            333049.82,
+            380628.37
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~NAMVAR FOR ASSEMBLY,name~NAMVAR,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1484350",
+            "committee_name": "Leila Namvar for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199259",
+                "amend_id": 0,
+                "receipts_period": 252369.09,
+                "spend_period": 195543.02,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3180361",
+                "amend_id": 1,
+                "receipts_period": 30486.0,
+                "spend_period": 67851.72,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138315",
+                "amend_id": 1,
+                "receipts_period": 73976.32,
+                "spend_period": 43304.55,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156417",
+                "amend_id": 1,
+                "receipts_period": 52637.0,
+                "spend_period": 48566.96,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3104398",
+                "amend_id": 0,
+                "receipts_period": 50710.0,
+                "spend_period": 25362.12,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Jason Byors",
+          "committee_name": "Jason Byors for Assembly District 47 (2026)",
+          "filer_id": "1482607",
+          "receipts": 134563.84,
+          "spend": 26074.7,
+          "cash_on_hand_latest": 90815.6,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            3259.34,
+            6518.68,
+            9778.01,
+            13037.35,
+            16296.69,
+            19556.03,
+            22815.36,
+            26074.7
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~BYORS,name~BYORS,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1482607",
+            "committee_name": "Jason Byors for Assembly District 47 (2026)",
+            "filings": [
+              {
+                "filing_id": "3177666",
+                "amend_id": 0,
+                "receipts_period": 10061.0,
+                "spend_period": 20.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156623",
+                "amend_id": 0,
+                "receipts_period": 6150.0,
+                "spend_period": 4080.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138852",
+                "amend_id": 0,
+                "receipts_period": 16375.0,
+                "spend_period": 1275.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114678",
+                "amend_id": 0,
+                "receipts_period": 101977.84,
+                "spend_period": 20699.7,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Lucas Pinon",
+          "committee_name": "Lucas Pinon for Assembly 2026",
+          "filer_id": "1483826",
+          "receipts": 36549.0,
+          "spend": 36599.0,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            4574.88,
+            9149.75,
+            13724.62,
+            18299.5,
+            22874.38,
+            27449.25,
+            32024.12,
+            36599.0
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~PINON,name~PINON,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1483826",
+            "committee_name": "Lucas Pinon for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3126787",
+                "amend_id": 0,
+                "receipts_period": 4504.0,
+                "spend_period": 13711.32,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114042",
+                "amend_id": 0,
+                "receipts_period": 32045.0,
+                "spend_period": 22887.68,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Legislative Bipartisan Action PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 391048.46,
+          "deltaSpend": -33.3,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            195524.23,
+            55864.07,
+            83796.1,
+            55864.07
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1493987",
+            "filing_ids": [
+              "3192614",
+              "3192978",
+              "3193399",
+              "3194341",
+              "3195189",
+              "3196636",
+              "3197790",
+              "3198505",
+              "3205329"
+            ],
+            "filing_id_count": 9
+          }
+        },
+        {
+          "name": "California Alliance for Progress and Education, an alliance of business organizations",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 361172.45,
+          "deltaSpend": 33.3,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            154788.19,
+            206384.26
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1283921",
+            "filing_ids": [
+              "3200593",
+              "3201271",
+              "3202298",
+              "3203130",
+              "3204635"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 182987.28,
+          "deltaSpend": 0.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            91493.64,
+            45746.82,
+            45746.82
+          ],
+          "targets": [
+            "Greg Wallis"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "980020",
+            "filing_ids": [
+              "3196268",
+              "3196866",
+              "3200952",
+              "3205315"
+            ],
+            "filing_id_count": 4
+          }
+        },
+        {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 55625.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            55625.0
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1399192",
+            "filing_ids": [
+              "3200347"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "California Leads",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 499671.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            499671.0
+          ],
+          "targets": [
+            "Greg Wallis"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1478581",
+            "filing_ids": [
+              "3194381",
+              "3195634"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 447060.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            447060.0
+          ],
+          "targets": [
+            "Greg Wallis"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1365275",
+            "filing_ids": [
+              "3206141"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 266913.47,
+          "deltaSpend": -33.3,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            160148.08,
+            106765.39
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "980020",
+            "filing_ids": [
+              "3197917",
+              "3204383"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "Uber Innovation Political Action Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 164965.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            164965.5
+          ],
+          "targets": [
+            "GREG WALLIS"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1439102",
+            "filing_ids": [
+              "3155768"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Nurses and Educators for Healthy CA Communities sponsored by SEIU California State Council",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 151843.85,
+          "deltaSpend": 50.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            60737.54,
+            91106.31
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1489372",
+            "filing_ids": [
+              "3155425",
+              "3155430",
+              "3161789"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 144524.25,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            144524.25
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1367550",
+            "filing_ids": [
+              "3151927",
+              "3154766",
+              "3204158"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "Legislative Bipartisan Action PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 60785.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            20261.83,
+            40523.67
+          ],
+          "targets": [
+            "Greg Wallis"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1493987",
+            "filing_ids": [
+              "3195190",
+              "3196637",
+              "3198504"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "Service Employees International Union Local 721 CTW, CLC Workers' Strength Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 53022.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            53022.0
+          ],
+          "targets": [
+            "Leila Namvar"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1296889",
+            "filing_ids": [
+              "3161095"
+            ],
+            "filing_id_count": 1
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    },
+    "ad-58": {
+      "id": "ad-58",
+      "code": "AD-58",
+      "dist_no": "58",
+      "focus": "mapped",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Clarissa Cervantes",
+          "committee_name": "Clarissa Cervantes for Assembly 2026",
+          "filer_id": "1478397",
+          "receipts": 1777002.94,
+          "spend": 1448989.41,
+          "cash_on_hand_latest": 381214.43,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            181123.68,
+            362247.35,
+            543371.03,
+            724494.7,
+            905618.38,
+            1086742.06,
+            1267865.73,
+            1448989.41
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~CERVANTES FOR ASSEMBLY 2026,name~CERVANTES,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1478397",
+            "committee_name": "Clarissa Cervantes for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199336",
+                "amend_id": 0,
+                "receipts_period": 1110007.1,
+                "spend_period": 1223129.24,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3180366",
+                "amend_id": 1,
+                "receipts_period": 226475.31,
+                "spend_period": 63798.48,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156461",
+                "amend_id": 3,
+                "receipts_period": 93897.03,
+                "spend_period": 82908.09,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138357",
+                "amend_id": 1,
+                "receipts_period": 145936.0,
+                "spend_period": 39995.91,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114052",
+                "amend_id": 1,
+                "receipts_period": 150153.5,
+                "spend_period": 25822.53,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3069939",
+                "amend_id": 1,
+                "receipts_period": 50534.0,
+                "spend_period": 13335.16,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Leticia Castillo",
+          "committee_name": "Leticia Castillo for Assembly 2026",
+          "filer_id": "1477348",
+          "receipts": 799573.08,
+          "spend": 287615.37,
+          "cash_on_hand_latest": 558518.73,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            35951.92,
+            71903.84,
+            107855.76,
+            143807.68,
+            179759.61,
+            215711.53,
+            251663.45,
+            287615.37
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~CASTILLO FOR ASSEMBLY 2026,name~CASTILLO,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1477348",
+            "committee_name": "Leticia Castillo for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3198938",
+                "amend_id": 0,
+                "receipts_period": 79891.25,
+                "spend_period": 115072.17,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3169387",
+                "amend_id": 0,
+                "receipts_period": 74025.0,
+                "spend_period": 11653.61,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156068",
+                "amend_id": 0,
+                "receipts_period": 48610.0,
+                "spend_period": 19045.3,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138100",
+                "amend_id": 0,
+                "receipts_period": 127474.83,
+                "spend_period": 46645.11,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3108356",
+                "amend_id": 0,
+                "receipts_period": 163607.0,
+                "spend_period": 62015.95,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3066898",
+                "amend_id": 0,
+                "receipts_period": 305965.0,
+                "spend_period": 33183.23,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3044631",
+                "amend_id": 0,
+                "receipts_period": 0.0,
+                "spend_period": 0.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Paco Licea",
+          "committee_name": "Paco Licea for Assembly 2026",
+          "filer_id": "1480137",
+          "receipts": 61363.4,
+          "spend": 61363.4,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            7670.43,
+            15340.85,
+            23011.28,
+            30681.7,
+            38352.12,
+            46022.55,
+            53692.97,
+            61363.4
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~LICEA,name~LICEA,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1480137",
+            "committee_name": "Paco Licea for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3125856",
+                "amend_id": 0,
+                "receipts_period": -13318.6,
+                "spend_period": 28638.57,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3112609",
+                "amend_id": 0,
+                "receipts_period": 27638.0,
+                "spend_period": 24323.24,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3069207",
+                "amend_id": 1,
+                "receipts_period": 47044.0,
+                "spend_period": 8401.59,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Legislative Action Victory PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 504884.74,
+          "deltaSpend": 300.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            194186.44,
+            116511.86,
+            38837.29,
+            155349.15
+          ],
+          "targets": [
+            "Clarissa Cervantes"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1494925",
+            "filing_ids": [
+              "3192655",
+              "3194333",
+              "3194478",
+              "3195174",
+              "3198498",
+              "3200958",
+              "3203458",
+              "3204430"
+            ],
+            "filing_id_count": 8
+          }
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 96269.35,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            24067.34,
+            24067.34,
+            48134.67
+          ],
+          "targets": [
+            "Leticia Castillo"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "980020",
+            "filing_ids": [
+              "3196865",
+              "3198541",
+              "3204388",
+              "3205316"
+            ],
+            "filing_id_count": 4
+          }
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 475003.89,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            190001.56,
+            95000.78,
+            190001.56
+          ],
+          "targets": [
+            "Clarissa Cervantes"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "980020",
+            "filing_ids": [
+              "3194356",
+              "3195112",
+              "3196864",
+              "3200949",
+              "3204386"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 45617.14,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            45617.14
+          ],
+          "targets": [
+            "Clarissa Cervantes"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1367550",
+            "filing_ids": [
+              "3204155"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Riverside Sheriffs' Association Public Education Fund",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 7211.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            7211.0
+          ],
+          "targets": [
+            "Leticia Castillo"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1286381",
+            "filing_ids": [
+              "3155579"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Courage California State PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 5430.85,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            5430.85
+          ],
+          "targets": [
+            "Clarissa Cervantes"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1367190",
+            "filing_ids": [
+              "3150381",
+              "3152889",
+              "3203510"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "GOLDEN STATE REVIVAL - SUPPORTING GONZALEZ FOR SENATE 2026, NORDBLUM FOR ASSEMBLY 2026, AND CASTILLO FOR ASSEMBLY 2026",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 1615.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1615.0
+          ],
+          "targets": [
+            "LETICIA CASTILLO"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1482264",
+            "filing_ids": [
+              "3190154"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Planned Parenthood Action Fund of the Pacific Southwest PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 626.98,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            313.49,
+            0.0,
+            313.49
+          ],
+          "targets": [
+            "Clarissa Cervantes"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1280724",
+            "filing_ids": [
+              "3149105"
+            ],
+            "filing_id_count": 1
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    },
+    "ad-74": {
+      "id": "ad-74",
+      "code": "AD-74",
+      "dist_no": "74",
+      "focus": "mapped",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Laurie Davies",
+          "committee_name": "Laurie Davies For Assembly 2026",
+          "filer_id": "1477105",
+          "receipts": 1204642.61,
+          "spend": 879970.92,
+          "cash_on_hand_latest": 328235.17,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            109996.37,
+            219992.73,
+            329989.1,
+            439985.46,
+            549981.83,
+            659978.19,
+            769974.56,
+            879970.92
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~LAURIE DAVIES FOR ASSEMBLY,name~DAVIES,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1477105",
+            "committee_name": "Laurie Davies For Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199453",
+                "amend_id": 0,
+                "receipts_period": 171946.25,
+                "spend_period": 571602.33,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3179880",
+                "amend_id": 0,
+                "receipts_period": 106900.0,
+                "spend_period": 20598.44,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156915",
+                "amend_id": 0,
+                "receipts_period": 79675.0,
+                "spend_period": 42296.88,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138858",
+                "amend_id": 0,
+                "receipts_period": 166127.7,
+                "spend_period": 105368.4,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3112513",
+                "amend_id": 0,
+                "receipts_period": 269729.56,
+                "spend_period": 85096.65,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3065749",
+                "amend_id": 0,
+                "receipts_period": 406764.1,
+                "spend_period": 46963.19,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3013335",
+                "amend_id": 0,
+                "receipts_period": 3500.0,
+                "spend_period": 8045.03,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Chris Duncan",
+          "committee_name": "Chris Duncan for Assembly 2026",
+          "filer_id": "1476816",
+          "receipts": 8000.0,
+          "spend": 8000.0,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            1000.0,
+            2000.0,
+            3000.0,
+            4000.0,
+            5000.0,
+            6000.0,
+            7000.0,
+            8000.0
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~CHRIS DUNCAN FOR ASSEMBLY,name~DUNCAN,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1476816",
+            "committee_name": "Chris Duncan for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3030779",
+                "amend_id": 0,
+                "receipts_period": 8000.0,
+                "spend_period": 5212.96,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3003382",
+                "amend_id": 0,
+                "receipts_period": 0.0,
+                "spend_period": 2787.04,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Sergio Farias",
+          "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
+          "filer_id": "1477625",
+          "receipts": 170241.35,
+          "spend": 220938.13,
+          "cash_on_hand_latest": 28215.22,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            27617.27,
+            55234.53,
+            82851.8,
+            110469.07,
+            138086.33,
+            165703.6,
+            193320.86,
+            220938.13
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~FARIAS FOR ASSEMBLY,name~FARIAS,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1477625",
+            "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
+            "filings": [
+              {
+                "filing_id": "3199939",
+                "amend_id": 0,
+                "receipts_period": 44755.87,
+                "spend_period": 66919.74,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3179791",
+                "amend_id": 0,
+                "receipts_period": 16870.0,
+                "spend_period": 37853.49,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3110243",
+                "amend_id": 1,
+                "receipts_period": -16915.0,
+                "spend_period": 35822.76,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138045",
+                "amend_id": 1,
+                "receipts_period": 17071.4,
+                "spend_period": 31158.94,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3155713",
+                "amend_id": 0,
+                "receipts_period": 2197.0,
+                "spend_period": 37888.58,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3056518",
+                "amend_id": 0,
+                "receipts_period": 106262.08,
+                "spend_period": 11294.62,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Legislative Action PAC, sponsored by Legislative Action California",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 231943.95,
+          "deltaSpend": -25.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            132539.4,
+            99404.55
+          ],
+          "targets": [
+            "Sergio Farias"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1481714",
+            "filing_ids": [
+              "3192581",
+              "3193400",
+              "3194331",
+              "3195188",
+              "3195749"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "Advance California, Sponsored by California Apartment Association",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 11106.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            11106.0
+          ],
+          "targets": [
+            "Laurie Davies"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1490343",
+            "filing_ids": [
+              "3150912"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "DEMOCRATIC PARTY OF ORANGE COUNTY",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 7964.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            3982.0,
+            0.0,
+            0.0,
+            3982.0
+          ],
+          "targets": [
+            "Sergio Farias"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "742006",
+            "filing_ids": [
+              "3189157",
+              "3194358"
+            ],
+            "filing_id_count": 2
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    },
+    "ad-36": {
+      "id": "ad-36",
+      "code": "AD-36",
+      "dist_no": "36",
+      "focus": "mapped",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Jeff Gonzalez",
+          "committee_name": "Jeff Gonzalez for Assembly 2026",
+          "filer_id": "1477498",
+          "receipts": 1296142.24,
+          "spend": 883836.91,
+          "cash_on_hand_latest": 495761.7,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            110479.61,
+            220959.23,
+            331438.84,
+            441918.46,
+            552398.07,
+            662877.68,
+            773357.3,
+            883836.91
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~JEFF GONZALEZ FOR ASSEMBLY,name~GONZALEZ,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1477498",
+            "committee_name": "Jeff Gonzalez for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199888",
+                "amend_id": 0,
+                "receipts_period": 237138.35,
+                "spend_period": 455424.11,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3181198",
+                "amend_id": 0,
+                "receipts_period": 146700.0,
+                "spend_period": 56322.8,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156843",
+                "amend_id": 0,
+                "receipts_period": 106694.6,
+                "spend_period": 40694.01,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138967",
+                "amend_id": 0,
+                "receipts_period": 178530.88,
+                "spend_period": 99023.76,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3113946",
+                "amend_id": 1,
+                "receipts_period": 266608.06,
+                "spend_period": 178498.3,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3071213",
+                "amend_id": 0,
+                "receipts_period": 360470.35,
+                "spend_period": 53873.93,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3005166",
+                "amend_id": 1,
+                "receipts_period": 0.0,
+                "spend_period": 0.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Ida Obeso-Martinez",
+          "committee_name": "Ida Obeso-Martinez for Assembly 2026",
+          "filer_id": "1483893",
+          "receipts": 2102600.38,
+          "spend": 1760101.91,
+          "cash_on_hand_latest": 436229.25,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            220012.74,
+            440025.48,
+            660038.22,
+            880050.95,
+            1100063.69,
+            1320076.43,
+            1540089.17,
+            1760101.91
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~OBESO-MARTINEZ,name~OBESO,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1483893",
+            "committee_name": "Ida Obeso-Martinez for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199382",
+                "amend_id": 0,
+                "receipts_period": 1906798.14,
+                "spend_period": 1568279.64,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3180308",
+                "amend_id": 1,
+                "receipts_period": 30316.63,
+                "spend_period": 29271.62,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156356",
+                "amend_id": 1,
+                "receipts_period": 39011.7,
+                "spend_period": 87172.6,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138272",
+                "amend_id": 2,
+                "receipts_period": 93955.91,
+                "spend_period": 59719.44,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114005",
+                "amend_id": 0,
+                "receipts_period": 32518.0,
+                "spend_period": 15658.61,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Tomas Oliva",
+          "committee_name": "Tomas Oliva for Assembly 2026",
+          "filer_id": "1480373",
+          "receipts": 100302.87,
+          "spend": 109920.22,
+          "cash_on_hand_latest": 19333.89,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            13740.03,
+            27480.06,
+            41220.08,
+            54960.11,
+            68700.14,
+            82440.17,
+            96180.19,
+            109920.22
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~TOMAS OLIVA,name~OLIVA,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1480373",
+            "committee_name": "Tomas Oliva for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3181092",
+                "amend_id": 0,
+                "receipts_period": 4950.0,
+                "spend_period": 3879.8,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156957",
+                "amend_id": 0,
+                "receipts_period": 526.49,
+                "spend_period": 9695.43,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138991",
+                "amend_id": 0,
+                "receipts_period": 9739.18,
+                "spend_period": 47828.81,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114756",
+                "amend_id": 0,
+                "receipts_period": 34518.44,
+                "spend_period": 44722.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3076333",
+                "amend_id": 0,
+                "receipts_period": 50568.76,
+                "spend_period": 3794.18,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Oscar F. Ortiz",
+          "committee_name": "Oscar Ortiz for Assembly 2026",
+          "filer_id": "1480043",
+          "receipts": 286634.32,
+          "spend": 290903.53,
+          "cash_on_hand_latest": 8819.5,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            36362.94,
+            72725.88,
+            109088.82,
+            145451.77,
+            181814.71,
+            218177.65,
+            254540.59,
+            290903.53
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~OSCAR ORTIZ,name~ORTIZ,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1480043",
+            "committee_name": "Oscar Ortiz for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3178648",
+                "amend_id": 0,
+                "receipts_period": 22790.0,
+                "spend_period": 41214.81,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156364",
+                "amend_id": 1,
+                "receipts_period": 67593.0,
+                "spend_period": 149539.71,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138835",
+                "amend_id": 2,
+                "receipts_period": 99677.26,
+                "spend_period": 51933.64,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3112978",
+                "amend_id": 0,
+                "receipts_period": 68474.63,
+                "spend_period": 36519.3,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3068979",
+                "amend_id": 0,
+                "receipts_period": 28099.43,
+                "spend_period": 11696.07,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 384835.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            384835.0
+          ],
+          "targets": [
+            "Ida Obeso-Martinez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1365275",
+            "filing_ids": [
+              "3206143"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 355244.51,
+          "deltaSpend": -20.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            197358.06,
+            157886.45
+          ],
+          "targets": [
+            "IDA OBESO-MARTINEZ"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "911819",
+            "filing_ids": [
+              "3200956",
+              "3202296",
+              "3203389",
+              "3204727",
+              "3205807"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "Legislative Bipartisan Action PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 254831.43,
+          "deltaSpend": 400.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            58807.25,
+            78409.67,
+            19602.42,
+            98012.09
+          ],
+          "targets": [
+            "Ida Obeso-Martinez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1493987",
+            "filing_ids": [
+              "3192976",
+              "3194340",
+              "3196634",
+              "3200960",
+              "3203748"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 11074.59,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            11074.59
+          ],
+          "targets": [
+            "Jeff Gonzalez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1491229",
+            "filing_ids": [
+              "3158587"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Personal Insurance Federation of CA Agents & Employees PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 6375.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            6375.0
+          ],
+          "targets": [
+            "Ida Obeso-Martinez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1338487",
+            "filing_ids": [
+              "3204597"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "GROW CALIFORNIA",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 818333.0,
+          "deltaSpend": 0.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            490999.8,
+            81833.3,
+            81833.3,
+            81833.3,
+            81833.3
+          ],
+          "targets": [
+            "IDA OBESO-MARTINEZ"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1483808",
+            "filing_ids": [
+              "3144429",
+              "3149987",
+              "3152030",
+              "3155232",
+              "3159661"
+            ],
+            "filing_id_count": 5
+          }
+        },
+        {
+          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 385435.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            385435.0
+          ],
+          "targets": [
+            "Jeff Gonzalez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1365275",
+            "filing_ids": [
+              "3206142"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 346790.86,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            260093.14,
+            0.0,
+            86697.71
+          ],
+          "targets": [
+            "JEFF GONZALEZ"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "911819",
+            "filing_ids": [
+              "3153337",
+              "3154353",
+              "3157675",
+              "3157676",
+              "3157749",
+              "3158556",
+              "3194692",
+              "3204725"
+            ],
+            "filing_id_count": 8
+          }
+        },
+        {
+          "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 263204.2,
+          "deltaSpend": 300.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            43867.37,
+            43867.37,
+            175469.47
+          ],
+          "targets": [
+            "Oscar Ortiz"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1491229",
+            "filing_ids": [
+              "3154071",
+              "3154741",
+              "3157831",
+              "3158585",
+              "3158589",
+              "3160990"
+            ],
+            "filing_id_count": 6
+          }
+        },
+        {
+          "name": "Uber Innovation Political Action Committee",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 164965.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            164965.5
+          ],
+          "targets": [
+            "JEFF GONZALEZ"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1439102",
+            "filing_ids": [
+              "3155767"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Legislative Bipartisan Action PAC",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 141762.62,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            101259.01,
+            0.0,
+            0.0,
+            40503.61
+          ],
+          "targets": [
+            "Jeff Gonzalez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1493987",
+            "filing_ids": [
+              "3192613",
+              "3192985",
+              "3203747"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 95751.48,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            95751.48
+          ],
+          "targets": [
+            "Jeff Gonzalez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1399192",
+            "filing_ids": [
+              "3203162",
+              "3205851"
+            ],
+            "filing_id_count": 2
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    },
+    "ad-27": {
+      "id": "ad-27",
+      "code": "AD-27",
+      "dist_no": "27",
+      "focus": "mapped",
+      "status": "live",
+      "live": true,
+      "candidates": [
+        {
+          "role": "Incumbent",
+          "name": "Esmeralda Soria",
+          "committee_name": "Soria for Assembly 2026",
+          "filer_id": "1476814",
+          "receipts": 401550.0,
+          "spend": 720933.46,
+          "cash_on_hand_latest": 18941.83,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            90116.68,
+            180233.36,
+            270350.05,
+            360466.73,
+            450583.41,
+            540700.09,
+            630816.78,
+            720933.46
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~SORIA FOR ASSEMBLY 2026,name~SORIA,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1476814",
+            "committee_name": "Soria for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199271",
+                "amend_id": 0,
+                "receipts_period": 7900.0,
+                "spend_period": 8488.93,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3113873",
+                "amend_id": 1,
+                "receipts_period": 11000.0,
+                "spend_period": 292231.48,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138180",
+                "amend_id": 2,
+                "receipts_period": 31650.0,
+                "spend_period": 43535.02,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3179760",
+                "amend_id": 0,
+                "receipts_period": 14900.0,
+                "spend_period": 2318.29,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156205",
+                "amend_id": 1,
+                "receipts_period": 79000.0,
+                "spend_period": 3317.54,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3090708",
+                "amend_id": 2,
+                "receipts_period": 21000.0,
+                "spend_period": 117958.83,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3070717",
+                "amend_id": 2,
+                "receipts_period": 218600.0,
+                "spend_period": 192196.91,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3012068",
+                "amend_id": 1,
+                "receipts_period": 17500.0,
+                "spend_period": 60886.46,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Brian Pacheco",
+          "committee_name": "Brian Pacheco for Assembly 2026",
+          "filer_id": "1485456",
+          "receipts": 2998579.8,
+          "spend": 2572054.43,
+          "cash_on_hand_latest": 604950.2,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            321506.8,
+            643013.61,
+            964520.41,
+            1286027.22,
+            1607534.02,
+            1929040.82,
+            2250547.63,
+            2572054.43
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~BRIAN PACHECO FOR ASSEMBLY,name~PACHECO,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1485456",
+            "committee_name": "Brian Pacheco for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3199509",
+                "amend_id": 0,
+                "receipts_period": 1719807.51,
+                "spend_period": 1957788.36,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3180359",
+                "amend_id": 0,
+                "receipts_period": 218173.78,
+                "spend_period": 234685.54,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156804",
+                "amend_id": 1,
+                "receipts_period": 273370.54,
+                "spend_period": 224984.59,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138285",
+                "amend_id": 1,
+                "receipts_period": 274327.97,
+                "spend_period": 152352.07,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3110666",
+                "amend_id": 0,
+                "receipts_period": 512900.0,
+                "spend_period": 2243.87,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Joanna Garcia Rose",
+          "committee_name": "Joanna Garcia Rose for Assembly 2024",
+          "filer_id": "1463062",
+          "receipts": 1294568.0,
+          "spend": 1296408.04,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            162051.01,
+            324102.01,
+            486153.02,
+            648204.02,
+            810255.03,
+            972306.03,
+            1134357.04,
+            1296408.04
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "moderate",
+          "match_score": 85,
+          "match_reason": "committee~JOANNA GARCIA ROSE,name~GARCIA ROSE,prior-cycle-committee",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1463062",
+            "committee_name": "Joanna Garcia Rose for Assembly 2024",
+            "filings": [
+              {
+                "filing_id": "3030501",
+                "amend_id": 0,
+                "receipts_period": 0.0,
+                "spend_period": 4684.86,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3012785",
+                "amend_id": 0,
+                "receipts_period": 357165.0,
+                "spend_period": 509269.83,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2972492",
+                "amend_id": 0,
+                "receipts_period": 777546.0,
+                "spend_period": 656987.61,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2956232",
+                "amend_id": 0,
+                "receipts_period": 37345.0,
+                "spend_period": 56646.79,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2935773",
+                "amend_id": 0,
+                "receipts_period": 80767.0,
+                "spend_period": 38718.08,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2895284",
+                "amend_id": 0,
+                "receipts_period": 1160.0,
+                "spend_period": 6035.26,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2872777",
+                "amend_id": 0,
+                "receipts_period": 11000.0,
+                "spend_period": 6900.0,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "2873126",
+                "amend_id": 0,
+                "receipts_period": 29585.0,
+                "spend_period": 17165.61,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Michael Murphy",
+          "committee_name": "Murphy for Assembly 2026",
+          "filer_id": "1478647",
+          "receipts": 608515.6,
+          "spend": 577939.46,
+          "cash_on_hand_latest": 68993.1,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            72242.43,
+            144484.86,
+            216727.3,
+            288969.73,
+            361212.16,
+            433454.59,
+            505697.03,
+            577939.46
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "strong",
+          "match_score": 120,
+          "match_reason": "committee~MURPHY FOR ASSEMBLY 2026,name~MICHAEL MURPHY,year=2026",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1478647",
+            "committee_name": "Murphy for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3180110",
+                "amend_id": 1,
+                "receipts_period": 86921.99,
+                "spend_period": 84288.59,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3199885",
+                "amend_id": 0,
+                "receipts_period": 54379.78,
+                "spend_period": 344051.11,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3156902",
+                "amend_id": 0,
+                "receipts_period": 18750.0,
+                "spend_period": 39824.25,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3138829",
+                "amend_id": 0,
+                "receipts_period": 98677.83,
+                "spend_period": 44188.56,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3114821",
+                "amend_id": 0,
+                "receipts_period": 145546.0,
+                "spend_period": 43066.91,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3065612",
+                "amend_id": 0,
+                "receipts_period": 204240.0,
+                "spend_period": 22520.04,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Leticia Gonzalez",
+          "committee_name": "Leticia Gonzalez for Assembly 2026",
+          "filer_id": "1483891",
+          "receipts": 12720.32,
+          "spend": 12807.64,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            1600.95,
+            3201.91,
+            4802.86,
+            6403.82,
+            8004.77,
+            9605.73,
+            11206.68,
+            12807.64
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "discovered",
+          "match_score": 55,
+          "match_reason": "auto-discovered 2026 CTL in AD-27",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1483891",
+            "committee_name": "Leticia Gonzalez for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3103274",
+                "amend_id": 0,
+                "receipts_period": 12720.32,
+                "spend_period": 12807.64,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        },
+        {
+          "role": "Opponent",
+          "name": "Priya Lakireddy",
+          "committee_name": "Priya Lakireddy for Assembly 2026",
+          "filer_id": "1481075",
+          "receipts": 30334.2,
+          "spend": 30334.2,
+          "cash_on_hand_latest": 0.0,
+          "deltaReceipts": null,
+          "deltaSpend": null,
+          "series": [
+            3791.78,
+            7583.55,
+            11375.33,
+            15167.1,
+            18958.88,
+            22750.65,
+            26542.42,
+            30334.2
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+          "match_quality": "discovered",
+          "match_score": 55,
+          "match_reason": "auto-discovered 2026 CTL in AD-27",
+          "provenance": {
+            "status": "live",
+            "source": "SMRY_CD Form 460 lines 5 & 11 (sum of period AMOUNT_A across cycle filings, latest amend)",
+            "filer_id": "1481075",
+            "committee_name": "Priya Lakireddy for Assembly 2026",
+            "filings": [
+              {
+                "filing_id": "3082181",
+                "amend_id": 0,
+                "receipts_period": -69715.8,
+                "spend_period": 17025.61,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              },
+              {
+                "filing_id": "3062923",
+                "amend_id": 0,
+                "receipts_period": 100050.0,
+                "spend_period": 13308.59,
+                "form": "F460",
+                "lines": {
+                  "5": "total contributions received (period)",
+                  "11": "total expenditures made (period)"
+                }
+              }
+            ]
+          },
+          "live": true
+        }
+      ],
+      "ie": [
+        {
+          "name": "Legislative Bipartisan Action PAC",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 390554.59,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            120170.64,
+            120170.64,
+            60085.32,
+            30042.66,
+            60085.32
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1493987",
+            "filing_ids": [
+              "3192615",
+              "3192981",
+              "3194393",
+              "3195740",
+              "3197126",
+              "3197789",
+              "3205356"
+            ],
+            "filing_id_count": 7
+          }
+        },
+        {
+          "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
+          "side": "oppose",
+          "role": "IE oppose",
+          "receipts": 0.0,
+          "spend": 51252.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            51252.5
+          ],
+          "targets": [
+            "Michael Murphy"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1411956",
+            "filing_ids": [
+              "3204428"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Quality Health Care for Californians, sponsored by California Association of Hospitals and Health Systems",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 319654.02,
+          "deltaSpend": 400.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            53275.67,
+            266378.35
+          ],
+          "targets": [
+            "Brian Pacheco",
+            "Bryan Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1310421",
+            "filing_ids": [
+              "3201347",
+              "3205302",
+              "3205983"
+            ],
+            "filing_id_count": 3
+          }
+        },
+        {
+          "name": "California's Credit Unions Political Action Committee, Sponsored by California Credit Union League",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 98180.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            98180.0
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "760225",
+            "filing_ids": [
+              "3204178"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 92684.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            92684.5
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1365275",
+            "filing_ids": [
+              "3153053"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 60000.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            60000.0
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1399192",
+            "filing_ids": [
+              "3151691",
+              "3205850"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 51252.5,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            51252.5
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1411956",
+            "filing_ids": [
+              "3204427"
+            ],
+            "filing_id_count": 1
+          }
+        },
+        {
+          "name": "Working Families for a Stronger California, Sponsored by LCCC PAC, A Bi-partisan Coalition of Municipal, County, Latino ",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 31438.55,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            15719.27,
+            0.0,
+            15719.27
+          ],
+          "targets": [
+            "Brian Pacheco"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1490752",
+            "filing_ids": [
+              "3150939",
+              "3158428"
+            ],
+            "filing_id_count": 2
+          }
+        },
+        {
+          "name": "Table Mountain Rancheria",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 25000.0,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            25000.0
+          ],
+          "targets": [
+            "Esmeralda Soria"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "495236",
+            "filing_ids": [
+              "3003654"
+            ],
+            "filing_id_count": 1
+          }
+        }
+      ],
+      "notes": [
+        "Candidate receipts/spend = sum of Form 460 SMRY line 5 / line 11 period amounts (latest amend per filing) for matched cycle committees.",
+        "IE spend = S496 amounts on F496/F465 filings whose cover names an ASM candidate in this district.",
+        "Candidate WoW deltas are null \u2014 SMRY is period-based; IE WoW uses expenditure dates when present.",
+        "Name/district matching is best-effort public-data matching and can mis-attribute similarly named committees."
+      ]
+    }
+  },
+  "match_report": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Josh Hoover",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1476883",
+          "committee_name": "Hoover for Assembly 2026",
+          "receipts": 1260889.55,
+          "spend": 768672.05,
+          "live": true
+        },
+        {
+          "name": "Amy Slavensky",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1484959",
+          "committee_name": "Amy Slavensky for Assembly 2026",
+          "receipts": 1069635.09,
+          "spend": 886969.85,
+          "live": true
+        },
+        {
+          "name": "Vance Taylor",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1483621",
+          "committee_name": "Vance Taylor for Assembly 2026",
+          "receipts": 27053.0,
+          "spend": 27053.0,
+          "live": true
+        },
+        {
+          "name": "Chris Hoang",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1481833",
+          "committee_name": "Hoang for Assembly 2026",
+          "receipts": 57383.0,
+          "spend": 57397.99,
+          "live": true
+        }
+      ],
+      "ie_count": 9
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Greg Wallis",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1477044",
+          "committee_name": "Greg Wallis for Assembly 2026",
+          "receipts": 1558288.88,
+          "spend": 1246380.78,
+          "live": true
+        },
+        {
+          "name": "Leila Namvar",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1484350",
+          "committee_name": "Leila Namvar for Assembly 2026",
+          "receipts": 460178.41,
+          "spend": 380628.37,
+          "live": true
+        },
+        {
+          "name": "Jason Byors",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1482607",
+          "committee_name": "Jason Byors for Assembly District 47 (2026)",
+          "receipts": 134563.84,
+          "spend": 26074.7,
+          "live": true
+        },
+        {
+          "name": "Lucas Pinon",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1483826",
+          "committee_name": "Lucas Pinon for Assembly 2026",
+          "receipts": 36549.0,
+          "spend": 36599.0,
+          "live": true
+        }
+      ],
+      "ie_count": 12
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Clarissa Cervantes",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1478397",
+          "committee_name": "Clarissa Cervantes for Assembly 2026",
+          "receipts": 1777002.94,
+          "spend": 1448989.41,
+          "live": true
+        },
+        {
+          "name": "Leticia Castillo",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1477348",
+          "committee_name": "Leticia Castillo for Assembly 2026",
+          "receipts": 799573.08,
+          "spend": 287615.37,
+          "live": true
+        },
+        {
+          "name": "Paco Licea",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1480137",
+          "committee_name": "Paco Licea for Assembly 2026",
+          "receipts": 61363.4,
+          "spend": 61363.4,
+          "live": true
+        }
+      ],
+      "ie_count": 8
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Laurie Davies",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1477105",
+          "committee_name": "Laurie Davies For Assembly 2026",
+          "receipts": 1204642.61,
+          "spend": 879970.92,
+          "live": true
+        },
+        {
+          "name": "Chris Duncan",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1476816",
+          "committee_name": "Chris Duncan for Assembly 2026",
+          "receipts": 8000.0,
+          "spend": 8000.0,
+          "live": true
+        },
+        {
+          "name": "Sergio Farias",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1477625",
+          "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
+          "receipts": 170241.35,
+          "spend": 220938.13,
+          "live": true
+        }
+      ],
+      "ie_count": 3
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Jeff Gonzalez",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1477498",
+          "committee_name": "Jeff Gonzalez for Assembly 2026",
+          "receipts": 1296142.24,
+          "spend": 883836.91,
+          "live": true
+        },
+        {
+          "name": "Ida Obeso-Martinez",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1483893",
+          "committee_name": "Ida Obeso-Martinez for Assembly 2026",
+          "receipts": 2102600.38,
+          "spend": 1760101.91,
+          "live": true
+        },
+        {
+          "name": "Tomas Oliva",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1480373",
+          "committee_name": "Tomas Oliva for Assembly 2026",
+          "receipts": 100302.87,
+          "spend": 109920.22,
+          "live": true
+        },
+        {
+          "name": "Oscar F. Ortiz",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1480043",
+          "committee_name": "Oscar Ortiz for Assembly 2026",
+          "receipts": 286634.32,
+          "spend": 290903.53,
+          "live": true
+        }
+      ],
+      "ie_count": 12
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "status": "live",
+      "candidates": [
+        {
+          "name": "Esmeralda Soria",
+          "role": "Incumbent",
+          "match_quality": "strong",
+          "filer_id": "1476814",
+          "committee_name": "Soria for Assembly 2026",
+          "receipts": 401550.0,
+          "spend": 720933.46,
+          "live": true
+        },
+        {
+          "name": "Brian Pacheco",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1485456",
+          "committee_name": "Brian Pacheco for Assembly 2026",
+          "receipts": 2998579.8,
+          "spend": 2572054.43,
+          "live": true
+        },
+        {
+          "name": "Joanna Garcia Rose",
+          "role": "Opponent",
+          "match_quality": "moderate",
+          "filer_id": "1463062",
+          "committee_name": "Joanna Garcia Rose for Assembly 2024",
+          "receipts": 1294568.0,
+          "spend": 1296408.04,
+          "live": true
+        },
+        {
+          "name": "Michael Murphy",
+          "role": "Opponent",
+          "match_quality": "strong",
+          "filer_id": "1478647",
+          "committee_name": "Murphy for Assembly 2026",
+          "receipts": 608515.6,
+          "spend": 577939.46,
+          "live": true
+        },
+        {
+          "name": "Leticia Gonzalez",
+          "role": "Opponent",
+          "match_quality": "discovered",
+          "filer_id": "1483891",
+          "committee_name": "Leticia Gonzalez for Assembly 2026",
+          "receipts": 12720.32,
+          "spend": 12807.64,
+          "live": true
+        },
+        {
+          "name": "Priya Lakireddy",
+          "role": "Opponent",
+          "match_quality": "discovered",
+          "filer_id": "1481075",
+          "committee_name": "Priya Lakireddy for Assembly 2026",
+          "receipts": 30334.2,
+          "spend": 30334.2,
+          "live": true
+        }
+      ],
+      "ie_count": 9
+    }
+  ]
+}

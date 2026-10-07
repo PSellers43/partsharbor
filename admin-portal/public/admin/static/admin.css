@@ -149,6 +149,22 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.tool-links {
+  margin: 0 0 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.tool-links .btn-primary {
+  width: auto;
+}
+
+.tool-links-note {
+  margin: 0.65rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
 .meta-list {
   list-style: none;
   padding: 0;
