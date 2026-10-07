@@ -231,11 +231,15 @@
       <div class="page-header">
         <div>
           <h1 class="page-title">Today’s Board</h1>
-          <p class="page-desc">Next 24–72h CM priorities for <strong>AD-7</strong> (demo). Threat Index drives the queue; actions carry evidence tags from public CM doctrine — not automated orders.</p>
+          <p class="page-desc" id="cm-page-desc">Next 24–72h CM priorities for the selected beachhead. Threat Index drives the queue where the deep desk is wired; live money, ballot pace, and precinct data follow the selector below.</p>
         </div>
         <div class="cm-header-meta">
+          <label class="desk-district-label">
+            <span class="desk-district-label-text">Beachhead desk</span>
+            <select id="desk-district-select-cm" class="desk-district-select" aria-label="Beachhead district for Today's Board"></select>
+          </label>
           <div class="stat-pill">
-            <div class="label">AD-7 Threat</div>
+            <div class="label" id="cm-ti-label">Threat (demo)</div>
             <div class="value" id="cm-ti-value">72</div>
           </div>
           <div class="mode-switch" role="group" aria-label="Race mode">
@@ -246,6 +250,7 @@
       </div>
       <p id="cm-mode-blurb" class="cm-mode-blurb"></p>
       <div id="cm-abev-wrap" class="card abev-cm-wrap" aria-label="Ballot return pulse"></div>
+      <div id="cm-live-intel" class="cm-live-intel" aria-label="Live beachhead feeds"></div>
       <div class="cm-layout">
         <div class="cm-main">
           <div class="card">
@@ -293,9 +298,15 @@
       <div class="page-header no-print">
         <div>
           <h1 class="page-title">Monday Brief</h1>
-          <p class="page-desc">One-page printable desk brief for AD-7. Export uses your browser print / Save as PDF.</p>
+          <p class="page-desc" id="brief-page-desc">One-page printable desk brief for the selected beachhead. Export uses your browser print / Save as PDF.</p>
         </div>
-        <button type="button" class="btn btn-primary" id="export-pdf">Export PDF</button>
+        <div class="brief-header-actions">
+          <label class="desk-district-label desk-district-label-inline">
+            <span class="desk-district-label-text">Beachhead</span>
+            <select id="desk-district-select-brief" class="desk-district-select" aria-label="Beachhead district for Monday Brief"></select>
+          </label>
+          <button type="button" class="btn btn-primary" id="export-pdf">Export PDF</button>
+        </div>
       </div>
       <div id="brief-body"></div>
     </section>

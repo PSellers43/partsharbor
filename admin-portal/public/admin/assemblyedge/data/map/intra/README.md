@@ -6,7 +6,7 @@ Per–Assembly District GeoJSON for the Focus map **drill-down** view: Census **
 |------|-----|-------------|--------|
 | `ad-7.geojson` | Sacramento / Folsom | ~21 KB | 12 |
 | `ad-27.geojson` | Central Valley | ~45 KB | 43 |
-| `ad-36.geojson` | Antelope Valley | ~56 KB | 47 |
+| `ad-36.geojson` | Imperial / East Riverside (Coachella Valley) | ~56 KB | 47 |
 | `ad-47.geojson` | Inland Empire | ~48 KB | 30 |
 | `ad-58.geojson` | Riverside corridor | ~16 KB | 9 |
 | `ad-74.geojson` | Orange County | ~17 KB | 9 |

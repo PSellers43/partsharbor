@@ -39,7 +39,7 @@ BEACHHEAD = {"7", "27", "36", "47", "58", "74"}
 COUNTY_FIPS = {
     "7": [67, 61],
     "27": [19, 39],
-    "36": [29, 37],
+    "36": [25, 65],  # Imperial + Riverside (CRC AD-36 Coachella / Imperial — not Kern/LA)
     "47": [65],
     "58": [65],
     "74": [59],
