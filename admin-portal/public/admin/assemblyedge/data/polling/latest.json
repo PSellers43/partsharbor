@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-07T16:00:00-07:00",
+  "updated_by": "AssemblyEdge desk seed",
+  "gap_recent_days": 90,
+  "notes": "Horse-race polls only. Election results and model projections are not polls.",
+  "districts": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "race_label": "Josh Hoover (R) incumbent · Sacramento suburbs",
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07"
+      }
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "race_label": "Greg Wallis (R) incumbent vs Leila Namvar (D) · Coachella Valley",
+      "poll": {
+        "pollster": "Moore Information Group",
+        "sponsor": "Greg Wallis for Assembly (campaign-commissioned)",
+        "field_start": "2022-09-23",
+        "field_end": "2022-09-28",
+        "sample_n": 300,
+        "population": "likely voters",
+        "margin": {
+          "leader_name": "Christy Holstege",
+          "leader_party": "D",
+          "leader_pct": 43,
+          "trailer_name": "Greg Wallis",
+          "trailer_party": "R",
+          "trailer_pct": 42,
+          "undecided_pct": 14
+        },
+        "moe_pct": 6,
+        "source_label": "Campaign press release",
+        "source_url": "https://www.gregwallis.org/post/assembly-district-47-a-statistical-tie-environment-swinging-republican"
+      },
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07",
+        "days_since_field_end": 1105
+      }
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "race_label": "Leticia Castillo (R) incumbent vs Clarissa Cervantes (D) · Riverside area",
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07"
+      }
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "race_label": "Laurie Davies (R) incumbent vs Sergio Farias (D) · Orange / San Diego coast",
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07"
+      }
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "race_label": "Jeff Gonzalez (R) incumbent · Antelope Valley / High Desert",
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07"
+      }
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "race_label": "Esmeralda Soria (D) incumbent · Fresno corridor",
+      "gap": {
+        "message": "No public horse-race poll in the last 90 days",
+        "as_of": "2026-10-07"
+      }
+    }
+  ]
+}
