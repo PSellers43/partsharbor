@@ -20,6 +20,8 @@ Two operator roles share one desk:
 5. **Command palette** — ⌘K jump to districts, roles, and actions  
 6. **Chrome** — DEMO banner, **Analyst | Campaign Manager** role switcher, theme toggle, loading skeleton  
 7. **CM Today's Board** — AD-7 Threat Index summary, persuasion/turnout mode, priority queue, decision log, war-room checklist  
+8. **Polling & gaps** — curated public horse-race polls or explicit gap rows (`data/polling/latest.json`)  
+9. **Focus map** — beachhead choropleth (simplified GeoJSON) colored by prototype focus / opportunity score  
 
 ## Doctrine (short citations only — no long quotes)
 

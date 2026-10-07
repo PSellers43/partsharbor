@@ -60,6 +60,12 @@
     } else if (page === "cm") {
       renderCM();
       showPage("cm");
+    } else if (page === "polling") {
+      renderPollingPage();
+      showPage("polling");
+    } else if (page === "focus-map") {
+      renderFocusMapPage();
+      showPage("focus-map");
     } else {
       renderPortfolio();
       showPage("portfolio");
@@ -151,6 +157,207 @@
     grid.querySelectorAll("[data-district]").forEach((btn) => {
       btn.addEventListener("click", () => navigate("district", { districtId: btn.dataset.district, tab: "threat" }));
     });
+
+    renderPollingTeaser();
+  }
+
+  /* ——— Polling & gaps ——— */
+  function pollRowHtml(row, compact) {
+    const dMeta = AE.districts.find((x) => x.id === row.id);
+    const poll = row.poll;
+    const recent = poll && AE.polling.isRecent(poll);
+    const hasPoll = !!poll;
+    const gapMsg = (row.gap && row.gap.message) || "No public horse-race poll in the last 90 days";
+    const isGapOnly = !hasPoll;
+    const isStale = hasPoll && !recent;
+
+    let bars = "";
+    if (hasPoll && poll.margin) {
+      const m = poll.margin;
+      const u = m.undecided_pct || 0;
+      const lead = m.leader_party === "R" ? "r" : "d";
+      const trail = m.trailer_party === "R" ? "r" : "d";
+      const leadPct = m.leader_pct || 0;
+      const trailPct = m.trailer_pct || 0;
+      bars = `
+        <div class="poll-bar-labels">
+          <span>${m.leader_name} (${m.leader_party}) ${leadPct}%</span>
+          <span>${m.trailer_name} (${m.trailer_party}) ${trailPct}%</span>
+          ${u ? `<span>Undecided ${u}%</span>` : ""}
+        </div>
+        <div class="poll-bar-track" aria-hidden="true">
+          <span class="poll-bar-seg ${lead}" style="width:${leadPct}%"></span>
+          <span class="poll-bar-seg ${trail}" style="width:${trailPct}%"></span>
+          ${u ? `<span class="poll-bar-seg u" style="width:${u}%"></span>` : ""}
+        </div>
+        <div class="poll-meta-chips">
+          <span class="chip ${recent ? "chip-poll-live" : "chip-poll-stale"}">${recent ? "Recent public poll" : "Latest available · stale"}</span>
+          <span class="chip chip-demo">${poll.pollster}</span>
+          ${poll.moe_pct != null ? `<span class="chip chip-demo">±${poll.moe_pct}% MoE</span>` : ""}
+          <span class="chip chip-demo">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
+          <span class="chip chip-demo">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
+          ${poll.sponsor ? `<span class="chip chip-demo" title="Sponsor">${poll.sponsor}</span>` : ""}
+        </div>
+        ${poll.source_url ? `<a class="poll-source-link" href="${poll.source_url}" target="_blank" rel="noopener noreferrer">${poll.source_label || "Source"} ↗</a>` : ""}`;
+    } else {
+      bars = `<div class="poll-gap-block"><div class="poll-gap-message">${gapMsg}</div></div>`;
+    }
+
+    const gapChip =
+      isGapOnly || isStale
+        ? `<span class="chip chip-gap">${gapMsg}</span>`
+        : "";
+
+    const actions = compact
+      ? ""
+      : `<div class="poll-row-actions">
+          ${gapChip}
+          <button type="button" class="btn" data-district-open="${row.id}">District detail</button>
+        </div>`;
+
+    return `
+      <article class="poll-row ${isGapOnly || isStale ? "is-gap" : ""}" role="listitem">
+        <div class="poll-row-head">
+          <div class="poll-code">${row.code}</div>
+          <div class="poll-race">${row.race_label || (dMeta ? dMeta.name + " · " + dMeta.region : "")}</div>
+          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip chip-demo">TI ${dMeta.threatIndex} (illustrative)</span></div>` : ""}
+        </div>
+        <div class="poll-bars">${bars}</div>
+        ${actions}
+      </article>`;
+  }
+
+  function renderPollingPage() {
+    const root = AE.pollingData;
+    const el = $("#polling-infographic");
+    const badge = $("#polling-data-badge");
+    const note = $("#polling-meta-note");
+    if (!el) return;
+
+    if (AE.pollingLoadError || !root) {
+      if (badge) {
+        badge.textContent = "DATA MISSING";
+        badge.className = "chip chip-gap";
+      }
+      el.innerHTML = `<div class="empty-state"><h3>Polling JSON not loaded</h3><p>${AE.pollingLoadError || "Fetch failed"} — add <code>data/polling/latest.json</code>.</p></div>`;
+      return;
+    }
+
+    if (badge) {
+      badge.textContent = "CURATED PUBLIC POLLS";
+      badge.className = "chip chip-live";
+    }
+    if (note) {
+      const asOf = root.updated_at ? formatAsOf(root.updated_at) : "—";
+      note.innerHTML = `As of <strong>${asOf}</strong> · Gap threshold <strong>${root.gap_recent_days || 90} days</strong> · ${root.notes || ""}`;
+    }
+
+    const rows = (root.districts || []).slice().sort((a, b) => a.code.localeCompare(b.code));
+    el.innerHTML = rows.map((r) => pollRowHtml(r, false)).join("");
+    el.querySelectorAll("[data-district-open]").forEach((btn) => {
+      btn.addEventListener("click", () => navigate("district", { districtId: btn.dataset.districtOpen, tab: "threat" }));
+    });
+  }
+
+  function renderPollingTeaser() {
+    const body = $("#polling-teaser-body");
+    const badge = $("#polling-teaser-badge");
+    if (!body) return;
+    const root = AE.pollingData;
+    if (!root || !root.districts) {
+      body.textContent = AE.pollingLoadError ? "Polling data unavailable." : "Loading…";
+      if (badge) badge.textContent = "—";
+      return;
+    }
+    const gaps = root.districts.filter((row) => {
+      if (!row.poll) return true;
+      return !AE.polling.isRecent(row.poll);
+    });
+    if (badge) badge.textContent = gaps.length + " gap" + (gaps.length === 1 ? "" : "s");
+    body.innerHTML = `<div class="intel-gap-pills">${gaps
+      .map((g) => `<span class="intel-gap-pill">${g.code}</span>`)
+      .join("")}</div><p style="margin:8px 0 0">${gaps.length}/${root.districts.length} districts without a recent public poll.</p>`;
+  }
+
+  function renderDistrictPollingStrip(d) {
+    const el = $("#district-polling-strip");
+    if (!el) return;
+    const row = AE.polling && AE.polling.districtRow(d.id);
+    if (!row) {
+      el.innerHTML = "";
+      return;
+    }
+    el.innerHTML = `<div class="card" style="padding:12px 14px"><h3 class="card-title" style="margin-bottom:8px">Polling & gaps</h3>${pollRowHtml(row, true)}</div>`;
+  }
+
+  /* ——— Focus map ——— */
+  function renderFocusMapPage() {
+    const wrap = $("#focus-map-wrap");
+    const legend = $("#focus-legend");
+    const rank = $("#focus-rank-list");
+    if (!wrap) return;
+
+    if (AE.mapGeoLoadError || !AE.mapGeo) {
+      wrap.innerHTML = `<div class="empty-state"><h3>Map geometry missing</h3><p>${AE.mapGeoLoadError || ""}</p></div>`;
+      return;
+    }
+
+    const w = 360;
+    const h = 420;
+    const feats = AE.focusMap.featurePaths(w, h);
+    const caSilhouette =
+      "M42,18 L318,22 L340,88 L332,180 L300,260 L248,320 L180,368 L92,352 L38,280 L28,160 Z";
+
+    const shapes = feats
+      .map(
+        (f) =>
+          `<path class="district-shape ${f.band.class}" tabindex="0" role="link" aria-label="${f.code} focus score ${f.score}" data-district="${f.id}" d="${f.d}"></path>`
+      )
+      .join("");
+
+    wrap.innerHTML = `
+      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg" aria-label="California beachhead focus map">
+        <path class="map-silhouette" d="${caSilhouette}" aria-hidden="true"></path>
+        ${shapes}
+      </svg>`;
+
+    wrap.querySelectorAll("[data-district]").forEach((path) => {
+      const go = () => navigate("district", { districtId: path.dataset.district, tab: "threat" });
+      path.addEventListener("click", go);
+      path.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          go();
+        }
+      });
+    });
+
+    if (legend) {
+      legend.innerHTML = `
+        <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#b8860b"></span> High focus (70+)</span>
+        <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#8b6914"></span> Elevated (50–69)</span>
+        <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#5c4a12"></span> Watch (&lt;50)</span>
+        <span class="focus-legend-item"><span class="chip chip-demo">Threat Index illustrative</span></span>`;
+    }
+
+    if (rank) {
+      const sorted = AE.districts
+        .map((d) => ({ d, ...AE.focusMap.computeScore(d.id) }))
+        .sort((a, b) => b.score - a.score);
+      rank.innerHTML = sorted
+        .map(({ d, score, parts }) => {
+          const band = AE.focusMap.scoreBand(score);
+          return `<div class="focus-rank-item">
+            <button type="button" data-district-open="${d.id}">${d.code}</button>
+            <span class="chip ${band.class === "focus-high" ? "chip-gap" : "chip-demo"}">${score} · ${band.label}</span>
+            <span style="font-size:10px;color:var(--text-dim)">TI ${parts.threatIndex}</span>
+          </div>`;
+        })
+        .join("");
+      rank.querySelectorAll("[data-district-open]").forEach((btn) => {
+        btn.addEventListener("click", () => navigate("district", { districtId: btn.dataset.districtOpen, tab: "threat" }));
+      });
+    }
   }
 
   /* ——— District detail ——— */
@@ -178,6 +385,7 @@
       ? ""
       : `${d.code} shows portfolio Threat Index. Full factor / money / ads / narrative panels are wired for AD-7 (Hoover) as the deep demo — open AD-7 for the complete desk.`;
 
+    renderDistrictPollingStrip(d);
     renderThreat(d);
     renderMoney(d);
     renderAds(d);
@@ -392,11 +600,23 @@
           const d = AE.districts.find((x) => x.id === state.districtId);
           if (d) renderMoney(d);
         }
+        if (state.page === "focus-map") renderFocusMapPage();
+        if (state.page === "portfolio") renderPortfolio();
       })
       .catch((err) => {
         AE.liveMoney = null;
         AE.liveMoneyLoadError = String(err && err.message ? err.message : err);
       });
+  }
+
+  function refreshPollingViews() {
+    if (state.page === "polling") renderPollingPage();
+    if (state.page === "portfolio") renderPollingTeaser();
+    if (state.page === "district") {
+      const d = AE.districts.find((x) => x.id === state.districtId);
+      if (d) renderDistrictPollingStrip(d);
+    }
+    if (state.page === "focus-map") renderFocusMapPage();
   }
 
   function renderAds(d) {
@@ -749,6 +969,8 @@
     }));
     const actions = [
       { id: "home", label: "Portfolio home", hint: "Go", run: () => navigate("portfolio") },
+      { id: "polling", label: "Polling & gaps", hint: "Go", run: () => navigate("polling") },
+      { id: "focus", label: "Focus map", hint: "Go", run: () => navigate("focus-map") },
       { id: "cm", label: "CM Board · Today’s priorities", hint: "Go", run: () => navigate("cm") },
       { id: "brief", label: "Monday Brief · AD-7", hint: "Go", run: () => navigate("brief") },
       { id: "method", label: "Methodology / Trust", hint: "Go", run: () => navigate("methodology") },
@@ -849,6 +1071,9 @@
     $$(".nav-link").forEach((n) => {
       n.addEventListener("click", () => navigate(n.dataset.page));
     });
+    $$("[data-page-jump]").forEach((n) => {
+      n.addEventListener("click", () => navigate(n.dataset.pageJump));
+    });
     $(".brand")?.addEventListener("click", () => navigate(state.role === "cm" ? "cm" : "portfolio"));
     $$(".role-btn").forEach((b) => {
       b.addEventListener("click", () => {
@@ -946,7 +1171,7 @@
     applyTheme();
     applyRole();
     bind();
-    loadLiveMoney();
+    Promise.all([loadLiveMoney(), AE.polling.load(), AE.focusMap.loadGeo()]).then(refreshPollingViews);
     if (state.role === "cm") {
       renderCM();
       showPage("cm");

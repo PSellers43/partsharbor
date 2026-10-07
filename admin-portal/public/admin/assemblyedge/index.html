@@ -14,7 +14,7 @@
   <!-- Live vs demo banner -->
   <div class="demo-banner" role="status">
     <span class="pulse" aria-hidden="true"></span>
-    <span class="demo-banner-text">DEMO / ILLUSTRATIVE DATA — Not official FPPC, SOS, or caucus figures. Rounded placeholders for product UX only.</span>
+    <span class="demo-banner-text">DEMO / ILLUSTRATIVE DATA — Threat Index &amp; most signals are rounded placeholders until more feeds are live. Money may show LIVE CAL-ACCESS when JSON is present. Not official FPPC, SOS, or caucus figures.</span>
   </div>
 
   <nav class="app-nav no-print" aria-label="Primary">
@@ -27,6 +27,8 @@
     </button>
     <div class="nav-links">
       <button type="button" class="nav-link active" data-page="portfolio">Portfolio</button>
+      <button type="button" class="nav-link" data-page="polling">Polling &amp; gaps</button>
+      <button type="button" class="nav-link" data-page="focus-map">Focus map</button>
       <button type="button" class="nav-link" data-page="cm">Today's Board</button>
       <button type="button" class="nav-link" data-page="brief">Monday Brief</button>
       <button type="button" class="nav-link" data-page="methodology">Methodology</button>
@@ -58,7 +60,62 @@
         <div class="stat-pill"><div class="label">Elevated</div><div class="value" id="stat-elevated" style="color:var(--danger)">—</div></div>
         <div class="stat-pill"><div class="label">Watch</div><div class="value" id="stat-watch" style="color:var(--warn)">—</div></div>
       </div>
+      <div class="portfolio-intel-row">
+        <article class="card intel-teaser" id="portfolio-polling-teaser">
+          <h3 class="card-title">Polling &amp; gaps <span class="chip chip-demo" id="polling-teaser-badge">Loading</span></h3>
+          <p class="intel-teaser-desc">Latest public horse-race surveys — or explicit gaps when none exist in the last 90 days.</p>
+          <div id="polling-teaser-body" class="intel-teaser-body"></div>
+          <button type="button" class="btn btn-primary" data-page-jump="polling">Open polling desk</button>
+        </article>
+        <article class="card intel-teaser">
+          <h3 class="card-title">Focus map <span class="chip chip-demo">Prototype score</span></h3>
+          <p class="intel-teaser-desc">Beachhead choropleth by focus / opportunity (Threat Index, money, polling gaps).</p>
+          <button type="button" class="btn btn-primary" data-page-jump="focus-map">Open focus map</button>
+        </article>
+      </div>
       <div id="district-grid" class="district-grid" role="list"></div>
+    </section>
+
+    <!-- POLLING & GAPS -->
+    <section id="page-polling" class="page" aria-label="Polling and gaps">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Polling &amp; gaps</h1>
+          <p class="page-desc">Public horse-race polls only — sourced and dated. When nothing recent exists, gaps are shown explicitly (not empty cells).</p>
+        </div>
+        <div class="page-header-meta">
+          <span class="chip chip-demo" id="polling-data-badge">—</span>
+        </div>
+      </div>
+      <p class="polling-meta-note" id="polling-meta-note"></p>
+      <div id="polling-infographic" class="polling-infographic" role="list"></div>
+      <div class="card method-card" style="margin-top:16px">
+        <h3 class="card-title">Refresh polling data</h3>
+        <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">Edit <code>data/polling/latest.json</code> and read <code>data/polling/README.md</code>. Bump <code>updated_at</code> after each refresh. Never paste election results or model forecasts as polls.</p>
+      </div>
+    </section>
+
+    <!-- FOCUS MAP -->
+    <section id="page-focus-map" class="page" aria-label="District focus map">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Focus map</h1>
+          <p class="page-desc">Tracked beachheads on a simplified CA Assembly map. Color = transparent focus / opportunity score (prototype).</p>
+        </div>
+      </div>
+      <div class="focus-map-layout">
+        <div class="card focus-map-card">
+          <div id="focus-map-wrap" class="focus-map-wrap"></div>
+          <div class="focus-legend" id="focus-legend" aria-label="Score legend"></div>
+        </div>
+        <aside class="card focus-map-aside">
+          <h3 class="card-title">Score formula <span class="chip chip-demo">Prototype</span></h3>
+          <p class="focus-formula">Focus score (0–100) = <strong>40%</strong> Threat Index (demo desk signal) + <strong>35%</strong> money pressure (LIVE CAL-ACCESS spend totals when matched, else TI proxy) + <strong>25%</strong> polling gap severity (no recent public poll → higher).</p>
+          <p style="margin:12px 0 0;font-size:12px;color:var(--text-dim)">Higher score = more operator attention on this prototype desk — not a win probability.</p>
+          <button type="button" class="btn" data-page-jump="methodology" style="margin-top:14px">Methodology &amp; trust</button>
+          <div id="focus-rank-list" class="focus-rank-list"></div>
+        </aside>
+      </div>
     </section>
 
     <!-- DISTRICT DETAIL -->
@@ -98,6 +155,8 @@
             </div>
           </div>
         </div>
+
+        <div id="district-polling-strip" class="district-polling-strip no-print"></div>
 
         <div class="tabs no-print" role="tablist" aria-label="District sections">
           <button type="button" class="tab active" role="tab" data-tab="threat">Threat Index</button>
@@ -227,6 +286,8 @@
             <li>Ad surge — Meta + Google volume &amp; bands</li>
             <li>Narrative heat — headline velocity + sentiment</li>
             <li>Poll movement — disclosed ranges only when available</li>
+            <li>Polling &amp; gaps panel — curated <code>data/polling/latest.json</code> (public horse-race only)</li>
+            <li>Focus map — 40% TI + 35% money + 25% polling gap severity (prototype)</li>
           </ul>
           <p style="margin-top:12px">Click any factor on AD-7 for an in-product methodology drawer.</p>
         </div>
@@ -275,6 +336,8 @@
 
   <script src="js/data.js"></script>
   <script src="js/cm.js"></script>
+  <script src="js/polling.js"></script>
+  <script src="js/focus-map.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
