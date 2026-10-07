@@ -13,6 +13,10 @@ window.AE = window.AE || {};
     "Compare registration mix in AD-47 vs AD-74.",
     "What were mail return rates in AD-36 in 2024?",
     "Which Rancho Cordova precincts are within 2 points?",
+    "What has Gonzalez posted this week?",
+    "Any attacks in AD-36?",
+    "How is sentiment trending in AD-36?",
+    "Any late money in AD-36 this week?",
   ];
 
   AE.ask.config = {
@@ -108,6 +112,43 @@ window.AE = window.AE || {};
     return fallback;
   }
 
+  function parseCandidateName(text) {
+    const m = /\bwhat has\s+([A-Za-z][A-Za-z.'-]{2,30}?)\s+(?:posted|post|said|tweeted)/i.exec(text);
+    if (m) return m[1].trim();
+    const m2 = /\b([A-Za-z][A-Za-z.'-]{2,30}?)'s\s+(?:posts|x|social)/i.exec(text);
+    if (m2) return m2[1].trim();
+    const known = [
+      "Gonzalez",
+      "Hoover",
+      "Murphy",
+      "Wallis",
+      "Castillo",
+      "Davies",
+      "Pacheco",
+      "Cervantes",
+      "Farias",
+      "Slavensky",
+      "Obeso",
+      "Namvar",
+    ];
+    const lower = text.toLowerCase();
+    for (const name of known) {
+      if (lower.indexOf(name.toLowerCase()) >= 0) return name;
+    }
+    return null;
+  }
+
+  function parseSocialFlag(text) {
+    if (/\battack/.test(text)) return "attack";
+    if (/\bads?\b|\btv ad/.test(text)) return "ad";
+    if (/endorsement/.test(text)) return "endorsement";
+    if (/spike/.test(text)) return "spike";
+    if (/fundraising|f497|late contribution/.test(text)) return "fundraising";
+    if (/policy|ballot prop/.test(text)) return "policy";
+    if (/event|canvass|town hall|phone bank/.test(text)) return "event";
+    return null;
+  }
+
   AE.ask.parseIntent = function (question) {
     const q = normalizeQuestion(question).toLowerCase();
     const original = normalizeQuestion(question);
@@ -187,6 +228,38 @@ window.AE = window.AE || {};
       return { intent: "polling_gap", districtId, limit: 1 };
     }
 
+    if (/\battack/.test(q) && (districtId || /\bAD[\s-]?\d/.test(original))) {
+      return {
+        intent: "social_attacks",
+        districtId: districtId || "ad-36",
+        limit,
+        raw: original,
+      };
+    }
+
+    if (/sentiment|tone trend|trending on x/.test(q) && (districtId || /\bAD[\s-]?\d/.test(original))) {
+      return {
+        intent: "social_sentiment",
+        districtId: districtId || "ad-36",
+        limit: Math.min(limit, 12),
+        raw: original,
+      };
+    }
+
+    if (
+      (/\bposted\b|\bpost(?:s|ed)?\b|\bsocial\b|\bon x\b|\btweet/.test(q) || /\bwhat has\b/.test(q)) &&
+      (districtId || parseCandidateName(original))
+    ) {
+      return {
+        intent: "social_posts",
+        districtId: districtId || (parseCandidateName(original) === "Gonzalez" ? "ad-36" : districtId),
+        candidateName: parseCandidateName(original),
+        flagFilter: parseSocialFlag(q),
+        limit: Math.min(limit, 20),
+        raw: original,
+      };
+    }
+
     if (place && marginMax != null) {
       return {
         intent: "precinct_margin_filter",
@@ -248,6 +321,12 @@ window.AE = window.AE || {};
         return Promise.resolve(execThreat(q));
       case "polling_gap":
         return Promise.resolve(execPolling(q));
+      case "social_posts":
+        return Promise.resolve(execSocialPosts(q));
+      case "social_attacks":
+        return Promise.resolve(execSocialAttacks(q));
+      case "social_sentiment":
+        return Promise.resolve(execSocialSentiment(q));
       default:
         return Promise.resolve({
           ok: false,
@@ -652,6 +731,176 @@ window.AE = window.AE || {};
       ],
       sources: [sourceMeta("MajorityIQ desk (demo TI)", null)],
       deepLinks: [{ label: `Open ${d.code} war room`, type: "district-tab", districtId: d.id, tab: "threat" }],
+      mode: "deterministic",
+      query: q,
+    };
+  }
+
+  function socialAsOf() {
+    return (AE.socialData && AE.socialData.as_of) || (AE.socialMeta && AE.socialMeta.as_of) || null;
+  }
+
+  function execSocialPosts(q) {
+    if (!AE.social || !AE.socialData) {
+      return {
+        ok: false,
+        title: "Social feed",
+        summary: AE.socialLoadError
+          ? "X digest failed to load: " + AE.socialLoadError
+          : "X digest not loaded yet.",
+        rows: [],
+        sources: [sourceMeta("MajorityIQ X digest", socialAsOf())],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    const districtId = q.districtId || "ad-36";
+    const { posts } = AE.social.queryPosts({
+      districtId,
+      candidateName: q.candidateName,
+      flagFilter: q.flagFilter,
+    });
+    const limit = q.limit || 15;
+    const top = posts.slice(0, limit);
+    const candLabel = q.candidateName ? q.candidateName + " · " : "";
+    return {
+      ok: true,
+      title: `${candLabel}${districtLabel(districtId)} · X posts (${AE.socialData.window_days || 7}d window)`,
+      summary:
+        top.length === 0
+          ? "No matching candidate posts in the loaded digest."
+          : `${top.length} post${top.length === 1 ? "" : "s"} from verified candidate accounts (read-only digest).`,
+      columns: [
+        { key: "when", label: "When" },
+        { key: "handle", label: "Handle" },
+        { key: "summary", label: "Summary" },
+        { key: "flags", label: "Flags" },
+      ],
+      rows: top.map((p) => ({
+        when: p.created_at ? p.created_at.slice(0, 10) : "—",
+        handle: "@" + (p.handle || "—"),
+        summary: p.summary || p.text || "—",
+        flags: (p.flags || []).join(", ") || "—",
+      })),
+      sources: [sourceMeta("X digest (read-only)", socialAsOf())],
+      deepLinks: [
+        {
+          label: `Open ${districtLabel(districtId)} · Social tab`,
+          type: "district-tab",
+          districtId,
+          tab: "social",
+        },
+      ],
+      mode: "deterministic",
+      query: q,
+    };
+  }
+
+  function execSocialSentiment(q) {
+    const districtId = q.districtId || "ad-36";
+    if (!AE.social || !AE.social.sentimentTrendSummary) {
+      return {
+        ok: false,
+        title: `Sentiment · ${districtLabel(districtId)}`,
+        summary: "X digest not loaded.",
+        rows: [],
+        sources: [],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    const trend = AE.social.sentimentTrendSummary(districtId);
+    if (!trend.ok) {
+      return {
+        ok: false,
+        title: `Sentiment trend · ${districtLabel(districtId)}`,
+        summary: trend.summary,
+        rows: [],
+        sources: [sourceMeta("X digest sentiment_history", socialAsOf())],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    return {
+      ok: true,
+      title: `Sentiment trend · ${districtLabel(districtId)}`,
+      summary: trend.summary,
+      columns: [
+        { key: "date", label: "Date" },
+        { key: "net", label: "Net (R−D tone)" },
+        { key: "toward_r", label: "R-side avg" },
+        { key: "toward_d", label: "D-side avg" },
+        { key: "n", label: "Scored n" },
+      ],
+      rows: trend.rows || [],
+      sources: [sourceMeta("X digest · AI-estimated tone (not polling)", socialAsOf())],
+      deepLinks: [
+        {
+          label: `Open ${districtLabel(districtId)} · Social`,
+          type: "district-tab",
+          districtId,
+          tab: "social",
+        },
+      ],
+      mode: "deterministic",
+      query: q,
+    };
+  }
+
+  function execSocialAttacks(q) {
+    if (!AE.social || !AE.socialData) {
+      return {
+        ok: false,
+        title: "Social attacks",
+        summary: "X digest not loaded.",
+        rows: [],
+        sources: [],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    const districtId = q.districtId || "ad-36";
+    const { posts, mentions } = AE.social.queryPosts({ districtId, flagFilter: "attack" });
+    const rows = []
+      .concat(
+        posts.map((p) => ({
+          kind: "Candidate account",
+          when: p.created_at ? p.created_at.slice(0, 10) : "—",
+          summary: p.summary || p.text || "—",
+          handle: "@" + (p.handle || "—"),
+        }))
+      )
+      .concat(
+        mentions.map((m) => ({
+          kind: "Mention (unverified)",
+          when: m.created_at ? m.created_at.slice(0, 10) : "—",
+          summary: m.summary || m.text || "—",
+          handle: "@" + (m.handle || "—"),
+        }))
+      );
+    return {
+      ok: true,
+      title: `${districtLabel(districtId)} · attack-flagged X posts`,
+      summary:
+        rows.length === 0
+          ? "No attack-flagged posts in candidate timelines or unverified mentions for this district."
+          : `${rows.length} attack-flagged item${rows.length === 1 ? "" : "s"} (includes unverified mentions when present).`,
+      columns: [
+        { key: "kind", label: "Source" },
+        { key: "when", label: "When" },
+        { key: "handle", label: "Handle" },
+        { key: "summary", label: "Summary" },
+      ],
+      rows: rows.slice(0, q.limit || 15),
+      sources: [sourceMeta("X digest · attack flag", socialAsOf())],
+      deepLinks: [
+        {
+          label: `Open ${districtLabel(districtId)} · Social`,
+          type: "district-tab",
+          districtId,
+          tab: "social",
+        },
+      ],
       mode: "deterministic",
       query: q,
     };

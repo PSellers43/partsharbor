@@ -20,6 +20,7 @@ import {
   aiQuotaRemaining,
   runAssemblyEdgeAskAi,
 } from "./assemblyedge-ask.js";
+import { loadSocialFeed } from "./assemblyedge-social-feed.js";
 import {
   htmlResponse,
   renderDashboard,
@@ -433,8 +434,32 @@ async function handleDeskApiAsk(c) {
   return c.json({ ok: false, error: "bad_request", message: "Unknown mode." }, 400);
 }
 
+async function handleDeskApiSocialFeed(c) {
+  if (!requireDeskSession(c)) {
+    return c.json({ error: "unauthorized" }, 401);
+  }
+  const loaded = await loadSocialFeed(c.env);
+  if (!loaded) {
+    return c.json(
+      { ok: false, error: "not_found", message: "Social feed unavailable (D1 empty and bundle missing)." },
+      404,
+    );
+  }
+  const headers = new Headers({ "Content-Type": "application/json; charset=utf-8" });
+  applyAssemblyEdgeSecurityHeaders(headers, c.get("config").isProduction);
+  return new Response(
+    JSON.stringify({
+      ok: true,
+      ...loaded.meta,
+      feed: loaded.feed,
+    }),
+    { status: 200, headers },
+  );
+}
+
 for (const deskPrefix of [ASSEMBLYEDGE_PREFIX, MAJORITYIQ_PREFIX]) {
   app.get(`${deskPrefix}/api/csrf`, handleDeskApiCsrf);
+  app.get(`${deskPrefix}/api/social-feed`, handleDeskApiSocialFeed);
   app.post(`${deskPrefix}/api/ask`, handleDeskApiAsk);
 }
 

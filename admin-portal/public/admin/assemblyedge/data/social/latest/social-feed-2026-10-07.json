@@ -1,0 +1,935 @@
+{
+  "schema": 1,
+  "as_of": "2026-10-07T15:05:00-07:00",
+  "window_days": 7,
+  "source": "X (read-only) via Grok Bot",
+  "credits_remaining_usd": 9.76,
+  "accounts": [
+    {
+      "user_id": "168534481",
+      "handle": "joshua_hoover",
+      "district": "AD-7",
+      "candidate": "Josh Hoover",
+      "party": "R",
+      "kind": "personal/campaign",
+      "last_post_at": "2026-10-02T02:19:03-07:00",
+      "last_seen_post_id": "2105950681831981415"
+    },
+    {
+      "user_id": "1612722346686836736",
+      "handle": "JoshHooverCA",
+      "district": "AD-7",
+      "candidate": "Josh Hoover",
+      "party": "R",
+      "kind": "official",
+      "last_post_at": "2026-10-05T10:22:39-07:00",
+      "last_seen_post_id": "2107159547358093555"
+    },
+    {
+      "user_id": "357539537",
+      "handle": "MayorMikeMurphy",
+      "district": "AD-27",
+      "candidate": "Mike Murphy",
+      "party": "R",
+      "kind": "campaign",
+      "last_post_at": "2026-05-06",
+      "last_seen_post_id": null,
+      "note": "Not pulled this run (last post known to be 2026-05-06). Monitor via since_id."
+    },
+    {
+      "user_id": "1828632319831482368",
+      "handle": "Gonzalez4AD36",
+      "district": "AD-36",
+      "candidate": "Jeff Gonzalez",
+      "party": "R",
+      "kind": "campaign",
+      "last_post_at": "2026-10-07T12:47:40-07:00",
+      "last_seen_post_id": "2107920814310031564"
+    },
+    {
+      "user_id": "1858905398457364482",
+      "handle": "AsmJeffGonzalez",
+      "district": "AD-36",
+      "candidate": "Jeff Gonzalez",
+      "party": "R",
+      "kind": "official",
+      "last_post_at": "2026-10-07T11:18:48-07:00",
+      "last_seen_post_id": "2107898452596359388"
+    },
+    {
+      "user_id": "1600676525640032257",
+      "handle": "AsmWallis",
+      "district": "AD-47",
+      "candidate": "Greg Wallis",
+      "party": "R",
+      "kind": "official",
+      "last_post_at": "2026-10-07T13:49:52-07:00",
+      "last_seen_post_id": "2107936469201654223"
+    },
+    {
+      "user_id": "61094506",
+      "handle": "gregrwallis",
+      "district": "AD-47",
+      "candidate": "Greg Wallis",
+      "party": "R",
+      "kind": "personal",
+      "last_post_at": "2026-07-02",
+      "last_seen_post_id": null,
+      "note": "Not pulled this run (last post known to be 2026-07-02)."
+    },
+    {
+      "user_id": "1976386581704605705",
+      "handle": "VoteLeilaNamvar",
+      "district": "AD-47",
+      "candidate": "Leila Namvar",
+      "party": "D",
+      "kind": "campaign",
+      "last_post_at": "2025-10-15",
+      "last_seen_post_id": null,
+      "note": "Not pulled this run (last post known to be 2025-10-15)."
+    },
+    {
+      "user_id": "1795284912473518080",
+      "handle": "Castillo_AD58",
+      "district": "AD-58",
+      "candidate": "Leticia Castillo",
+      "party": "R",
+      "kind": "campaign",
+      "last_post_at": null,
+      "last_seen_post_id": null,
+      "note": "No original posts in the 7-day window (replies and retweets excluded); last post date unknown."
+    },
+    {
+      "user_id": "1861954325276459008",
+      "handle": "asmcastillo",
+      "district": "AD-58",
+      "candidate": "Leticia Castillo",
+      "party": "R",
+      "kind": "official",
+      "last_post_at": null,
+      "last_seen_post_id": null,
+      "note": "No original posts in the 7-day window (replies and retweets excluded); last post date unknown."
+    },
+    {
+      "user_id": "1346187316767780864",
+      "handle": "AsmLaurieDavies",
+      "district": "AD-74",
+      "candidate": "Laurie Davies",
+      "party": "R",
+      "kind": "official",
+      "last_post_at": null,
+      "last_seen_post_id": null,
+      "note": "No original posts in the 7-day window (replies and retweets excluded); last post date unknown."
+    }
+  ],
+  "districts": {
+    "AD-7": {
+      "posts": [
+        {
+          "id": "2105950681831981415",
+          "url": "https://x.com/joshua_hoover/status/2105950681831981415",
+          "handle": "joshua_hoover",
+          "candidate": "Josh Hoover",
+          "party": "R",
+          "created_at": "2026-10-02T02:19:03-07:00",
+          "text": "https://t.co/FdwrPDt48w",
+          "summary": "Hoover posts an X article titled 'Breaking Down the 2026 California Ballot Propositions'.",
+          "flags": [
+            "policy"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 2,
+            "quotes": 0,
+            "impressions": 323
+          },
+          "article_title": "Breaking Down the 2026 California Ballot Propositions"
+        },
+        {
+          "id": "2105721156452168168",
+          "url": "https://x.com/joshua_hoover/status/2105721156452168168",
+          "handle": "joshua_hoover",
+          "candidate": "Josh Hoover",
+          "party": "R",
+          "created_at": "2026-10-01T11:07:00-07:00",
+          "text": "Our second TV ad is live! Sacramento needs leaders who will work to lower costs and put families first. I’m running for Assembly to continue restoring balance and common sense at the State Capitol. Find out how you can help at https://t.co/TXNxnXc3z1. https://t.co/ZFEgLDigbM",
+          "summary": "Hoover announces his campaign's second TV ad, with a cost-of-living and 'families first' message and a call to help.",
+          "flags": [
+            "ad"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 1,
+            "quotes": 0,
+            "impressions": 237
+          }
+        },
+        {
+          "id": "2105526254342742480",
+          "url": "https://x.com/joshua_hoover/status/2105526254342742480",
+          "handle": "joshua_hoover",
+          "candidate": "Josh Hoover",
+          "party": "R",
+          "created_at": "2026-09-30T22:12:32-07:00",
+          "text": "Check out our breakdown of the 2026 California ballot propositions on the latest episode of the @pointoforderpod. https://t.co/3AzlMnE9wW",
+          "summary": "Hoover promotes his podcast episode breaking down the 2026 ballot propositions (quotes @pointoforderpod).",
+          "flags": [
+            "policy"
+          ],
+          "metrics": {
+            "likes": 8,
+            "reposts": 1,
+            "replies": 1,
+            "quotes": 0,
+            "impressions": 473
+          },
+          "referenced_tweets": [
+            {
+              "id": "2105359654792712644",
+              "type": "quoted"
+            }
+          ]
+        },
+        {
+          "id": "2107159547358093555",
+          "url": "https://x.com/JoshHooverCA/status/2107159547358093555",
+          "handle": "JoshHooverCA",
+          "candidate": "Josh Hoover",
+          "party": "R",
+          "created_at": "2026-10-05T10:22:39-07:00",
+          "text": "Assemblymembers Hoover &amp; Muratsuchi recently discussed the progress of the “phone-free schools” law on California Politics 360. https://t.co/vka8SbssZn",
+          "summary": "Hoover's official office highlights his TV appearance with Asm. Muratsuchi on the phone-free schools law.",
+          "flags": [
+            "policy"
+          ],
+          "metrics": {
+            "likes": 1,
+            "reposts": 0,
+            "replies": 1,
+            "quotes": 0,
+            "impressions": 39
+          }
+        },
+        {
+          "id": "2107232503505580309",
+          "url": "https://x.com/CATargetBot0001/status/2107232503505580309",
+          "handle": "CATargetBot0001",
+          "candidate": "Amy Slavensky",
+          "party": "D",
+          "created_at": "2026-10-05T15:12:33-07:00",
+          "text": "NEW F497\nAmy Slavensky for Assembly 2026\n$11,800 From California Nurses Association PAC (C...\nhttps://t.co/7xWX6gUG2Y https://t.co/z8IHlp7hSd",
+          "summary": "Slavensky reports $11,800 from the California Nurses Association PAC.",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 357
+          },
+          "district": "AD-7",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        }
+      ],
+      "highlights": [
+        "Hoover launched his second TV ad on Oct 1 (the first ran in mid-September), with a cost-of-living, 'families first' message.",
+        "Slavensky reported $11,800 from the California Nurses Association PAC (F497, Oct 5).",
+        "Hoover's posts drew low engagement (under 500 impressions each). Most of his recent content is about ballot propositions."
+      ],
+      "no_x_presence": [
+        "Amy Slavensky (D)"
+      ]
+    },
+    "AD-27": {
+      "posts": [
+        {
+          "id": "2107568310623846605",
+          "url": "https://x.com/CATargetBot0001/status/2107568310623846605",
+          "handle": "CATargetBot0001",
+          "candidate": "Brian Pacheco",
+          "party": "D",
+          "created_at": "2026-10-06T13:26:56-07:00",
+          "text": "NEW F497\nBrian Pacheco for Assembly 2026\n$271,000 From 5 Transactions\nhttps://t.co/zGsvYJjBKV https://t.co/SLtykbjQcm",
+          "summary": "Pacheco reports $271,000 in late contributions (5 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 410
+          },
+          "district": "AD-27",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107264968731324747",
+          "url": "https://x.com/CATargetBot0001/status/2107264968731324747",
+          "handle": "CATargetBot0001",
+          "candidate": "Brian Pacheco",
+          "party": "D",
+          "created_at": "2026-10-05T17:21:34-07:00",
+          "text": "NEW F497\nBrian Pacheco for Assembly 2026\n$22,540 From 3 Transactions\nhttps://t.co/Ce4sRD9sTs https://t.co/orbBhSwb8Y",
+          "summary": "Pacheco reports $22,540 in late contributions (3 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 375
+          },
+          "district": "AD-27",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107940336400003161",
+          "url": "https://x.com/MarjareeMason/status/2107940336400003161",
+          "handle": "MarjareeMason",
+          "candidate": null,
+          "created_at": "2026-10-07T14:05:14-07:00",
+          "text": "💜 Thank you to the Fresno County Board of Supervisors for officially proclaiming October as Domestic Violence Awareness Month.\n\nWe are honored to stand alongside our community leaders in raising awareness, supporting survivors, and continuing the conversation around domestic https://t.co/LS9PsR4h3R",
+          "summary": "Fresno DV nonprofit thanks the Fresno County Board of Supervisors (Pacheco's board) for a DV Awareness Month proclamation. Probably a search false positive: 'Brian Pacheco' isn't in the visible text.",
+          "flags": [],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 13
+          },
+          "district": "AD-27",
+          "author_note": "Likely false positive"
+        }
+      ],
+      "highlights": [
+        "Pacheco reported $271,000 (5 transactions) on Oct 6 plus $22,540 on Oct 5 in F497 late contributions, a major late money surge.",
+        "Murphy's X has been quiet since May 6. His timeline wasn't pulled this run."
+      ],
+      "no_x_presence": [
+        "Brian Pacheco (D)"
+      ]
+    },
+    "AD-36": {
+      "posts": [
+        {
+          "id": "2107920814310031564",
+          "url": "https://x.com/Gonzalez4AD36/status/2107920814310031564",
+          "handle": "Gonzalez4AD36",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-07T12:47:40-07:00",
+          "text": "From Hemet to Sun City Shadow Hills, #TeamGonzalez is everywhere across District 36! \n\nThank you for having me and for being energized to vote GONZALEZ for ASSEMBLY! 🗳️ https://t.co/wOkXGpqkUi",
+          "summary": "Gonzalez campaign recaps voter stops in Hemet and Sun City Shadow Hills.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 2,
+            "reposts": 1,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 77
+          }
+        },
+        {
+          "id": "2107564817733296335",
+          "url": "https://x.com/Gonzalez4AD36/status/2107564817733296335",
+          "handle": "Gonzalez4AD36",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-06T13:13:03-07:00",
+          "text": "Join #TeamGonzalez in Indio THIS Saturday! 🔥\n\n📞 Phone banking 2PM-4PM\n🚪 Door knocking 8AM-2PM \n\nYOU can help make the difference in this election. Join us! \n\nRSVP: frank@gonzalez4assembly.com https://t.co/EfahlGBE3N",
+          "summary": "Gonzalez campaign recruits volunteers for door knocking and phone banking in Indio on Sat, Oct 10.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 8,
+            "reposts": 1,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 145
+          }
+        },
+        {
+          "id": "2107193218702164289",
+          "url": "https://x.com/Gonzalez4AD36/status/2107193218702164289",
+          "handle": "Gonzalez4AD36",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-05T12:36:27-07:00",
+          "text": "Thank you to all who joined our Imperial County BBQ! 🍗 \n\nWhat a fantastic day of community, fellowship and fun. Hearing directly from our communities is the best part of being your representative in Sacramento and I will never take that for granted! https://t.co/oKK2e7A27s",
+          "summary": "Gonzalez thanks supporters for coming to a campaign BBQ in Imperial County.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 7,
+            "reposts": 1,
+            "replies": 1,
+            "quotes": 0,
+            "impressions": 256
+          }
+        },
+        {
+          "id": "2106821718920892795",
+          "url": "https://x.com/Gonzalez4AD36/status/2106821718920892795",
+          "handle": "Gonzalez4AD36",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-04T12:00:15-07:00",
+          "text": "30 DAYS LEFT! 🗳️ \n\nWe are in the home stretch of this election. Don’t wait until the end, vote EARLY and return your ballot as soon as possible.\n\nYOUR vote makes the difference. https://t.co/ZLbD7u69jo",
+          "summary": "Gonzalez campaign marks 30 days to Election Day with a vote-early push.",
+          "flags": [],
+          "metrics": {
+            "likes": 3,
+            "reposts": 2,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 67
+          }
+        },
+        {
+          "id": "2106558503393587441",
+          "url": "https://x.com/Gonzalez4AD36/status/2106558503393587441",
+          "handle": "Gonzalez4AD36",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-03T18:34:19-07:00",
+          "text": "Thank you, El Centro! 🔥 \n\nTeam Gonzalez was out talking with voters today, reminding them to vote on or before November 3. Thank you to each volunteer who came out and took the time to get involved in this campaign. \n\nRe-elect Gonzalez for Assembly! https://t.co/lKzwkGh7KG",
+          "summary": "Gonzalez campaign recaps a volunteer canvass in El Centro.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 10,
+            "reposts": 4,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 333
+          }
+        },
+        {
+          "id": "2107898452596359388",
+          "url": "https://x.com/AsmJeffGonzalez/status/2107898452596359388",
+          "handle": "AsmJeffGonzalez",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-07T11:18:48-07:00",
+          "text": "Join my Indio District Office Open House NEXT Monday! \nStop by, ask questions, share thoughts and learn more about how my office can serve you. RSVP using the link in my bio. \n Where: Indio District Office, 81893 Dr. Carreon Blvd. Suite 5, Indio, CA \nWhen: Monday, October 12 https://t.co/suwdyk7RgT",
+          "summary": "Official account invites constituents to an open house at the Indio district office on Mon, Oct 12.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 2,
+            "reposts": 2,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 88
+          }
+        },
+        {
+          "id": "2107513199901995110",
+          "url": "https://x.com/AsmJeffGonzalez/status/2107513199901995110",
+          "handle": "AsmJeffGonzalez",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-06T09:47:57-07:00",
+          "text": "Your family deserves a lower cost of living and more breathing room in your budget.\n\nThat’s why I introduced legislation to suspend the gas tax, stop rising vehicle fees, and deliver tax relief for out-of-pocket medical expenses.\n\nI will never stop fighting for you! https://t.co/gPEtUPMdSU",
+          "summary": "Gonzalez touts his bills to suspend the gas tax, stop vehicle-fee increases, and give tax relief for medical costs.",
+          "flags": [
+            "policy"
+          ],
+          "metrics": {
+            "likes": 10,
+            "reposts": 4,
+            "replies": 2,
+            "quotes": 0,
+            "impressions": 306
+          }
+        },
+        {
+          "id": "2107262052096205288",
+          "url": "https://x.com/AsmJeffGonzalez/status/2107262052096205288",
+          "handle": "AsmJeffGonzalez",
+          "candidate": "Jeff Gonzalez",
+          "party": "R",
+          "created_at": "2026-10-05T17:09:58-07:00",
+          "text": "Join my upcoming town hall, this Friday in Palo Verde!  Ask questions, share thoughts and learn more about what we’ve accomplished during my first term as your Assemblyman. \n Where: Palo Verde Improvement Club, 1051 Desert View, Palo Verde, CA 92266\nWhen: Friday, October 9 https://t.co/zpbKSkYOPF",
+          "summary": "Gonzalez announces a town hall in Palo Verde on Fri, Oct 9.",
+          "flags": [
+            "event"
+          ],
+          "metrics": {
+            "likes": 3,
+            "reposts": 2,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 96
+          }
+        },
+        {
+          "id": "2107931095748731091",
+          "url": "https://x.com/CATargetBot0001/status/2107931095748731091",
+          "handle": "CATargetBot0001",
+          "candidate": "Ida Obeso-Martinez",
+          "party": "D",
+          "created_at": "2026-10-07T13:28:31-07:00",
+          "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$12,016 From 3 Transactions\nhttps://t.co/nbDuCWkWWj https://t.co/mj9bS8F2hg",
+          "summary": "Obeso-Martinez reports $12,016 in late contributions (3 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 264
+          },
+          "district": "AD-36",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107583485544386848",
+          "url": "https://x.com/CATargetBot0001/status/2107583485544386848",
+          "handle": "CATargetBot0001",
+          "candidate": "Ida Obeso-Martinez",
+          "party": "D",
+          "created_at": "2026-10-06T14:27:14-07:00",
+          "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$11,800 From 2 Transactions\nhttps://t.co/7wESPSi0w3 https://t.co/G72b0ud9oj",
+          "summary": "Obeso-Martinez reports $11,800 in late contributions (2 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 392
+          },
+          "district": "AD-36",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107262252382646446",
+          "url": "https://x.com/CATargetBot0001/status/2107262252382646446",
+          "handle": "CATargetBot0001",
+          "candidate": "Ida Obeso-Martinez",
+          "party": "D",
+          "created_at": "2026-10-05T17:10:46-07:00",
+          "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$20,866 From 4 Transactions\nhttps://t.co/C7EUHq6hEo https://t.co/TWKgEqpWIn",
+          "summary": "Obeso-Martinez reports $20,866 in late contributions (4 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 368
+          },
+          "district": "AD-36",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107280866666004756",
+          "url": "https://x.com/DesertSaintsFan/status/2107280866666004756",
+          "handle": "DesertSaintsFan",
+          "candidate": "Ida Obeso-Martinez; Jeff Gonzalez",
+          "created_at": "2026-10-05T18:24:44-07:00",
+          "text": "While I plan to vote blue across the whole ballot, holding my  nose in a couple of areas, I’m definitely not voting for Ida Obeso-Martinez, just can’t do it. Jeff Gonzalez seems like a decent bloke but seems to have ties to alleged child rapists and is ok with that so, no.",
+          "summary": "A low-reach voter account says it won't vote for either AD-36 candidate and accuses Gonzalez of unspecified ties to 'alleged child rapists' (unsourced).",
+          "flags": [
+            "attack"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 10
+          },
+          "district": "AD-36",
+          "author_note": "Anonymous private account, 10 impressions; unsourced claim"
+        }
+      ],
+      "highlights": [
+        "Gonzalez is running a visible field operation: canvasses in El Centro, Hemet and Sun City Shadow Hills, an Imperial County BBQ, and an Indio phone bank and door knock on Sat, Oct 10. His official account adds a Palo Verde town hall (Oct 9) and an Indio open house (Oct 12).",
+        "Obeso-Martinez filed three F497s totaling $44,682 between Oct 5 and Oct 7.",
+        "Gonzalez's message centers on cost of living: suspending the gas tax, stopping vehicle-fee increases, and medical tax relief."
+      ],
+      "no_x_presence": [
+        "Ida Obeso-Martinez (D)"
+      ]
+    },
+    "AD-47": {
+      "posts": [
+        {
+          "id": "2107936469201654223",
+          "url": "https://x.com/AsmWallis/status/2107936469201654223",
+          "handle": "AsmWallis",
+          "candidate": "Greg Wallis",
+          "party": "R",
+          "created_at": "2026-10-07T13:49:52-07:00",
+          "text": "Vote early California! \n\nVoting early ensures your ballot is received on time to be counted. \n\nYou can find early voting locations here: https://t.co/RXH255eLwp\n\nIf you have any questions or concerns on any other state issue, please reach out to my office and we will be more than https://t.co/qGRdrO7HL5",
+          "summary": "Wallis's official account posts a nonpartisan vote-early reminder with a link to voting locations.",
+          "flags": [],
+          "metrics": {
+            "likes": 1,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 33
+          }
+        },
+        {
+          "id": "2107613530644267126",
+          "url": "https://x.com/AsmWallis/status/2107613530644267126",
+          "handle": "AsmWallis",
+          "candidate": "Greg Wallis",
+          "party": "R",
+          "created_at": "2026-10-06T16:26:37-07:00",
+          "text": "El Niño could bring heavy rain, flooding and other impacts across our communities. \nREADY AD 47 is here to help you get prepared before the storm arrives.\n\nCheck out the new READY AD 47 resource page on my website for preparation tips, emergency alerts, road conditions and other https://t.co/WzXnOHlj7Y",
+          "summary": "Wallis launches a 'READY AD 47' storm-preparedness page ahead of a possible El Niño.",
+          "flags": [],
+          "metrics": {
+            "likes": 5,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 183
+          }
+        },
+        {
+          "id": "2107256473831252259",
+          "url": "https://x.com/AsmWallis/status/2107256473831252259",
+          "handle": "AsmWallis",
+          "candidate": "Greg Wallis",
+          "party": "R",
+          "created_at": "2026-10-05T16:47:48-07:00",
+          "text": "October is Domestic Violence Awareness Month. Everyone deserves to feel safe in their own home. \n\nLet’s stand with survivors, listen without judgment, and help build communities where safety comes first. \n\nIf you or someone you know is experiencing domestic violence, confidential https://t.co/oF1yNx2ls8",
+          "summary": "Wallis posts a Domestic Violence Awareness Month message with resources.",
+          "flags": [],
+          "metrics": {
+            "likes": 5,
+            "reposts": 1,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 179
+          }
+        }
+      ],
+      "highlights": [
+        "Wallis's official account posted only constituent-service content (vote early, storm prep, DV awareness). No campaign X activity: @gregrwallis has been quiet since Jul 2.",
+        "Namvar's campaign X has been dormant since Oct 2025. She wasn't in this run's mention search."
+      ],
+      "no_x_presence": []
+    },
+    "AD-58": {
+      "posts": [
+        {
+          "id": "2107639105089917352",
+          "url": "https://x.com/CATargetBot0001/status/2107639105089917352",
+          "handle": "CATargetBot0001",
+          "candidate": "Clarissa Cervantes",
+          "party": "D",
+          "created_at": "2026-10-06T18:08:15-07:00",
+          "text": "NEW F497\nClarissa Cervantes for Assembly 2026\n$145,700 From 6 Transactions\nhttps://t.co/GS7uZXX0kp https://t.co/iut52uWxZX",
+          "summary": "Cervantes reports $145,700 in late contributions (6 transactions).",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 0,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 489
+          },
+          "district": "AD-58",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        },
+        {
+          "id": "2107583238067872136",
+          "url": "https://x.com/CATargetBot0001/status/2107583238067872136",
+          "handle": "CATargetBot0001",
+          "candidate": "Clarissa Cervantes",
+          "party": "D",
+          "created_at": "2026-10-06T14:26:15-07:00",
+          "text": "NEW F497\nFriends of Clarissa Cervantes for Assembly 2026 ...\n$17,500 From Opportunity PAC Sacramento, CA\nhttps://t.co/nLpCqmG6Vv https://t.co/hb3BCMAq7x",
+          "summary": "Cervantes committee reports $17,500 from Opportunity PAC.",
+          "flags": [
+            "fundraising"
+          ],
+          "metrics": {
+            "likes": 1,
+            "reposts": 0,
+            "replies": 0,
+            "quotes": 0,
+            "impressions": 395
+          },
+          "district": "AD-58",
+          "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+        }
+      ],
+      "highlights": [
+        "Cervantes reported $145,700 in late contributions (6 transactions) plus $17,500 from Opportunity PAC, a significant Democratic investment.",
+        "Neither Castillo account posted original content in the last 7 days."
+      ],
+      "no_x_presence": [
+        "Clarissa Cervantes (D)"
+      ]
+    },
+    "AD-74": {
+      "posts": [],
+      "highlights": [
+        "@AsmLaurieDavies posted no original content in the last 7 days, and the search found no X mentions of Farias."
+      ],
+      "no_x_presence": [
+        "Sergio Farias (D)"
+      ]
+    }
+  },
+  "mentions": [
+    {
+      "id": "2107931095748731091",
+      "url": "https://x.com/CATargetBot0001/status/2107931095748731091",
+      "handle": "CATargetBot0001",
+      "candidate": "Ida Obeso-Martinez",
+      "party": "D",
+      "created_at": "2026-10-07T13:28:31-07:00",
+      "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$12,016 From 3 Transactions\nhttps://t.co/nbDuCWkWWj https://t.co/mj9bS8F2hg",
+      "summary": "Obeso-Martinez reports $12,016 in late contributions (3 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 264
+      },
+      "district": "AD-36",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107639105089917352",
+      "url": "https://x.com/CATargetBot0001/status/2107639105089917352",
+      "handle": "CATargetBot0001",
+      "candidate": "Clarissa Cervantes",
+      "party": "D",
+      "created_at": "2026-10-06T18:08:15-07:00",
+      "text": "NEW F497\nClarissa Cervantes for Assembly 2026\n$145,700 From 6 Transactions\nhttps://t.co/GS7uZXX0kp https://t.co/iut52uWxZX",
+      "summary": "Cervantes reports $145,700 in late contributions (6 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 489
+      },
+      "district": "AD-58",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107583485544386848",
+      "url": "https://x.com/CATargetBot0001/status/2107583485544386848",
+      "handle": "CATargetBot0001",
+      "candidate": "Ida Obeso-Martinez",
+      "party": "D",
+      "created_at": "2026-10-06T14:27:14-07:00",
+      "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$11,800 From 2 Transactions\nhttps://t.co/7wESPSi0w3 https://t.co/G72b0ud9oj",
+      "summary": "Obeso-Martinez reports $11,800 in late contributions (2 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 392
+      },
+      "district": "AD-36",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107583238067872136",
+      "url": "https://x.com/CATargetBot0001/status/2107583238067872136",
+      "handle": "CATargetBot0001",
+      "candidate": "Clarissa Cervantes",
+      "party": "D",
+      "created_at": "2026-10-06T14:26:15-07:00",
+      "text": "NEW F497\nFriends of Clarissa Cervantes for Assembly 2026 ...\n$17,500 From Opportunity PAC Sacramento, CA\nhttps://t.co/nLpCqmG6Vv https://t.co/hb3BCMAq7x",
+      "summary": "Cervantes committee reports $17,500 from Opportunity PAC.",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 1,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 395
+      },
+      "district": "AD-58",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107568310623846605",
+      "url": "https://x.com/CATargetBot0001/status/2107568310623846605",
+      "handle": "CATargetBot0001",
+      "candidate": "Brian Pacheco",
+      "party": "D",
+      "created_at": "2026-10-06T13:26:56-07:00",
+      "text": "NEW F497\nBrian Pacheco for Assembly 2026\n$271,000 From 5 Transactions\nhttps://t.co/zGsvYJjBKV https://t.co/SLtykbjQcm",
+      "summary": "Pacheco reports $271,000 in late contributions (5 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 410
+      },
+      "district": "AD-27",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107264968731324747",
+      "url": "https://x.com/CATargetBot0001/status/2107264968731324747",
+      "handle": "CATargetBot0001",
+      "candidate": "Brian Pacheco",
+      "party": "D",
+      "created_at": "2026-10-05T17:21:34-07:00",
+      "text": "NEW F497\nBrian Pacheco for Assembly 2026\n$22,540 From 3 Transactions\nhttps://t.co/Ce4sRD9sTs https://t.co/orbBhSwb8Y",
+      "summary": "Pacheco reports $22,540 in late contributions (3 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 375
+      },
+      "district": "AD-27",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107262252382646446",
+      "url": "https://x.com/CATargetBot0001/status/2107262252382646446",
+      "handle": "CATargetBot0001",
+      "candidate": "Ida Obeso-Martinez",
+      "party": "D",
+      "created_at": "2026-10-05T17:10:46-07:00",
+      "text": "NEW F497\nIda Obeso-Martinez for Assembly 2026\n$20,866 From 4 Transactions\nhttps://t.co/C7EUHq6hEo https://t.co/TWKgEqpWIn",
+      "summary": "Obeso-Martinez reports $20,866 in late contributions (4 transactions).",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 368
+      },
+      "district": "AD-36",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107232503505580309",
+      "url": "https://x.com/CATargetBot0001/status/2107232503505580309",
+      "handle": "CATargetBot0001",
+      "candidate": "Amy Slavensky",
+      "party": "D",
+      "created_at": "2026-10-05T15:12:33-07:00",
+      "text": "NEW F497\nAmy Slavensky for Assembly 2026\n$11,800 From California Nurses Association PAC (C...\nhttps://t.co/7xWX6gUG2Y https://t.co/z8IHlp7hSd",
+      "summary": "Slavensky reports $11,800 from the California Nurses Association PAC.",
+      "flags": [
+        "fundraising"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 357
+      },
+      "district": "AD-7",
+      "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings"
+    },
+    {
+      "id": "2107280866666004756",
+      "url": "https://x.com/DesertSaintsFan/status/2107280866666004756",
+      "handle": "DesertSaintsFan",
+      "candidate": "Ida Obeso-Martinez; Jeff Gonzalez",
+      "created_at": "2026-10-05T18:24:44-07:00",
+      "text": "While I plan to vote blue across the whole ballot, holding my  nose in a couple of areas, I’m definitely not voting for Ida Obeso-Martinez, just can’t do it. Jeff Gonzalez seems like a decent bloke but seems to have ties to alleged child rapists and is ok with that so, no.",
+      "summary": "A low-reach voter account says it won't vote for either AD-36 candidate and accuses Gonzalez of unspecified ties to 'alleged child rapists' (unsourced).",
+      "flags": [
+        "attack"
+      ],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 10
+      },
+      "district": "AD-36",
+      "author_note": "Anonymous private account, 10 impressions; unsourced claim"
+    },
+    {
+      "id": "2107940336400003161",
+      "url": "https://x.com/MarjareeMason/status/2107940336400003161",
+      "handle": "MarjareeMason",
+      "candidate": null,
+      "created_at": "2026-10-07T14:05:14-07:00",
+      "text": "💜 Thank you to the Fresno County Board of Supervisors for officially proclaiming October as Domestic Violence Awareness Month.\n\nWe are honored to stand alongside our community leaders in raising awareness, supporting survivors, and continuing the conversation around domestic https://t.co/LS9PsR4h3R",
+      "summary": "Fresno DV nonprofit thanks the Fresno County Board of Supervisors (Pacheco's board) for a DV Awareness Month proclamation. Probably a search false positive: 'Brian Pacheco' isn't in the visible text.",
+      "flags": [],
+      "metrics": {
+        "likes": 0,
+        "reposts": 0,
+        "replies": 0,
+        "quotes": 0,
+        "impressions": 13
+      },
+      "district": "AD-27",
+      "author_note": "Likely false positive"
+    }
+  ],
+  "run_notes": {
+    "calls": "8 user-timeline calls (start_time 2026-09-30T22:00Z, max 5, exclude replies,retweets) + 1 full-archive search (search_posts_all, the only search tool exposed; last 7 days, max 10, sorted by recency). No expansions or pagination. The API still returned author user objects in 'includes' by default.",
+    "search_query": "(\"Slavensky\" OR \"Obeso-Martinez\" OR \"Clarissa Cervantes\" OR \"Sergio Farias\" OR \"Brian Pacheco\" OR (\"Mike Murphy\" Assembly)) -is:retweet lang:en",
+    "search_truncated": "The search hit its 10-result cap (a next_token existed and was not followed), so mentions may be incomplete.",
+    "spike_method": "No follower counts were fetched (no user lookups allowed). Spikes were judged against each account's other posts in the window; none qualified.",
+    "credits_usd": {
+      "start": 9.88,
+      "end": 9.76,
+      "spent": 0.12
+    }
+  }
+}
