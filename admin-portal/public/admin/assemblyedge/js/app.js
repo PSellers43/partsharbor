@@ -51,6 +51,8 @@
     theme: localStorage.getItem("ae-theme") || "dark",
     role: (window.AE && AE.CM && AE.CM.getRole()) || localStorage.getItem("ae-role") || "analyst",
     paletteIndex: 0,
+    paletteMode: "jump",
+    askLoading: false,
     loading: false,
     focusDrillId: null,
     focusDrillFilters: { "focus-high": true, "focus-mid": false, "focus-low": false },
@@ -1828,17 +1830,97 @@
     return [...actions, ...districts];
   }
 
-  function openPalette() {
+  function setPaletteMode(mode) {
+    state.paletteMode = mode === "ask" ? "ask" : "jump";
+    $$(".palette-tab").forEach((t) => {
+      const on = t.dataset.paletteMode === state.paletteMode;
+      t.classList.toggle("active", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    const input = $("#palette-input");
+    const list = $("#palette-list");
+    const askExtra = $("#palette-ask-extra");
+    if (state.paletteMode === "ask") {
+      if (input) input.placeholder = "Ask the desk…";
+      if (list) list.hidden = true;
+      if (askExtra) askExtra.hidden = false;
+      renderAskSuggestions($("#ask-palette-suggestions"));
+    } else {
+      if (input) input.placeholder = "Jump to district or action…";
+      if (list) list.hidden = false;
+      if (askExtra) askExtra.hidden = true;
+      renderPaletteList(input ? input.value : "");
+    }
+  }
+
+  function openPalette(mode) {
     const overlay = $("#palette-overlay");
     const input = $("#palette-input");
     overlay.classList.add("open");
     input.value = "";
     state.paletteIndex = 0;
-    renderPaletteList("");
+    setPaletteMode(mode || state.paletteMode || "jump");
+    const askResult = $("#palette-ask-result");
+    if (askResult) askResult.innerHTML = "";
     setTimeout(() => input.focus(), 10);
   }
   function closePalette() {
     $("#palette-overlay").classList.remove("open");
+  }
+
+  function renderAskSuggestions(container) {
+    if (!container || !AE.ask) return;
+    container.innerHTML = (AE.ask.SUGGESTED || [])
+      .map(
+        (q) =>
+          `<button type="button" class="ask-suggestion-chip" data-ask-q="${q.replace(/"/g, "&quot;")}">${q}</button>`
+      )
+      .join("");
+    container.querySelectorAll(".ask-suggestion-chip").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const q = btn.getAttribute("data-ask-q");
+        runAskQuestion(q, { target: container.id === "ask-cm-suggestions" ? "cm" : "palette" });
+      });
+    });
+  }
+
+  function runAskQuestion(question, opts) {
+    opts = opts || {};
+    const q = (question || "").trim();
+    if (!q || !AE.ask) return;
+    const resultEl =
+      opts.target === "cm" ? $("#ask-cm-result") : $("#palette-ask-result");
+    if (resultEl) {
+      resultEl.innerHTML = `<p class="ask-loading">Searching desk data…</p>`;
+    }
+    state.askLoading = true;
+    AE.ask.runQuestion(q, { aiPhrase: false })
+      .then((result) => {
+        if (resultEl) {
+          resultEl.innerHTML = AE.ask.renderAnswerHtml(result);
+          AE.ask.bindAnswerEl(resultEl, result);
+        }
+        if (opts.target === "palette") {
+          const inp = $("#palette-input");
+          if (inp) inp.value = q;
+        }
+        if (opts.target === "cm") {
+          const inp = $("#ask-cm-input");
+          if (inp) inp.value = q;
+        }
+      })
+      .finally(() => {
+        state.askLoading = false;
+      });
+  }
+
+  function openPrecinctFromAsk(districtId, precinctId) {
+    state.focusDrillMode = "history";
+    state.focusDrillRace = "g24_asm";
+    AE.electionHistory.loadPrecincts(districtId).then(() => {
+      selectFocusDrillPrecinct(precinctId, { pan: true });
+      renderFocusDrill();
+    });
   }
   function renderPaletteList(q) {
     const list = $("#palette-list");
@@ -1940,7 +2022,15 @@
       localStorage.setItem("ae-theme", state.theme);
       applyTheme();
     });
-    $("#cmd-open")?.addEventListener("click", openPalette);
+    $("#cmd-open")?.addEventListener("click", () => openPalette("jump"));
+    $("#ask-open")?.addEventListener("click", () => openPalette("ask"));
+    $$(".palette-tab").forEach((tab) => {
+      tab.addEventListener("click", () => setPaletteMode(tab.dataset.paletteMode));
+    });
+    $("#ask-cm-form")?.addEventListener("submit", (e) => {
+      e.preventDefault();
+      runAskQuestion($("#ask-cm-input").value, { target: "cm" });
+    });
     $("#export-pdf")?.addEventListener("click", () => window.print());
     $("#open-brief-from-detail")?.addEventListener("click", () => navigate("brief"));
     $("#goto-cm-board")?.addEventListener("click", () => navigate("cm"));
@@ -1963,7 +2053,7 @@
     });
     $("#palette-input")?.addEventListener("input", (e) => {
       state.paletteIndex = 0;
-      renderPaletteList(e.target.value);
+      if (state.paletteMode === "jump") renderPaletteList(e.target.value);
     });
 
     document.addEventListener("keydown", (e) => {
@@ -1971,7 +2061,13 @@
       if (meta && e.key.toLowerCase() === "k") {
         e.preventDefault();
         if ($("#palette-overlay").classList.contains("open")) closePalette();
-        else openPalette();
+        else openPalette("jump");
+        return;
+      }
+      if (meta && e.key === "/") {
+        e.preventDefault();
+        if ($("#palette-overlay").classList.contains("open")) closePalette();
+        else openPalette("ask");
         return;
       }
       if (e.key === "Escape") {
@@ -1980,15 +2076,22 @@
         return;
       }
       if ($("#palette-overlay").classList.contains("open")) {
-        if (e.key === "ArrowDown") {
+        if (state.paletteMode === "ask" && e.key === "Enter") {
           e.preventDefault();
-          paletteMove(1);
-        } else if (e.key === "ArrowUp") {
-          e.preventDefault();
-          paletteMove(-1);
-        } else if (e.key === "Enter") {
-          e.preventDefault();
-          paletteConfirm();
+          runAskQuestion($("#palette-input").value, { target: "palette" });
+          return;
+        }
+        if (state.paletteMode === "jump") {
+          if (e.key === "ArrowDown") {
+            e.preventDefault();
+            paletteMove(1);
+          } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            paletteMove(-1);
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            paletteConfirm();
+          }
         }
       }
     });
@@ -2000,6 +2103,14 @@
     applyRole();
     bind();
     syncDeskDistrictSelects();
+    if (AE.ask) {
+      AE.ask.setHandlers({
+        navigate: (page, opts) => navigate(page, opts),
+        openPrecinct: openPrecinctFromAsk,
+      });
+      AE.ask.fetchSessionMeta();
+      renderAskSuggestions($("#ask-cm-suggestions"));
+    }
     Promise.all([
       loadLiveMoney(),
       AE.polling.load(),

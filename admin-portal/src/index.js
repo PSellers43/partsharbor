@@ -15,6 +15,12 @@ import {
   applySecurityHeaders,
 } from "./security-headers.js";
 import {
+  askApiMeta,
+  bumpAiUsage,
+  aiQuotaRemaining,
+  runAssemblyEdgeAskAi,
+} from "./assemblyedge-ask.js";
+import {
   htmlResponse,
   renderDashboard,
   renderError,
@@ -313,6 +319,123 @@ async function serveMajorityIQDesk(c) {
     status: assetResponse.status,
     headers,
   });
+}
+
+function requireDeskSession(c) {
+  const session = c.get("session");
+  if (!session.admin?.id) {
+    return null;
+  }
+  return session;
+}
+
+function handleDeskApiCsrf(c) {
+  const session = requireDeskSession(c);
+  if (!session) {
+    return c.json({ error: "unauthorized" }, 401);
+  }
+  const meta = askApiMeta(c.env, session);
+  return c.json({
+    csrfToken: c.get("csrfToken"),
+    ...meta,
+  });
+}
+
+async function handleDeskApiAsk(c) {
+  const config = c.get("config");
+  const sid = c.get("sid");
+  let session = requireDeskSession(c);
+  if (!session) {
+    return c.json({ ok: false, error: "unauthorized" }, 401);
+  }
+
+  let body;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ ok: false, error: "bad_request", message: "Invalid JSON body." }, 400);
+  }
+
+  const csrfBody = typeof body._csrf === "string" ? body._csrf : "";
+  if (
+    !validateCsrfSubmission(
+      c.req.raw,
+      sid,
+      config.sessionSecret,
+      config.csrfCookieName,
+      csrfBody,
+    )
+  ) {
+    return c.json({ ok: false, error: "forbidden", message: "CSRF validation failed." }, 403);
+  }
+
+  const question = typeof body.question === "string" ? body.question.trim() : "";
+  const mode = body.mode === "parse" ? "parse" : body.mode === "summarize" ? "summarize" : "assist";
+
+  if (mode === "assist") {
+    if (!question) {
+      return c.json({ ok: false, error: "bad_request", message: "Missing question." }, 400);
+    }
+    const remaining = aiQuotaRemaining(session, c.env);
+    if (remaining <= 0) {
+      return c.json(
+        {
+          ok: false,
+          error: "rate_limit",
+          message: "Daily AI assist quota reached for this session. Deterministic answers still work in the browser.",
+        },
+        429,
+      );
+    }
+
+    const parsed = await runAssemblyEdgeAskAi(c.env, "parse", { question });
+    if (!parsed.ok) {
+      return c.json({
+        ok: false,
+        error: parsed.error,
+        message: parsed.message,
+        aiNotice: parsed.message,
+      });
+    }
+
+    session = bumpAiUsage(session);
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+
+    return c.json({
+      ok: true,
+      query: parsed.query,
+      aiRemaining: aiQuotaRemaining(session, c.env),
+      aiNotice: "AI mapped your question; all figures are computed from static desk JSON in the browser.",
+    });
+  }
+
+  if (mode === "summarize" || mode === "parse") {
+    const remaining = aiQuotaRemaining(session, c.env);
+    if (remaining <= 0) {
+      return c.json(
+        {
+          ok: false,
+          error: "rate_limit",
+          message: "Daily AI assist quota reached for this session.",
+        },
+        429,
+      );
+    }
+    const aiResult = await runAssemblyEdgeAskAi(c.env, mode, body);
+    if (!aiResult.ok) {
+      return c.json(aiResult, aiResult.error === "bad_request" ? 400 : 503);
+    }
+    session = bumpAiUsage(session);
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+    return c.json({ ...aiResult, aiRemaining: aiQuotaRemaining(session, c.env) });
+  }
+
+  return c.json({ ok: false, error: "bad_request", message: "Unknown mode." }, 400);
+}
+
+for (const deskPrefix of [ASSEMBLYEDGE_PREFIX, MAJORITYIQ_PREFIX]) {
+  app.get(`${deskPrefix}/api/csrf`, handleDeskApiCsrf);
+  app.post(`${deskPrefix}/api/ask`, handleDeskApiAsk);
 }
 
 app.get(ASSEMBLYEDGE_PREFIX, (c) => c.redirect(`${ASSEMBLYEDGE_PREFIX}/`, 302));
