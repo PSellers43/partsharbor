@@ -46,7 +46,8 @@ Open **AD-7 → Money**: **LIVE CAL-ACCESS** badge + as-of time when JSON is pre
 3. **Monday Brief** — nav or button from AD-7 → printable one-pager → **Export PDF** (`window.print`)
 4. **Methodology** — sources, cadence, disclaimers, CM doctrine attributions
 5. **⌘K / Ctrl+K** — command palette to jump districts, roles, and actions
-6. **Theme** — Light / Dark toggle (persists in `localStorage`)
+6. **Ask the desk** — **⌘/** or **Ask** in the nav (also on Today's Board): natural-language questions over loaded desk JSON (deterministic-first; optional Workers AI assist when deployed behind the admin Worker)
+7. **Theme** — Light / Dark toggle (persists in `localStorage`)
 
 Other districts show portfolio scores; full panels are wired for **AD-7** as the beachhead deep demo (empty states point you there).
 
@@ -72,7 +73,46 @@ Role switcher lives in chrome: **Analyst | Campaign Manager** (persists as `ae-r
 | `js/data.js` | Demo district / money / ads / narrative + CM priorities / doctrine |
 | `js/cm.js` | Role, checklist, decision-log localStorage helpers |
 | `js/app.js` | Navigation, tabs, palette, drawer, brief, CM board |
+| `js/ask.js` | Ask the desk — intent parser + deterministic query executor |
 | `PRODUCT.md` | Product vision + Doctrine map |
+
+## Ask the desk (roadmap step 4)
+
+Deterministic in-browser layer maps common question shapes to static JSON (CAL-ACCESS money, election-history precincts, demography/registration, ABEV baselines, polling, illustrative Threat Index). Answers include source labels, as-of stamps, small tables, and deep links into Focus drill / district tabs.
+
+### Supported question patterns (examples)
+
+| Pattern | Example |
+|---------|---------|
+| Precinct swing 2022→2024 | Which AD-7 precincts swung toward R between 2022 and 2024? |
+| IE this week | How much IE money hit AD-58 this week? |
+| Registration compare | Compare registration mix in AD-47 vs AD-74. |
+| Mail / VBM returns | What were mail return rates in AD-36 in 2024? |
+| Tight precincts in a city | Which Rancho Cordova precincts are within 2 points? |
+
+Filters understood include beachhead `AD-N`, place/city names, `within N points`, `top N`, and IE + `this week` (latest 7-day bucket in CAL-ACCESS ingest series).
+
+### Optional Workers AI (free tier only)
+
+When MajorityIQ is served through the PartsHarbor admin Worker **and** `wrangler.toml` includes an `[ai]` binding:
+
+- `POST /admin/majorityiq/api/ask` (and legacy `/admin/assemblyedge/api/ask`) with session auth + CSRF can parse ambiguous questions into the same JSON query schema the deterministic layer uses.
+- Optional phrasing pass must not invent numbers — figures always come from client-side JSON.
+- Default quota: **30 AI calls per session per UTC day** (`ASSEMBLYEDGE_ASK_AI_DAILY_LIMIT`), to stay within Cloudflare Workers AI free daily neurons.
+
+**Disable AI** (deterministic-only, no Worker calls):
+
+```toml
+ASSEMBLYEDGE_ASK_AI = "false"
+```
+
+Or omit the `[ai]` binding — the UI falls back gracefully with a short notice.
+
+**Deploy note:** after merging, run `wrangler deploy` from `admin-portal/` so the `[ai]` binding and `/admin/majorityiq/api/*` (plus legacy `/admin/assemblyedge/api/*`) routes are live. Static `python3 -m http.server` still runs Ask in deterministic mode (no CSRF/API).
+
+`GET /admin/majorityiq/api/csrf` returns the CSRF token plus AI quota metadata for authenticated sessions (same handler on the legacy prefix).
+
+**Free tier:** default **30 AI calls per session per UTC day** keeps usage within Cloudflare Workers AI’s free daily allocation. If the binding is missing, AI errors, or quota is exhausted, Ask keeps working in deterministic mode with a short notice — never a broken panel.
 
 ## Explicitly not in this prototype
 

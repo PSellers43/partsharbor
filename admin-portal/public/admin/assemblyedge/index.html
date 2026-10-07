@@ -47,6 +47,9 @@
         <button type="button" class="role-btn" data-role="cm" id="role-cm">Campaign Manager</button>
       </div>
       <button type="button" class="btn btn-ghost" id="theme-toggle" title="Toggle theme">Light</button>
+      <button type="button" class="btn btn-ghost" id="ask-open" title="Ask the desk">
+        Ask <span class="kbd">⌘/</span>
+      </button>
       <button type="button" class="btn" id="cmd-open" title="Command palette">
         Jump <span class="kbd">⌘K</span>
       </button>
@@ -256,6 +259,17 @@
         </div>
       </div>
       <p id="cm-mode-blurb" class="cm-mode-blurb"></p>
+      <div class="card ask-cm-panel" id="ask-cm-panel" aria-label="Ask the desk">
+        <h3 class="card-title">Ask the desk <span class="chip chip-demo">Deterministic-first</span></h3>
+        <p class="ask-cm-desc">Natural-language questions over loaded desk JSON — money, precinct history, registration, ballot baselines. No voter file.</p>
+        <form id="ask-cm-form" class="ask-cm-form">
+          <label class="sr-only" for="ask-cm-input">Question</label>
+          <input id="ask-cm-input" class="ask-cm-input" type="text" placeholder="e.g. How much IE money hit AD-58 this week?" autocomplete="off" maxlength="280" />
+          <button type="submit" class="btn btn-primary">Ask</button>
+        </form>
+        <div class="ask-suggestions" id="ask-cm-suggestions" role="list"></div>
+        <div id="ask-cm-result" class="ask-cm-result" aria-live="polite"></div>
+      </div>
       <div id="cm-abev-wrap" class="card abev-cm-wrap" aria-label="Ballot return pulse"></div>
       <div id="cm-live-intel" class="cm-live-intel" aria-label="Live beachhead feeds"></div>
       <div class="cm-layout">
@@ -396,9 +410,17 @@
   <!-- Command palette -->
   <div id="palette-overlay" class="palette-overlay" role="dialog" aria-modal="true" aria-label="Command palette">
     <div class="palette">
-      <label class="sr-only" for="palette-input">Jump to</label>
+      <div class="palette-tabs" role="tablist" aria-label="Palette mode">
+        <button type="button" class="palette-tab active" data-palette-mode="jump" role="tab" aria-selected="true">Jump</button>
+        <button type="button" class="palette-tab" data-palette-mode="ask" role="tab" aria-selected="false">Ask</button>
+      </div>
+      <label class="sr-only" for="palette-input">Jump or ask</label>
       <input id="palette-input" class="palette-input" type="text" placeholder="Jump to district or action…" autocomplete="off" />
       <div id="palette-list" class="palette-list"></div>
+      <div id="palette-ask-extra" class="palette-ask-extra" hidden>
+        <div class="ask-suggestions" id="ask-palette-suggestions"></div>
+        <div id="palette-ask-result" class="palette-ask-result" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 
@@ -410,6 +432,7 @@
   <script src="js/demography.js"></script>
   <script src="js/election-history.js"></script>
   <script src="js/abev.js"></script>
+  <script src="js/ask.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

@@ -31,12 +31,19 @@ run_worker_first = [
   "/",
 ]
 
+[ai]
+binding = "AI"
+
 [vars]
 ENVIRONMENT = "development"
 ARGON2_MEMORY_KIB = "8192"
 ARGON2_PASSES = "2"
 ARGON2_PARALLELISM = "1"
 SESSION_MAX_AGE_SEC = "28800"
+# MajorityIQ Ask the desk — Workers AI on free daily allocation (set false to disable)
+ASSEMBLYEDGE_ASK_AI = "true"
+ASSEMBLYEDGE_ASK_AI_DAILY_LIMIT = "30"
+# ASSEMBLYEDGE_ASK_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
 
 # Secrets (wrangler secret put SESSION_SECRET):
 # SESSION_SECRET — session signing + CSRF (≥32 chars)
