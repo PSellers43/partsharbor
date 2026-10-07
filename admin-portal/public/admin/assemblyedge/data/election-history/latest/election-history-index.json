@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-07T18:37:36Z",
+  "sources": {
+    "swdb_g22": "https://statewidedatabase.org/d20/g22.html",
+    "swdb_g24": "https://statewidedatabase.org/d20/g24.html",
+    "note": "Two-party Assembly margin by SR precinct; not a voter file."
+  },
+  "districts": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "file": "ad-7-precincts.geojson",
+      "precinct_count": 212,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "file": "ad-27-precincts.geojson",
+      "precinct_count": 121,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "file": "ad-36-precincts.geojson",
+      "precinct_count": 174,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "file": "ad-47-precincts.geojson",
+      "precinct_count": 234,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "file": "ad-58-precincts.geojson",
+      "precinct_count": 122,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "file": "ad-74-precincts.geojson",
+      "precinct_count": 105,
+      "races": [
+        "g22_asm",
+        "g24_asm"
+      ],
+      "gaps": []
+    }
+  ],
+  "gaps": []
+}

@@ -16,6 +16,16 @@
     loading: false,
     focusDrillId: null,
     focusDrillFilters: { "focus-high": true, "focus-mid": false, "focus-low": false },
+    focusDrillMode: "focus",
+    focusDrillRace: "g24_asm",
+    focusDrillHistoryFilters: {
+      "margin-strong-d": true,
+      "margin-lean-d": true,
+      "margin-tossup": true,
+      "margin-lean-r": true,
+      "margin-strong-r": true,
+      "margin-nodata": false,
+    },
   };
 
   /* ——— Theme ——— */
@@ -310,12 +320,83 @@
   }
 
   function focusDrillFilterBands() {
+    if (state.focusDrillMode === "history") return state.focusDrillHistoryFilters;
     return state.focusDrillFilters;
+  }
+
+  function focusDrillAvailableRaces(districtId) {
+    const meta = AE.electionHistory && AE.electionHistory.districtMeta ? AE.electionHistory.districtMeta(districtId) : null;
+    if (meta && meta.races && meta.races.length) return meta.races;
+    return ["g24_asm", "g22_asm"];
+  }
+
+  function syncFocusDrillLayerControls(districtId) {
+    const raceWrap = $("#focus-drill-race-wrap");
+    const raceSel = $("#focus-drill-race");
+    const layerInputs = $$('input[name="focus-drill-layer"]');
+    layerInputs.forEach((inp) => {
+      inp.checked = inp.value === state.focusDrillMode;
+    });
+    if (raceWrap && raceSel) {
+      const showRace = state.focusDrillMode === "history";
+      raceWrap.hidden = !showRace;
+      if (showRace) {
+        const races = focusDrillAvailableRaces(districtId);
+        if (races.indexOf(state.focusDrillRace) < 0) state.focusDrillRace = races[0] || "g24_asm";
+        raceSel.innerHTML = races
+          .map((r) => `<option value="${r}">${AE.electionHistory.raceLabel(r)}</option>`)
+          .join("");
+        raceSel.value = state.focusDrillRace;
+      }
+    }
+  }
+
+  function bindFocusDrillLayerControls() {
+    $$('input[name="focus-drill-layer"]').forEach((inp) => {
+      inp.addEventListener("change", () => {
+        if (!inp.checked) return;
+        state.focusDrillMode = inp.value === "history" ? "history" : "focus";
+        renderFocusDrillMap();
+      });
+    });
+    const raceSel = $("#focus-drill-race");
+    if (raceSel) {
+      raceSel.addEventListener("change", () => {
+        state.focusDrillRace = raceSel.value;
+        renderFocusDrillMap();
+      });
+    }
   }
 
   function renderFocusDrillLegend() {
     const legend = $("#focus-drill-legend");
     if (!legend) return;
+    if (state.focusDrillMode === "history") {
+      const bands = [
+        { cls: "margin-strong-d", label: "D+20", color: "#1e5a9e" },
+        { cls: "margin-lean-d", label: "Lean D", color: "#5c8fd4" },
+        { cls: "margin-tossup", label: "Toss-up", color: "#7a8494" },
+        { cls: "margin-lean-r", label: "Lean R", color: "#c45c5c" },
+        { cls: "margin-strong-r", label: "R+20", color: "#8b2323" },
+      ];
+      legend.innerHTML =
+        bands
+          .map(
+            (b) =>
+              `<label class="focus-filter-check"><input type="checkbox" data-history-filter="${b.cls}" ${
+                state.focusDrillHistoryFilters[b.cls] ? "checked" : ""
+              } /> <span class="focus-legend-swatch" style="background:${b.color}"></span> ${b.label}</label>`
+          )
+          .join("") +
+        `<span class="focus-legend-item"><span class="chip chip-live">Public SOV</span> two-party Asm margin</span>`;
+      legend.querySelectorAll("[data-history-filter]").forEach((inp) => {
+        inp.addEventListener("change", () => {
+          state.focusDrillHistoryFilters[inp.dataset.historyFilter] = inp.checked;
+          renderFocusDrillMap();
+        });
+      });
+      return;
+    }
     const bands = [
       { cls: "focus-high", label: "High focus (70+)", color: "#b8860b" },
       { cls: "focus-mid", label: "Elevated (50–69)", color: "#8b6914" },
@@ -347,38 +428,128 @@
     const d = AE.districts.find((x) => x.id === districtId);
     const err = AE.intraGeoLoadError[districtId];
     const geo = AE.intraGeo[districtId];
+    const histMeta = AE.electionHistory && AE.electionHistory.districtMeta ? AE.electionHistory.districtMeta(districtId) : null;
+    const histErr = AE.electionPrecinctLoadError[districtId];
+    const inHistory = state.focusDrillMode === "history";
 
-    $("#focus-drill-title").textContent = (d ? d.code : districtId.toUpperCase()) + " · Intra-district focus";
-    if ($("#focus-drill-formula")) {
-      $("#focus-drill-formula").textContent =
-        (geo && geo.source && geo.source.score_formula) ||
-        "Illustrative focus from 2022 Assembly margin competitiveness + turnout in overlapping SR precincts.";
+    syncFocusDrillLayerControls(districtId);
+
+    const titleSuffix = inHistory ? "Election history" : "Intra-district focus";
+    $("#focus-drill-title").textContent = (d ? d.code : districtId.toUpperCase()) + " · " + titleSuffix;
+
+    const desc = $("#focus-drill-desc");
+    if (desc) {
+      desc.textContent = inHistory
+        ? "SR precinct choropleth of real Assembly two-party margins (SWDB). Toggle contest year; not a voter file or modeled score."
+        : "Where to prioritize field and persuasion — cities/CDPs colored by illustrative 2022 Assembly competitiveness + turnout proxy.";
     }
+
+    const asideTitle = $("#focus-drill-aside-title");
+    const asideChip = $("#focus-drill-aside-chip");
+    if (asideTitle && asideChip) {
+      if (inHistory) {
+        asideTitle.childNodes[0].textContent = "Precinct rank ";
+        asideChip.className = "chip chip-live";
+        asideChip.textContent = AE.electionHistory.raceLabel(state.focusDrillRace);
+      } else {
+        asideTitle.childNodes[0].textContent = "Intra-district score ";
+        asideChip.className = "chip chip-demo";
+        asideChip.textContent = "2022 g22 proxy";
+      }
+    }
+
+    if ($("#focus-drill-formula")) {
+      $("#focus-drill-formula").textContent = inHistory
+        ? "Two-party margin = (Dem − Rep) ÷ (Dem + Rep) for the Assembly contest in each SR precinct. Colors show Democratic lead (blue) vs Republican lead (red)."
+        : (geo && geo.source && geo.source.score_formula) ||
+          "Illustrative focus from 2022 Assembly margin competitiveness + turnout in overlapping SR precincts.";
+    }
+
+    const gapBanner = $("#focus-drill-gap-banner");
+    if (gapBanner) {
+      const gaps = (histMeta && histMeta.gaps) || [];
+      if (inHistory && gaps.length) {
+        gapBanner.hidden = false;
+        gapBanner.textContent = "Data gap: " + gaps.join(" · ");
+      } else if (inHistory && histMeta && histMeta.precinct_count === 0) {
+        gapBanner.hidden = false;
+        gapBanner.textContent = "No precinct-level Assembly history is available for this district in the current static bundle.";
+      } else {
+        gapBanner.hidden = true;
+        gapBanner.textContent = "";
+      }
+    }
+
     if ($("#focus-drill-attribution")) {
-      $("#focus-drill-attribution").innerHTML = AE.focusDrill.attributionHtml(districtId);
+      $("#focus-drill-attribution").innerHTML = inHistory
+        ? AE.electionHistory.attributionHtml(districtId, state.focusDrillRace)
+        : AE.focusDrill.attributionHtml(districtId);
     }
 
     if (err || !geo) {
       wrap.innerHTML = `<div class="empty-state"><h3>Drill-down layer unavailable</h3><p>${err || "Loading…"}</p></div>`;
+      renderFocusDrillLegend();
       return;
     }
 
     const w = 400;
     const h = 480;
-    const layers = AE.focusDrill.placePaths(districtId, w, h, focusDrillFilterBands());
-    const outline = layers.outline
-      ? `<path class="focus-drill-outline" d="${layers.outline}" aria-hidden="true"></path>`
+
+    if (inHistory && (histErr || !AE.electionPrecinctGeo[districtId])) {
+      wrap.innerHTML = `<div class="empty-state"><h3>Election history unavailable</h3><p>${histErr || "Loading precinct layer…"}</p></div>`;
+      renderFocusDrillLegend();
+      return;
+    }
+
+    const placeLayers = AE.focusDrill.placePaths(
+      districtId,
+      w,
+      h,
+      inHistory ? { "focus-high": true, "focus-mid": true, "focus-low": true } : focusDrillFilterBands()
+    );
+    let outline = placeLayers.outline
+      ? `<path class="focus-drill-outline" d="${placeLayers.outline}" aria-hidden="true"></path>`
       : "";
-    const placeShapes = layers.places
-      .map(
-        (p) =>
-          `<path class="focus-drill-place ${p.band.class}" tabindex="0" role="img" aria-label="${p.name} focus ${p.score}" data-place="${p.id}" d="${p.d}"></path>`
-      )
-      .join("");
+
+    let placeShapes = "";
+    let precinctShapes = "";
+    let ariaLabel = "Intra-district focus heat map";
+
+    if (inHistory) {
+      const histLayers = AE.electionHistory.precinctPaths(
+        districtId,
+        w,
+        h,
+        state.focusDrillRace,
+        focusDrillFilterBands()
+      );
+      if (histLayers.outline) {
+        outline = `<path class="focus-drill-outline" d="${histLayers.outline}" aria-hidden="true"></path>`;
+      }
+      ariaLabel = "Precinct election history map";
+      precinctShapes = histLayers.precincts
+        .map(
+          (p) =>
+            `<path class="focus-drill-precinct ${p.band.class}" tabindex="0" role="img" aria-label="Precinct ${p.id} ${p.band.label}" data-precinct="${p.id}" d="${p.d}"></path>`
+        )
+        .join("");
+      placeShapes = placeLayers.places
+        .map((p) => `<path class="focus-drill-place ${p.band.class}" aria-hidden="true" d="${p.d}"></path>`)
+        .join("");
+    } else {
+      placeShapes = placeLayers.places
+        .map(
+          (p) =>
+            `<path class="focus-drill-place ${p.band.class}" tabindex="0" role="img" aria-label="${p.name} focus ${p.score}" data-place="${p.id}" d="${p.d}"></path>`
+        )
+        .join("");
+    }
+
     wrap.innerHTML = `
-      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg focus-drill-svg" aria-label="Intra-district focus heat map">
+      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg focus-drill-svg" aria-label="${ariaLabel}">
         <g class="focus-drill-outline-layer">${outline}</g>
-        <g class="focus-drill-places-layer">${placeShapes}</g>
+        <g class="focus-drill-places-layer${inHistory ? " is-dimmed" : ""}">${placeShapes}</g>
+        ${inHistory ? `<g class="focus-drill-precinct-layer">${precinctShapes}</g>` : ""}
       </svg>`;
 
     const demoPanel = $("#focus-drill-demography");
@@ -387,20 +558,50 @@
     }
 
     if (rank) {
-      const sorted = layers.places.slice().sort((a, b) => b.score - a.score);
-      rank.innerHTML = sorted
-        .map((p) => {
-          const meta =
-            p.hasData && p.demPct != null
-              ? `2022 Asm ${p.demPct}% D · turnout ${p.turnoutPct}%`
-              : "No g22 overlap";
-          return `<div class="focus-rank-item">
+      if (inHistory) {
+        const histLayers = AE.electionHistory.precinctPaths(
+          districtId,
+          w,
+          h,
+          state.focusDrillRace,
+          focusDrillFilterBands()
+        );
+        const sorted = histLayers.precincts
+          .filter((p) => p.hasData)
+          .slice()
+          .sort((a, b) => Math.abs(a.margin) - Math.abs(b.margin));
+        rank.innerHTML = sorted.length
+          ? sorted
+              .slice(0, 24)
+              .map((p) => {
+                const meta =
+                  p.demPct != null
+                    ? `${p.demPct}% two-party Dem · ${p.votes != null ? p.votes.toLocaleString() + " votes" : ""}`
+                    : "";
+                return `<div class="focus-rank-item">
+            <span>Precinct ${p.srprec || p.id}</span>
+            <span class="chip chip-live">${p.band.label}</span>
+            <span style="font-size:10px;color:var(--text-dim)">${meta}</span>
+          </div>`;
+              })
+              .join("")
+          : `<p class="empty-state" style="padding:8px 0">No precinct results for this contest.</p>`;
+      } else {
+        const sorted = placeLayers.places.slice().sort((a, b) => b.score - a.score);
+        rank.innerHTML = sorted
+          .map((p) => {
+            const meta =
+              p.hasData && p.demPct != null
+                ? `2022 Asm ${p.demPct}% D · turnout ${p.turnoutPct}%`
+                : "No g22 overlap";
+            return `<div class="focus-rank-item">
             <span>${p.name}</span>
             <span class="chip ${p.band.class === "focus-high" ? "chip-gap" : "chip-demo"}">${p.score} · ${p.band.label}</span>
             <span style="font-size:10px;color:var(--text-dim)">${meta}</span>
           </div>`;
-        })
-        .join("");
+          })
+          .join("");
+      }
     }
     renderFocusDrillLegend();
   }
@@ -414,7 +615,12 @@
     if (drill) drill.hidden = !inDrill;
 
     if (inDrill) {
-      AE.focusDrill.loadIntra(state.focusDrillId).then(() => renderFocusDrillMap());
+      const id = state.focusDrillId;
+      const loads = [AE.focusDrill.loadIntra(id)];
+      if (AE.electionHistory && AE.electionHistory.loadPrecincts) {
+        loads.push(AE.electionHistory.loadPrecincts(id));
+      }
+      Promise.all(loads).then(() => renderFocusDrillMap());
       return;
     }
 
@@ -1274,6 +1480,7 @@
     $("#focus-drill-district-detail")?.addEventListener("click", () => {
       if (state.focusDrillId) navigate("district", { districtId: state.focusDrillId, tab: "threat" });
     });
+    bindFocusDrillLayerControls();
     window.addEventListener("popstate", () => applyFocusHash());
 
     $("#drawer-overlay")?.addEventListener("click", closeDrawer);
@@ -1323,6 +1530,7 @@
       loadLiveMoney(),
       AE.polling.load(),
       AE.demography.load(),
+      AE.electionHistory.loadIndex(),
       AE.focusMap.loadGeo(),
     ]).then(refreshPollingViews);
     applyFocusHash();
