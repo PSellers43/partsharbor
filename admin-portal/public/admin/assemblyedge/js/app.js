@@ -531,17 +531,17 @@
     el.innerHTML = `
       <div class="brief-shell">
         <div class="brief-masthead">
-          <div>
+          <div class="brief-masthead-main">
             <div class="brief-product">AssemblyEdge · Monday Brief</div>
             <div class="brief-week">${b.weekOf} · ${d.code} ${d.name}</div>
           </div>
-          <div style="text-align:right">
+          <div class="brief-masthead-aside">
             <span class="chip chip-elevated">Elevated</span>
-            <div style="font-family:var(--mono);font-size:28px;font-weight:700;margin-top:6px">${d.threatIndex} <span style="font-size:12px;color:var(--text-muted)">TI</span></div>
-            <div style="font-size:11px;color:var(--text-muted)">7d <span class="delta delta-up">${deltaFmt(d.delta7d)}</span></div>
+            <div class="brief-ti">${d.threatIndex} <span class="brief-ti-unit">TI</span></div>
+            <div class="brief-ti-delta">7d <span class="delta delta-up">${deltaFmt(d.delta7d)}</span></div>
           </div>
         </div>
-        <p class="chip chip-demo" style="margin-bottom:14px">DEMO / ILLUSTRATIVE — Not filed campaign data</p>
+        <p class="chip chip-demo brief-demo-chip">DEMO / ILLUSTRATIVE — Not filed campaign data</p>
         <h2 class="brief-headline">${b.headline}</h2>
         <ul class="brief-bullets">
           ${b.bullets.map((x) => `<li>${x}</li>`).join("")}

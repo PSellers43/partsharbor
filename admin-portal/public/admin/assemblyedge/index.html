@@ -14,7 +14,7 @@
   <!-- Live vs demo banner -->
   <div class="demo-banner" role="status">
     <span class="pulse" aria-hidden="true"></span>
-    <span>DEMO / ILLUSTRATIVE DATA — Not official FPPC, SOS, or caucus figures. Rounded placeholders for product UX only.</span>
+    <span class="demo-banner-text">DEMO / ILLUSTRATIVE DATA — Not official FPPC, SOS, or caucus figures. Rounded placeholders for product UX only.</span>
   </div>
 
   <nav class="app-nav no-print" aria-label="Primary">
@@ -86,14 +86,14 @@
             </p>
             <p id="deep-demo-note" class="page-desc" style="color:var(--warn);margin-top:8px" hidden></p>
           </div>
-          <div style="text-align:right">
-            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);font-weight:650">Threat Index</div>
-            <div style="font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-0.04em;line-height:1" id="detail-ti">72</div>
-            <div style="margin-top:6px;font-size:12px;color:var(--text-muted)">
+          <div class="detail-ti-panel">
+            <div class="detail-ti-label">Threat Index</div>
+            <div class="detail-ti-value" id="detail-ti">72</div>
+            <div class="detail-ti-deltas">
               24h <span id="detail-d24" class="delta">+4</span>
               · 7d <span id="detail-d7" class="delta">+11</span>
             </div>
-            <div class="no-print" style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+            <div class="no-print detail-ti-actions">
               <button type="button" class="btn" id="open-brief-from-detail">Monday Brief</button>
             </div>
           </div>
