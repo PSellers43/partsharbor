@@ -178,6 +178,7 @@
     });
 
     renderPollingTeaser();
+    renderAbevTeaser();
   }
 
   /* ——— Polling & gaps ——— */
@@ -749,6 +750,10 @@
     if (demoPanel && AE.demography && AE.demography.renderPanel) {
       demoPanel.innerHTML = AE.demography.renderPanel(districtId);
     }
+    const abevPanel = $("#focus-drill-abev");
+    if (abevPanel && AE.abev && AE.abev.renderPanel) {
+      abevPanel.innerHTML = AE.abev.renderPanel(districtId);
+    }
 
     if (inHistory) {
       const sorted = histPrecinctRows
@@ -1131,14 +1136,48 @@
       });
   }
 
-  function refreshPollingViews() {
+  function renderAbevTeaser() {
+    const body = $("#abev-teaser-body");
+    const badge = $("#abev-teaser-badge");
+    if (!body || !AE.abev) return;
+    if (AE.abevLoadError || !AE.abevData) {
+      body.textContent = AE.abevLoadError ? "Ballot return data unavailable." : "Loading…";
+      if (badge) badge.textContent = "—";
+      return;
+    }
+    body.innerHTML = AE.abev.renderPortfolioStrip();
+    const gaps = (AE.abevData.districts || []).filter((d) => !d.live || d.live.returned == null).length;
+    if (badge) badge.textContent = gaps ? gaps + " live gap" + (gaps === 1 ? "" : "s") : "Live";
+    body.querySelectorAll("[data-district-abev]").forEach((el) => {
+      el.addEventListener("click", () => navigate("focus-map", { focusDrillId: el.dataset.districtAbev }));
+    });
+  }
+
+  function renderCMAbev() {
+    const wrap = $("#cm-abev-wrap");
+    if (!wrap || !AE.abev || !AE.abev.renderPanel) return;
+    if (AE.abevLoadError || !AE.abevData) {
+      wrap.innerHTML = `<h3 class="card-title">Ballot returns</h3><p class="intel-teaser-desc">${AE.abevLoadError || "Loading…"}</p>`;
+      return;
+    }
+    wrap.innerHTML = `<h3 class="card-title" style="margin-bottom:10px">Ballot chase pulse · AD-7</h3>${AE.abev.renderPanel("ad-7", true)}${AE.abev.renderPortfolioStrip()}`;
+    wrap.querySelectorAll("[data-district-abev]").forEach((el) => {
+      el.addEventListener("click", () => navigate("focus-map", { focusDrillId: el.dataset.districtAbev }));
+    });
+  }
+
+  function refreshIntelViews() {
     if (state.page === "polling") renderPollingPage();
-    if (state.page === "portfolio") renderPollingTeaser();
+    if (state.page === "portfolio") {
+      renderPollingTeaser();
+      renderAbevTeaser();
+    }
     if (state.page === "district") {
       const d = AE.districts.find((x) => x.id === state.districtId);
       if (d) renderDistrictPollingStrip(d);
     }
     if (state.page === "focus-map") renderFocusMapPage();
+    if (state.page === "cm") renderCMAbev();
   }
 
   function renderAds(d) {
@@ -1377,6 +1416,7 @@
     renderCMLog();
     renderChecklist();
     renderDoctrineSidebar();
+    renderCMAbev();
   }
 
   function quickLog(priorityId, decisionId) {
@@ -1704,8 +1744,9 @@
       AE.polling.load(),
       AE.demography.load(),
       AE.electionHistory.loadIndex(),
+      AE.abev.load(),
       AE.focusMap.loadGeo(),
-    ]).then(refreshPollingViews);
+    ]).then(refreshIntelViews);
     applyFocusHash();
     if (state.page !== "focus-map") {
       if (state.role === "cm") {

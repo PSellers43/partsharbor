@@ -73,6 +73,11 @@
           <button type="button" class="btn btn-primary" data-page-jump="focus-map">Open focus map</button>
         </article>
       </div>
+      <article class="card intel-teaser abev-portfolio-wrap" id="portfolio-abev-teaser">
+        <h3 class="card-title">Ballot returns <span class="chip chip-demo" id="abev-teaser-badge">ABEV</span></h3>
+        <p class="intel-teaser-desc">Vote-by-mail progress vs registration for all beachheads — live 2026 gaps labeled; 2024 general baselines from public SWDB aggregates.</p>
+        <div id="abev-teaser-body" class="intel-teaser-body"></div>
+      </article>
       <div id="district-grid" class="district-grid" role="list"></div>
     </section>
 
@@ -156,6 +161,7 @@
               <div id="focus-drill-rank" class="focus-rank-list"></div>
             </div>
             <div class="card focus-map-aside" id="focus-drill-demography" aria-label="District demography and registration mix"></div>
+            <div class="card focus-map-aside" id="focus-drill-abev" aria-label="District ballot returns"></div>
           </aside>
         </div>
       </div>
@@ -239,6 +245,7 @@
         </div>
       </div>
       <p id="cm-mode-blurb" class="cm-mode-blurb"></p>
+      <div id="cm-abev-wrap" class="card abev-cm-wrap" aria-label="Ballot return pulse"></div>
       <div class="cm-layout">
         <div class="cm-main">
           <div class="card">
@@ -384,6 +391,7 @@
   <script src="js/focus-drill.js"></script>
   <script src="js/demography.js"></script>
   <script src="js/election-history.js"></script>
+  <script src="js/abev.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

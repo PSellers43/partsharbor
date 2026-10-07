@@ -1,0 +1,853 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-07T18:50:35+00:00",
+  "built_on": "2026-10-07",
+  "scope": "Assembly beachhead districts (CRC 2020 lines)",
+  "sources": {
+    "swdb": {
+      "label": "UC Berkeley Statewide Database",
+      "home": "https://statewidedatabase.org/",
+      "vbm_file_type": "All_VBM (mail ballot voters who returned)",
+      "sov_note": "SR precinct SOV includes addist, TOTREG, TOTVOTE, ABSVOTE"
+    },
+    "registration": {
+      "label": "CA SOS Report of Registration",
+      "via": "data/demography/latest/demography-by-district.json"
+    },
+    "live_sos_vbm": {
+      "label": "CA SOS VoteCal VBM statistics (county PDF)",
+      "pattern": "https://elections.cdn.sos.ca.gov/statewide-elections/{cycle}/vbm-statistics.pdf",
+      "assembly_district_limitation": "PDF is county-level; AD aggregation requires county feeds or SWDB-style precinct joins."
+    },
+    "inspiration": {
+      "label": "Civiq ABEV (statewide ballot return tracker)",
+      "url": "https://abev.civiq.vote/",
+      "note": "AssemblyEdge shows beachhead AD depth, not a statewide clone."
+    }
+  },
+  "gaps": [],
+  "districts": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "registration_current": 296594,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 201405,
+          "vbm_pct_of_sov_registration": 69.24,
+          "turnout_pct": 78.62,
+          "sov_absentee_vote": 0,
+          "sov_registration": 290865,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 81019,
+              "pct": 40.23
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 70021,
+              "pct": 34.77
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 35130,
+              "pct": 17.44
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 15235,
+              "pct": 7.56
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 159713,
+          "vbm_pct_of_sov_registration": 56.42,
+          "turnout_pct": 60.15,
+          "sov_absentee_vote": 0,
+          "sov_registration": 283088,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 65119,
+              "pct": 40.77
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 57137,
+              "pct": 35.77
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 26779,
+              "pct": 16.77
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 10678,
+              "pct": 6.69
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 69.24% of SOV registration vs 56.42% in 2022 (SWDB All_VBM)."
+      }
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "registration_current": 234836,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 53333,
+          "vbm_pct_of_sov_registration": 49.56,
+          "turnout_pct": 62.57,
+          "sov_absentee_vote": 0,
+          "sov_registration": 107610,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 22656,
+              "pct": 42.48
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 18478,
+              "pct": 34.65
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 8641,
+              "pct": 16.2
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 3558,
+              "pct": 6.67
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 36688,
+          "vbm_pct_of_sov_registration": 35.9,
+          "turnout_pct": 40.85,
+          "sov_absentee_vote": 0,
+          "sov_registration": 102199,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 15954,
+              "pct": 43.49
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 13491,
+              "pct": 36.77
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 5136,
+              "pct": 14.0
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 2107,
+              "pct": 5.74
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 49.56% of SOV registration vs 35.9% in 2022 (SWDB All_VBM)."
+      }
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "registration_current": 250572,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 86103,
+          "vbm_pct_of_sov_registration": 56.47,
+          "turnout_pct": 68.05,
+          "sov_absentee_vote": 0,
+          "sov_registration": 152484,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 36864,
+              "pct": 42.81
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 31214,
+              "pct": 36.25
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 12156,
+              "pct": 14.12
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 5869,
+              "pct": 6.82
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 59119,
+          "vbm_pct_of_sov_registration": 41.48,
+          "turnout_pct": 45.7,
+          "sov_absentee_vote": 0,
+          "sov_registration": 142540,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 25390,
+              "pct": 42.95
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 22386,
+              "pct": 37.87
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 7812,
+              "pct": 13.21
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 3531,
+              "pct": 5.97
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 56.47% of SOV registration vs 41.48% in 2022 (SWDB All_VBM)."
+      }
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "registration_current": 328440,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 160073,
+          "vbm_pct_of_sov_registration": 64.61,
+          "turnout_pct": 77.44,
+          "sov_absentee_vote": 0,
+          "sov_registration": 247759,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 74862,
+              "pct": 46.77
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 52768,
+              "pct": 32.96
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 21627,
+              "pct": 13.51
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 10816,
+              "pct": 6.76
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 122990,
+          "vbm_pct_of_sov_registration": 51.71,
+          "turnout_pct": 56.75,
+          "sov_absentee_vote": 0,
+          "sov_registration": 237827,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 58444,
+              "pct": 47.52
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 41454,
+              "pct": 33.71
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 15908,
+              "pct": 12.93
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 7184,
+              "pct": 5.84
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 64.61% of SOV registration vs 51.71% in 2022 (SWDB All_VBM)."
+      }
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "registration_current": 262076,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 127837,
+          "vbm_pct_of_sov_registration": 51.51,
+          "turnout_pct": 64.13,
+          "sov_absentee_vote": 0,
+          "sov_registration": 248183,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 58831,
+              "pct": 46.02
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 40120,
+              "pct": 31.38
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 20361,
+              "pct": 15.93
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 8525,
+              "pct": 6.67
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 82273,
+          "vbm_pct_of_sov_registration": 34.3,
+          "turnout_pct": 38.73,
+          "sov_absentee_vote": 0,
+          "sov_registration": 239887,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 38374,
+              "pct": 46.64
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 27326,
+              "pct": 33.21
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 12070,
+              "pct": 14.67
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 4503,
+              "pct": 5.47
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 51.51% of SOV registration vs 34.3% in 2022 (SWDB All_VBM)."
+      }
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "registration_current": 311308,
+      "registration_current_source": "CA SOS ROR (demography bundle)",
+      "live": {
+        "status": "not_published",
+        "cycle": "2026",
+        "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+        "detail": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "sos_probe_url": null,
+        "returned": null,
+        "accepted": null,
+        "issued": null,
+        "as_of": null,
+        "pct_of_registration": null
+      },
+      "baselines": {
+        "primary_compare": "g24",
+        "prior": "g22",
+        "g24": {
+          "election": "2024 General (Nov 5, 2024)",
+          "election_code": "g24",
+          "vbm_returned": 88842,
+          "vbm_pct_of_sov_registration": 64.08,
+          "turnout_pct": 83.07,
+          "sov_absentee_vote": 0,
+          "sov_registration": 138647,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 30839,
+              "pct": 34.71
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 35828,
+              "pct": 40.33
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 16139,
+              "pct": 18.17
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 6036,
+              "pct": 6.79
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G24/state/state_g24_All_VBM_by_g24_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "g22": {
+          "election": "2022 General (Nov 8, 2022)",
+          "election_code": "g22",
+          "vbm_returned": 73083,
+          "vbm_pct_of_sov_registration": 53.58,
+          "turnout_pct": 65.15,
+          "sov_absentee_vote": 0,
+          "sov_registration": 136405,
+          "party_returns": [
+            {
+              "id": "dem",
+              "label": "Democratic",
+              "count": 26093,
+              "pct": 35.7
+            },
+            {
+              "id": "rep",
+              "label": "Republican",
+              "count": 29905,
+              "pct": 40.92
+            },
+            {
+              "id": "npp",
+              "label": "No party preference",
+              "count": 13074,
+              "pct": 17.89
+            },
+            {
+              "id": "aip",
+              "label": "American Independent",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "grn",
+              "label": "Green",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "lib",
+              "label": "Libertarian",
+              "count": 0,
+              "pct": 0.0
+            },
+            {
+              "id": "other",
+              "label": "Other / minor",
+              "count": 4011,
+              "pct": 5.49
+            }
+          ],
+          "source": {
+            "vbm": "https://statewidedatabase.org/pub/data/G22/state/state_g22_All_VBM_by_g22_srprec.zip",
+            "sov": "SWDB county SOV by SR precinct (addist)"
+          }
+        },
+        "pace_note": "2024 final mail returns were 64.08% of SOV registration vs 53.58% in 2022 (SWDB All_VBM)."
+      }
+    }
+  ]
+}
