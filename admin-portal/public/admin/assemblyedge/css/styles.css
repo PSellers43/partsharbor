@@ -3334,6 +3334,124 @@ body[data-role="cm"] .cm-strip {
   color: var(--text-muted);
   line-height: 1.5;
 }
+
+/* Late money (Form 497 / 496) */
+.late-money-panel {
+  margin-top: 14px;
+}
+.late-money-panel.is-compact .late-money-grid {
+  grid-template-columns: 1fr;
+}
+.late-money-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.late-spark-wrap {
+  color: var(--accent);
+  opacity: 0.95;
+}
+.late-spark.is-flat {
+  opacity: 0.35;
+}
+.late-money-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.late-stat {
+  background: var(--surface-2, rgba(255, 255, 255, 0.04));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+.late-stat-label {
+  display: block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.late-stat-val {
+  font-size: 15px;
+  font-weight: 650;
+}
+.late-money-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.9fr);
+  gap: 16px;
+}
+.late-subhead {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+.late-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.late-timeline-item {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  font-size: 12.5px;
+  line-height: 1.4;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.late-timeline-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.late-timeline-date {
+  color: var(--text-dim);
+  font-size: 11px;
+}
+.late-timeline-amt {
+  font-weight: 650;
+  white-space: nowrap;
+}
+.late-donor-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.late-donor-meta {
+  color: var(--text-dim);
+  font-size: 11px;
+}
+.late-empty-note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.late-ie-block {
+  margin-top: 14px;
+}
+.late-money-cm-card .late-money-panel {
+  margin-top: 0;
+}
+.late-timeline-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
 .ask-cm-form {
   display: flex;
   gap: 8px;
@@ -3461,5 +3579,20 @@ body[data-role="cm"] .cm-strip {
   }
   .palette {
     width: min(560px, 96vw);
+  }
+}
+
+@media (max-width: 900px) {
+  .late-money-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .late-money-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 420px) {
+  .late-timeline-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 }
