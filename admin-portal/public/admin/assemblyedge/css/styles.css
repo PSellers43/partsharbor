@@ -2482,10 +2482,11 @@ body[data-role="cm"] .cm-strip {
   height: auto;
   max-height: 520px;
 }
-.focus-map-wrap .map-silhouette {
-  fill: var(--bg-hover);
-  stroke: var(--border);
-  stroke-width: 0.6;
+.focus-map-wrap .district-context {
+  fill: rgba(139, 149, 168, 0.08);
+  stroke: rgba(139, 149, 168, 0.35);
+  stroke-width: 0.35;
+  pointer-events: none;
 }
 .focus-map-wrap .district-shape {
   stroke: rgba(255, 230, 168, 0.55);
@@ -2509,6 +2510,15 @@ body[data-role="cm"] .cm-strip {
   font-weight: 700;
   pointer-events: none;
   text-anchor: middle;
+}
+.focus-map-attribution {
+  margin: 10px 0 0;
+  font-size: 10.5px;
+  line-height: 1.45;
+  color: var(--text-dim);
+}
+.focus-map-attribution a {
+  color: var(--text-muted);
 }
 .focus-legend {
   display: flex;

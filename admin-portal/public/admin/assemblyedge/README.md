@@ -30,7 +30,7 @@ python3 -m http.server 8765   # required so the Money tab can fetch JSON
 
 Open **AD-7 → Money**: **LIVE CAL-ACCESS** badge + as-of time when JSON is present; otherwise clearly labeled demo. Details: `CALACCESS.md` and `data/calaccess/README.md`.
 
-**Polling & gaps:** edit `data/polling/latest.json` (see `data/polling/README.md`). **Focus map:** beachhead shapes in `data/map/beachhead-districts.geojson`; score = 40% Threat Index + 35% money pressure + 25% polling gap severity (documented on map page).
+**Polling & gaps:** edit `data/polling/latest.json` (see `data/polling/README.md`). **Focus map:** CRC 2020 Assembly boundaries in `data/map/ca-assembly-crc-2020.geojson` (see `data/map/README.md` + rebuild script); score = 40% Threat Index + 35% money pressure + 25% polling gap severity (documented on map page).
 
 
 ## Flows to click (≈2 minutes) — Analyst
