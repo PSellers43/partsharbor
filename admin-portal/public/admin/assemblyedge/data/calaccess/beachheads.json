@@ -1,7 +1,9 @@
 {
   "cycle_year": 2026,
-  "cycle_label": "2026 Assembly",
-  "matching_notes": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Documented limitations in CALACCESS.md.",
+  "cycle_label": "2026 Assembly general (Nov 3)",
+  "certified_list_date": "2026-08-27",
+  "certified_list_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf",
+  "matching_notes": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Roster reflects SOS certified general-election matchups; primary-only filers are claimed but excluded from opponent rollups. Documented limitations in CALACCESS.md.",
   "districts": [
     {
       "id": "ad-7",
@@ -15,7 +17,15 @@
         "committee_patterns": ["HOOVER FOR ASSEMBLY 2026", "HOOVER FOR ASSEMBLY"]
       },
       "known_opponents": [
-        {"name": "Amy Slavensky", "name_patterns": ["SLAVENSKY"], "committee_patterns": ["SLAVENSKY FOR ASSEMBLY 2026", "SLAVENSKY"]},
+        {
+          "name": "Amy L. Slavensky",
+          "party": "D",
+          "ballot_status": "general",
+          "name_patterns": ["SLAVENSKY"],
+          "committee_patterns": ["SLAVENSKY FOR ASSEMBLY 2026", "SLAVENSKY"]
+        }
+      ],
+      "primary_non_advancing": [
         {"name": "Vance Taylor", "name_patterns": ["VANCE TAYLOR", "TAYLOR"], "committee_patterns": ["VANCE TAYLOR FOR ASSEMBLY", "TAYLOR FOR ASSEMBLY 2026"]},
         {"name": "Chris Hoang", "name_patterns": ["HOANG"], "committee_patterns": ["HOANG FOR ASSEMBLY"]}
       ]
@@ -32,7 +42,15 @@
         "committee_patterns": ["WALLIS FOR ASSEMBLY 2026", "GREG WALLIS FOR ASSEMBLY"]
       },
       "known_opponents": [
-        {"name": "Leila Namvar", "name_patterns": ["NAMVAR"], "committee_patterns": ["NAMVAR FOR ASSEMBLY"]},
+        {
+          "name": "Leila Namvar",
+          "party": "D",
+          "ballot_status": "general",
+          "name_patterns": ["NAMVAR"],
+          "committee_patterns": ["NAMVAR FOR ASSEMBLY"]
+        }
+      ],
+      "primary_non_advancing": [
         {"name": "Jason Byors", "name_patterns": ["BYORS"], "committee_patterns": ["BYORS"]},
         {"name": "Lucas Pinon", "name_patterns": ["PINON"], "committee_patterns": ["PINON"]}
       ]
@@ -43,13 +61,21 @@
       "dist_no": "58",
       "focus": "mapped",
       "incumbent": {
-        "name": "Clarissa Cervantes",
-        "party": "D",
-        "name_patterns": ["CERVANTES"],
-        "committee_patterns": ["CERVANTES FOR ASSEMBLY 2026", "CLARISSA CERVANTES"]
+        "name": "Leticia Castillo",
+        "party": "R",
+        "name_patterns": ["CASTILLO", "LETICIA CASTILLO"],
+        "committee_patterns": ["CASTILLO FOR ASSEMBLY 2026", "LETICIA CASTILLO"]
       },
       "known_opponents": [
-        {"name": "Leticia Castillo", "name_patterns": ["CASTILLO"], "committee_patterns": ["CASTILLO FOR ASSEMBLY 2026", "LETICIA CASTILLO"]},
+        {
+          "name": "Clarissa Cervantes",
+          "party": "D",
+          "ballot_status": "general",
+          "name_patterns": ["CERVANTES"],
+          "committee_patterns": ["CERVANTES FOR ASSEMBLY 2026", "CLARISSA CERVANTES"]
+        }
+      ],
+      "primary_non_advancing": [
         {"name": "Paco Licea", "name_patterns": ["LICEA"], "committee_patterns": ["LICEA"]}
       ]
     },
@@ -65,8 +91,16 @@
         "committee_patterns": ["LAURIE DAVIES FOR ASSEMBLY", "DAVIES FOR ASSEMBLY 2026"]
       },
       "known_opponents": [
-        {"name": "Chris Duncan", "name_patterns": ["DUNCAN"], "committee_patterns": ["CHRIS DUNCAN FOR ASSEMBLY", "DUNCAN FOR ASSEMBLY 2026"]},
-        {"name": "Sergio Farias", "name_patterns": ["FARIAS"], "committee_patterns": ["FARIAS FOR ASSEMBLY"]}
+        {
+          "name": "Sergio Farias",
+          "party": "D",
+          "ballot_status": "general",
+          "name_patterns": ["FARIAS"],
+          "committee_patterns": ["FARIAS FOR ASSEMBLY"]
+        }
+      ],
+      "primary_non_advancing": [
+        {"name": "Chris Duncan", "name_patterns": ["DUNCAN"], "committee_patterns": ["CHRIS DUNCAN FOR ASSEMBLY", "DUNCAN FOR ASSEMBLY 2026"]}
       ]
     },
     {
@@ -81,7 +115,15 @@
         "committee_patterns": ["JEFF GONZALEZ FOR ASSEMBLY", "GONZALEZ FOR ASSEMBLY 2026"]
       },
       "known_opponents": [
-        {"name": "Ida Obeso-Martinez", "name_patterns": ["OBESO"], "committee_patterns": ["OBESO-MARTINEZ", "OBESO"]},
+        {
+          "name": "Ida S. Obeso-Martinez",
+          "party": "D",
+          "ballot_status": "general",
+          "name_patterns": ["OBESO"],
+          "committee_patterns": ["OBESO-MARTINEZ", "OBESO"]
+        }
+      ],
+      "primary_non_advancing": [
         {"name": "Tomas Oliva", "name_patterns": ["OLIVA"], "committee_patterns": ["TOMAS OLIVA", "OLIVA FOR ASSEMBLY"]},
         {"name": "Oscar Ortiz", "name_patterns": ["ORTIZ"], "committee_patterns": ["OSCAR ORTIZ", "ORTIZ FOR ASSEMBLY"]}
       ]
@@ -91,16 +133,27 @@
       "code": "AD-27",
       "dist_no": "27",
       "focus": "mapped",
-      "incumbent": {
-        "name": "Esmeralda Soria",
-        "party": "D",
-        "name_patterns": ["SORIA"],
-        "committee_patterns": ["SORIA FOR ASSEMBLY 2026", "ESMERALDA SORIA"]
-      },
-      "known_opponents": [
-        {"name": "Brian Pacheco", "name_patterns": ["PACHECO"], "committee_patterns": ["BRIAN PACHECO FOR ASSEMBLY", "PACHECO FOR ASSEMBLY"]},
+      "open_seat": true,
+      "outgoing_note": "Esmeralda Soria (D), current AD-27 member, is not on the AD-27 ballot — certified for State Senate District 14.",
+      "general_candidates": [
+        {
+          "name": "Mike Murphy",
+          "party": "R",
+          "name_patterns": ["MICHAEL MURPHY", "MURPHY"],
+          "committee_patterns": ["MURPHY FOR ASSEMBLY 2026"]
+        },
+        {
+          "name": "Brian Pacheco",
+          "party": "D",
+          "name_patterns": ["PACHECO"],
+          "committee_patterns": ["BRIAN PACHECO FOR ASSEMBLY", "PACHECO FOR ASSEMBLY"]
+        }
+      ],
+      "primary_non_advancing": [
         {"name": "Joanna Garcia Rose", "name_patterns": ["GARCIA ROSE", "JOANNA GARCIA"], "committee_patterns": ["JOANNA GARCIA ROSE", "GARCIA ROSE"]},
-        {"name": "Michael Murphy", "name_patterns": ["MICHAEL MURPHY", "MURPHY"], "committee_patterns": ["MURPHY FOR ASSEMBLY 2026"]}
+        {"name": "Leticia Gonzalez", "name_patterns": ["LETICIA GONZALEZ"], "committee_patterns": ["LETICIA GONZALEZ FOR ASSEMBLY"]},
+        {"name": "Priya Lakireddy", "name_patterns": ["LAKIREDDY"], "committee_patterns": ["PRIYA LAKIREDDY FOR ASSEMBLY", "LAKIREDDY"]},
+        {"name": "Esmeralda Soria", "name_patterns": ["SORIA"], "committee_patterns": ["SORIA FOR ASSEMBLY 2026", "ESMERALDA SORIA"]}
       ]
     }
   ]

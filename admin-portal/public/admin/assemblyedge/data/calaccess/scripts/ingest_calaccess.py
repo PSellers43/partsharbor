@@ -293,18 +293,71 @@ def score_committee_for_person(filer: str, cand: str, person: dict, cycle_year: 
     return score, ",".join(reasons) or "weak"
 
 
+def ballot_role_label(kind: str, person: dict, district: dict) -> str:
+    """Human-readable candidate role for Money panel (SOS-certified general roster)."""
+    party = (person.get("party") or "").strip().upper()
+    if kind == "incumbent":
+        return "Incumbent"
+    if district.get("open_seat"):
+        return f"Open seat – {party}" if party in ("R", "D") else "Open seat"
+    if (person.get("ballot_status") or "general") == "primary_only":
+        return "Primary (did not advance)"
+    return "Opponent"
+
+
+def district_ballot_people(district: dict) -> List[Tuple[str, dict]]:
+    """Configured people on the Nov general ballot (incumbent + GE opponents or open-seat pair)."""
+    out: List[Tuple[str, dict]] = []
+    if district.get("open_seat"):
+        for person in district.get("general_candidates") or []:
+            out.append(("open_seat", person))
+        return out
+    inc = district.get("incumbent")
+    if inc:
+        out.append(("incumbent", inc))
+    for opp in district.get("known_opponents") or []:
+        if (opp.get("ballot_status") or "general") == "primary_only":
+            continue
+        out.append(("opponent", opp))
+    return out
+
+
+def claim_primary_non_advancing(
+    district: dict,
+    cycle_year: int,
+    claimed_filer_ids: Set[str],
+    cand_filings: List[dict],
+) -> None:
+    """Match primary-only committees so they are not auto-discovered as general opponents."""
+    dist = district["dist_no"]
+    for person in district.get("primary_non_advancing") or []:
+        by_filer: Dict[str, List[dict]] = defaultdict(list)
+        for r in cand_filings:
+            if r["dist"] != dist:
+                continue
+            by_filer[r["filer_id"]].append(r)
+        for filer_id, rows in by_filer.items():
+            if filer_id in claimed_filer_ids:
+                continue
+            rows_sorted = sorted(rows, key=lambda x: x["rpt"] or datetime.min, reverse=True)
+            filer_name = rows_sorted[0]["filer"]
+            cand_name = rows_sorted[0]["cand"]
+            sc, _reason = score_committee_for_person(filer_name, cand_name, person, cycle_year)
+            if sc >= 40:
+                claimed_filer_ids.add(filer_id)
+
+
 def pick_candidate_committees(
     cvr_rows: List[dict], district: dict, cycle_year: int
 ) -> Dict[str, Any]:
     """
     For a beachhead district, pick best CTL/CAO F460 committee per configured
-    incumbent + known opponents. Also discover other 2026 'for Assembly' CTL
-    committees in-district as unmatched/extra opponents.
+    general-election roster (incumbent + opponents, or open-seat pair). Also
+    discover other 2026 'for Assembly' CTL committees in-district as unmatched/extra
+    opponents unless claimed as primary_non_advancing.
     """
     dist = district["dist_no"]
-    people = [("incumbent", district["incumbent"])] + [
-        ("opponent", o) for o in district.get("known_opponents") or []
-    ]
+    people = [(kind, person) for kind, person in district_ballot_people(district)]
 
     # candidate committees: F460 with entity CTL/CAO (controlled/candidate)
     cand_filings = [
@@ -338,7 +391,7 @@ def pick_candidate_committees(
         scored.sort(key=lambda x: -x[0])
         if not scored:
             results.append({
-                "role": "Incumbent" if role == "incumbent" else "Opponent",
+                "role": ballot_role_label(role, person, district),
                 "name": person["name"],
                 "party": person.get("party"),
                 "match_quality": "unmatched",
@@ -358,7 +411,7 @@ def pick_candidate_committees(
             latest_amend[fid] = max(latest_amend.get(fid, -1), r["amend_id"])
         quality = "strong" if sc >= 90 else ("moderate" if sc >= 60 else "weak")
         results.append({
-            "role": "Incumbent" if role == "incumbent" else "Opponent",
+            "role": ballot_role_label(role, person, district),
             "name": person["name"],
             "display_name": cand_name or person["name"],
             "party": person.get("party"),
@@ -372,6 +425,8 @@ def pick_candidate_committees(
             "latest_rpt": (rows_sorted[0]["rpt"].isoformat() if rows_sorted[0]["rpt"] else None),
             "latest_thru": (rows_sorted[0]["thru"].isoformat() if rows_sorted[0]["thru"] else None),
         })
+
+    claim_primary_non_advancing(district, cycle_year, claimed_filer_ids, cand_filings)
 
     # Discover extra 2026 opponent committees not in known list
     extras = []
@@ -915,6 +970,34 @@ def collect_late_ie_items(
     return out
 
 
+def filer_to_candidate_meta(district_money: dict) -> Dict[str, dict]:
+    """Map committee filer_id → {name, party, role} from matched money rollups."""
+    out: Dict[str, dict] = {}
+    for c in district_money.get("candidates") or []:
+        fid = c.get("filer_id")
+        if not fid:
+            continue
+        out[str(fid)] = {
+            "name": c.get("name") or "",
+            "party": c.get("party"),
+            "role": c.get("role"),
+        }
+    return out
+
+
+def enrich_late_s497_items(items: List[dict], filer_meta: Dict[str, dict]) -> None:
+    """Fill missing S497 candidate labels from the matched committee roster (avoids UI '→ Unknown')."""
+    for item in items:
+        fid = str(item.get("committee_filer_id") or "")
+        meta = filer_meta.get(fid) or {}
+        cand = (item.get("candidate") or "").strip()
+        if not cand or cand.upper() == "UNKNOWN":
+            if meta.get("name"):
+                item["candidate"] = meta["name"]
+        if not item.get("side") and meta.get("party") in ("R", "D"):
+            item["beneficiary_party"] = meta["party"]
+
+
 def build_late_money_district_payload(
     district: dict,
     district_money: dict,
@@ -925,13 +1008,13 @@ def build_late_money_district_payload(
     cycle_year: int,
 ) -> dict:
     cand_names = [c.get("name") or "" for c in district_money.get("candidates") or []]
-    cand_names.append(district["incumbent"]["name"])
-    for o in district.get("known_opponents") or []:
-        cand_names.append(o.get("name") or "")
+    for _kind, person in district_ballot_people(district):
+        cand_names.append(person.get("name") or "")
 
     s497_items, linked_f497 = collect_late_s497_items(
         extract_dir, district, filer_to_district, beach_dist_nos, cycle_year
     )
+    enrich_late_s497_items(s497_items, filer_to_candidate_meta(district_money))
     period_items = [i for i in s497_items if i.get("in_period")]
     ie_items = collect_late_ie_items(
         cvr_rows, extract_dir, district["dist_no"], cand_names, cycle_year
@@ -1180,6 +1263,7 @@ def build_district_payload(
         candidates_out.append({
             "role": rolled["role"],
             "name": rolled.get("display_name") or rolled["name"],
+            "party": rolled.get("party"),
             "committee_name": rolled.get("committee_name"),
             "filer_id": rolled.get("filer_id"),
             "receipts": rolled["receipts"],
@@ -1196,9 +1280,9 @@ def build_district_payload(
             "live": True,
         })
 
-    cand_names = [c["name"] for c in candidates_out] + [
-        district["incumbent"]["name"]
-    ] + [o["name"] for o in district.get("known_opponents") or []]
+    cand_names = [c["name"] for c in candidates_out]
+    for _kind, person in district_ballot_people(district):
+        cand_names.append(person["name"])
     ie_slots = collect_ie_for_district(
         cvr_rows, extract_dir, district["dist_no"], cand_names, cycle_year
     )
