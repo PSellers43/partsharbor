@@ -1,0 +1,32 @@
+name = "partsharbor-admin"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+[[rules]]
+type = "CompiledWasm"
+globs = ["**/*.wasm"]
+fallthrough = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "partsharbor-admin"
+# Replace after: wrangler d1 create partsharbor-admin
+database_id = "00000000-0000-0000-0000-000000000001"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+# Do not use `/admin/*` here — `/admin/static/*` must be served from Workers Assets.
+run_worker_first = ["/admin/login", "/admin/logout", "/admin", "/healthz", "/"]
+
+[vars]
+ENVIRONMENT = "development"
+ARGON2_MEMORY_KIB = "8192"
+ARGON2_PASSES = "2"
+ARGON2_PARALLELISM = "1"
+SESSION_MAX_AGE_SEC = "28800"
+
+# Secrets (wrangler secret put SESSION_SECRET):
+# SESSION_SECRET — session signing + CSRF (≥32 chars)

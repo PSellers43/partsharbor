@@ -1,0 +1,324 @@
+import { Hono } from "hono";
+import { getCookie, setCookie, deleteCookie } from "hono/cookie";
+import { getConfig } from "./config.js";
+import { verifyLogin, normalizeUsername } from "./auth.js";
+import { countAdmins } from "./db.js";
+import {
+  destroySession,
+  getSession,
+  setSession,
+  touchSession,
+} from "./db.js";
+import { resolveCsrfToken, validateCsrfSubmission } from "./csrf.js";
+import { applySecurityHeaders } from "./security-headers.js";
+import {
+  htmlResponse,
+  renderDashboard,
+  renderError,
+  renderLogin,
+} from "./templates.js";
+
+/** @typedef {import('./config.js').Env} Env */
+
+const app = new Hono();
+
+function clientIp(c) {
+  return (
+    c.req.header("CF-Connecting-IP") ||
+    c.req.header("X-Forwarded-For")?.split(",")[0]?.trim() ||
+    "127.0.0.1"
+  );
+}
+
+function safeNextPath(raw) {
+  if (typeof raw !== "string" || !raw.startsWith("/admin") || raw.startsWith("//")) {
+    return null;
+  }
+  return raw;
+}
+
+function maskSessionId(sid) {
+  if (!sid || sid.length < 8) return "—";
+  return `${sid.slice(0, 4)}…${sid.slice(-4)}`;
+}
+
+function newSessionId() {
+  return crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
+}
+
+function htmlBody(c, content, status = 200) {
+  return c.body(content, status, { "Content-Type": "text/html; charset=utf-8" });
+}
+
+function cookieOpts(config, maxAgeSec) {
+  return {
+    path: "/",
+    httpOnly: true,
+    secure: config.isProduction,
+    sameSite: "Strict",
+    maxAge: maxAgeSec,
+  };
+}
+
+app.use("*", async (c, next) => {
+  const url = new URL(c.req.url);
+  let config;
+  try {
+    config = getConfig(c.env, url);
+  } catch (err) {
+    const html = renderError({
+      title: "Configuration error",
+      message: err instanceof Error ? err.message : "Invalid configuration",
+      status: 500,
+    });
+    const res = c.body(html, 500, { "Content-Type": "text/html; charset=utf-8" });
+    applySecurityHeaders(c.res.headers, url.protocol === "https:");
+    return res;
+  }
+  c.set("config", config);
+
+  let sid = getCookie(c, config.sessionCookieName);
+  if (!sid) {
+    sid = newSessionId();
+    setCookie(c, config.sessionCookieName, sid, cookieOpts(config, config.sessionMaxAgeMs / 1000));
+  }
+
+  let session = (await getSession(c.env.DB, sid)) ?? {};
+  if (!session.createdAt) {
+    session.createdAt = Date.now();
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+  } else {
+    await touchSession(c.env.DB, sid, config.sessionMaxAgeMs);
+  }
+
+  const csrf = resolveCsrfToken(
+    c.req.raw,
+    sid,
+    config.sessionSecret,
+    config.csrfCookieName,
+    false,
+    false,
+  );
+  if (!csrf.valid) {
+    return htmlBody(
+      c,
+      renderError({
+        title: "Forbidden",
+        message: "Your session expired or the request was invalid. Refresh and try again.",
+        status: 403,
+      }),
+      403,
+    );
+  }
+
+  setCookie(c, config.csrfCookieName, csrf.cookieValue, cookieOpts(config, config.sessionMaxAgeMs / 1000));
+
+  c.set("sid", sid);
+  c.set("session", session);
+  c.set("csrfToken", csrf.csrfToken);
+  await next();
+  applySecurityHeaders(c.res.headers, config.isProduction);
+});
+
+app.get("/healthz", (c) => {
+  const headers = new Headers({ "Content-Type": "text/plain" });
+  applySecurityHeaders(headers, c.get("config").isProduction);
+  return new Response("ok", { headers });
+});
+
+app.get("/", (c) => c.redirect("/admin", 302));
+
+app.get("/admin/login", async (c) => {
+  const session = c.get("session");
+  const config = c.get("config");
+  if (session.admin?.id) {
+    const next = safeNextPath(c.req.query("next"));
+    return c.redirect(next || "/admin", 302);
+  }
+  return htmlBody(
+    c,
+    renderLogin({
+      title: "Admin sign in",
+      error: null,
+      next: safeNextPath(c.req.query("next")),
+      csrfToken: c.get("csrfToken"),
+    }),
+  );
+});
+
+app.post("/admin/login", async (c) => {
+  const config = c.get("config");
+  const sid = c.get("sid");
+  const body = await c.req.parseBody();
+  const csrfBody = typeof body._csrf === "string" ? body._csrf : "";
+
+  if (
+    !validateCsrfSubmission(
+      c.req.raw,
+      sid,
+      config.sessionSecret,
+      config.csrfCookieName,
+      csrfBody,
+    )
+  ) {
+    return htmlBody(
+      c,
+      renderError({
+        title: "Forbidden",
+        message: "Your session expired or the request was invalid. Refresh and try again.",
+        status: 403,
+      }),
+      403,
+    );
+  }
+
+  const username = typeof body.username === "string" ? body.username : "";
+  const password = typeof body.password === "string" ? body.password : "";
+
+  if ((await countAdmins(c.env.DB)) === 0) {
+    return htmlBody(
+      c,
+      renderLogin({
+        title: "Admin sign in",
+        error: "Admin access is not configured yet. Run the bootstrap script (see ADMIN.md).",
+        next: null,
+        csrfToken: c.get("csrfToken"),
+      }),
+      503,
+    );
+  }
+
+  const result = await verifyLogin(c.env.DB, config, username, password, clientIp(c));
+
+  if (!result.ok) {
+    const error =
+      result.reason === "rate_limited"
+        ? "Too many login attempts. Try again later."
+        : "Invalid username or password.";
+    return htmlBody(
+      c,
+      renderLogin({
+        title: "Admin sign in",
+        error,
+        next: safeNextPath(typeof body.next === "string" ? body.next : null),
+        csrfToken: c.get("csrfToken"),
+      }),
+      401,
+    );
+  }
+
+  const oldSid = sid;
+  const newSid = newSessionId();
+  await destroySession(c.env.DB, oldSid);
+
+  const newSession = {
+    createdAt: Date.now(),
+    admin: { id: result.admin.id, username: result.admin.username },
+  };
+  await setSession(c.env.DB, newSid, newSession, config.sessionMaxAgeMs);
+
+  const csrf = resolveCsrfToken(
+    c.req.raw,
+    newSid,
+    config.sessionSecret,
+    config.csrfCookieName,
+    true,
+    false,
+  );
+
+  setCookie(c, config.sessionCookieName, newSid, cookieOpts(config, config.sessionMaxAgeMs / 1000));
+  setCookie(c, config.csrfCookieName, csrf.cookieValue, cookieOpts(config, config.sessionMaxAgeMs / 1000));
+
+  const destination = safeNextPath(typeof body.next === "string" ? body.next : null) || "/admin";
+  return c.redirect(destination, 302);
+});
+
+app.get("/admin", async (c) => {
+  const session = c.get("session");
+  const config = c.get("config");
+  if (!session.admin?.id) {
+    return c.redirect(`/admin/login?next=${encodeURIComponent("/admin")}`, 302);
+  }
+  const expires = new Date(Date.now() + config.sessionMaxAgeMs);
+  return htmlBody(
+    c,
+    renderDashboard({
+      title: "Admin",
+      csrfToken: c.get("csrfToken"),
+      sessionMeta: {
+        username: session.admin.username,
+        sessionId: maskSessionId(c.get("sid")),
+        expires,
+      },
+    }),
+  );
+});
+
+app.post("/admin/logout", async (c) => {
+  const config = c.get("config");
+  const sid = c.get("sid");
+  const session = c.get("session");
+  const body = await c.req.parseBody();
+  const csrfBody = typeof body._csrf === "string" ? body._csrf : "";
+
+  if (!session.admin?.id) {
+    return c.redirect("/admin/login", 302);
+  }
+
+  if (
+    !validateCsrfSubmission(
+      c.req.raw,
+      sid,
+      config.sessionSecret,
+      config.csrfCookieName,
+      csrfBody,
+    )
+  ) {
+    return htmlBody(
+      c,
+      renderError({
+        title: "Forbidden",
+        message: "Your session expired or the request was invalid. Refresh and try again.",
+        status: 403,
+      }),
+      403,
+    );
+  }
+
+  await destroySession(c.env.DB, sid);
+  deleteCookie(c, config.sessionCookieName, { path: "/" });
+  deleteCookie(c, config.csrfCookieName, { path: "/" });
+  return c.redirect("/admin/login", 302);
+});
+
+app.all("/admin/*", async (c) => {
+  const session = c.get("session");
+  const config = c.get("config");
+  if (!session.admin?.id) {
+    return c.redirect(`/admin/login?next=${encodeURIComponent(c.req.path)}`, 302);
+  }
+  return htmlBody(
+    c,
+    renderError({
+      title: "Not found",
+      message: "That admin page does not exist.",
+      status: 404,
+    }),
+    404,
+  );
+});
+
+app.onError((err, c) => {
+  console.error(err);
+  return htmlBody(
+    c,
+    renderError({
+      title: "Error",
+      message: "An unexpected error occurred.",
+      status: 500,
+    }),
+    500,
+  );
+});
+
+export default app;

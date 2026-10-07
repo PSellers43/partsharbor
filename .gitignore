@@ -1,8 +1,9 @@
 # Admin portal — never commit secrets or runtime data
-admin-portal/.env
+admin-portal/.dev.vars
+admin-portal/.wrangler/
+admin-portal/node_modules/
 admin-portal/data/*.db
 admin-portal/data/*.db-*
-admin-portal/node_modules/
 
 # OS / editor
 .DS_Store

@@ -1,0 +1,1 @@
+SESSION_SECRET=replace-with-openssl-rand-base64-48-min-32-chars
