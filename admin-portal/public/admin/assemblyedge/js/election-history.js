@@ -16,8 +16,11 @@ window.AE = window.AE || {};
     g24_asm: "2024 General · Assembly",
   };
 
-  const MAP_W = 400;
-  const MAP_H = 480;
+  function drillCanvasDimensions() {
+    const c = AE.focusDrill && AE.focusDrill._canvas;
+    if (c && c.w && c.h) return { w: c.w, h: c.h };
+    return { w: 400, h: 480 };
+  }
 
   AE.electionHistory.raceLabel = function (raceId) {
     return RACE_LABELS[raceId] || raceId;
@@ -146,14 +149,15 @@ window.AE = window.AE || {};
       minLat: minLat - (maxLat - minLat) * pad,
       maxLat: maxLat + (maxLat - minLat) * pad,
     };
-    const fitted = AE.focusMap.fitDrillBounds(raw, MAP_W, MAP_H);
+    const fitted = AE.focusMap.prepareDrillBounds(raw, 0);
+    const dim = drillCanvasDimensions();
     return {
       minLon: fitted.minLon,
       minLat: fitted.minLat,
       maxLon: fitted.maxLon,
       maxLat: fitted.maxLat,
       cosLat: fitted.cosLat,
-      viewBox: `0 0 ${MAP_W} ${MAP_H}`,
+      viewBox: `0 0 ${dim.w} ${dim.h}`,
     };
   };
 
@@ -209,7 +213,7 @@ window.AE = window.AE || {};
     if (!geo || !geo.features) return { outline: "", precincts: [] };
     const bounds =
       boundsOverride ||
-      AE.focusMap.fitDrillBounds(geo._bounds || AE.focusDrill.bounds(districtId), width, height);
+      AE.focusMap.prepareDrillBounds(geo._bounds || AE.focusDrill.bounds(districtId));
     const precincts = [];
 
     (geo.features || []).forEach((f) => {

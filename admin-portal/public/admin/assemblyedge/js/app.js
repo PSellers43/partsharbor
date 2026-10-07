@@ -705,11 +705,13 @@
       return;
     }
 
-    const w = 400;
-    const h = 480;
-    let mapBounds = AE.focusDrill.sharedMapBounds
-      ? AE.focusDrill.sharedMapBounds(districtId, w, h)
-      : AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), w, h);
+    const layoutW = Math.max(280, Math.min(640, wrap.clientWidth || 400));
+    const canvas = AE.focusDrill.mapCanvasSize
+      ? AE.focusDrill.mapCanvasSize(districtId, layoutW)
+      : { w: 400, h: 480, bounds: AE.focusMap.prepareDrillBounds(AE.focusDrill.bounds(districtId)) };
+    const w = canvas.w;
+    const h = canvas.h;
+    let mapBounds = canvas.bounds;
     if (inHistory && state.focusDrillMapBounds) {
       mapBounds = {
         minLon: state.focusDrillMapBounds.minLon,
@@ -786,7 +788,7 @@
     }
 
     wrap.innerHTML = `
-      <svg viewBox="0 0 ${w} ${h}" class="focus-map-svg focus-drill-svg" aria-label="${ariaLabel}">
+      <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid meet" class="focus-map-svg focus-drill-svg" aria-label="${ariaLabel}" data-drill-w="${w}" data-drill-h="${h}">
         <g class="focus-drill-outline-layer">${outline}</g>
         <g class="focus-drill-places-layer${inHistory ? " is-dimmed" : ""}">${placeShapes}</g>
         ${inHistory ? `<g class="focus-drill-precinct-layer">${precinctShapes}</g>` : ""}
@@ -2074,6 +2076,12 @@
     });
     bindFocusDrillLayerControls();
     window.addEventListener("popstate", () => applyFocusHash());
+    let drillResizeTimer;
+    window.addEventListener("resize", () => {
+      if (!state.focusDrillId) return;
+      clearTimeout(drillResizeTimer);
+      drillResizeTimer = setTimeout(() => renderFocusDrillMap(), 150);
+    });
 
     $("#drawer-overlay")?.addEventListener("click", closeDrawer);
     $("#drawer-close")?.addEventListener("click", closeDrawer);

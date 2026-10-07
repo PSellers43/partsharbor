@@ -61,8 +61,7 @@ window.AE = window.AE || {};
     return AE.focusMap.bounds();
   };
 
-  /** One fit box for outline, places, and precinct overlays (includes CRC outline + both layers). */
-  AE.focusDrill.sharedMapBounds = function (districtId, width, height) {
+  AE.focusDrill.mergedRawBounds = function (districtId) {
     const boxes = [];
     const intra = AE.intraGeo[districtId];
     const hist = AE.electionPrecinctGeo && AE.electionPrecinctGeo[districtId];
@@ -72,8 +71,25 @@ window.AE = window.AE || {};
     if (hist) {
       boxes.push(AE.focusMap.computeBounds({ features: hist.features || [], outline: hist.outline }));
     }
-    if (!boxes.length) return AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), width, height);
-    return AE.focusMap.fitDrillBounds(AE.focusMap.mergeBounds(boxes), width, height);
+    if (!boxes.length) return AE.focusDrill.bounds(districtId);
+    return AE.focusMap.mergeBounds(boxes);
+  };
+
+  /** One fit box for outline, places, and precinct overlays (includes CRC outline + both layers). */
+  AE.focusDrill.sharedMapBounds = function (districtId) {
+    return AE.focusMap.prepareDrillBounds(AE.focusDrill.mergedRawBounds(districtId));
+  };
+
+  /**
+   * District-specific viewBox (fills panel width; height follows cos-corrected shape aspect).
+   * Stores last size on AE.focusDrill._canvas for pan/zoom and election-history helpers.
+   */
+  AE.focusDrill.mapCanvasSize = function (districtId, layoutWidthPx) {
+    const bounds = AE.focusDrill.sharedMapBounds(districtId);
+    const baseW = 400;
+    const size = AE.focusMap.drillViewBoxSize(bounds, { baseW, minH: 168, maxH: 520, minW: 280, maxW: 640 });
+    AE.focusDrill._canvas = { districtId, w: size.w, h: size.h, layoutWidthPx: layoutWidthPx || null };
+    return { w: size.w, h: size.h, bounds };
   };
 
   AE.focusDrill.attributionHtml = function (districtId) {
@@ -91,9 +107,7 @@ window.AE = window.AE || {};
   AE.focusDrill.placePaths = function (districtId, width, height, filterBands, boundsOverride) {
     const geo = AE.intraGeo[districtId];
     if (!geo || !geo.features) return { outline: "", places: [] };
-    const bounds =
-      boundsOverride ||
-      AE.focusMap.fitDrillBounds(AE.focusDrill.bounds(districtId), width, height);
+    const bounds = boundsOverride || AE.focusMap.prepareDrillBounds(AE.focusDrill.bounds(districtId));
     const places = [];
 
     (geo.features || []).forEach((f) => {

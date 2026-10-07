@@ -2712,6 +2712,12 @@ body[data-role="cm"] .cm-strip {
   position: relative;
   isolation: isolate;
 }
+.focus-drill-wrap.focus-map-wrap svg {
+  width: 100%;
+  height: auto;
+  max-height: min(560px, 78vh);
+  min-height: 140px;
+}
 /* SVG paints above later DOM siblings unless explicitly stacked below the tooltip. */
 .focus-drill-wrap .focus-drill-svg {
   position: relative;

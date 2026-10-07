@@ -130,29 +130,63 @@ window.AE = window.AE || {};
     );
   };
 
-  /** Drill maps: cos(lat) lon scale + expand to SVG aspect (does not affect statewide map). */
-  AE.focusMap.fitDrillBounds = function (bounds, width, height) {
+  /** Drill maps: padded geographic bounds + cos(lat); no letterboxing (viewBox aspect matches shape). */
+  AE.focusMap.prepareDrillBounds = function (bounds, padRatio) {
     const b = bounds || DEFAULT_BOUNDS;
     const refLat = (b.minLat + b.maxLat) / 2;
     const cosLat = Math.cos((refLat * Math.PI) / 180);
-    const minX = b.minLon * cosLat;
-    const maxX = b.maxLon * cosLat;
-    const minY = b.minLat;
-    const maxY = b.maxLat;
-    const cx = (minX + maxX) / 2;
-    const cy = (minY + maxY) / 2;
-    let spanX = maxX - minX || 0.02;
-    let spanY = maxY - minY || 0.02;
-    const targetAspect = width / height;
-    if (spanX / spanY > targetAspect) spanY = spanX / targetAspect;
-    else spanX = spanY * targetAspect;
+    const lonSpan = b.maxLon - b.minLon || 0.02;
+    const latSpan = b.maxLat - b.minLat || 0.02;
+    const pad = padRatio != null ? padRatio : 0.04;
+    const padLon = lonSpan * pad;
+    const padLat = latSpan * pad;
     return {
-      minLon: (cx - spanX / 2) / cosLat,
-      maxLon: (cx + spanX / 2) / cosLat,
-      minLat: cy - spanY / 2,
-      maxLat: cy + spanY / 2,
+      minLon: b.minLon - padLon,
+      maxLon: b.maxLon + padLon,
+      minLat: b.minLat - padLat,
+      maxLat: b.maxLat + padLat,
       cosLat,
     };
+  };
+
+  AE.focusMap.drillProjectedSpans = function (bounds) {
+    const b = bounds || DEFAULT_BOUNDS;
+    const cosLat = AE.focusMap.drillCosLat(b);
+    return {
+      spanX: Math.max((b.maxLon - b.minLon) * cosLat, 1e-6),
+      spanY: Math.max(b.maxLat - b.minLat, 1e-6),
+    };
+  };
+
+  /**
+   * ViewBox pixel size from projected shape aspect (width fixed at baseW unless height clamps).
+   * opts: { minH, maxH, minW, maxW, baseW }
+   */
+  AE.focusMap.drillViewBoxSize = function (bounds, opts) {
+    opts = opts || {};
+    const baseW = opts.baseW != null ? opts.baseW : 400;
+    const minH = opts.minH != null ? opts.minH : 168;
+    const maxH = opts.maxH != null ? opts.maxH : 520;
+    const minW = opts.minW != null ? opts.minW : 280;
+    const maxW = opts.maxW != null ? opts.maxW : 640;
+    const { spanX, spanY } = AE.focusMap.drillProjectedSpans(bounds);
+    let w = baseW;
+    let h = baseW * (spanY / spanX);
+    if (h > maxH) {
+      h = maxH;
+      w = h * (spanX / spanY);
+    } else if (h < minH) {
+      h = minH;
+      w = h * (spanX / spanY);
+    }
+    w = Math.min(maxW, Math.max(minW, w));
+    h = Math.min(maxH, Math.max(minH, h));
+    return { w: Math.round(w * 100) / 100, h: Math.round(h * 100) / 100 };
+  };
+
+  /** @deprecated alias — use prepareDrillBounds; width/height ignored (aspect comes from viewBox). */
+  AE.focusMap.fitDrillBounds = function (bounds, width, height, padRatio) {
+    return AE.focusMap.prepareDrillBounds(bounds, padRatio);
   };
 
   AE.focusMap.drillCosLat = function (bounds) {
