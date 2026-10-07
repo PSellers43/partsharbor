@@ -13,7 +13,8 @@
     "bootstrap-admin": "node scripts/bootstrap-admin.js",
     "bootstrap-admin:remote": "node scripts/bootstrap-admin.js --remote",
     "db:migrate:local": "wrangler d1 migrations apply partsharbor-admin --local",
-    "db:migrate:remote": "wrangler d1 migrations apply partsharbor-admin --remote"
+    "db:migrate:remote": "bash scripts/d1-migrate-remote.sh",
+    "test:push-social-feed": "bash scripts/test-push-social-feed-dry-run.sh"
   },
   "dependencies": {
     "argon2id": "^1.0.1",
