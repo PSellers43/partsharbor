@@ -1,0 +1,661 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-07T18:31:24+00:00",
+  "built_on": "2026-10-07",
+  "sources": {
+    "acs": {
+      "default_method": "census_reporter",
+      "census_reporter_url": "https://api.censusreporter.org/1.0/data/show/latest",
+      "census_api_url": "https://api.census.gov/data/2023/acs/acs5",
+      "census_api_key_env": "CENSUS_API_KEY",
+      "tables": [
+        "B01001",
+        "B03002",
+        "B19013",
+        "B25003"
+      ],
+      "geography": "State legislative district (lower chamber) — CA Assembly (CRC 2020 lines)"
+    },
+    "registration": {
+      "source_label": "CA Secretary of State Report of Registration",
+      "source_url": "https://elections.cdn.sos.ca.gov/ror/ror-odd-year-2025/assembly.xlsx",
+      "raw_file": "assembly-registration.xlsx",
+      "fetched_from": "https://elections.cdn.sos.ca.gov/ror/ror-odd-year-2025/assembly.xlsx",
+      "as_of": "2025-02-10",
+      "as_of_note": "Odd-year February 2025 statewide ROR (Assembly district worksheet)"
+    }
+  },
+  "gaps": [],
+  "districts": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "acs": {
+        "population": 500487,
+        "median_household_income": 93008,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 114533,
+            "pct": 22.9
+          },
+          {
+            "label": "18–34",
+            "count": 110216,
+            "pct": 22.0
+          },
+          {
+            "label": "35–54",
+            "count": 132179,
+            "pct": 26.4
+          },
+          {
+            "label": "55–64",
+            "count": 61099,
+            "pct": 12.2
+          },
+          {
+            "label": "65+",
+            "count": 82460,
+            "pct": 16.5
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 97697,
+            "pct": 19.5
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 283744,
+            "pct": 56.7
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 30196,
+            "pct": 6.0
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 51655,
+            "pct": 10.3
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 37195,
+            "pct": 7.4
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 114261,
+          "renter_count": 69316,
+          "owner_pct": 62.2,
+          "renter_pct": 37.8
+        },
+        "geo_id": "62000US06007",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 296594,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 110038,
+            "pct": 37.1
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 98775,
+            "pct": 33.3
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 62052,
+            "pct": 20.9
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 25729,
+            "pct": 8.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "acs": {
+        "population": 531388,
+        "median_household_income": 66677,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 154561,
+            "pct": 29.1
+          },
+          {
+            "label": "18–34",
+            "count": 137451,
+            "pct": 25.9
+          },
+          {
+            "label": "35–54",
+            "count": 129533,
+            "pct": 24.4
+          },
+          {
+            "label": "55–64",
+            "count": 52469,
+            "pct": 9.9
+          },
+          {
+            "label": "65+",
+            "count": 57374,
+            "pct": 10.8
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 359202,
+            "pct": 67.6
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 101183,
+            "pct": 19.0
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 17510,
+            "pct": 3.3
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 34703,
+            "pct": 6.5
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 18790,
+            "pct": 3.5
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 81430,
+          "renter_count": 70151,
+          "owner_pct": 53.7,
+          "renter_pct": 46.3
+        },
+        "geo_id": "62000US06027",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 234836,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 94369,
+            "pct": 40.2
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 68603,
+            "pct": 29.2
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 53734,
+            "pct": 22.9
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 18130,
+            "pct": 7.7
+          }
+        ]
+      }
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "acs": {
+        "population": 497029,
+        "median_household_income": 69462,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 129062,
+            "pct": 26.0
+          },
+          {
+            "label": "18–34",
+            "count": 112208,
+            "pct": 22.6
+          },
+          {
+            "label": "35–54",
+            "count": 123442,
+            "pct": 24.8
+          },
+          {
+            "label": "55–64",
+            "count": 52621,
+            "pct": 10.6
+          },
+          {
+            "label": "65+",
+            "count": 79696,
+            "pct": 16.0
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 346829,
+            "pct": 69.8
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 99878,
+            "pct": 20.1
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 17329,
+            "pct": 3.5
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 14987,
+            "pct": 3.0
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 18006,
+            "pct": 3.6
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 99553,
+          "renter_count": 51547,
+          "owner_pct": 65.9,
+          "renter_pct": 34.1
+        },
+        "geo_id": "62000US06036",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 250572,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 103387,
+            "pct": 41.3
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 72544,
+            "pct": 29.0
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 56644,
+            "pct": 22.6
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 17997,
+            "pct": 7.2
+          }
+        ]
+      }
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "acs": {
+        "population": 527332,
+        "median_household_income": 80220,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 108333,
+            "pct": 20.5
+          },
+          {
+            "label": "18–34",
+            "count": 96530,
+            "pct": 18.3
+          },
+          {
+            "label": "35–54",
+            "count": 119888,
+            "pct": 22.7
+          },
+          {
+            "label": "55–64",
+            "count": 73734,
+            "pct": 14.0
+          },
+          {
+            "label": "65+",
+            "count": 128847,
+            "pct": 24.4
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 210221,
+            "pct": 39.9
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 251750,
+            "pct": 47.7
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 18735,
+            "pct": 3.6
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 22692,
+            "pct": 4.3
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 23934,
+            "pct": 4.5
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 147035,
+          "renter_count": 59755,
+          "owner_pct": 71.1,
+          "renter_pct": 28.9
+        },
+        "geo_id": "62000US06047",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 328440,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 127655,
+            "pct": 38.9
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 111669,
+            "pct": 34.0
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 62449,
+            "pct": 19.0
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 26667,
+            "pct": 8.1
+          }
+        ]
+      }
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "acs": {
+        "population": 503013,
+        "median_household_income": 91651,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 122410,
+            "pct": 24.3
+          },
+          {
+            "label": "18–34",
+            "count": 130508,
+            "pct": 25.9
+          },
+          {
+            "label": "35–54",
+            "count": 135285,
+            "pct": 26.9
+          },
+          {
+            "label": "55–64",
+            "count": 54545,
+            "pct": 10.8
+          },
+          {
+            "label": "65+",
+            "count": 60265,
+            "pct": 12.0
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 316720,
+            "pct": 63.0
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 106276,
+            "pct": 21.1
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 24569,
+            "pct": 4.9
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 38746,
+            "pct": 7.7
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 16702,
+            "pct": 3.3
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 86794,
+          "renter_count": 58039,
+          "owner_pct": 59.9,
+          "renter_pct": 40.1
+        },
+        "geo_id": "62000US06058",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 262076,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 109394,
+            "pct": 41.7
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 73266,
+            "pct": 28.0
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 59034,
+            "pct": 22.5
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 20382,
+            "pct": 7.8
+          }
+        ]
+      }
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "acs": {
+        "population": 509962,
+        "median_household_income": 109469,
+        "age_bands": [
+          {
+            "label": "Under 18",
+            "count": 105358,
+            "pct": 20.7
+          },
+          {
+            "label": "18–34",
+            "count": 129316,
+            "pct": 25.4
+          },
+          {
+            "label": "35–54",
+            "count": 124860,
+            "pct": 24.5
+          },
+          {
+            "label": "55–64",
+            "count": 64638,
+            "pct": 12.7
+          },
+          {
+            "label": "65+",
+            "count": 85790,
+            "pct": 16.8
+          }
+        ],
+        "race_ethnicity": [
+          {
+            "label": "Hispanic / Latino (any race)",
+            "count": 164542,
+            "pct": 32.3
+          },
+          {
+            "label": "White (non-Hispanic)",
+            "count": 260527,
+            "pct": 51.1
+          },
+          {
+            "label": "Black (non-Hispanic)",
+            "count": 14632,
+            "pct": 2.9
+          },
+          {
+            "label": "Asian (non-Hispanic)",
+            "count": 34864,
+            "pct": 6.8
+          },
+          {
+            "label": "Other / multiracial (non-Hispanic)",
+            "count": 35397,
+            "pct": 6.9
+          }
+        ],
+        "housing_tenure": {
+          "owner_count": 105830,
+          "renter_count": 72849,
+          "owner_pct": 59.2,
+          "renter_pct": 40.8
+        },
+        "geo_id": "62000US06074",
+        "release_id": "acs2024_5yr",
+        "release_name": "ACS 2024 5-year",
+        "release_years": "2020-2024",
+        "source_label": "U.S. Census Bureau ACS 5-year (via Census Reporter API)",
+        "source_url": "https://censusreporter.org/",
+        "method": "census_reporter"
+      },
+      "acs_error": null,
+      "registration": {
+        "total": 311308,
+        "parties": [
+          {
+            "id": "dem",
+            "label": "Democratic",
+            "count": 107368,
+            "pct": 34.5
+          },
+          {
+            "id": "rep",
+            "label": "Republican",
+            "count": 110149,
+            "pct": 35.4
+          },
+          {
+            "id": "npp",
+            "label": "No party preference",
+            "count": 67958,
+            "pct": 21.8
+          },
+          {
+            "id": "other",
+            "label": "Other / minor",
+            "count": 25833,
+            "pct": 8.3
+          }
+        ]
+      }
+    }
+  ]
+}
