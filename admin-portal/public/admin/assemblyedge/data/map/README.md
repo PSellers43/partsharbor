@@ -3,7 +3,9 @@
 | File | Description |
 |------|-------------|
 | `ca-assembly-crc-2020.geojson` | All 80 ADs for statewide context + highlighted beachheads (AD-7, 27, 36, 47, 58, 74). ~85 KB committed. |
+| `intra/ad-*.geojson` | Beachhead drill-down: cities/CDPs clipped to each AD (~200 KB total). See `intra/README.md`. |
 | `scripts/build_focus_map_geojson.py` | Re-download and rebuild from official CA Open Data / CRC layer. |
+| `scripts/build_intra_district_geojson.py` | Rebuild beachhead intra-district layers from Census places + SWDB g22. |
 
 ## Official source (Patrick / desk refresh)
 
