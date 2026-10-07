@@ -10,7 +10,10 @@ import {
   touchSession,
 } from "./db.js";
 import { resolveCsrfToken, validateCsrfSubmission } from "./csrf.js";
-import { applySecurityHeaders } from "./security-headers.js";
+import {
+  applyAssemblyEdgeSecurityHeaders,
+  applySecurityHeaders,
+} from "./security-headers.js";
 import {
   htmlResponse,
   renderDashboard,
@@ -253,6 +256,56 @@ app.get("/admin", async (c) => {
     }),
   );
 });
+
+const ASSEMBLYEDGE_PREFIX = "/admin/assemblyedge";
+
+async function serveAssemblyEdge(c) {
+  const session = c.get("session");
+  const config = c.get("config");
+  if (!session.admin?.id) {
+    return c.redirect(
+      `/admin/login?next=${encodeURIComponent(new URL(c.req.url).pathname)}`,
+      302,
+    );
+  }
+
+  /** @type {Fetcher | undefined} */
+  const assets = c.env.ASSETS;
+  if (!assets) {
+    return htmlBody(
+      c,
+      renderError({
+        title: "Error",
+        message: "Static assets are not configured on this Worker.",
+        status: 500,
+      }),
+      500,
+    );
+  }
+
+  const assetResponse = await assets.fetch(c.req.raw);
+  if (assetResponse.status === 404) {
+    return htmlBody(
+      c,
+      renderError({
+        title: "Not found",
+        message: "That AssemblyEdge asset does not exist.",
+        status: 404,
+      }),
+      404,
+    );
+  }
+
+  const headers = new Headers(assetResponse.headers);
+  applyAssemblyEdgeSecurityHeaders(headers, config.isProduction);
+  return new Response(assetResponse.body, {
+    status: assetResponse.status,
+    headers,
+  });
+}
+
+app.get(ASSEMBLYEDGE_PREFIX, (c) => c.redirect(`${ASSEMBLYEDGE_PREFIX}/`, 302));
+app.get(`${ASSEMBLYEDGE_PREFIX}/*`, serveAssemblyEdge);
 
 app.post("/admin/logout", async (c) => {
   const config = c.get("config");

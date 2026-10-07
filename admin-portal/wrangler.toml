@@ -13,13 +13,21 @@ fallthrough = true
 binding = "DB"
 database_name = "partsharbor-admin"
 # Replace after: wrangler d1 create partsharbor-admin
-database_id = "00000000-0000-0000-0000-000000000001"
+database_id = "7ea51d9d-da72-4cf0-90e6-b5edda52d20a"
 
 [assets]
 directory = "./public"
 binding = "ASSETS"
 # Do not use `/admin/*` here — `/admin/static/*` must be served from Workers Assets.
-run_worker_first = ["/admin/login", "/admin/logout", "/admin", "/healthz", "/"]
+run_worker_first = [
+  "/admin/login",
+  "/admin/logout",
+  "/admin",
+  "/admin/assemblyedge",
+  "/admin/assemblyedge/*",
+  "/healthz",
+  "/",
+]
 
 [vars]
 ENVIRONMENT = "development"

@@ -73,7 +73,11 @@ export function renderDashboard({ title, csrfToken, sessionMeta }) {
 <main class="admin-main">
   <div class="card">
     <h1>Welcome</h1>
-    <p class="subtitle">You are signed in to the PartsHarbor admin portal. Additional tools can be mounted here behind the same session.</p>
+    <p class="subtitle">You are signed in to the PartsHarbor admin portal. Internal tools use the same session cookie—no second sign-in.</p>
+    <div class="tool-links">
+      <a class="btn btn-primary" href="/admin/assemblyedge/">Open AssemblyEdge</a>
+      <p class="tool-links-note">Analyst + Campaign Manager prototype (Today&apos;s Board, money / CAL-ACCESS panels).</p>
+    </div>
     <ul class="meta-list">
       <li><span class="label">Signed in as</span><span>${esc(sessionMeta.username)}</span></li>
       <li><span class="label">Session</span><span>${esc(sessionMeta.sessionId)}</span></li>

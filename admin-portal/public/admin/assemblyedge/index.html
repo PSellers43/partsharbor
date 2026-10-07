@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AssemblyEdge — Threat Index + Campaign Manager (Demo)</title>
+  <meta name="description" content="AssemblyEdge prototype: CA Assembly Republican competitive-intelligence desk. Demo / illustrative data only." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Live vs demo banner -->
+  <div class="demo-banner" role="status">
+    <span class="pulse" aria-hidden="true"></span>
+    <span>DEMO / ILLUSTRATIVE DATA — Not official FPPC, SOS, or caucus figures. Rounded placeholders for product UX only.</span>
+  </div>
+
+  <nav class="app-nav no-print" aria-label="Primary">
+    <button type="button" class="brand" aria-label="AssemblyEdge home">
+      <span class="brand-mark">AE</span>
+      <span>
+        <span class="brand-name">AssemblyEdge</span>
+        <span class="brand-sub">Threat Index</span>
+      </span>
+    </button>
+    <div class="nav-links">
+      <button type="button" class="nav-link active" data-page="portfolio">Portfolio</button>
+      <button type="button" class="nav-link" data-page="cm">Today's Board</button>
+      <button type="button" class="nav-link" data-page="brief">Monday Brief</button>
+      <button type="button" class="nav-link" data-page="methodology">Methodology</button>
+    </div>
+    <div class="nav-spacer"></div>
+    <div class="nav-actions">
+      <div class="role-switch" role="group" aria-label="Role">
+        <button type="button" class="role-btn" data-role="analyst" id="role-analyst">Analyst</button>
+        <button type="button" class="role-btn" data-role="cm" id="role-cm">Campaign Manager</button>
+      </div>
+      <button type="button" class="btn btn-ghost" id="theme-toggle" title="Toggle theme">Light</button>
+      <button type="button" class="btn" id="cmd-open" title="Command palette">
+        Jump <span class="kbd">⌘K</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <!-- PORTFOLIO -->
+    <section id="page-portfolio" class="page active" aria-label="Portfolio home">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">District portfolio</h1>
+          <p class="page-desc">Beachhead desk for incumbents and toss-up seats. Threat Index, 24h/7d deltas, status chips — click any card for the war room.</p>
+        </div>
+      </div>
+      <div class="portfolio-meta">
+        <div class="stat-pill"><div class="label">Tracked</div><div class="value" id="stat-tracked">—</div></div>
+        <div class="stat-pill"><div class="label">Elevated</div><div class="value" id="stat-elevated" style="color:var(--danger)">—</div></div>
+        <div class="stat-pill"><div class="label">Watch</div><div class="value" id="stat-watch" style="color:var(--warn)">—</div></div>
+      </div>
+      <div id="district-grid" class="district-grid" role="list"></div>
+    </section>
+
+    <!-- DISTRICT DETAIL -->
+    <section id="page-district" class="page" aria-label="District detail">
+      <div id="skeleton-wrap" class="skeleton-wrap" aria-hidden="true">
+        <div class="skeleton"></div>
+        <div class="skeleton" style="height:140px"></div>
+        <div class="skeleton" style="height:200px"></div>
+      </div>
+      <div id="district-content">
+        <button type="button" class="back-link no-print" id="back-portfolio">← Portfolio</button>
+        <div class="cm-strip no-print" id="cm-strip">
+          <span><strong style="color:var(--purple)">CM mode</strong> — Threat informs ops. Open Today’s Board for 24–72h priorities & decision log.</span>
+          <button type="button" class="btn" id="goto-cm-board">Today's Board</button>
+        </div>
+        <div class="detail-header">
+          <div>
+            <div class="detail-title-row">
+              <h1 class="page-title" style="margin:0"><span id="detail-code">AD-7</span> <span style="font-weight:500;color:var(--text-muted)" id="detail-name"></span></h1>
+              <span id="detail-status" class="chip chip-elevated">Elevated</span>
+              <span class="chip chip-demo">Demo data</span>
+            </div>
+            <p class="page-desc" style="margin-top:6px">
+              <span id="detail-incumbent"></span> · <span id="detail-region"></span>
+            </p>
+            <p id="deep-demo-note" class="page-desc" style="color:var(--warn);margin-top:8px" hidden></p>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);font-weight:650">Threat Index</div>
+            <div style="font-family:var(--mono);font-size:40px;font-weight:700;letter-spacing:-0.04em;line-height:1" id="detail-ti">72</div>
+            <div style="margin-top:6px;font-size:12px;color:var(--text-muted)">
+              24h <span id="detail-d24" class="delta">+4</span>
+              · 7d <span id="detail-d7" class="delta">+11</span>
+            </div>
+            <div class="no-print" style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+              <button type="button" class="btn" id="open-brief-from-detail">Monday Brief</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabs no-print" role="tablist" aria-label="District sections">
+          <button type="button" class="tab active" role="tab" data-tab="threat">Threat Index</button>
+          <button type="button" class="tab" role="tab" data-tab="money">Money</button>
+          <button type="button" class="tab" role="tab" data-tab="ads">Ads</button>
+          <button type="button" class="tab" role="tab" data-tab="narrative">Narrative</button>
+          <button type="button" class="tab" role="tab" data-tab="rival">Rival</button>
+          <button type="button" class="tab" role="tab" data-tab="alerts">Alerts</button>
+        </div>
+
+        <div id="tab-threat" class="tab-panel active" role="tabpanel"><div id="threat-panel"></div></div>
+        <div id="tab-money" class="tab-panel" role="tabpanel"><div id="money-panel"></div></div>
+        <div id="tab-ads" class="tab-panel" role="tabpanel"><div id="ads-panel"></div></div>
+        <div id="tab-narrative" class="tab-panel" role="tabpanel"><div id="narrative-panel"></div></div>
+        <div id="tab-rival" class="tab-panel" role="tabpanel"><div id="rival-panel"></div></div>
+        <div id="tab-alerts" class="tab-panel" role="tabpanel"><div id="alerts-panel"></div></div>
+      </div>
+    </section>
+
+
+    <!-- CAMPAIGN MANAGER -->
+    <section id="page-cm" class="page" aria-label="Campaign Manager board">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Today’s Board</h1>
+          <p class="page-desc">Next 24–72h CM priorities for <strong>AD-7</strong> (demo). Threat Index drives the queue; actions carry evidence tags from public CM doctrine — not automated orders.</p>
+        </div>
+        <div class="cm-header-meta">
+          <div class="stat-pill">
+            <div class="label">AD-7 Threat</div>
+            <div class="value" id="cm-ti-value">72</div>
+          </div>
+          <div class="mode-switch" role="group" aria-label="Race mode">
+            <button type="button" class="mode-btn" data-mode="persuasion" id="mode-persuasion">Persuasion</button>
+            <button type="button" class="mode-btn" data-mode="turnout" id="mode-turnout">Turnout</button>
+          </div>
+        </div>
+      </div>
+      <p id="cm-mode-blurb" class="cm-mode-blurb"></p>
+      <div class="cm-layout">
+        <div class="cm-main">
+          <div class="card">
+            <h3 class="card-title">Priorities <span class="chip chip-demo">Illustrative</span></h3>
+            <div id="cm-priority-list" class="cm-priority-list"></div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <h3 class="card-title">Decision log</h3>
+            <p style="margin:0 0 12px;font-size:12.5px;color:var(--text-muted)">Mark Spend / Hold / Message shift / Field surge against a priority. Notes stay in this browser (localStorage).</p>
+            <form id="cm-decision-form" class="cm-decision-form">
+              <label>
+                <span>Against priority</span>
+                <select id="cm-log-priority" required></select>
+              </label>
+              <label>
+                <span>Decision</span>
+                <select id="cm-log-decision" required></select>
+              </label>
+              <label class="cm-note-label">
+                <span>After-action note</span>
+                <input type="text" id="cm-log-note" maxlength="200" placeholder="What you did / why (demo)" />
+              </label>
+              <button type="submit" class="btn btn-primary">Log decision</button>
+            </form>
+            <div id="cm-log-list" class="cm-log-list"></div>
+            <button type="button" class="btn btn-ghost" id="cm-log-clear" style="margin-top:8px">Clear log</button>
+          </div>
+        </div>
+        <aside class="cm-side">
+          <div class="card">
+            <h3 class="card-title">War room checklist <span id="cm-check-date" class="chip chip-demo"></span></h3>
+            <p style="margin:0 0 10px;font-size:12px;color:var(--text-muted)">Daily CM hygiene. Resets by calendar day in this browser.</p>
+            <div id="cm-checklist" class="cm-checklist"></div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <h3 class="card-title">Doctrine (short cites)</h3>
+            <ul id="cm-doctrine-list" class="cm-doctrine-list"></ul>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- MONDAY BRIEF -->
+    <section id="page-brief" class="page" aria-label="Monday Brief">
+      <div class="page-header no-print">
+        <div>
+          <h1 class="page-title">Monday Brief</h1>
+          <p class="page-desc">One-page printable desk brief for AD-7. Export uses your browser print / Save as PDF.</p>
+        </div>
+        <button type="button" class="btn btn-primary" id="export-pdf">Export PDF</button>
+      </div>
+      <div id="brief-body"></div>
+    </section>
+
+    <!-- METHODOLOGY -->
+    <section id="page-methodology" class="page" aria-label="Methodology and trust">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Methodology &amp; trust</h1>
+          <p class="page-desc">What AssemblyEdge measures, where production data comes from, and what this prototype is not.</p>
+        </div>
+      </div>
+      <div class="method-grid">
+        <div class="card method-card">
+          <h3>Sources (production)</h3>
+          <ul>
+            <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions</li>
+            <li><strong>Meta Ad Library</strong> — creatives, spend bands, dates</li>
+            <li><strong>Google Ads Transparency</strong> — creatives, spend bands</li>
+            <li><strong>News</strong> — sourced headlines with outlet + timestamp</li>
+          </ul>
+          <p style="margin-top:12px">Money tab loads <span class="chip chip-live">LIVE CAL-ACCESS</span> from <code>data/calaccess/latest/money-by-district.json</code> when present (as-of stamped). Otherwise <span class="chip chip-demo">demo</span> placeholders — never silently mixed. See <code>CALACCESS.md</code>.</p>
+        </div>
+        <div class="card method-card">
+          <h3>Update cadence (target)</h3>
+          <ul>
+            <li>Ad libraries: multiple times daily</li>
+            <li>CAL-ACCESS deltas: on filing / late-contribution cycles</li>
+            <li>Narrative: continuous ingest with human-reviewable tags</li>
+            <li>Monday Brief: weekly rollup for operators</li>
+          </ul>
+        </div>
+        <div class="card method-card">
+          <h3>Threat Index factors</h3>
+          <ul>
+            <li>Money velocity — receipts/spend vs 8-week baseline</li>
+            <li>IE pressure — independent expenditure concentration</li>
+            <li>Ad surge — Meta + Google volume &amp; bands</li>
+            <li>Narrative heat — headline velocity + sentiment</li>
+            <li>Poll movement — disclosed ranges only when available</li>
+          </ul>
+          <p style="margin-top:12px">Click any factor on AD-7 for an in-product methodology drawer.</p>
+        </div>
+        <div class="card method-card">
+          <h3>Decision chips</h3>
+          <p>Alerts surface a <em>decision type</em> — Consider spend / Hold &amp; monitor / Message check — as operator guidance taxonomy. They are not automated orders, win probabilities, or legal advice. CM Board extends this with Field surge and a persisted decision log.</p>
+        </div>
+
+        <div class="card method-card">
+          <h3>Campaign Manager doctrine (attributions)</h3>
+          <ul>
+            <li><strong>Issenberg, The Victory Lab</strong> — measure &amp; test what moves votes</li>
+            <li><strong>Green &amp; Gerber, Get Out the Vote</strong> — evidence-backed GOTV tactics</li>
+            <li><strong>Obama 2012 analytics</strong> (public postmortems) — actionable real-time ops loops</li>
+            <li><strong>Romney ORCA</strong> (public postmortems) — ED systems need tested fallbacks</li>
+            <li><strong>Standard CM craft</strong> — huddle, burn-rate, mode switch, oppo, RR, ballot chase, BOE</li>
+            <li><strong>Field capacity</strong> — ground-war plans constrained by staff/volunteer capacity</li>
+          </ul>
+          <p style="margin-top:12px">Citations are short attributions only — no copyrighted excerpts. See PRODUCT.md Doctrine map.</p>
+        </div>
+      </div>
+      <div class="disclaimer-box">
+        <strong>Disclaimers</strong>
+        AssemblyEdge is not an official product of the FPPC, California Secretary of State, or any caucus. Demo data is illustrative. Public candidate and district names appear because they are public races; money, poll, and ad figures in this prototype are fictional rounded placeholders. No outreach, pricing, or waitlist flows are included.
+      </div>
+    </section>
+  </main>
+
+  <!-- Methodology drawer -->
+  <div id="drawer-overlay" class="drawer-overlay"></div>
+  <aside id="drawer" class="drawer" aria-label="Factor methodology" role="dialog" aria-modal="true">
+    <button type="button" class="btn drawer-close" id="drawer-close" aria-label="Close">Close</button>
+    <h2 id="drawer-title">Factor</h2>
+    <p id="drawer-body"></p>
+    <p style="margin-top:16px"><span class="chip chip-demo">Demo methodology copy</span></p>
+  </aside>
+
+  <!-- Command palette -->
+  <div id="palette-overlay" class="palette-overlay" role="dialog" aria-modal="true" aria-label="Command palette">
+    <div class="palette">
+      <label class="sr-only" for="palette-input">Jump to</label>
+      <input id="palette-input" class="palette-input" type="text" placeholder="Jump to district or action…" autocomplete="off" />
+      <div id="palette-list" class="palette-list"></div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/cm.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

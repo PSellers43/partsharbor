@@ -1,0 +1,107 @@
+{
+  "cycle_year": 2026,
+  "cycle_label": "2026 Assembly",
+  "matching_notes": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Documented limitations in CALACCESS.md.",
+  "districts": [
+    {
+      "id": "ad-7",
+      "code": "AD-7",
+      "dist_no": "7",
+      "focus": "deep",
+      "incumbent": {
+        "name": "Josh Hoover",
+        "party": "R",
+        "name_patterns": ["HOOVER"],
+        "committee_patterns": ["HOOVER FOR ASSEMBLY 2026", "HOOVER FOR ASSEMBLY"]
+      },
+      "known_opponents": [
+        {"name": "Amy Slavensky", "name_patterns": ["SLAVENSKY"], "committee_patterns": ["SLAVENSKY FOR ASSEMBLY 2026", "SLAVENSKY"]},
+        {"name": "Vance Taylor", "name_patterns": ["VANCE TAYLOR", "TAYLOR"], "committee_patterns": ["VANCE TAYLOR FOR ASSEMBLY", "TAYLOR FOR ASSEMBLY 2026"]},
+        {"name": "Chris Hoang", "name_patterns": ["HOANG"], "committee_patterns": ["HOANG FOR ASSEMBLY"]}
+      ]
+    },
+    {
+      "id": "ad-47",
+      "code": "AD-47",
+      "dist_no": "47",
+      "focus": "mapped",
+      "incumbent": {
+        "name": "Greg Wallis",
+        "party": "R",
+        "name_patterns": ["WALLIS"],
+        "committee_patterns": ["WALLIS FOR ASSEMBLY 2026", "GREG WALLIS FOR ASSEMBLY"]
+      },
+      "known_opponents": [
+        {"name": "Leila Namvar", "name_patterns": ["NAMVAR"], "committee_patterns": ["NAMVAR FOR ASSEMBLY"]},
+        {"name": "Jason Byors", "name_patterns": ["BYORS"], "committee_patterns": ["BYORS"]},
+        {"name": "Lucas Pinon", "name_patterns": ["PINON"], "committee_patterns": ["PINON"]}
+      ]
+    },
+    {
+      "id": "ad-58",
+      "code": "AD-58",
+      "dist_no": "58",
+      "focus": "mapped",
+      "incumbent": {
+        "name": "Clarissa Cervantes",
+        "party": "D",
+        "name_patterns": ["CERVANTES"],
+        "committee_patterns": ["CERVANTES FOR ASSEMBLY 2026", "CLARISSA CERVANTES"]
+      },
+      "known_opponents": [
+        {"name": "Leticia Castillo", "name_patterns": ["CASTILLO"], "committee_patterns": ["CASTILLO FOR ASSEMBLY 2026", "LETICIA CASTILLO"]},
+        {"name": "Paco Licea", "name_patterns": ["LICEA"], "committee_patterns": ["LICEA"]}
+      ]
+    },
+    {
+      "id": "ad-74",
+      "code": "AD-74",
+      "dist_no": "74",
+      "focus": "mapped",
+      "incumbent": {
+        "name": "Laurie Davies",
+        "party": "R",
+        "name_patterns": ["DAVIES"],
+        "committee_patterns": ["LAURIE DAVIES FOR ASSEMBLY", "DAVIES FOR ASSEMBLY 2026"]
+      },
+      "known_opponents": [
+        {"name": "Chris Duncan", "name_patterns": ["DUNCAN"], "committee_patterns": ["CHRIS DUNCAN FOR ASSEMBLY", "DUNCAN FOR ASSEMBLY 2026"]},
+        {"name": "Sergio Farias", "name_patterns": ["FARIAS"], "committee_patterns": ["FARIAS FOR ASSEMBLY"]}
+      ]
+    },
+    {
+      "id": "ad-36",
+      "code": "AD-36",
+      "dist_no": "36",
+      "focus": "mapped",
+      "incumbent": {
+        "name": "Jeff Gonzalez",
+        "party": "R",
+        "name_patterns": ["GONZALEZ", "JEFF GONZALEZ"],
+        "committee_patterns": ["JEFF GONZALEZ FOR ASSEMBLY", "GONZALEZ FOR ASSEMBLY 2026"]
+      },
+      "known_opponents": [
+        {"name": "Ida Obeso-Martinez", "name_patterns": ["OBESO"], "committee_patterns": ["OBESO-MARTINEZ", "OBESO"]},
+        {"name": "Tomas Oliva", "name_patterns": ["OLIVA"], "committee_patterns": ["TOMAS OLIVA", "OLIVA FOR ASSEMBLY"]},
+        {"name": "Oscar Ortiz", "name_patterns": ["ORTIZ"], "committee_patterns": ["OSCAR ORTIZ", "ORTIZ FOR ASSEMBLY"]}
+      ]
+    },
+    {
+      "id": "ad-27",
+      "code": "AD-27",
+      "dist_no": "27",
+      "focus": "mapped",
+      "incumbent": {
+        "name": "Esmeralda Soria",
+        "party": "D",
+        "name_patterns": ["SORIA"],
+        "committee_patterns": ["SORIA FOR ASSEMBLY 2026", "ESMERALDA SORIA"]
+      },
+      "known_opponents": [
+        {"name": "Brian Pacheco", "name_patterns": ["PACHECO"], "committee_patterns": ["BRIAN PACHECO FOR ASSEMBLY", "PACHECO FOR ASSEMBLY"]},
+        {"name": "Joanna Garcia Rose", "name_patterns": ["GARCIA ROSE", "JOANNA GARCIA"], "committee_patterns": ["JOANNA GARCIA ROSE", "GARCIA ROSE"]},
+        {"name": "Michael Murphy", "name_patterns": ["MICHAEL MURPHY", "MURPHY"], "committee_patterns": ["MURPHY FOR ASSEMBLY 2026"]}
+      ]
+    }
+  ]
+}
