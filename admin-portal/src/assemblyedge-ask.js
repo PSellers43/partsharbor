@@ -6,7 +6,7 @@ const DEFAULT_MODEL = "@cf/meta/llama-3.1-8b-instruct";
 const DEFAULT_DAILY_LIMIT = 30;
 
 const QUERY_SCHEMA_HINT = `{
-  "intent": one of "precinct_swing" | "ie_week_spend" | "registration_compare" | "abev_mail_returns" | "precinct_margin_filter" | "threat_index" | "polling_gap" | "late_money_district" | "social_posts" | "social_attacks" | "social_sentiment" | "unknown",
+  "intent": one of "precinct_swing" | "ie_week_spend" | "registration_compare" | "abev_mail_returns" | "precinct_margin_filter" | "district_roster" | "threat_index" | "polling_gap" | "late_money_district" | "social_posts" | "social_attacks" | "social_sentiment" | "unknown",
   "districtId": "ad-7" style lowercase id or null,
   "districtIdB": second district for compare or null,
   "place": city/place name string or null,
@@ -86,6 +86,7 @@ export async function runAssemblyEdgeAskAi(env, mode, payload) {
       "For mail/ballot returns use abev_mail_returns.",
       "For tight precincts in a city use precinct_margin_filter with place and marginMaxPoints.",
       "For late contributions / Form 497 in a district use late_money_district with districtId.",
+      "For who is the incumbent or Nov 2026 certified matchup use district_roster with districtId.",
       "For X/social posts by a candidate use social_posts with districtId and candidateName.",
       "For attack posts in a district use social_attacks with districtId (includes unverified mentions).",
       "For sentiment trend use social_sentiment with districtId.",

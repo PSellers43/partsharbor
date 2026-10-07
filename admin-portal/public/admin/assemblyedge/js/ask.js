@@ -220,6 +220,13 @@ window.AE = window.AE || {};
       };
     }
 
+    if (
+      districtId &&
+      /(incumbent|open seat|on the ballot|general election|matchup|who is running|certified)/.test(q)
+    ) {
+      return { intent: "district_roster", districtId, raw: original };
+    }
+
     if (/threat index|\bti\b/.test(q) && districtId) {
       return { intent: "threat_index", districtId, limit: 1 };
     }
@@ -317,6 +324,8 @@ window.AE = window.AE || {};
         return Promise.resolve(execAbevMail(q));
       case "precinct_margin_filter":
         return execPrecinctMarginFilter(q);
+      case "district_roster":
+        return Promise.resolve(execDistrictRoster(q));
       case "threat_index":
         return Promise.resolve(execThreat(q));
       case "polling_gap":
@@ -708,6 +717,75 @@ window.AE = window.AE || {};
         ),
       ],
       deepLinks: [{ label: `Open ${districtLabel(districtId)} on Focus map`, type: "focus-map", districtId }],
+      mode: "deterministic",
+      query: q,
+    };
+  }
+
+  function execDistrictRoster(q) {
+    const districtId = q.districtId;
+    const d = AE.districts && AE.districts.find((x) => x.id === districtId);
+    const root = AE.liveMoney;
+    const dist = root && root.districts && root.districts[districtId];
+    const asOf = root && (root.data_as_of || root.generated_at);
+    if (!d) {
+      return {
+        ok: false,
+        title: `Roster · ${districtLabel(districtId)}`,
+        summary: "District not in desk portfolio.",
+        rows: [],
+        sources: [],
+        mode: "deterministic",
+        query: q,
+      };
+    }
+    const rows = [];
+    if (dist && dist.candidates && dist.candidates.length) {
+      dist.candidates.forEach((c) => {
+        rows.push({
+          name: c.name,
+          role: c.role || "—",
+          party: c.party || "—",
+          receipts: c.receipts,
+        });
+      });
+    } else {
+      rows.push({
+        name: d.incumbent,
+        role: d.seatType || "Incumbent",
+        party: d.party,
+        receipts: null,
+      });
+    }
+    const poll = AE.polling && AE.polling.districtRow(districtId);
+    const pollLine = poll && poll.race_label ? poll.race_label : null;
+    const summaryParts = [
+      pollLine || `${d.seatType}: ${d.incumbent} (${d.party}).`,
+      "Source: SOS certified list (2026-08-27) via beachheads.json + CAL-ACCESS committee match.",
+    ];
+    return {
+      ok: true,
+      title: `Nov 2026 roster · ${districtLabel(districtId)}`,
+      summary: summaryParts.join(" "),
+      columns: [
+        { key: "name", label: "Candidate" },
+        { key: "role", label: "Role" },
+        { key: "party", label: "Party" },
+        { key: "receipts", label: "Cycle receipts ($)" },
+      ],
+      rows: rows.map((r) => ({
+        ...r,
+        receipts: r.receipts != null ? formatMoneyFull(r.receipts) : "—",
+      })),
+      sources: [
+        sourceMeta("SOS certified list + CAL-ACCESS money-by-district", asOf),
+        sourceMeta(
+          "beachheads.json",
+          null,
+          "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/cert-list-candidates.pdf"
+        ),
+      ],
+      deepLinks: [{ label: `Open ${d.code} · Money tab`, type: "district-tab", districtId, tab: "money" }],
       mode: "deterministic",
       query: q,
     };

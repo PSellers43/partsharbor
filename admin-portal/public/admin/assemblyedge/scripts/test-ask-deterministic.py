@@ -7,11 +7,57 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = ROOT / "data" / "calaccess" / "scripts"
 
 
 def load_json(rel: str):
     with open(ROOT / rel, encoding="utf-8") as f:
         return json.load(f)
+
+
+def test_certified_roster_all_districts():
+    import sys
+
+    sys.path.insert(0, str(SCRIPTS))
+    from roster_from_beachheads import certified_roster_by_district
+
+    beach = load_json("data/calaccess/beachheads.json")
+    expected_by_id = certified_roster_by_district(beach)
+    money = load_json("data/calaccess/latest/money-by-district.json")
+    for did, expected in sorted(expected_by_id.items()):
+        dist = money["districts"][did]
+        actual = [
+            {"name": c["name"], "role": c["role"], "party": c.get("party")}
+            for c in dist["candidates"]
+        ]
+        exp_sorted = sorted(expected, key=lambda x: x["name"])
+        act_sorted = sorted(actual, key=lambda x: x["name"])
+        assert act_sorted == exp_sorted, (did, act_sorted, exp_sorted)
+    print(f"OK certified roster matches beachheads for {len(expected_by_id)} districts")
+
+
+def test_ad58_incumbent_roster():
+    money = load_json("data/calaccess/latest/money-by-district.json")
+    dist = money["districts"]["ad-58"]
+    inc = next(c for c in dist["candidates"] if c.get("role") == "Incumbent")
+    assert inc["name"] == "Leticia Castillo", inc
+    assert inc.get("party") == "R", inc
+    opp = next(c for c in dist["candidates"] if c.get("role") == "Opponent")
+    assert "Cervantes" in opp["name"], opp
+    assert len(dist["candidates"]) == 2, len(dist["candidates"])
+    print("OK AD-58 incumbent Castillo (R) vs Cervantes (D)")
+
+
+def test_ad27_open_seat():
+    money = load_json("data/calaccess/latest/money-by-district.json")
+    dist = money["districts"]["ad-27"]
+    names = {c["name"] for c in dist["candidates"]}
+    assert "Esmeralda Soria" not in names, names
+    assert "Mike Murphy" in names or "Michael Murphy" in names, names
+    assert "Brian Pacheco" in names, names
+    roles = {c.get("role") for c in dist["candidates"]}
+    assert any("Open seat" in (r or "") for r in roles), roles
+    print(f"OK AD-27 open seat roster {sorted(names)}")
 
 
 def test_ie_ad58():
@@ -116,6 +162,9 @@ def test_rancho_tight():
 
 def main():
     tests = [
+        test_certified_roster_all_districts,
+        test_ad58_incumbent_roster,
+        test_ad27_open_seat,
         test_ie_ad58,
         test_registration_compare,
         test_abev_ad36,

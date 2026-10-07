@@ -169,7 +169,9 @@ window.AE = window.AE || {};
                   : r.side === "oppose"
                     ? `<span class="chip chip-warn" style="font-size:10px">Oppose</span>`
                     : "";
-              const sub = r.candidate ? ` → ${esc(r.candidate)}` : "";
+              const candLabel =
+                r.candidate && String(r.candidate).toLowerCase() !== "unknown" ? r.candidate : null;
+              const sub = candLabel ? ` → ${esc(candLabel)}` : "";
               return `<li class="late-timeline-item">
                 <span class="late-timeline-date mono">${fmtDate(r.contrib_date)}</span>
                 <span class="late-timeline-body"><strong>${esc(r.entity)}</strong> ${dir} ${esc(r.committee_name || "")}${sub} ${side}</span>
