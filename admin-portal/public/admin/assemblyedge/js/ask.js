@@ -635,7 +635,7 @@ window.AE = window.AE || {};
 
     function maybeAiParse() {
       if (!useAi || parsed.intent !== "unknown") {
-        return Promise.resolve(parsed);
+        return Promise.resolve({ parsed, notice: null, mode: null });
       }
       return postAskApi({ mode: "assist", question })
         .then(({ status, body }) => {
