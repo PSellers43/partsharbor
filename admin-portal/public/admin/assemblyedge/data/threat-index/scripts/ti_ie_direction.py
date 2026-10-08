@@ -42,7 +42,20 @@ def target_party(target: str, roster: dict | None) -> str | None:
     return None
 
 
+def excluded_target_names(roster: dict | None) -> set[str]:
+    if not roster:
+        return set()
+    names = []
+    for person in roster.get("primary_non_advancing") or []:
+        if person.get("name"):
+            names.append(_norm(person["name"]))
+    return {n for n in names if n}
+
+
 def is_ballot_target(target: str, roster: dict | None) -> bool:
+    tgt = _norm(target)
+    if tgt and tgt in excluded_target_names(roster):
+        return False
     return target_party(target, roster) is not None
 
 
@@ -51,6 +64,9 @@ def ie_effect(side: str, target: str, roster: dict | None) -> str | None:
     pro_r: supports R or opposes D (helps Republican side).
     anti_r: supports D or opposes R (pressure on Republican / open-seat R nominee).
     """
+    tgt = _norm(target)
+    if tgt and tgt in excluded_target_names(roster):
+        return None
     party = target_party(target, roster)
     if not party:
         return None
@@ -88,29 +104,3 @@ def aggregate_ie_effects(ie_rows: list[dict], roster: dict | None) -> dict[str, 
     return totals
 
 
-def aggregate_late_ie_effects(ie_items: list[dict], roster: dict | None) -> dict[str, float]:
-    totals = {"ie_pro_r_period": 0.0, "ie_anti_r_period": 0.0}
-    for item in ie_items or []:
-        amt = float(item.get("amount") or 0)
-        if amt <= 0:
-            continue
-        effect = ie_effect(item.get("side") or "", item.get("target") or "", roster)
-        if effect == "pro_r":
-            totals["ie_pro_r_period"] += amt
-        elif effect == "anti_r":
-            totals["ie_anti_r_period"] += amt
-    return totals
-
-
-def enrich_late_totals(late_row: dict | None, money_dist: dict | None, roster: dict | None) -> dict[str, Any]:
-    """Return copy of totals with direction-aware fields for TI + alerts."""
-    if not late_row:
-        return {}
-    totals = dict(late_row.get("totals") or {})
-    cycle = aggregate_ie_effects((money_dist or {}).get("ie") or [], roster)
-    totals["ie_pro_r"] = cycle["ie_pro_r"]
-    totals["ie_anti_r"] = cycle["ie_anti_r"]
-    period = aggregate_late_ie_effects(late_row.get("recent_ie") or [], roster)
-    totals["ie_pro_r_period"] = period["ie_pro_r_period"]
-    totals["ie_anti_r_period"] = period["ie_anti_r_period"]
-    return totals

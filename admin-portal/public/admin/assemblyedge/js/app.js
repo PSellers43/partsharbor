@@ -270,11 +270,11 @@
         </div>
         <div class="poll-meta-chips">
           <span class="chip ${recent ? "chip-poll-live" : "chip-poll-stale"}">${recent ? "Recent public poll" : "Latest available · stale"}</span>
-          <span class="chip chip-demo">${poll.pollster}</span>
-          ${poll.moe_pct != null ? `<span class="chip chip-demo">±${poll.moe_pct}% MoE</span>` : ""}
-          <span class="chip chip-demo">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
-          <span class="chip chip-demo">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
-          ${poll.sponsor ? `<span class="chip chip-demo" title="Sponsor">${poll.sponsor}</span>` : ""}
+          <span class="chip chip-live-weak">${poll.pollster}</span>
+          ${poll.moe_pct != null ? `<span class="chip chip-live-weak">±${poll.moe_pct}% MoE</span>` : ""}
+          <span class="chip chip-live-weak">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
+          <span class="chip chip-live-weak">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
+          ${poll.sponsor ? `<span class="chip chip-live-weak" title="Sponsor">${poll.sponsor}</span>` : ""}
         </div>
         ${poll.source_url ? `<a class="poll-source-link" href="${poll.source_url}" target="_blank" rel="noopener noreferrer">${poll.source_label || "Source"} ↗</a>` : ""}`;
     } else {

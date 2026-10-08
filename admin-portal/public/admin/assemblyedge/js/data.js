@@ -132,9 +132,10 @@ AE.statusMeta = {
 
 AE.formatMoney = function (n) {
   if (n == null || Number.isNaN(Number(n))) return "—";
-  n = Number(n);
-  if (n >= 1000) return "$" + Math.round(n / 1000) + "k";
-  return "$" + n;
+  const v = Number(n);
+  if (Math.abs(v) >= 1e6) return "$" + (v / 1e6).toFixed(1) + "M";
+  if (Math.abs(v) >= 1e3) return "$" + Math.round(v / 1000) + "k";
+  return "$" + Math.round(v);
 };
 
 AE.doctrine = [

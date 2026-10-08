@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-07T21:43:49.626134Z",
-  "data_as_of": "2026-10-07T21:05:17.725231Z",
+  "generated_at": "2026-10-08T02:22:32.768316Z",
+  "data_as_of": "2026-10-08T02:22:20.754540Z",
   "source": {
     "publisher": "California Secretary of State \u2014 Political Reform Division",
     "dataset": "CAL-ACCESS raw data (daily ZIP)",
@@ -25,7 +25,7 @@
     "attribution": "Public CAL-ACCESS data. Not an FPPC or SOS endorsement of MajorityIQ."
   },
   "cycle_year": 2026,
-  "matching": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Documented limitations in CALACCESS.md.",
+  "matching": "Committees matched via CVR_CAMPAIGN_DISCLOSURE_CD: OFFICE_CD=ASM + DIST_NO + candidate/committee name patterns for the election cycle. Name matching is imperfect (aliases, misspellings, ballot-measure committees). Prefer committees whose names include the cycle year (e.g. '2026'). Roster reflects SOS certified general-election matchups; primary-only filers are claimed but excluded from opponent rollups. Documented limitations in CALACCESS.md.",
   "districts": {
     "ad-7": {
       "id": "ad-7",
@@ -38,6 +38,7 @@
         {
           "role": "Incumbent",
           "name": "Josh Hoover",
+          "party": "R",
           "committee_name": "Hoover for Assembly 2026",
           "filer_id": "1476883",
           "receipts": 1260889.55,
@@ -144,12 +145,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Opponent",
           "name": "Amy L. Slavensky",
+          "party": "D",
           "committee_name": "Amy Slavensky for Assembly 2026",
           "filer_id": "1484959",
           "receipts": 1069635.09,
@@ -234,8 +235,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -612,6 +612,7 @@
         {
           "role": "Incumbent",
           "name": "Greg Wallis",
+          "party": "R",
           "committee_name": "Greg Wallis for Assembly 2026",
           "filer_id": "1477044",
           "receipts": 1558288.88,
@@ -718,12 +719,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Opponent",
           "name": "Leila Namvar",
+          "party": "D",
           "committee_name": "Leila Namvar for Assembly 2026",
           "filer_id": "1484350",
           "receipts": 460178.41,
@@ -808,8 +809,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -1228,6 +1228,7 @@
         {
           "role": "Incumbent",
           "name": "Leticia Castillo",
+          "party": "R",
           "committee_name": "Leticia Castillo for Assembly 2026",
           "filer_id": "1477348",
           "receipts": 799573.08,
@@ -1334,12 +1335,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Opponent",
           "name": "Clarissa Cervantes",
+          "party": "D",
           "committee_name": "Clarissa Cervantes for Assembly 2026",
           "filer_id": "1478397",
           "receipts": 1777002.94,
@@ -1435,8 +1436,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -1727,6 +1727,7 @@
         {
           "role": "Incumbent",
           "name": "Laurie Davies",
+          "party": "R",
           "committee_name": "Laurie Davies For Assembly 2026",
           "filer_id": "1477105",
           "receipts": 1204642.61,
@@ -1833,12 +1834,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Opponent",
           "name": "Sergio Farias",
+          "party": "D",
           "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
           "filer_id": "1477625",
           "receipts": 170241.35,
@@ -1934,8 +1935,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -2088,6 +2088,7 @@
         {
           "role": "Incumbent",
           "name": "Jeff Gonzalez",
+          "party": "R",
           "committee_name": "Jeff Gonzalez for Assembly 2026",
           "filer_id": "1477498",
           "receipts": 1296142.24,
@@ -2194,12 +2195,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Opponent",
           "name": "Ida S. Obeso-Martinez",
+          "party": "D",
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "filer_id": "1483893",
           "receipts": 2102600.38,
@@ -2284,8 +2285,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -2588,42 +2588,6 @@
           }
         },
         {
-          "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
-          "side": "support",
-          "role": "IE support",
-          "receipts": 0.0,
-          "spend": 263204.2,
-          "deltaSpend": 300.0,
-          "deltaReceipts": 0,
-          "series": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            43867.37,
-            43867.37,
-            175469.47
-          ],
-          "targets": [
-            "Oscar Ortiz"
-          ],
-          "match_quality": "live",
-          "provenance": {
-            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
-            "filer_id": "1491229",
-            "filing_ids": [
-              "3154071",
-              "3154741",
-              "3157831",
-              "3158585",
-              "3158589",
-              "3160990"
-            ],
-            "filing_id_count": 6
-          }
-        },
-        {
           "name": "Uber Innovation Political Action Committee",
           "side": "support",
           "role": "IE support",
@@ -2686,6 +2650,38 @@
             ],
             "filing_id_count": 3
           }
+        },
+        {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "support",
+          "role": "IE support",
+          "receipts": 0.0,
+          "spend": 95751.48,
+          "deltaSpend": 100.0,
+          "deltaReceipts": 0,
+          "series": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            95751.48
+          ],
+          "targets": [
+            "Jeff Gonzalez"
+          ],
+          "match_quality": "live",
+          "provenance": {
+            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
+            "filer_id": "1399192",
+            "filing_ids": [
+              "3203162",
+              "3205851"
+            ],
+            "filing_id_count": 2
+          }
         }
       ],
       "notes": [
@@ -2706,6 +2702,7 @@
         {
           "role": "Open seat \u2013 R",
           "name": "Mike Murphy",
+          "party": "R",
           "committee_name": "Murphy for Assembly 2026",
           "filer_id": "1478647",
           "receipts": 608515.6,
@@ -2801,12 +2798,12 @@
               }
             ]
           },
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "role": "Open seat \u2013 D",
           "name": "Brian Pacheco",
+          "party": "D",
           "committee_name": "Brian Pacheco for Assembly 2026",
           "filer_id": "1485456",
           "receipts": 2998579.8,
@@ -2891,8 +2888,7 @@
               }
             ]
           },
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie": [
@@ -3155,37 +3151,6 @@
             ],
             "filing_id_count": 2
           }
-        },
-        {
-          "name": "Table Mountain Rancheria",
-          "side": "support",
-          "role": "IE support",
-          "receipts": 0.0,
-          "spend": 25000.0,
-          "deltaSpend": 100.0,
-          "deltaReceipts": 0,
-          "series": [
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            0.0,
-            25000.0
-          ],
-          "targets": [
-            "Esmeralda Soria"
-          ],
-          "match_quality": "live",
-          "provenance": {
-            "source": "S496_CD amounts joined to CVR_CAMPAIGN_DISCLOSURE F496/F465 covers",
-            "filer_id": "495236",
-            "filing_ids": [
-              "3003654"
-            ],
-            "filing_id_count": 1
-          }
         }
       ],
       "notes": [
@@ -3375,7 +3340,7 @@
           "party": "D"
         }
       ],
-      "ie_count": 9
+      "ie_count": 8
     }
   ]
 }

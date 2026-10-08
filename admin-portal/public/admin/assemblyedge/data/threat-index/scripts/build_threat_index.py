@@ -23,12 +23,7 @@ SCRIPTS = TI_ROOT / "scripts"
 
 sys.path.insert(0, str(SCRIPTS))
 from pt_dates import now_pt_iso, today_pt  # noqa: E402
-from ti_ie_direction import (  # noqa: E402
-    enrich_late_totals,
-    ie_effect,
-    is_ballot_target,
-    target_party,
-)
+from ti_ie_direction import ie_effect, is_ballot_target, target_party  # noqa: E402
 from ti_compute import (  # noqa: E402
     compute_district_ti,
     deltas_for_district,
@@ -76,7 +71,7 @@ def fetch_google_news_rss(query: str, max_items: int = 12) -> list[dict]:
         if pub:
             try:
                 dt = parsedate_to_datetime(pub)
-                pub_date = dt.date().isoformat()
+                pub_date = dt.astimezone(PT).date().isoformat()
                 ts_label = dt.astimezone(PT).strftime("%b %d · %I:%M%p PT")
             except (TypeError, ValueError, OSError):
                 pass
@@ -99,19 +94,15 @@ def load_official_lean() -> dict[str, dict]:
     if not OFFICIAL_LEAN_PATH.exists():
         return {}
     doc = load_json(OFFICIAL_LEAN_PATH)
-    threshold = float(doc.get("even_threshold_abs_margin_r_pct") or 1.0)
-    src = doc.get("source_label") or "CA SOS SOV"
-    url = doc.get("source_url")
-    as_of = doc.get("as_of")
+    src = doc.get("source") or {}
+    url = src.get("url")
+    as_of = doc.get("as_of_date") or doc.get("as_of")
     out: dict[str, dict] = {}
     for did, row in (doc.get("districts") or {}).items():
         margin = float(row.get("margin_r_pct") or 0)
-        if abs(margin) < threshold:
-            lean = "Even"
-        elif margin > 0:
-            lean = f"R+{margin:.1f}"
-        else:
-            lean = f"D+{-margin:.1f}"
+        lean = row.get("lean")
+        if not lean:
+            lean = f"R+{margin:.1f}" if margin > 0 else f"D+{-margin:.1f}"
         out[did] = {
             "lean": lean,
             "margin_r_pct": margin,
@@ -120,7 +111,7 @@ def load_official_lean() -> dict[str, dict]:
             "source": "2024 Assembly result (SOS SOV)",
             "source_url": url,
             "official_as_of": as_of,
-            "note_2026": row.get("note_2026"),
+            "note_2026": row.get("context_2026") or row.get("note_2026"),
         }
     return out
 
@@ -132,16 +123,6 @@ def roster_for_district(beach: dict | None, did: str) -> dict | None:
         if d.get("id") == did:
             return d
     return None
-
-
-def late_row_with_ie_direction(late_row: dict | None, money_dist: dict | None, roster: dict | None) -> dict | None:
-    if not late_row:
-        return None
-    merged = dict(late_row)
-    totals = dict(late_row.get("totals") or {})
-    totals.update(enrich_late_totals(late_row, money_dist, roster))
-    merged["totals"] = totals
-    return merged
 
 
 def format_money(n: float | None) -> str:
@@ -240,13 +221,13 @@ def build_alerts(
     t = (late_row or {}).get("totals") or {}
 
     ie7 = float(t.get("ie_seven_day") or 0)
-    anti7 = float(t.get("ie_anti_r_period") or 0)
-    if anti7 >= 100000:
+    anti7 = float(t.get("ie_seven_day_anti_r") or 0)
+    if anti7 >= 100000 and anti7 <= ie7 + 0.01:
         alerts.append(
             {
                 "ts": as_of.isoformat(),
                 "title": "Anti-Republican IE in 7-day window",
-                "detail": f"{code}: ${anti7:,.0f} direction-aware anti-R IE in the latest 7 days (${ie7:,.0f} total IE).",
+                "detail": f"{code}: ${anti7:,.0f} anti-R IE in the latest 7 days (${ie7:,.0f} total IE).",
                 "decision": "spend",
                 "decisionLabel": "Consider spend",
             }
@@ -334,7 +315,7 @@ def load_snapshots() -> list[dict]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--skip-news", action="store_true", help="Reuse news from latest bundle")
-    parser.add_argument("--as-of", default=None, help="YYYY-MM-DD (default: UTC today)")
+    parser.add_argument("--as-of", default=None, help="YYYY-MM-DD (default: today in America/Los_Angeles)")
     args = parser.parse_args()
 
     as_of = parse_date(args.as_of) or today_pt()
@@ -371,11 +352,9 @@ def main() -> int:
     money_raw = {}
     ie_raw = {}
     for did in BEACHHEAD_IDS:
-        roster = roster_for_district(beach, did)
-        money_dist = (money.get("districts") or {}).get(did)
-        late_enriched = late_row_with_ie_direction((late.get("districts") or {}).get(did), money_dist, roster)
-        money_raw[did] = money_velocity_raw(late_enriched)
-        ie_raw[did] = ie_pressure_raw(late_enriched)
+        late_row = (late.get("districts") or {}).get(did)
+        money_raw[did] = money_velocity_raw(late_row)
+        ie_raw[did] = ie_pressure_raw(late_row)
     money_scores = normalize_across(money_raw)
     ie_scores = normalize_across(ie_raw)
 
@@ -395,7 +374,7 @@ def main() -> int:
     for did in BEACHHEAD_IDS:
         roster = roster_for_district(beach, did)
         money_dist = (money.get("districts") or {}).get(did)
-        late_row = late_row_with_ie_direction((late.get("districts") or {}).get(did), money_dist, roster)
+        late_row = (late.get("districts") or {}).get(did)
         poll_row = poll_by_id.get(did)
         ti_block = compute_district_ti(
             did,

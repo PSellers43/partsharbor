@@ -95,8 +95,8 @@ window.AE = window.AE || {};
 
     const out = [];
 
-    const anti7 = totals.ie_anti_r_period != null ? totals.ie_anti_r_period : 0;
-    const pro7 = totals.ie_pro_r_period != null ? totals.ie_pro_r_period : 0;
+    const anti7 = totals.ie_seven_day_anti_r != null ? totals.ie_seven_day_anti_r : 0;
+    const pro7 = totals.ie_seven_day_pro_r != null ? totals.ie_seven_day_pro_r : 0;
     if (anti7 >= 75000 || ie7 >= 150000) {
       out.push({
         id: "ie-" + districtId,

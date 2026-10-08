@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "data" / "threat-index" / "scripts"))
 
+from ti_ie_direction import ie_effect  # noqa: E402
 from ti_compute import (  # noqa: E402
     BASE_WEIGHTS,
     WEIGHTS,
@@ -112,9 +113,8 @@ def test_late_money_inputs_change_ti():
         "totals": {
             "seven_day": 500000,
             "ie_seven_day": 400000,
-            "ie_anti_r": 200000,
-            "ie_pro_r": 50000,
-            "ie_anti_r_period": 150000,
+            "ie_seven_day_anti_r": 200000,
+            "ie_seven_day_pro_r": 50000,
         },
         "daily_buckets": [{"amount": 100}] * 20,
     }
@@ -122,14 +122,14 @@ def test_late_money_inputs_change_ti():
         "totals": {
             "seven_day": 1000,
             "ie_seven_day": 500,
-            "ie_anti_r": 200,
-            "ie_pro_r": 100,
-            "ie_anti_r_period": 50,
+            "ie_seven_day_anti_r": 200,
+            "ie_seven_day_pro_r": 100,
         },
         "daily_buckets": [{"amount": 10}] * 20,
     }
     assert money_velocity_raw(late_high) > money_velocity_raw(late_low)
     assert ie_pressure_raw(late_high) > ie_pressure_raw(late_low)
+    assert ie_pressure_raw({"totals": {"ie_seven_day": 999999, "ie_seven_day_anti_r": 0}}) == 0.0
 
 
 def test_official_lean_json():
@@ -140,6 +140,34 @@ def test_official_lean_json():
     assert ad7["lean"] == "R+7.3"
     ad27 = doc["districts"]["ad-27"]
     assert ad27["lean"] == "D+7.8"
+    assert doc["districts"]["ad-58"]["lean"] == "R+0.4"
+    assert "Middleton" in doc["districts"]["ad-7"]["loser"]
+
+
+def test_ie_effect_oppose_slavensky_is_pro_r():
+    roster = {
+        "incumbent": {"name": "Josh Hoover", "party": "R"},
+        "known_opponents": [{"name": "Amy L. Slavensky", "party": "D", "ballot_status": "general"}],
+    }
+    assert ie_effect("oppose", "Amy L. Slavensky", roster) == "pro_r"
+
+
+def test_ad7_zero_anti_r_lowest_ie_pressure():
+    late = json.loads((ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json").read_text())
+    raw = {}
+    for did in ["ad-7", "ad-27", "ad-36", "ad-47", "ad-58", "ad-74"]:
+        row = late.get("districts", {}).get(did)
+        raw[did] = ie_pressure_raw(row)
+    assert raw["ad-7"] == min(raw.values())
+
+
+def test_late_money_anti_r_within_seven_day():
+    late = json.loads((ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json").read_text())
+    for did, row in (late.get("districts") or {}).items():
+        t = row.get("totals") or {}
+        anti = float(t.get("ie_seven_day_anti_r") or 0)
+        total = float(t.get("ie_seven_day") or 0)
+        assert anti <= total + 0.01, f"{did}: anti-R {anti} > 7-day IE {total}"
 
 
 def test_precinct_g24_rollup_near_sos():
@@ -191,6 +219,9 @@ def main():
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,
+        test_ie_effect_oppose_slavensky_is_pro_r,
+        test_late_money_anti_r_within_seven_day,
+        test_ad7_zero_anti_r_lowest_ie_pressure,
         test_official_lean_json,
         test_precinct_g24_rollup_near_sos,
         test_bundle_json_valid,
