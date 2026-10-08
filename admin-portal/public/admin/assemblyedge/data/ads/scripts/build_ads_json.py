@@ -115,7 +115,8 @@ def district_people(beach: dict) -> dict[str, list[dict]]:
                     {
                         "name": c["name"],
                         "party": c.get("party"),
-                        "patterns": list(c.get("name_patterns") or []) + list(c.get("committee_patterns") or []),
+                        "committee_patterns": list(c.get("committee_patterns") or []),
+                        "name_patterns": list(c.get("name_patterns") or []),
                         "side": c.get("party"),
                     }
                 )
@@ -125,7 +126,8 @@ def district_people(beach: dict) -> dict[str, list[dict]]:
                 {
                     "name": inc["name"],
                     "party": inc.get("party"),
-                    "patterns": list(inc.get("name_patterns") or []) + list(inc.get("committee_patterns") or []),
+                    "committee_patterns": list(inc.get("committee_patterns") or []),
+                    "name_patterns": list(inc.get("name_patterns") or []),
                     "side": inc.get("party"),
                 }
             )
@@ -134,7 +136,8 @@ def district_people(beach: dict) -> dict[str, list[dict]]:
                     {
                         "name": opp["name"],
                         "party": opp.get("party"),
-                        "patterns": list(opp.get("name_patterns") or []) + list(opp.get("committee_patterns") or []),
+                        "committee_patterns": list(opp.get("committee_patterns") or []),
+                        "name_patterns": list(opp.get("name_patterns") or []),
                         "side": opp.get("party"),
                     }
                 )
@@ -175,7 +178,9 @@ def name_matches_advertiser(
             if pn in an or an in pn:
                 return True
             continue
-        # Short surname tokens (e.g. HOOVER, MURPHY) — only with Assembly context
+        # Surname-only tokens are not matched in fallback mode (avoid wrong "Name Surname for Assembly").
+        if require_assembly and len(pn.split()) == 1:
+            continue
         if len(pn.split()) == 1 and len(pn) >= 4:
             if pn in an and "ASSEMBLY" in an:
                 return True
@@ -215,8 +220,12 @@ def assign_district_by_name(
     hits: list[tuple[str, str, str]] = []
     for did, people in people_by_dist.items():
         for person in people:
-            pats = list(person["patterns"]) + [person["name"]]
-            if name_matches_advertiser(pats, advertiser_name, require_assembly=False):
+            committee_pats = person.get("committee_patterns") or []
+            if committee_pats and name_matches_advertiser(committee_pats, advertiser_name):
+                hits.append((did, person.get("side") or "other", "advertiser_name"))
+                break
+            fallback = [person["name"]] + list(person.get("name_patterns") or [])
+            if name_matches_advertiser(fallback, advertiser_name, require_assembly=True):
                 hits.append((did, person.get("side") or "other", "advertiser_name"))
                 break
         if not hits or hits[-1][0] != did:

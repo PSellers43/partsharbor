@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T02:19:27.106964+00:00",
+  "generated_at": "2026-10-08T02:25:10.444046+00:00",
   "as_of_date": "2026-10-08",
   "formula": {
     "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window.",
@@ -36,7 +36,7 @@
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T02:19:27.100949+00:00"
+      "fetched_at": "2026-10-08T02:25:10.441381+00:00"
     },
     "lean": {
       "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"

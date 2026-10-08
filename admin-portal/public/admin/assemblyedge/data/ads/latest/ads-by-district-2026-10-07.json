@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T02:18:27.219897Z",
+  "generated_at": "2026-10-08T02:32:45.080088Z",
   "as_of_pt": "2026-10-07 13:51:37",
   "source": {
     "publisher": "Google",
@@ -1130,49 +1130,6 @@
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         },
         {
-          "advertiser_id": "AR05186695673080184833",
-          "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 12300.0,
-          "total_creatives": 1,
-          "weekly": [
-            {
-              "week_start": "2025-10-19",
-              "spend_usd": 4700.0
-            },
-            {
-              "week_start": "2025-10-26",
-              "spend_usd": 5500.0
-            },
-            {
-              "week_start": "2025-11-02",
-              "spend_usd": 2100.0
-            }
-          ],
-          "first_seen": "2025-10-19",
-          "last_seen": "2025-11-02",
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR05186695673080184833?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR13279338902641967105",
-          "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 2500.0,
-          "total_creatives": 4,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR13279338902641967105?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
           "advertiser_id": "AR04838560965689606145",
           "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
           "side": "IE",
@@ -1272,49 +1229,6 @@
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         },
         {
-          "advertiser_id": "AR05186695673080184833",
-          "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 12300.0,
-          "total_creatives": 1,
-          "weekly": [
-            {
-              "week_start": "2025-10-19",
-              "spend_usd": 4700.0
-            },
-            {
-              "week_start": "2025-10-26",
-              "spend_usd": 5500.0
-            },
-            {
-              "week_start": "2025-11-02",
-              "spend_usd": 2100.0
-            }
-          ],
-          "first_seen": "2025-10-19",
-          "last_seen": "2025-11-02",
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR05186695673080184833?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR13279338902641967105",
-          "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 2500.0,
-          "total_creatives": 4,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR13279338902641967105?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
           "advertiser_id": "AR04838560965689606145",
           "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
           "side": "IE",
@@ -1346,18 +1260,6 @@
         }
       ],
       "weekly_total": [
-        {
-          "week_start": "2025-10-19",
-          "spend_usd": 4700.0
-        },
-        {
-          "week_start": "2025-10-26",
-          "spend_usd": 5500.0
-        },
-        {
-          "week_start": "2025-11-02",
-          "spend_usd": 2100.0
-        },
         {
           "week_start": "2026-08-09",
           "spend_usd": 300.0
@@ -1399,49 +1301,6 @@
         "R": {
           "advertisers": [
             {
-              "advertiser_id": "AR05186695673080184833",
-              "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-              "side": "R",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 12300.0,
-              "total_creatives": 1,
-              "weekly": [
-                {
-                  "week_start": "2025-10-19",
-                  "spend_usd": 4700.0
-                },
-                {
-                  "week_start": "2025-10-26",
-                  "spend_usd": 5500.0
-                },
-                {
-                  "week_start": "2025-11-02",
-                  "spend_usd": 2100.0
-                }
-              ],
-              "first_seen": "2025-10-19",
-              "last_seen": "2025-11-02",
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR05186695673080184833?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            },
-            {
-              "advertiser_id": "AR13279338902641967105",
-              "advertiser_name": "CAROL MURPHY FOR ASSEMBLY",
-              "side": "R",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 2500.0,
-              "total_creatives": 4,
-              "weekly": [],
-              "first_seen": null,
-              "last_seen": null,
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR13279338902641967105?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            },
-            {
               "advertiser_id": "AR00766602905867255809",
               "advertiser_name": "RPH",
               "side": "R",
@@ -1457,20 +1316,7 @@
               "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
             }
           ],
-          "weekly_total": [
-            {
-              "week_start": "2025-10-19",
-              "spend_usd": 4700.0
-            },
-            {
-              "week_start": "2025-10-26",
-              "spend_usd": 5500.0
-            },
-            {
-              "week_start": "2025-11-02",
-              "spend_usd": 2100.0
-            }
-          ]
+          "weekly_total": []
         },
         "D": {
           "advertisers": [
@@ -1602,7 +1448,7 @@
           "weekly_total": []
         }
       },
-      "matched_advertiser_count": 6,
+      "matched_advertiser_count": 4,
       "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
     },
     "ad-36": {
@@ -1767,21 +1613,6 @@
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         },
         {
-          "advertiser_id": "AR09288034762360881153",
-          "advertiser_name": "MARK GONZALEZ FOR ASSEMBLY 2024",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 31700.0,
-          "total_creatives": 46,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR09288034762360881153?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
           "advertiser_id": "AR10888295922802884609",
           "advertiser_name": "California Chamber of Commerce",
           "side": "IE",
@@ -1870,53 +1701,6 @@
           "first_seen": null,
           "last_seen": null,
           "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR15256363218583420929",
-          "advertiser_name": "Communities United to Elect Mark Gonzalez for Assembly 2024, Sponsored by Equality California and LGBT (Lesbian, Gay, Bisexual & Transgender) Caucus Leadership Fund",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 9700.0,
-          "total_creatives": 8,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR15256363218583420929?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR16477664828790407169",
-          "advertiser_name": "OUR LAND OUR FUTURE A CONTROLLED CM TE BY ASSEMBLYMEMBER MARK GONZALEZ",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 5900.0,
-          "total_creatives": 1,
-          "weekly": [
-            {
-              "week_start": "2025-10-12",
-              "spend_usd": 700.0
-            },
-            {
-              "week_start": "2025-10-19",
-              "spend_usd": 2200.0
-            },
-            {
-              "week_start": "2025-10-26",
-              "spend_usd": 2200.0
-            },
-            {
-              "week_start": "2025-11-02",
-              "spend_usd": 900.0
-            }
-          ],
-          "first_seen": "2025-10-12",
-          "last_seen": "2025-11-02",
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR16477664828790407169?region=US",
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         },
         {
@@ -2168,21 +1952,6 @@
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         },
         {
-          "advertiser_id": "AR09288034762360881153",
-          "advertiser_name": "MARK GONZALEZ FOR ASSEMBLY 2024",
-          "side": "R",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 31700.0,
-          "total_creatives": 46,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR09288034762360881153?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
           "advertiser_id": "AR10888295922802884609",
           "advertiser_name": "California Chamber of Commerce",
           "side": "IE",
@@ -2272,6 +2041,66 @@
           "last_seen": null,
           "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR03174385537922367489",
+          "advertiser_name": "California Environmental Voters",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 5300.0,
+          "total_creatives": 3,
+          "weekly": [
+            {
+              "week_start": "2025-02-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-02",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-30",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2026-02-08",
+              "spend_usd": 1500.0
+            },
+            {
+              "week_start": "2026-02-15",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-02-22",
+              "spend_usd": 1000.0
+            }
+          ],
+          "first_seen": "2025-02-09",
+          "last_seen": "2026-02-22",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR03174385537922367489?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         }
       ],
       "weekly_total": [
@@ -2344,21 +2173,6 @@
         "R": {
           "advertisers": [
             {
-              "advertiser_id": "AR09288034762360881153",
-              "advertiser_name": "MARK GONZALEZ FOR ASSEMBLY 2024",
-              "side": "R",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 31700.0,
-              "total_creatives": 46,
-              "weekly": [],
-              "first_seen": null,
-              "last_seen": null,
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR09288034762360881153?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            },
-            {
               "advertiser_id": "AR11122148293545558017",
               "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2026",
               "side": "R",
@@ -2404,72 +2218,9 @@
               "last_seen": null,
               "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
               "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            },
-            {
-              "advertiser_id": "AR15256363218583420929",
-              "advertiser_name": "Communities United to Elect Mark Gonzalez for Assembly 2024, Sponsored by Equality California and LGBT (Lesbian, Gay, Bisexual & Transgender) Caucus Leadership Fund",
-              "side": "R",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 9700.0,
-              "total_creatives": 8,
-              "weekly": [],
-              "first_seen": null,
-              "last_seen": null,
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR15256363218583420929?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            },
-            {
-              "advertiser_id": "AR16477664828790407169",
-              "advertiser_name": "OUR LAND OUR FUTURE A CONTROLLED CM TE BY ASSEMBLYMEMBER MARK GONZALEZ",
-              "side": "R",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 5900.0,
-              "total_creatives": 1,
-              "weekly": [
-                {
-                  "week_start": "2025-10-12",
-                  "spend_usd": 700.0
-                },
-                {
-                  "week_start": "2025-10-19",
-                  "spend_usd": 2200.0
-                },
-                {
-                  "week_start": "2025-10-26",
-                  "spend_usd": 2200.0
-                },
-                {
-                  "week_start": "2025-11-02",
-                  "spend_usd": 900.0
-                }
-              ],
-              "first_seen": "2025-10-12",
-              "last_seen": "2025-11-02",
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR16477664828790407169?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
             }
           ],
           "weekly_total": [
-            {
-              "week_start": "2025-10-12",
-              "spend_usd": 700.0
-            },
-            {
-              "week_start": "2025-10-19",
-              "spend_usd": 2200.0
-            },
-            {
-              "week_start": "2025-10-26",
-              "spend_usd": 2200.0
-            },
-            {
-              "week_start": "2025-11-02",
-              "spend_usd": 900.0
-            },
             {
               "week_start": "2026-09-13",
               "spend_usd": 5200.0
@@ -2935,7 +2686,7 @@
           ]
         }
       },
-      "matched_advertiser_count": 13,
+      "matched_advertiser_count": 10,
       "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
     },
     "ad-47": {
@@ -5281,21 +5032,6 @@
           "last_seen": "2026-05-03",
           "transparency_url": "https://adstransparency.google.com/advertiser/AR15815947970639036417?region=US",
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR13618179283624132609",
-          "advertiser_name": "FARIAS FOR STATE ASSEMBLY 2024; AVILA, ID# 1463047",
-          "side": "D",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 800.0,
-          "total_creatives": 2,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR13618179283624132609?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         }
       ],
       "top_advertisers": [
@@ -5497,21 +5233,6 @@
           "last_seen": "2026-05-03",
           "transparency_url": "https://adstransparency.google.com/advertiser/AR15815947970639036417?region=US",
           "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-        },
-        {
-          "advertiser_id": "AR13618179283624132609",
-          "advertiser_name": "FARIAS FOR STATE ASSEMBLY 2024; AVILA, ID# 1463047",
-          "side": "D",
-          "match_reasons": [
-            "advertiser_name"
-          ],
-          "total_spend_usd": 800.0,
-          "total_creatives": 2,
-          "weekly": [],
-          "first_seen": null,
-          "last_seen": null,
-          "transparency_url": "https://adstransparency.google.com/advertiser/AR13618179283624132609?region=US",
-          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
         }
       ],
       "weekly_total": [
@@ -5622,26 +5343,6 @@
               "spend_usd": 2300.0
             }
           ]
-        },
-        "D": {
-          "advertisers": [
-            {
-              "advertiser_id": "AR13618179283624132609",
-              "advertiser_name": "FARIAS FOR STATE ASSEMBLY 2024; AVILA, ID# 1463047",
-              "side": "D",
-              "match_reasons": [
-                "advertiser_name"
-              ],
-              "total_spend_usd": 800.0,
-              "total_creatives": 2,
-              "weekly": [],
-              "first_seen": null,
-              "last_seen": null,
-              "transparency_url": "https://adstransparency.google.com/advertiser/AR13618179283624132609?region=US",
-              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
-            }
-          ],
-          "weekly_total": []
         },
         "IE": {
           "advertisers": [
@@ -5849,7 +5550,7 @@
           ]
         }
       },
-      "matched_advertiser_count": 8,
+      "matched_advertiser_count": 7,
       "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
     }
   }
