@@ -4,7 +4,7 @@
 
 window.AE = window.AE || {};
 
-AE.DEMO_BANNER = "DEMO / ILLUSTRATIVE DATA — Not official FPPC, SOS, or caucus figures. Figures are rounded demo placeholders.";
+AE.DEMO_BANNER = "MajorityIQ — Threat Index loads from data/threat-index/latest/ after refresh. Some layers still partial; not official FPPC, SOS, or caucus figures.";
 
 AE.districts = [
   {
@@ -106,23 +106,23 @@ AE.factors = {
 AE.methodology = {
   money: {
     title: "Money velocity",
-    body: "Tracks week-over-week change in candidate and IE receipts/spend relative to a rolling 8-week baseline for the district. Demo uses rounded illustrative bands — production would pull from CAL-ACCESS filings and late-contribution notices.",
+    body: "7-day late contributions and bucket WoW in the FPPC 90-day window (CAL-ACCESS S497/S496), ranked across the six beachheads. Cycle Form 460 totals appear on the Money tab.",
   },
   ie: {
     title: "IE pressure",
-    body: "Scores concentration and timing of independent expenditures supporting or opposing candidates in-district. Demo only. Production: CAL-ACCESS Form 461 / IE filings, not FPPC advice.",
+    body: "7-day independent expenditure volume and oppose/support mix from late-money ingest. CAL-ACCESS matched committees — not FPPC advice.",
   },
   ads: {
     title: "Ad surge",
-    body: "Relative change in Meta Ad Library and Google Ads Transparency creative counts and spend bands. Public library snapshots; demo figures are fictional.",
+    body: "Excluded from Threat Index until a confirmed free Meta/Google feed covers CA Assembly advertisers. Ads tab shows an explicit unavailable state.",
   },
   narrative: {
     title: "Narrative heat",
-    body: "Weighted local/state headline velocity and sentiment tags on race-relevant frames. Sourced links shown; scores are illustrative NLP placeholders.",
+    body: "score = min(100, 20 × headlines in the last 7 days) from Google News RSS at build time. Zero headlines → score 0.",
   },
   polls: {
     title: "Poll movement",
-    body: "Directionality of public or disclosed internal ranges when available. This prototype uses demo ranges only — never invent or present as filed survey results.",
+    body: "Included only when a hand-curated public horse-race poll in data/polling/latest.json is inside the gap window. Missing or stale polls are excluded from the composite (weights renormalized) — never invent survey results.",
   },
 };
 
