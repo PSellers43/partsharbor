@@ -224,6 +224,31 @@
   /* ——— Polling & gaps ——— */
   function pollRowHtml(row, compact) {
     const dMeta = AE.districts.find((x) => x.id === row.id);
+    if (AE.pollingDesk && AE.pollingDesk.districtBlockHtml) {
+      const gapMsg = (row.gap && row.gap.message) || "No released poll in last 90 days";
+      const recentAny =
+        AE.pollingDesk.allForDistrict(row.id).filter((p) => {
+          const end = p.field_end;
+          return end && AE.polling.isRecent({ field_end: end });
+        }).length > 0;
+      const bars = AE.pollingDesk.districtBlockHtml(row, compact);
+      const actions = compact
+        ? ""
+        : `<div class="poll-row-actions">
+          ${recentAny ? "" : `<span class="chip chip-gap">${gapMsg}</span>`}
+          <button type="button" class="btn" data-district-open="${row.id}">District detail</button>
+        </div>`;
+      return `
+      <article class="poll-row ${recentAny ? "" : "is-gap"}" role="listitem">
+        <div class="poll-row-head">
+          <div class="poll-code">${row.code}</div>
+          <div class="poll-race">${row.race_label || (dMeta ? dMeta.name + " · " + dMeta.region : "")}</div>
+          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">TI ${dMeta.threatIndex}${AE.intelLoaded ? "" : " (loading)"}</span></div>` : ""}
+        </div>
+        <div class="poll-bars">${bars}</div>
+        ${actions}
+      </article>`;
+    }
     const poll = row.poll;
     const recent = poll && AE.polling.isRecent(poll);
     const hasPoll = !!poll;
@@ -313,7 +338,8 @@
     }
 
     const rows = (root.districts || []).slice().sort((a, b) => a.code.localeCompare(b.code));
-    el.innerHTML = rows.map((r) => pollRowHtml(r, false)).join("");
+    const leadsHtml = AE.pollingDesk && AE.pollingDesk.leadsSectionHtml ? AE.pollingDesk.leadsSectionHtml() : "";
+    el.innerHTML = rows.map((r) => pollRowHtml(r, false)).join("") + leadsHtml;
     el.querySelectorAll("[data-district-open]").forEach((btn) => {
       btn.addEventListener("click", () => navigate("district", { districtId: btn.dataset.districtOpen, tab: "threat" }));
     });
@@ -1015,6 +1041,8 @@
               <button type="button" class="factor-row" data-factor="${f.id}">
                 <div>
                   <div class="factor-label">${f.label}
+                    ${f.partisan_sponsor ? `<span class="chip chip-gap" style="margin-left:6px;font-size:10px">Partisan sponsor</span>` : ""}
+                    ${f.runtime_internal ? `<span class="chip chip-gap" style="margin-left:6px;font-size:10px">Internal poll est.</span>` : ""}
                     <span class="delta ${f.trend === "up" ? "delta-up" : f.trend === "down" ? "delta-down" : "delta-flat"}" style="margin-left:6px;font-size:11px">${f.trend === "up" ? "↑" : f.trend === "down" ? "↓" : "→"}</span>
                   </div>
                   <div class="factor-blurb">${f.blurb}</div>
@@ -2220,7 +2248,7 @@
     }
     Promise.all([
       loadLiveMoney(),
-      AE.polling.load(),
+      AE.pollingDesk && AE.pollingDesk.load ? AE.pollingDesk.load() : AE.polling.load(),
       AE.demography.load(),
       AE.electionHistory.loadIndex(),
       AE.abev.load(),
@@ -2229,6 +2257,7 @@
       AE.social && AE.social.load ? AE.social.load() : Promise.resolve(),
       AE.intel && AE.intel.load ? AE.intel.load() : Promise.resolve(),
     ]).then(() => {
+      if (AE.pollingDesk && AE.pollingDesk.applyThreatIndexRuntime) AE.pollingDesk.applyThreatIndexRuntime();
       if (AE.intel && AE.intel.computeMaxSpend) AE.intel.computeMaxSpend();
       refreshIntelViews();
       if (state.page === "portfolio") renderPortfolio();

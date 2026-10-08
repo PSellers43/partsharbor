@@ -21,6 +21,8 @@ SNAPSHOTS = TI_ROOT / "snapshots"
 SCRIPTS = TI_ROOT / "scripts"
 
 sys.path.insert(0, str(SCRIPTS))
+sys.path.insert(0, str(ROOT / "data" / "polls" / "scripts"))
+from poll_schema import legacy_poll_row, pick_best_poll  # noqa: E402
 from ti_compute import (  # noqa: E402
     compute_district_ti,
     deltas_for_district,
@@ -295,11 +297,22 @@ def main() -> int:
     money = load_json(ROOT / "data" / "calaccess" / "latest" / "money-by-district.json")
     late = load_json(ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json")
     polling = load_json(ROOT / "data" / "polling" / "latest.json")
+    released_path = ROOT / "data" / "polls" / "released.json"
+    released = load_json(released_path) if released_path.exists() else {"polls": []}
     beach = load_json(ROOT / "data" / "calaccess" / "beachheads.json")
     social = load_json(ROOT / "data" / "social" / "latest" / "social-feed.json")
 
-    gap_days = int(polling.get("gap_recent_days") or 90)
-    poll_by_id = {d["id"]: d for d in polling.get("districts") or []}
+    gap_days = int(released.get("gap_recent_days") or polling.get("gap_recent_days") or 90)
+    poll_by_id: dict[str, dict] = {}
+    for did in BEACHHEAD_IDS:
+        base = next((d for d in polling.get("districts") or [] if d.get("id") == did), {"id": did})
+        best = pick_best_poll(released.get("polls") or [], did, gap_days, as_of)
+        row = dict(base)
+        if best:
+            row["poll"] = legacy_poll_row(best)
+        elif "poll" in row and not best:
+            row.pop("poll", None)
+        poll_by_id[did] = row
 
     lean_map = compute_lean_from_geojson()
 
@@ -389,9 +402,10 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "as_of_date": as_of.isoformat(),
         "formula": {
-            "description": "Weighted composite 0–100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+            "description": "Weighted composite 0–100 of money velocity, IE pressure, and narrative heat; poll movement included only when a verified horse-race poll falls in the gap window. Ad surge excluded (no free source).",
             "base_weights": {"money": 0.3125, "ie": 0.25, "narrative": 0.25, "polls": 0.1875},
             "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+            "poll_sponsor_weight": "Independent polls: full movement score. Campaign, party/caucus, or IE-sponsored polls: same formula then ×0.5 (flagged partisan sponsor on factor card). Private internal polls are merged at runtime in the authenticated app only.",
             "narrative_rule": "score = min(100, 20 × headlines in last 7 days from build-time Google News RSS); 0 headlines → 0.",
             "status_thresholds": {"elevated": 65, "watch": 45},
             "normalization": "Money and IE ranked across the six beachheads (min-max ~18–95). Narrative uses the fixed headline rule above.",
@@ -406,8 +420,9 @@ def main() -> int:
                 "data_as_of": money.get("data_as_of"),
             },
             "polling": {
-                "path": "data/polling/latest.json",
-                "updated_at": polling.get("updated_at"),
+                "path": "data/polls/released.json",
+                "legacy_path": "data/polling/latest.json",
+                "updated_at": released.get("updated_at") or polling.get("updated_at"),
             },
             "news": {
                 "source": "Google News RSS (build-time fetch)",

@@ -106,7 +106,7 @@
       <div id="polling-infographic" class="polling-infographic" role="list"></div>
       <div class="card method-card" style="margin-top:16px">
         <h3 class="card-title">Refresh polling data</h3>
-        <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">Edit <code>data/polling/latest.json</code> and read <code>data/polling/README.md</code>. Bump <code>updated_at</code> after each refresh. Never paste election results or model forecasts as polls.</p>
+        <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">Weekday <code>scripts/update-released-polls.sh</code> fetches RSS leads into <code>data/polls/leads.json</code> and rebuilds <code>data/polling/latest.json</code> from verified <code>data/polls/released.json</code>. Private campaign polls: <a href="/admin/majorityiq/polls-admin">internal intake</a> (session). Never paste election results or model forecasts as polls.</p>
       </div>
     </section>
 
@@ -352,7 +352,7 @@
             <li><strong>CA SOS ROR</strong> — registration by Assembly district (<span class="chip chip-live">live</span> via <code>update-demography.sh</code>)</li>
             <li><strong>CA SOS BSR</strong> — county mail ballot status XLSX (<span class="chip chip-live">live</span> county rows in ABEV; <code>scripts/update-daily-majorityiq.sh</code>)</li>
             <li><strong>Public X digest</strong> — D1/API + bundled fallback; tone est. from post text (lexicon, not polling)</li>
-            <li><strong>Curated polls</strong> — hand-maintained <code>data/polling/latest.json</code> with explicit gap rows</li>
+            <li><strong>Released polls</strong> — verified <code>data/polls/released.json</code> + RSS leads; private internal polls via D1 intake (login only)</li>
             <li><strong>Threat Index / Ads / News</strong> — <span class="chip chip-demo">demo or missing</span> on most districts (see banner)</li>
           </ul>
           <p style="margin-top:12px">Money tab loads <span class="chip chip-live">LIVE CAL-ACCESS</span> when JSON is present (as-of stamped). Otherwise <span class="chip chip-demo">demo</span> placeholders — never silently mixed. See <code>CALACCESS.md</code>.</p>
@@ -373,11 +373,15 @@
             <li>IE pressure — independent expenditure concentration</li>
             <li>Ad surge — Meta + Google volume &amp; bands</li>
             <li>Narrative heat — headline velocity + sentiment</li>
-            <li>Poll movement — disclosed ranges only when available</li>
-            <li>Polling &amp; gaps panel — curated <code>data/polling/latest.json</code> (public horse-race only)</li>
+            <li>Poll movement — most recent horse-race poll in 90 days; independent full weight, campaign/party/IE at 50% (flagged)</li>
+            <li>Polling &amp; gaps panel — <code>released.json</code> + optional internal polls (private, chipped)</li>
             <li>Focus map — 40% TI + 35% money + 25% polling gap severity (prototype); drill adds SWDB precinct Assembly margins (2022/2024) and ACS + SOS demography panels</li>
           </ul>
           <p style="margin-top:12px">Click any factor on AD-7 for an in-product methodology drawer.</p>
+        </div>
+        <div class="card method-card">
+          <h3>Polls</h3>
+          <p>Public releases are verified by hand into <code>data/polls/released.json</code> (pollster, sponsor type, field dates, sample, MoE, cited toplines). Build-time RSS (<code>fetch_poll_leads.py</code>) adds <strong>leads to verify</strong> only — never auto-imports margins. Sponsor chips: Independent; Campaign internal (R/D); Party / caucus; IE committee. Threat Index poll factor uses the newest poll in the 90-day window; partisan sponsors count at <strong>50% weight</strong> and show a partisan flag. Campaign-shared internal polls stay in D1, merge in the authenticated app only, and are labeled <strong>Internal (private)</strong> — not committed to public JSON.</p>
         </div>
         <div class="card method-card">
           <h3>Decision chips</h3>
@@ -433,6 +437,7 @@
   <script src="js/data.js"></script>
   <script src="js/cm.js"></script>
   <script src="js/polling.js"></script>
+  <script src="js/polling-desk.js"></script>
   <script src="js/focus-map.js"></script>
   <script src="js/focus-drill.js"></script>
   <script src="js/demography.js"></script>

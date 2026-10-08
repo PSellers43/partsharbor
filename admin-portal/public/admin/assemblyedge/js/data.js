@@ -122,7 +122,7 @@ AE.methodology = {
   },
   polls: {
     title: "Poll movement",
-    body: "Included only when a hand-curated public horse-race poll in data/polling/latest.json is inside the gap window. Missing or stale polls are excluded from the composite (weights renormalized) — never invent survey results.",
+    body: "Uses the most recent verified horse-race poll in the 90-day window (released.json at build; private internal polls merged at runtime when logged in). Independent sponsors: full movement score. Campaign, party/caucus, or IE sponsors: same formula ×50% and a partisan-sponsor flag. No qualifying poll → factor excluded and other weights renormalized — never invent survey results.",
   },
 };
 

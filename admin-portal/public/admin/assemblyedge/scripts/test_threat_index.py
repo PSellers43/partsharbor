@@ -22,6 +22,8 @@ from ti_compute import (  # noqa: E402
     narrative_score_from_count,
     normalize_across,
     poll_is_recent,
+    poll_movement_score,
+    poll_sponsor_weight,
     status_from_ti,
 )
 
@@ -54,6 +56,28 @@ def test_composite_ti_weighted():
     ti = composite_ti(scores)
     expected = sum(WEIGHTS[k] * scores[k] for k in WEIGHTS)
     assert ti == round(expected)
+
+
+def test_partisan_poll_downweighted():
+    as_of = dt.date(2026, 10, 8)
+    poll_row = {
+        "poll": {
+            "pollster": "Test",
+            "field_end": "2026-10-01",
+            "sponsor_type": "campaign",
+            "margin": {
+                "leader_party": "R",
+                "leader_pct": 50,
+                "trailer_party": "D",
+                "trailer_pct": 45,
+            },
+        }
+    }
+    assert poll_sponsor_weight("campaign") == 0.5
+    score, blurb, partisan = poll_movement_score(poll_row, 90, as_of)
+    assert partisan is True
+    assert "50%" in blurb or "0.5" in blurb.lower() or "50" in blurb
+    assert score < 42
 
 
 def test_poll_excluded_no_fake_score():
@@ -121,6 +145,7 @@ def main():
         test_narrative_zero_is_zero,
         test_status_thresholds,
         test_composite_ti_weighted,
+        test_partisan_poll_downweighted,
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-08T12:00:00-07:00",
+  "updated_by": "MajorityIQ desk",
+  "gap_recent_days": 90,
+  "notes": "Verified public horse-race polls only. Leads live in data/polls/leads.json until hand-verified.",
+  "polls": [
+    {
+      "id": "ad-47-wallis-2022-moore",
+      "district_id": "ad-47",
+      "district_code": "AD-47",
+      "pollster": "Moore Information Group",
+      "sponsor": "Greg Wallis for Assembly (campaign-commissioned)",
+      "sponsor_type": "campaign",
+      "sponsor_party": "R",
+      "field_start": "2022-09-23",
+      "field_end": "2022-09-28",
+      "sample_n": 300,
+      "population": "LV",
+      "mode": "phone",
+      "moe_pct": 6,
+      "toplines": [
+        { "name": "Christy Holstege", "party": "D", "pct": 43 },
+        { "name": "Greg Wallis", "party": "R", "pct": 42 }
+      ],
+      "undecided_pct": 14,
+      "source_url": "https://www.gregwallis.org/post/assembly-district-47-a-statistical-tie-environment-swinging-republican",
+      "source_label": "Campaign press release",
+      "date_added": "2026-10-07",
+      "verified_by": "desk seed (2022 cycle — not 2026 matchup)",
+      "visibility": "public"
+    }
+  ]
+}

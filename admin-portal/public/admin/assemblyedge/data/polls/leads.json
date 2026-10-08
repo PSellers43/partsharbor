@@ -1,0 +1,733 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-08T02:05:14.217022+00:00",
+  "notes": "Automated leads only — verify toplines before adding to data/polls/released.json. Never auto-import margins.",
+  "leads": [
+    {
+      "title": "Tag: polltober - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE93UEFuUm1XZWpDQ2UzbTJKM0ZNSk8xTkRjT0gwSnRZOWdjUVZQQ3hJQWpKeDdjRFlHOGNzcnJPVUJibXRIRWtrRy1VMDhKUmZxcDNIdzBn?oc=5",
+      "date": "2026-10-07",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Quick Tips to Tell if a Poll Is Legit",
+      "link": "https://www.ppic.org/blog/quick-tips-to-tell-if-a-poll-is-legit/?utm_source=rss&utm_medium=rss&utm_campaign=quick-tips-to-tell-if-a-poll-is-legit",
+      "date": "2026-10-06",
+      "source": "PPIC",
+      "matched_district": null,
+      "query": "https://www.ppic.org/feed/",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Sign Of The Times … Texas Edition - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9oMjNSUUFRNU81cmdDY0tYWlVUTWk0cUludGpVaDFyUVNSVFJ0UjZVVVEtaFozUTVURUh2TXVkMERwNFVoVjdBWVhnVzBjQm1lTjBZWTlyckttZ0hFRklpSFg3UU45aGxyNlZpZFJQSWg1NGszcnA4?oc=5",
+      "date": "2026-10-06",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll: Dems open lead in two Ohio races - Ohio Capital Journal",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOcjlQSkw3WXFtTkZsbGJNTzQ5eWgyaHVBMGE5djJfTm91V25kV3RyaGJlbzFZYWNQaERFQjVVelhURzVwSnIwMUpHc3ZRUDdtYU1EUEVsR1JlckNMdWlGOTc4ajlmVXZpdlpGZF94OVFPdmdaU2pYd2N0TzJ0dXN1Sy1ST3hGRzQ?oc=5",
+      "date": "2026-10-05",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Poll Suggests California Governor's Race Is Tightening - The Desert Sun",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxOME0xalJYcS1abEFYR2F6M3FSV2Q4S0Z2S3VnWDlYRUxxZFpQVlJoLVJINzc4b3hOTkxBZEc1ZlU0U2tWSktsU2VNZ0pTRUVHOXB3VGFwMDdiakgwMGZSaGRMU2c1OHVpc0hNQndNeXNwY2ZTd000MkxTdEhGWXJQY080M3BCakJTcjNhcXEtYnhkdEVzamthU2ZrMlg1UDd6U0RMLVV2TjlyQXlZT0lpbHpBUllycnNkN3NTclQ5RV9KSTRHYTF0SkhYQW5XaGoxeTU2X3N1dzhHR0piYlQ1QV9n?oc=5",
+      "date": "2026-10-05",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "California Assembly District 47 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Exclusive | California governor’s races sees another massive swing as nail-biting new poll released - New York Post",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOMFhieHVWdzZTNjh3MmlUVlBDMlFmSldfYnMzNHFPal95MGl5MXMxVXk0MktDSXgyZll3OUd4aXhuOXBEWHQ0cUVrajBQeWFpdkRGTm5PSVNIa0RFYXZYVW5ySWlhMy02eFlxdVRPaEszY1ZNd19JbENHbGo3cWpZSFo2T3F4TFJPU25IdE1LeTgxSGExTGQ3Q0pFWXpqemxjVUtoa19memZrMjNlTE1wekNaSVctNGNuVUxqT2NzaWVLOXhuZTBEQ2JTVQ?oc=5",
+      "date": "2026-10-04",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "California Assembly District 7 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New California Poll: Economy, immigration drive voter concerns - NBC Bay Area",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPU05RS0JYV202TFRocThENkEzMndtd2lFWmIzY0dKdWkwMGdNVzVwZ3c1STlvZHJrdUlaSlpmMzFuWV9SZjE4WjdJcDJmblVlNVF6V2wtMVZfS21xTW44QUcwVnRCamM1V3l5bTJvZ3pwU0pNR1FiOEJOeWo3ci1fWHczd3UxNUNxYk9Tc0EzZ9IBlwFBVV95cUxOVkJfcTJ1aU1PNmRiTnNKS1kyUmtIa0xuT0NnaXFYdUNIU09oNmJMdVJmZVAxVFpPVUl5SEVsMWU2V1hxOXdFdkRIUjRFOGJOZXN2d3A0d2FxZW4teUNUdXFaTGF4SFBhbVJVU2NXX1BaQ1RVU0lOWkRhd3ZZa214VkhkNVRoRGNRaDZOMlR3TDEtRzdiR0g4?oc=5",
+      "date": "2026-10-01",
+      "source": "Google News",
+      "matched_district": "ad-74",
+      "query": "AD-74 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll: Bernadette Wilson surges among Alaska Republicans, Kreiss-Tomkins holds a narrow edge in governor's race - Alaska Story",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNQTBOUkM5ZHBoVEhyaERmdGVWX2xMTTFvRjRzMk9ad2FFLVp0TTJiYzYtNUNtMTJqcFJnOTBhUG5aTmlNdlh2c1BaYjRvOWNUUFI3UzZMQlZYWU50cms5U2tiNFAyeFo2MjBFX2hSZllzdzR6R1c1VFJWcVhJbnFReUdfRXAtbENvSUk0bDBnY3ZGSkZUYzY2aXJXWF91bnN1c1VGbHlvSDNtWXJBMzg2WjdnZXdiMjlfWTVJdmhlTnBkTl80a1BIUGpGeUpjblph?oc=5",
+      "date": "2026-10-01",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll Shows Gonzalez Up 6 Points in AD-36 Race - Uken Report",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFAwY3hOTXJ5RlJrellBMGRhLXZZWFFMZnVpOUI1ZDBoaEo0Wm5RNUdyaHNHMFRvd01XR1NxWXRpbVJVN1F1dl9pbkpCMlY0dVNBejluQnBKR1RvM3RKN053N2ZRWGpwVUVySVozQm5XbWl6RE1FQ1otRQ?oc=5",
+      "date": "2026-09-30",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "California Assembly District 36 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Xavier Becerra expands lead over Steve Hilton in California governor's race, poll shows - ABC7 Los Angeles",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxPOVlUUWZhS1k2eE9tR3ZWbHBYVnhnbjc0ZUhCNXdBd2FhdGoyRzBzWUcyekpubXF3Y253Uk9Wb0N5TVpJbTNxeENuUndZcDFDZXVKd2o5RzZQV3lQVWY5bjJkNzlOY2RiRFBUV3FJMTQ5Nm5XMWxrWUg5UWo2UU80QWtJendsRUJGZFZkc1hNdFJTYVpuOTJrTTROcExPQ1BoWW9LajhrN3Y5dkd5QVHSAbMBQVVfeXFMT1I3WUY1Y0g1aGFhSS1vYWpBSzAzcDJIRllSbjFISHhIV0V3NzZKYjlyM0V2YUZLOS0tR0hmcVgxcmNWenZvMjk3bllRV291S0pSZF91aHVtc0hnajN5YVJLNk9GUlNTZXpscDRtUzBmY2ppSjNhMHFZY0tvWWxlVll6T1kyVDB2Y0JEMUZkVERVTEE1Y01iVl9Sbk9nUktPMkRpNUExd1RReVUtaXA2T2R6QlU?oc=5",
+      "date": "2026-09-25",
+      "source": "Google News",
+      "matched_district": "ad-58",
+      "query": "AD-58 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Poll Shows Senate Race Tightening, Collins Increasing - The Daily Signal",
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5NdktTT3pZeDVsMENkOVFBRFlFeDJ1SzlWcEFUZkx2aVZHUmUyRHB0QlpyblJtV2k0cFRPdnlHeW1IMVZrWTlCWmFmc1J6WUNQZjlfOWJMZ09nS2ViVmVIN3M5eEhnWVFVbmY4QmE1WnJWQQ?oc=5",
+      "date": "2026-09-22",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "California billionaire tax loses ground in new poll - Politico",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPekRMeGs2aGlvSHFPbzc1X3Q0M1FTUzVBSlBWTFA5M283OVVsWl9WNE01T3hJeEZBekRRR2RJUnNrYVRRajBncHh6REViYUFRVlN1b2VHekJFa0JIc1pTeXZTZFZjYTBqRlJObzB1V3dLS3ZKRURIdTF5Z2J4NWFfQ2FvTEF5ZEkyd1lIcVgzTk1HMXNNUHlpQWQ3UWxwVG8?oc=5",
+      "date": "2026-09-21",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "AD-36 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Notes on the Florida Senate Race - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBTQ2NzUGdnazh5NmJXTTQ3WVNaUEtSYVRNX18zdUNFSFVIQlkzUU1ZSnZZdWljMkN5c1hudXlac1ZaRDlsN2NtOTZYckZxWWlZeXNoTlNaanlhLUx3TDFIU0gyYTRRU2ticWtQanZ2dDRVekFHMHFxRw?oc=5",
+      "date": "2026-09-18",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "The Red State Scramble to Gerrymander Away Black Electoral Power Has Been More Blatant Than You’d Expect - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNZl9qY21oazJwc2h3eldrSE5zUUE5YWtUVTFnX3NrUHE4M2hzVUs5U0FMRE5LM1V0VmZGamxsOWhYQVl0ZUtvUXkzT3JaenN5N3l0QVRsdFJid1FaVHUzUlI4cldGNEZ5dWVkcEpXYWZLblpmeDdHRWVrN0dKaWJIOVpkWVR1YWhIUEJCS3hmdzRtOG42amJKNjZoNWM0WUUwUHlOZ2RMOWFseVV1OTlTMFM3cEY2S3o4cGRoWVg0NmFvYzFna3VncHJvNWRDQmVydmpWeENONHZSZzBCaEFubw?oc=5",
+      "date": "2026-09-18",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "PPIC Statewide Survey: Californians and Their Government",
+      "link": "https://www.ppic.org/publication/ppic-statewide-survey-californians-and-their-government-september-2026/?utm_source=rss&utm_medium=rss&utm_campaign=ppic-statewide-survey-californians-and-their-government-september-2026",
+      "date": "2026-09-16",
+      "source": "PPIC",
+      "matched_district": null,
+      "query": "https://www.ppic.org/feed/",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Patel Won’t Rule Out FBI Agents At the Polls Because … He Got Tired of Dems Asking About It? - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOclRaNmpSV0E5cnlwWHJvYkd0LVZIMzNOQWxES1NYTnlRWWtqQWRQalFtb2Y5ZDY0YmdLNktsdjEyOHpNblJ2QlV6UnVXdGcxV1dLZTN6T2hTOVBlMFJmLWhtcWQ3eFJsS20wdE5QZHQ4X1FvRkRodElxM29wQUU4Rk11YVg2alZkQUMzZDNPWVFUOFN4QVZycDFTT0d2b1NIMU5McGRqVFpwWHRyR3A0am4yY2tJSU5TX09oUk5MZEVBQmc2Z0s0QVY2dWgyM2EzbG9N?oc=5",
+      "date": "2026-09-15",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Statewide Survey: Californians and Their Government",
+      "link": "https://www.ppic.org/event/statewide-survey-californians-and-their-government-september-2026/?utm_source=rss&utm_medium=rss&utm_campaign=statewide-survey-californians-and-their-government-september-2026",
+      "date": "2026-09-14",
+      "source": "PPIC",
+      "matched_district": null,
+      "query": "https://www.ppic.org/feed/",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Time to Relax About Whether Abdul El-Sayed Can Win Michigan - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxQS3pza2hXa3AyaGd2TnN4VGhZalk0dk83MnA3b00wWnVRbFZuZmphSVdTRUNoQkdrQ1BBVEpOV052d0hWQTU1ei14am5zNGk2ejNrcFVNZVE4OXpZcE83M0hiUTlhV2pmUzl2dGxHY1phdWNwVFVpaUhkcEU1bC1lYmlPVjhrWHhIZ1UzbXpLUklwSlU2ZjVWaUlEMFY?oc=5",
+      "date": "2026-08-29",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "HMP MEMO: Polling Shows Path To A Larger Democratic Majority Exists With Necessary Funding - House Majority PAC",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSVowaUxoNnlJZFUxeWU3eEJGX1IyREhHTC1EcDRGaUZCVGxMNVBFWFhKbkY2MDhnMVVCVW8wOUpsUTYwVXVCQW53Z1E2dXV5UV9KYS1vMGFpRWo5LXVoclVLUEYwUTE1cFlXNDVYY3hCUVdULUhETFpsNEhzNUxPcG9lb1ZaRGxCZnpaOUJWYUs1WXVSWTBfWkMyeHV4YmQ2N2ZSRWI4dHpOeXdMVU5nandPNDJDbTkxd2VKZktyOXM1NzM4Ylhac0pn?oc=5",
+      "date": "2026-08-27",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Is There a Polling ‘Crisis’ and Why Should We Care If There Is? - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxQSGh6WDl0RXJOUWotOHhkcTFOalFRZ2NKRTh6VmRQcF9LRm9OSVZLajNFeGh4Vl9uY1FBYVhDNkliR0RUYUNDNUp4WmlyMjhZaXFtVjI2TlE4NjRZYUVCNFh2Z2JDaGF3bU9rWXB6V3hfWnRBdUUyYmtJRkk3OEtUMF85ZmltQkZIcGhOX09kbF9rYlJXVEI3RmFPZndkQQ?oc=5",
+      "date": "2026-08-20",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "GOP memo warns data centers could cost Husted the Senate election - Cleveland.com",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNbWo2dnlMSDBjNTZFdW9zckhQMDV0c1Y4Y2tjYVB1aWNsdHJ3X3B6Y2JrNlhvbUlPa092MXdvY2xOUzIwc1pNQTRPOWdSN1BTSmJicjdrdHBQbnlvTHJpcGxxUDA2eWRWVEZmZUdUdEtHT1RfWTUyM2JrS2lFVkM4c2R2OXE4RzB6VnJnMEFRaG55bWgwVVdXdjZvNndDbWVjZ3JhdUtNSWNGZ2ZYblHSAcIBQVVfeXFMT1N6ZU9wOVhyajhxNDNrZDNpQUxWYXluU0RyT0pnZTktaUx2YmlaLWdJaDlBLUphRG5STGJPeENNZ0xEd1JxeXFtb2txUUllclZQTUtTejh6WmNFaTZiTGVXTjY0MWZOcDJNY1ZSQURWZVdYVmQzWWtyMkw0eTdVVnZXODhTcDBndnFMeFFEUFh5eHpIZ0RPSWhsdlJBZ0lydmd0OFpSN1ZZMDdadXo2S3NvX3ZtOUp1dWs1MVljcGVfT3c?oc=5",
+      "date": "2026-08-19",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Exit poll shows Catalina Lauf leading CD 19 field, but Jim Schwartzel a favorite of those who already voted - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxNaVppNHVsWlZNWGN0NFNsMlo2Q0xPR1Y4X1pYY0lGVUlLYXl1amRDTEE0NnE5OE01bUQ1X3NlQzN6TXJxTlU0NnFvZU9fMENrSmlJc1dLSzdiTDd4V3ZHY196eDJJazhSVUhaT1VGaTl2RW40WHNWUmtNRjBya0Zfc3RNbl9uYXhuQVkzM1gxTnZiMW84QTZjR0diQlBxWWhEYjY1R3VoaGg0ME4yWnMwSlhPSUxOSTBidkt3WlF6bXRGSkdQcFhMaUtSam1mRDZwNFlCYnlnQkVweEtITnBuek12T0E1QQ?oc=5",
+      "date": "2026-08-18",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Democrats Rapidly Gaining Momentum In Bid To Flip U.S. Senate - National Memo",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPR3ZxWHVBbWNJTHdxZWt4NWx5QU1SMkZtRHI5b2R0TFk1X0djaUd4MlVXQWxIRHM1SXN0amlBYmJtdDNjdlJYYXdhRDNpZHZoX1NjZlhscS1UcXZxbFFpTlpqOTBMc3B5dTlUM0Q0Q2ZnUklpa2lVcjh0NmowdWxCUmZWdw?oc=5",
+      "date": "2026-08-12",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Poll Shows Obeso-Martinez Leads Gonzalez - Uken Report",
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBvR2JSc2tZRE43djhFbEpXWjJGbVNENThjZ0E2aURjVjdtWEsydGs4a2ZwTTlCVUxKaEpqa3ZTT3dmVzVVbzlpNXFDR0tsbTliTUhlbnktX29pUTdOVGpnMlFMdGFTRDZhNXFrYkJWLXJkYVk0enFV?oc=5",
+      "date": "2026-08-12",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "California Assembly District 36 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll shows Chris Jones \"within striking distance\" of Mike Naig - Bleeding Heartland",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNU2xhTXFKYkhKMExVN1Mzby1laWRzQ1NhTldSYVRFOWlTTHdaMW5wY3ZjZXZ3Rkg0amwxUmRUV0YzYmE1cmJGdGViVDM1RlZWUWNTUGpfNXpJOVZ1YkRQaVhCd3hqcXBHamFiMXp0a1RFaXRIeG5uaG9KQ3pZRmgwc0VnVFY2MWtQU0IwZjJtdk01NU96YzVJTGhVRG1IYnVHSXVzeFI2cXRBQQ?oc=5",
+      "date": "2026-08-12",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Wait?!?! How Were the Polls This Far Off? - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9oT2tTcEptVDNBbEdTWVhuNy1XN24wY2lqZU1OZkpOV252TjNpRnp3Z1NtLUdXYjNqdklyNmlYTmFlbEd4ZllVQTlvb1F3ZDF2bFkweERKQ1M1NUhvb2pBT0sxMjNZQUJmWkJmQVU4NkY2cU9LUlZaUnVRalVFQQ?oc=5",
+      "date": "2026-08-10",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Memo to Those Who Fear Socialism: Why Don’t You Try Fix Capitalism? - The New Republic",
+      "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBEdHdyQmNiR2I0eWJPaU53c3IxS3pfQnZKdkZxczZHMDdPN19fSzRpbzhOLVgzOV9QaXgzVVFZazBhY1ZSRm5wTTUtNzZxcDI0bEd6MFZaQlJwWk5pUDJWclN5YVRKbVcxXzdGd084c2Q2ZlQ3bmhjTXkzZHY?oc=5",
+      "date": "2026-08-10",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New CD 19 poll shows Jim Schwartzel, Catalina Lauf in neck-and-neck race - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOUExiNW9xNFVhTmpOUXZDQzZFSkZuazBLZmlQR0pFSWJLYVRVVjJ1ZXJyakt0eWt1UDJ1OVFWSk1yMlJzMzdMbE1BTjlrY1lFaEpheTktWUo2SVZidGpuVEVzWFZfR1BiY1h4bGZQYkJpMm5GVE1pNmJFTWNUbTJseG4wZVRzUEhWMHpaRjlMZmtucWFHRklRU3F6M0pvWUxHMEJaUm9uaDE5SHM1U0U1RmhUZUtkQjQ?oc=5",
+      "date": "2026-08-07",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Another poll shows Ryan Elijah within striking distance of toppling Cory Mills - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNWFdLZ1R3OUZVdXZhbWVQLWxlOVA4aExzZDBodGp0VWFmbjB6NWtMR191VlpIWHNoX3pvcmJqWmxva1FjQVhqM0RER0hlUzA5XzF2bnQ4RWExbWY1Qk5VcnVUWEU0QnNoX08yS21yaXpiVGRkWnRIQS1JN3hNd1hOUlFBUkloelAzaDk5NW9VVjN2c2tzdnNZaVAtU0t3Z2FjcDYwSWNnR092MFZuSU4ta20yTnMzZ2QzVWo1NGJFRHk?oc=5",
+      "date": "2026-08-07",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New poll shows Zach Dembo, Ralph Alvarado tied in Central KY congressional race - Lexington Herald Leader",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE44SnhjaHNlWW8xamdpeVVELU40SHItYl8xQW5kck1KX3h1NFlfOXZUaVl0NlhOc1ZnRGNuVW9pRHRodFgza3ZsVzhzVUpiR01EcEhscXg2eWtxa1Rib2tQal9jT1lEQ2V2ZWVudTJaUkNhSENORTIzTFBlQdIBe0FVX3lxTE05cmZxaV9fQkdjOEhOamp0VW5WbmwtdEM4UVg1Y2pLcGlMRFQ0VS1mTS1BSl85OTlTWEtjQWozSXd3Zi1SNm9xTFJESjhFa3NJWHpXNXF4bFNGVWlXQm1NN2tCdHBXOUdGdXNVRXQ4ZTNURm14dW41ckR2MA?oc=5",
+      "date": "2026-08-06",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Max Miller down double digits to Democrat Poindexter in new poll - The Hill",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQZ0ZsLTBrdFM5azd2RnVPc1A2Z1JnSXV5Y3hzNm4yeUdqaC14TldjSnpTSXFDTzRsUTctRFJQdzhiUndwTmxSRGZUaURWdEJQeXFYZGFjWnZXTHg4UmVtTmxwZVE5aWhMbndZcTZnYzljb1I2WGJZMUJHSG1YS3hTMGNCcWk4Z9IBiwFBVV95cUxQeEdJa1BWYUt3MGM0aGlSVUFYUF9GeWVpcXI4NFJwSnRGSy1STy0yLVh5R3VRc1QwQTJyQUhwbGxieHpBVVd5YVpPdnlBRUFlTFFLSVNjQ2ZFeXpqcTR0ZUhQUUpaWFJFckRRdldzOFhrVFZCNDdlMFRLYkV5Tzl1VUg2ejN2aHdidmlv?oc=5",
+      "date": "2026-08-06",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "El-Sayed Looks Set to Trounce Stevens in Michigan - TPM - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBqbi1Fc2dtQW1GcURzcjZhaTVJSXJESFhQQzdsaTdTcHZIalM3UkR5dF9RMEExUWNaWFZfVm9veXRCLVdTV0dlTmJtQTFTX1htdlVLb3BleFp4TmM0MEQzQzdYZFZNUVlvUFdHZGJpVEd2blY1UmdUSVZFY1VkZUU?oc=5",
+      "date": "2026-08-03",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "‘Prediction’ Markets Get Trounced in Hong’s Defeat - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNeHNXZk1hMXEzMWpYRWRpbjlzMnNJMTlSWTB0bVc1dk1FYlV4TThtV2dpdnBZZENiaXkyb192U0RYZzRCMGR0Z3JyYWl1VjNOemRNZWJhNHJ1TjkzdGZKQ0tQbmtyVE9lUGNrN0RuRUp1bk1NcjNldEZ5SVlGckRjNFcwdkFKYzlwbm9VVg?oc=5",
+      "date": "2026-08-02",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Democrat Jessica Killin’s internal poll shows dead heat with U.S. Rep. Jeff Crank in Colorado’s 5th CD - Colorado Politics",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOWGJSN0oxTU55VXRwOFBaLXU5dGs0UFIySl94ZUp6dHU3dTlTNDVSeVdxeDhoZmxmcHdvNEZyRWlmTXVYX3ZXcFA4dHBYX2tQSmt3YjZJREdpdW9mSmctYmc1OVpjSkhBWjBLcmdBN01LNVNhZmp5MmhSUjJSN3E4YVhsQUpQcjhBQUFzRkhkOU1pLW9ROWlUOUNfZnZ0dldGZzN0dGNucDhvRGNHZmtuZHBPRUxUc0J5dmlqQk9aaTRfTHZ5Q0YyN21vSy1saUlyX0ZkSlZkbG9YYUk?oc=5",
+      "date": "2026-07-30",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Exclusive | NY GOP governor candidate Bruce Blakeman trails Hochul by just 4 points in shocking new poll - New York Post",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPZEt5UHF5WTdybzhrWWhjVVJxbmVVTjlQd3YzRl9PTGk3b0lMLU90OWtNZk5wNjNfeDNGT2R4MnNjZTM2UzJtM0E1VzRlTEpQVFdvaEJvSGpXWHkyYllQZFF4c09RU0lkOVlEMDF0T3hmN0lsWnFPalpCZk9tMnhnSUgzQVBvUWpXQ09OQkYwU2MycE11dk5FZWFwa1ZhbFllZzJBYXJqTDB3RGd4YVFQRGo1YnNDMmFLNzM4UFdRWkpqa2pTbmVIMHFqNA?oc=5",
+      "date": "2026-07-28",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Lawler Leads Cait Conley 50%-45% in New Independent Poll of NY-17 - Yonkers Times",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPV0UwdW5rakJuRHMxanhyRVF1N1l6ekpkNHlaLW8wdlVsS3ZmdGlpR09rUW5vQXdPbTBUSUxNTVREeFB6VWo5cG5pWVdUQzJGZ0RTa0RVRC1mZWEzX2NBZ0FpNjY1YVhTamJ6bUpyb0RtMWtEYXh5S3F2d09ZRVNNWnZpbjR6dGlvYmJIVml5UlJWalU?oc=5",
+      "date": "2026-07-24",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll: Ola Hawatmeh holds narrow edge in unsettled CD 19 field - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdE84TEdybHVOcUZzUEE3UHVBeGpkWURJNndXTV90YmhqNjRhZDd5RVBvaDZNTjZNZ2FfMFk4SWl0UmxxVzlMV3VDYm83MnZRY2lsajNOYUEtQ3NVeUlpWGVVd1ZQN0RfMDVTdUp1OUFObDFYdmVZYmh5TWJwdmFKY0I3VmpMblpiZ3Jkd2xrcmlDTm1fcHZYcnBscTBuMGluWTYtdldYbEo?oc=5",
+      "date": "2026-07-20",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Blackburn poll finds senator holds 31-point lead in governor primary - The Tennessean",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPWFltcUQ3bEk4TEpuczJXZzIxdUVwQVY4RkRRanY5bFJjVVpWeVBzM3JfSXdETnZrWUZNVmJIQ2wzOEplVmV5VGNDYnlfVVNlaHpZcEVBQ1NDVU82bklYZURweVJwZVhETkN1dVdkV0tnelVQYlpBSFhuYUN1SWlGcEt6ekJTSEQ3NEtPVUR5S2p6R0xYNzhwSjY3eUFwTHBmSGdfTC10MHBNMlgxRENrTlJtcFhLY3hWQmRjUHh5UjZfWXlwX2ttUTRLOFdCMGNQT2NHc3l4X2xtWWs?oc=5",
+      "date": "2026-07-14",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Some Thoughts on a Possible Big Primary Upset(s) in Colorado - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQTUpJX29HU2UxalNINXlmZ0hrdHJxSHhQQnlYMGszSGtNdmcyUDcyT1F0VUpIWjZBdGFSTE1oaWF3ZnVVVWp4TS02STBCdk1vdW9KMzhLRDRxTEYtRjRPYkExSEhQdWZxOXYzc1B0YlhxZnQzTnRqRTZ2Q3JSZXpidGpzaDd0dWYzOVlkalVHUnRpdlRvZVlMLWptTQ?oc=5",
+      "date": "2026-06-29",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Senate Turnover May Be Within Reach As Democratic Candidates Surge - National Memo",
+      "link": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE12eDlkZnltN3I5UU9oc3h3bEZBWFg5eFprRXp5V09HYzlIUUFDQ25ZNVFUMzlCYzZjX0dfaUtRZFRaVW56M2V0YlJ0dU9TQjZGVVVNRVRwWDlIZw?oc=5",
+      "date": "2026-06-24",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "'The race is wide open': Poll shows Jim Schwartzel, Jim Oberweis leading crowded CD 19 field - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQUHJkOGU4cjU0YkNxVkFWeWRkVTM4b0ptNm52SnpkY2NKX2tJekdCcjc2QllKMG83ck8zcmdSOUt0b0p2ZjZMREJwOUFRalpkLXlsb0lZMUtBaEFkMjF5OFRhOGxXUThjRmxHRkxBdUlER1MxZmNYb0VFVGE3dk5aQ0xrdzhKaHhEcG50dDNBb2liT3BpczVUTWFDYkgzRlZ4Z0pqNGlQb1hZVHFNSHlUMG5BSHc2aFZXZ19JakxCSnFNdndzM3g3dUtWWDYwZw?oc=5",
+      "date": "2026-06-23",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "DHS Sec Mullin Comes Up With Some Reasons ICE Might Be Sent to Polls - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQUlA3eUdBczhmU3JfQVBfYVVmZnlYS05xRGY5Wl9ZUFpteTZFb01Dd0g1cVk0ZnBnbWtzY09SX1dzVTBEcVA3aEpPNGJ5UHcyNWdwRTNfMC0tMkJGYUdYdHFOZ1k0TzBrNGZGSUVhVVlGbnRiTFFxNHFrN0xSR0Uwd0JWVldKS21TN0txMVFQQTh0OFRJYXA1dTk3alVLZTZxNVhnWTd5YTlVQjF0ZlVEemE5VUk0UGJw?oc=5",
+      "date": "2026-06-15",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Leila poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Steve Hilton’s Chances of Beating Becerra to Flip California: New Poll - Newsweek",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQeW94Q3NubFZiTFRVTTFWcHlKV1RHS21IcVhHMVFuc2UwandpejFlWWZFemtnSFRMaWM1X1ppTlJFeWE3a05WemM5Y1VOTnVGMlJBTE0wOFJDeFJDZnJXTEVTdHZXMUhYWW5LZnpyVTZrTDFHeXQ1aFNmWWhnZXRNNVZIRkhNUkFTWXE3a1hkbDdjUQ?oc=5",
+      "date": "2026-06-11",
+      "source": "Google News",
+      "matched_district": "ad-74",
+      "query": "AD-74 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Trump-Backed Burt Jones’ Chances of Losing to Rick Jackson in Georgia—Poll - Newsweek",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOX0ZUdHduU1V2NmttWXZXRTVyZmtwczZxM0djR0ZmbDFpQkdzdEIyQXVCMnlJQk1wSEdqWFlzdWZHLTdhdWtOci1sRko3ZnNaZmRHalJSSDVReGt2amNLZ1Q4MnNvcG1ka1BkMWFvLWxTaUpsYzVncmNmeVliMjdSWUJpU2lab3pDa3pPUWExM1dSY0p0LW1CVmVrelhLb0FDdDNhUzg2WVZXdw?oc=5",
+      "date": "2026-06-09",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New internal Microsoft memo shows shifting employee sentiment - Fast Company",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQ0tWTHNvTFVja2lMOGtRbWNfNmdpTDFXY2d5MlVhdzliakJnWU5UZWNHeFRjOEZKUDA5cU81dE1IQTdIZ3gybVBuZDZ5RGZYZExnOFVPZm9VRHo2Y1A4Rm1KTXFHcUpDV3ViRTB5S1J0aWhOck1CSzFVbEd4STdYMG9ldWphMU1yV1BNR3JyUUVNdWdOX3dLbW9VU3RvOFk?oc=5",
+      "date": "2026-06-02",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "2026 Election: New California governor poll shows tight race; Democrats Xavier Becerra, Tom Steyer could advance - ABC7 San Francisco",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNUlQwTzhiaFFrT2pVX210b3h4UERjVzJGb0FaZVkzS2J3OV9BRndyOXVMTjhkMVZORWpjX0ViYnpVeURkT01lYXZ2N1lfSXByZ1p0UkgtTlAydG9kWVJnU3pIUkZ0S2w3ZnhsRzJUckh0YndqRHhYd0xTVGszSWlPcWIwZTFQOEJ5R0JzZDE1dDVkQ3VzRzV4RFZnOXRmcjk1NGRtbE9nWHBsVmRmVHN5SDkwYVVaRDN5SmpFcDZ5cU5TR01HcWY3emlnMjRlRFM1SkI0c095dGxLd3FzQWfSAeMBQVVfeXFMUFlIV2YwSzRXOTNBNXBqUjVQRHBvSlh5eHFUb2NtanF5QWJRZnhzQnd4ekQxY0JuOVk4amRUaExqSmZpeDJPcGM0UEZ0ZTk1bzlrS3hqNmpxVGZUN2tTdE9yQThkZzBIbFZvYXJ3ZFJjZjJKU1JUWHJWTkt5MUZtd245SlR0RjRoSkFBekljRnNhSDVEZXdmRDdvempfX3FEZ1k0Vk92VUlNWlEwSDV5OUo2NGhwLTlXV1RzaUxWRVlQRDhPT1pSU0JjNWsxbjMtanpSM2lnOGF5WTBsc184N0xpcTg?oc=5",
+      "date": "2026-05-29",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "AD-7 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Latest poll shows tightening race for No. 2 spot in California governor race - Redlands Daily Facts",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQRmlTLVFwazBWUzhIODNmUW56SGpHbmFid3FGQ3NzRjlxaFZVUkg1MnFpcGtmYzdRdEtFbnRTZmp4eXNxTnBsbkZjdlE4S2hxelBtaHhCZ0JsekJvcDQweTFid08xWm4xcC1QYzBkTGpJWkRaYk5CYUFEQ19wZlZIV2lvaDduaXdjQ2JfdnRtdFhzbjV6T1VzVXMyUUhqTDhUQlh0RDZ2RzRYZFpiZ0phanRpeHRIZ3lG?oc=5",
+      "date": "2026-05-29",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "California Assembly District 47 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Annette Taddeo would lead Blaise Ingoglia in head-to-head CFO race, Ruth’s List poll finds - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxON1ZIWkJzWkNRRmFvbWQwVUloRzJrLXg0YVZvMzRRdi1uRWpWTmttWmV3dlFVUXY0MERxTHg1aTNFMGdKVU1NT1JCTG9WeWVGREQzQk1fODNoWnVmdnpPNlB5LTA2RTVJQ1NpQjVmNnU2ZERUeTF3ay1Mb2ZOUFVJMzZkUEdWRXU4MFpwTy03UG5LQjdqZGpkcm1hdnZuSVh1eW5XMExNdGNPdXNIaUk5cWpPOVNReG9GZGhHUWRBTlZCN0ZnYURfTkpKSWdTUQ?oc=5",
+      "date": "2026-05-28",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Becerra, Hilton Lead in California Governor’s Race Poll Ahead of June Primary - KQED",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPY0FNc2RFNm1xSjBZRW1LR1lXdExKTHRUSVo3eXJNXzFZUnpDNjBIYnAwZGNBZVRIcGNQLUJ0N0IxbFJHU0RyZVgzNkkxRTBFTEU1S1Yzbk1zZVlRM0xyeDV3VDUxakN0Vk9iRDEyWkw4eHFkSS1FcFM2T0Z1ZXJkcXQtMGRvdXlRaGs5Z2dyOW5RZXNnYzNrUXdGQ004STZOMVUwMklnVnZFNUhWNXRF?oc=5",
+      "date": "2026-05-27",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "AD-27 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Shah internal poll finds much closer race in NJ-7 - New Jersey Globe",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNR0RyeDVuUzdkdVBCdnhmRjF3UUxuYmVjazg1LTNOdWF3TDdMeTMzeUdPdFl4VlU2d0RBcUl3cFNOQnAwaFZGWXRMd0t0Nnc0enZKTEgwcmwwcmo2M3h4QWtCamx4SUdMelQzT19wMmZXc0xuamV3LTM5aU14Y0kteVp5TG9ybm5nMzg4WHdB?oc=5",
+      "date": "2026-05-20",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Opinion | Hilton and Becerra lead in new California governor poll. Steyer trails but isn't out - CalMatters",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOQlpLTjRac29obTlTQ0tTckI3UjEzeWw4UEF5b09oZGtkcFZRWnpNTWRrZHlIRHI3Sm9WcVltNVF2bVdHQ2FmeUtYRmRqOGI5TlVKY2xPYXdZQ21peFVvQlRLS0JXV05FYm1mcE90S0ZQUVZHVk45TmVNU1YwOW5ZT0RmLWdoTEJCaHc?oc=5",
+      "date": "2026-05-19",
+      "source": "Google News",
+      "matched_district": "ad-58",
+      "query": "AD-58 poll California",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Bennett posts big lead in her internal poll - New Jersey Globe",
+      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOTUJtdGlUcXRKbnN6NzdSSFc1ekxJbkJITFMzbHRtdlU5azZnRVJCNG5kZnVHLTAxdmJLYktqRXBZTHEtWFdFcXFCVjB6NTBzUlNEeHAtSEdON04wWnpxcEFudWx0ZmJfWkItaldJQXlpaHVSSXFUcFRoeE91VWM4R0ZYUWxKQ1k?oc=5",
+      "date": "2026-05-19",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "CA-47 CONGRESSIONAL UPDATE: TOWNHALL POLL SHOWS TROUTMAN LEADING, MAXSENTI PICKS UP MAJOR ENDORSEMENT, LE ROUX ODDS SINK - TCPAWorld",
+      "link": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxQZndNZHk2d0dWYjhyVFNNTkh5VkpUNjVjTFFSSTNGSTFlZmx3MHNlaWNLVlZ1S0RJWDZWUnlOQmpsOVdSd1RDU0d3TjM5bHVYLXltSEJFUEhRRV9PWk1hS2M0RWt2Y3E1NXVjM1hoTTU4cWhMcTViX1JNMXVxclJLMThtSFFQZnlwd1lVQW5UMmdkc0pEMFJkRkNuYjY5NnV5UXgtSTl3RUwweEFBZGhjc1BiUVA0ZS1kUXRkbHk3emhfY1FEbGdDYzI0SFZWSldwTDVZVUUwYVlKX0cwNG5nZ1hqcnhPZ9IB6wFBVV95cUxQeW9YZTQyUk1LbENfeXFsUlpKTDItVlNLX0JVZ21FZndCYXRyeTlXRk5aOU9ETmlNWXBVRzl5T3ZYeFA3RmJYSEozOHIxMVRMMnc5dXdSTmR6Mks2WnctT3RxdS11N2U5VGNyS3M1UFZ4QWlpZ0wxUkdKTTRjV2ZDTjNTOVFwdjkyYk5vSk9Dc01helRLa1FhV0laTlI2bEY5Z3lqaWNRS3ZfdWxpc09ReWtQclNDbFdlcHhZR2FManlmVUtNNDhlRjVGb2ZEdDB1Z3k3bk1iOFpYMEZITjc1MmVGNjkxcWp3WHpn?oc=5",
+      "date": "2026-05-15",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "California Assembly District 47 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "PPIC Statewide Survey: Californians and Their Government - Public Policy Institute of California",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxObzdZUWxwMUQ3X1hKRWc0MktkUWR0R0pRbmpBc2JaVFExTkVjOUQ1QVBYMnJQZG42VXlMOE10T3RmaGtBUTFFVFY3SElMOEo4a05kODFEUzhvRTNucTg4V0RhS3pYMjVyalBUaVlTbElJMlhJbDd4UWQ2M0t3bjNyTXBTSTkwVGFnY3JyYjlEX2NYRk82SzBLN1hkOG1tSHM?oc=5",
+      "date": "2026-05-14",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "California Assembly District 7 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
+      "last_seen": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Xavier Becerra leads new California Governor’s race poll - ABC27",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxON080ZFJiMEhTaVdCY0RrdkE4cjcxTElQYkpNZUpxdDBUQzRfVUpNQjdzRXViZTRUYVREVi1XTTJ2YUZUeHhRM095RlEtYk04SVVfanZuT0dNLWUzc2g5NVJfQjRfZ0Y0ck5ITmNNTlF4RDBQTlBLbjNiUy12UnE5b3NQWWFxTC1lNTJlM1FKcm9VWlBGYkRLbjVkMVdNaTZlazFF0gGoAUFVX3lxTFBpMzJnclNrUlJnTnV1SEFPX1lLbWlRbWFaUXRBMHZ0WkFnSkpHMm45cnhOeGRmcEE4TGJid285d1dLQ0l2WHZid0FzSFpKVVZDNW1IY0paQ1I3T2lvYXJVOTlxNElRdjRVZTJYdzFCeFRkYlBaX1FEUlhkLUlQY3hfYVFWYk53eWYtODRzTmlXbXhfRkF0SGNpY29ackNVU3ROZVVTakkzQw?oc=5",
+      "date": "2026-05-13",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "California Assembly District 27 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Transcript: Angry Trump Spirals as Poll Shows Him Losing to Pope Badly - The New Republic",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZFdRcTFrdDlybnJ3d1hlckg4WmtkaURfR1QyZVpPNWFwaTRqZEtFYUp2OEdUWkFPWFdzcC1RUktpOFY3TWRraTBfczliMDZQR25WT3pwS3FacmROY18yN3J4T2lIR2lTODZtd1BkcHZWanVRS1hxRm5XcDM1MHhjcFVXd1pxMVZvcXNwSTdvZ2lVUGxFN3YxMlh3TUFzaGM?oc=5",
+      "date": "2026-05-07",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Bobby Charles Internal Memo Claims Monster Lead on Crowded GOP Field With RCV Wildcard - The Maine Wire",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQcmliNnVaclJaSFkzNzVSNnlYQXA5VnhESHJLTzJKTXhIX0R3X2dGTHJaMDQ1QVNGRTF2VldtSU5sdXNjLXdPbzRWVjNoNnh3MTZiU0FwYjZrWkc0YUJXY3N1Zy1fYVI3Mk5QV3JwUnBTMjIweDZxMkE4cTlUSXhTUlp2R3RST3JMSkdrY2hGYk5EeW4xbGoyazYwaUdzSnR1aHliaUg4T29VQjh5ZmhRSHdaU1h1WnNJOUxXbDdaaGhTQQ?oc=5",
+      "date": "2026-05-04",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll shows voters in key Senate districts opposed to redistricting - Florida Politics",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOQ1VUajdjeHlpdHhZcjREVVNkamp5cDFiRUxOR3pFNkZReFU3bEhNQTdNV0lBLS02UDVlVjc5VkVUb1hvUlJSRi01YzZKVWRfUGFfRUUxVEsxQVpPX0M3bS1OUmxvZWxpVDg3bzNkWVFuVEU4WUJKdTNlMU1RLUpCYlpZVlFTY2RDYlZPMXZlVXhqVHg3Y0Y3eDExR1JsYlhFZGN5QlpDRzZYRDcwUTdreA?oc=5",
+      "date": "2026-04-27",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Democratic Party memo argues Georgia’s political momentum is shifting left - The Atlanta Journal-Constitution",
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOaVhzX21RbmJ5YlpzTVlXTUQ1ZWg4MnNEeVR2SzIyclRTWHA4ZllvRGxPM3M5UG1SVUE0bkNkeDFqUHotQS14YmRuR3FYSF92N2JRejBGWW1TWE1QQ1F0bDZ6c1o4N2FmbF9iTFNwdDltYVd2bTdaRHZlUXAzZFdzUXlYNmE5d1lsc1AyYzQ0T2Q4VDhjT0pta3c3S0VlVlMyQXBmVWNLQk1MaUFCTE1tZQ?oc=5",
+      "date": "2026-04-22",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Ken Block could have an edge in RI governors race if voters learn more about him, poll finds - Rhode Island Current",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOb1ZOR3MxZHpuUkw2a1VJZzBWam5yR3dFY1I4b2ZBbzhzallWV1d3X0NSdDZ2bGxrNjFudk1WdW9uOWowSGFnTnlyazdWMnoydXdhQVlYOUpEZ1dKZUFiWTBiNG42S3RCXzMwOURXeFRaaV9wRmZOSzdNYzM4MmQ2aUFaMGxiSDQ2SzRFNUJTVzM3V09fdE9tcGVCM2ljcmQ4dFBOZTFEYVFfV0tPcVQ2aHp4cWV4N09lMkowQVo4N1NLelFpVzZuUWo3cThOeVE?oc=5",
+      "date": "2026-04-20",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Does Ken Block have a chance in third try for governor? What his poll says. - The Providence Journal",
+      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxOaGZvQlBZRzJBRlVoSXp2NlYtd3BfTmIwUEtzQzY2T3R0ekg3QklnLS1VM0JDT1ZpWk8yRjd3UllnVmVUWTRUYkVzRUNxYW9QY3JrejBjOXpPRXdzVHlvTFluYndOZl9zVmJWNnJ3NnBmb0xnMU12QWFINlQ2U3E0Sk54NVctVklsSlhyY181ZUFUOG00a0pWd2VKeXhkd2RBNW94eE1SNmxFQTlnMU1BUnl0UDZoMkZ2SWNGRGhTbF92WHM5ZnRRYXVXcEROd3oyam1aYkNYRVI2VUZINXBhUzlpQmJlZDNnRXpHaElHbVlVQQ?oc=5",
+      "date": "2026-04-20",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Brian poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Texas Voters Support Legal Medical Marijuana Access But Are Largely Unaware Of The State's Existing Program, Poll Shows - Marijuana Moment",
+      "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxNYXFfdVBjNENoUlk4ZXMyc0lPYVRnWWh3WGExUkJSMmFuQ25Lb0xsQ0Y5MTN2amFydHlna2lkQlJlSVpSRllHTjlOelVNOE5rbkhsMEhSZG12cGhDcThBaGY0Mm1xNXFHdHQ0blpUbmlqZ1FvZWZnR3MzengxSGhsX2t6Y3hYSmtrM3l2LWxJVkJodFg4ZmNsWnFxa3NwYVA1TXl6cHhxZnVXR0xnMFk4NmpMbFVjdXhsa19KTEIxcW9TZFAyNUJYX255QXl1eXJCN3ZHQ005UHBRUzY0dFdJWm1FMUk?oc=5",
+      "date": "2026-04-17",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Greg poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "The race for California state superintendent is wide open: Poll - EdSource",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1FMzdWeC1tZ0JLSjVfUmEzT0tCeG9oV3ZqTjFCS1hpcUwwdDFDMmxRMWpyYWZTTUJ0UWVuQmctdkhxZTFpLTF3ZWsxeDFGTXU5aHV0UEpkcFNHeFR1ZWRJTktxM1lwREhNckNSTG55MjFhenRfaDMzLTdzUzN0dw?oc=5",
+      "date": "2026-04-15",
+      "source": "Google News",
+      "matched_district": "ad-74",
+      "query": "California Assembly District 74 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Massie leads challenger endorsed by Trump in Republican primary poll - The Courier-Journal",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOYTZNcGR4SlV1dEZYWFBqTFduYWlCUndaVFdSeEtYczExVDVmdjdNNHlHWUJVUXZIQXVQWFp5SmhhZnU0NzBKYU1nRXV2Xy0yT2dOSEhYUm9OaU12TXNXZWoteW5oX1lVRUtDWWQ0dEpqcF9XaUlvSFAzTF9iVzUxYlhoODJBQ0NsNGtUMHZ1NnV1UkRQaUxQRFRnclcyZTlYYnRwUEZTVlNpOUhaekhYVURrNmNNdk5uWmhGa29oczc5ckNTYVkxSFZIQjBGNGx1emZyRW04LUNUcGs?oc=5",
+      "date": "2026-04-09",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Rep. John Larson projects confidence with new poll - WTNH.com",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPQW9oQTdhenNNT3J1cWNhYUR6U1AtOFp2YzYzVi1raU5KZ2U5R2xIbW5PSENZMkdpWVJCSFVzSWdPTEdmTkt2dVpDSVhsWm9ndDdFQ0RLbVdDcjU2b005VTdtaEhYNkpqWDQ3azgyakFHZnhuNHZ0R3o1bkhab19HR2VySVFCVWx3RHhYYU10SdIBlAFBVV95cUxPLVJNX3JtaVpkTnROT05IWkFnbHFGRU9WV1ZfRGdxLU9ncllEMEw3TmhNeHFYVS1vbXNHemV4TDVzTFdHRVJldk8zZVRpNENaVDQtUlpIM2xlV2ZLUHFDTnJzcEZTVW1WbnpnTzluMnM1U3AyTjJrSVpGTDBJbF9hRHNzS3l4aWw1b3ZyOE1iamdOcGtT?oc=5",
+      "date": "2026-03-27",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Now Trump Officials Are Choosing to Talk About ICE At the Polls - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPdmtUQnB6RzNVaXpRSnpXNVpVVEZXY3VNZHEtN29TdW92RTM5V3htb2lQbWdfZHhIcWRzSWd4T1JpZmRiV0ZUdHE4QVVRT1ZfN3FWQWQxbUxRSW5QdWE0UExDX0FBa3lKZmVVYm5qd0x3V2tZMXROLWpCSTRtcjU0ZGpvT1ZMNW5SUXF6UGdYdU1ScWRvZU13ajZ6RXRSWU1FdnBvNjEySDZkM2x3blhEYVNB?oc=5",
+      "date": "2026-03-26",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Leila poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Poll Shows Analilia Mejia with Strong Lead in NJ-11 Special Election as Voters Look Ahead to Taking on Trump Agenda - Insider NJ",
+      "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxNY1luU1pnWmVlNGJpN1JpVkJLYU1tOEN1THFDTjZucGtPNU52cjVWdmtaMVowSlFNZmF5TTFteTM1bk9meF9Nb0xlanFLbkJYMGxGV2lyRnhxeHdrSmh0eUFDWGhNVDR6d1pLMzhOQkNKRVhQaWhpLXN6NU1jR0ZjN2toMThMdjNlVU9VNFI3VXd6WnZEempOT0htYW13S2Z1UHkwMnptZjdXSk1rQzFFdXliZWpsZDFEcVFUd1RRSTB4WUxwdkxQcGhBNEJkVFl4MzY4ZzdKTkpMeVdKcS1QRFIwOE1HU3lKMDAtdXVURlEwUQ?oc=5",
+      "date": "2026-03-18",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Leila poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Republican Chances of Losing North Carolina Senate Seat to Roy Cooper—Poll - Newsweek",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNYXY5bWtMTVRVOUJjUWFGY3RrUUlRb3RiN0xvSFNMUTVDdjIwTGoxYXRPb2JBWDd2RTEybVNpLUlYd0pFdjNreTRqZmlyUUNXSkdvc01QekEyUzYzVUkzclotRW54Y1FZOXJUZV9STjlRLTZTU1dBR0k2NHFfWHYzMW0wUHdQRV9BMVAtNzJJUkdqQ0dUcnY2UWpfVmlrMzlrT1ZvOA?oc=5",
+      "date": "2026-03-16",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll: Amy Acton leads Vivek Ramaswamy by 10 points in Ohio governor's race - TiffinOhio.net",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPbGRBWFplakcyVnQtUVdzVk9sN0t1LVVuTnkwZjlHYnpXaVExMmVQZEN4MHRUYTYzLU9RcGJLMjE1Zl95RmpfOFlEb19rS2NNcjdqMVo3RThTN3JHbUJGTE8zRkJGczk0U0M5cXJUWC02MDBtOWY5Z3BPejJWd0FsVWdNQmtsWXNjVlZ4LWhYX0VhRllIQzdRTEpWZko?oc=5",
+      "date": "2026-03-12",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Bannon Describes Vision for ICE At Polling Places That Dems Have Been Warning About - Talking Points Memo",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNSVM0OVBRbWl5MWFGUF9JbHZYc3FYaW1wcjdWTmo1SFhHa1p1SkJkVWlXZlM0S2hNbUxxWXQ4VFRqSmoyUFg5VFNqSk9zM3E5aXFORUU0dWdaN3ZrY3IzSV9rUTBpTHBELTZpcVdBVGplVGZUbEY2RVp2WWx5RGw1QWk3MDZ6aUxrZnhXeG8zZHlsbVItZmdlR2o2QUQ0WkpjdkdrSUZ5SVd6Z2ZzMldWSGVDSDFXOFVLT25hcFdJU2dIdXhfNm52ZVp5Wk4?oc=5",
+      "date": "2026-02-04",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Leila poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Fine poll shows her tied with Biss - Evanston Now",
+      "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBqOW5oRUtrcGZzQld4MzBWbG1KTmY3QlJVSFJZUWQ0eTQteUc2SnFfNE94cC02X2ZJVVZuV2IwYTh5ZlNiTkdZMlhWY0wzczdUUXZWRVJSZ29DQUJVYjZSV0hBeEVCV2FaSm9Kd25NQ2M?oc=5",
+      "date": "2026-02-03",
+      "source": "Google News",
+      "matched_district": "ad-27",
+      "query": "Mike poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "PPIC Statewide Survey: Californians and Their Government - Public Policy Institute of California",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPNmYtWTZ1cVhPaHB0ZjZ0bjB4dEtObkw0eTVfZ2puZngwa3lkemE3aXVCa2puMnZzS3Q2ZnZ3bnpvQzNxVlpGajZWTFJBdWJvQzRBanE0aWRvcldreVl5SnR6NTFUdVNORkNzZ1ptY0RUWEw1MDlPYmdTODhlQ1Y4ZHhlN2pxVUVlV0pwd3V6cEgwVGM3R00yN0FaY3Y3bzZhT1Y5enRB?oc=5",
+      "date": "2025-12-16",
+      "source": "Google News",
+      "matched_district": "ad-58",
+      "query": "California Assembly District 58 poll",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "NEW: Ohio Federation of Teachers Poll Shows Amy Acton Leading Governor’s Race by One, “double digit lead in net favorability” Over Ramaswamy - Dr. Amy Acton for Governor",
+      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNRXd5YjV6aGxlemtJQmduMk1fZVNUdVN6S1BrV1laR3BmY20wdGpFam1yVGFZOFpwZzJmalo1YV9RTTRaeDdEeUlHSTE1VlJuOExCcU9iYjBlaGNkaF9GUmhMSGhLNjFROWJzNWVDeGc5N1h4SXk1T19HSDBFeGhONV9YeUUxNllrREhVbGtSRUM4ZGtXelg2b1NEckNZV2xYeGlLWjZUVDI2SXhrMGl6YmJjeWRrbWtyNDRVNzMwNU1OdkVyckk5UHh3RVdKZWk5eGN2RWMtS3I3eHBqQmM0OVQxZ0FCTzdxVDU1YUFsUlNGQ0E3WTZzQg?oc=5",
+      "date": "2025-11-06",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Jeff Crank challenger Jessica Killin’s internal poll shows toss-up race in Colorado’s 5th CD - Colorado Politics",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNOGRuTTVrc0xtXzRTaXF4c2RnZlQ5TGU1T3FJcTZRRkthd1ZGVzV5Ui1xc2JCT0pEMlBrQzZWZXZuV3lpMkJFTnBXdk82TWRDNUpaSS1ZalZHVm5TNUJocGhwNmhBRkZkUGFIcUc0MmVrRldSNDBON1IydXVkbzFOMl9UYXRZRlNGX3FaV3ZCWEtINkNrUHdKY1liYmxsUkdaazBKM1huaXo1Ml9KaEx4djJtSjR3aGk5Z3pkb291d2d3NXB5SFJpY0l1UHlobkRq?oc=5",
+      "date": "2025-11-05",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Poll: Florida Republicans Don’t Support Mid-Decade Redistricting - Common Cause",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQT0JIb3plaExCS2lDM1NVQWQtNFNoODV6QW5zTjlsdzlfV0ZOaGhFdjdwNFJNNnNyZ0hMLXNBRGRxcGhlNk1zRk9vZW94eWR4LVFBT2RGM3pvaEltaENZMmZuTmYxS2xjS3FqWURfRnJtU0xGblNDYm55WHBfZld4UFBjY0xPQ3FPYW1SblpGX0tzSUpkMXpHVzlucFpUTUxpNWFGR0ZMaC0?oc=5",
+      "date": "2025-09-11",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Amy poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Cabinet rankings: Members happier as memo lifts Rayner and even Reeves jumps - LabourList",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPZ3ROSDh3VFZjd1pDWHFkX0pLeVV0NFYyVWtvWGZWT2VCSUI3Y3diSDBHVFpzb2lvOGxIM0JrRW96b0Y2RUNMZ1ZpSXluOFNqQS1rVWU3Si1ESS1XNjFFd3lGZklQY2QyVEluZV9yenpvNExtWl9xTVg2enMyNWp0c3VXbi1fYldLOGlzSdIBkgFBVV95cUxPVEt1YzBlWllEdmRELW1JcnNoQUJzcTlGeDBLZFY3REFaR3MwT25uT0tWOGFqWXdMUkNObVpVdXlSRmkteEZXTHlSNVpjdkV1TGhyUGdSaHJudzZOOFQ1am04OGVrWmIwTzZQQkpnZEhBbDRRSTlGdUMyUFBCU3U1Q3k1RExrTDlTd2hiLWx3aFpoQQ?oc=5",
+      "date": "2025-06-05",
+      "source": "Google News",
+      "matched_district": "ad-74",
+      "query": "Laurie poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "New Poll: Voters Oppose Granting Fertilized Eggs, Embryos, and Fetuses Legal Rights - National Women's Law Center",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOYUs5SDN5Mm9DblE3YzZ2eEY3SDhEY25idElobGhsaDNfZ0RUYTdsUzN0b0dpV3N5MXdTaTA2UVFxUDhWbmtxQmxwajV3VGdjNUw4cmZ6S3dvdHBPTzFueHBSMGRVM01tSGJ4RmdsVlNFQ0tjNFk5S0xMMFNLMlJhZ0UyQ09YZ1psTGdlMEpFdnpGTU1nVkFLM2VFd0N6S3c1Z3JNbUY0UW0wQm5FOW5PcWV3?oc=5",
+      "date": "2025-05-05",
+      "source": "Google News",
+      "matched_district": "ad-47",
+      "query": "Leila poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "Gottheimer’s internal poll puts him within five points of Sherrill - New Jersey Globe",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNeGFIZW8yaVAxQlpRMUl3Q3RPbVpERndoeklHSjJqMG0tRjV1MGgyT2lsU0lLVGt5Zl9LOFFSTG5aWVpic2RKZU1PV0FFRVE1M09FTGZxaTl1X0xlbVFIMXRCMl9JekZsajB5WmNldVQwakgwbFJmRTZLU2Y4dXZ3aEllenlxNGp1LWxTVUY3bkpVMnpNam55T25TZlk0MDdqTFdMWA?oc=5",
+      "date": "2025-04-24",
+      "source": "Google News",
+      "matched_district": "ad-7",
+      "query": "Josh poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    },
+    {
+      "title": "GOP pollster: Sam Brown still leads Nevada Senate primary in internal poll despite Gunter's late push - The Nevada Independent",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNSE1CTGlqOWhvTUx6Qkh5Tjlja0Znd1VmS1BMY0tMc1ctU3lJM1hEWWJMSFNTcm8tR3FNbjFHX3pTNEJFZDl4SUlwZkZiZG5nTjhkUFdhOVpFb2FZZ1NSWVRadUdrNzVWOFlMVzZqYXhMR0ZfQVNjTjNXckJ6S2NwaTltTnZhQ04ta2NfQUtnaGhXa21rVXVCSjBiYXUyZE1CVl9RZndGY3V6Vi1FdWhlZFBWcTBQcXZNUW5QdFlOR2RwR0FNZUhZNm8wbmNTR3lZbXk5T2Vybw?oc=5",
+      "date": "2024-05-21",
+      "source": "Google News",
+      "matched_district": "ad-36",
+      "query": "Jeff poll memo",
+      "fetched_at": "2026-10-08T02:05:14.217022+00:00"
+    }
+  ]
+}
