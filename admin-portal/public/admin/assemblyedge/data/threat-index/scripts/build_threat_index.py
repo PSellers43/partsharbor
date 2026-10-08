@@ -323,11 +323,8 @@ def main() -> int:
 
     money_raw = {did: money_velocity_raw((late.get("districts") or {}).get(did)) for did in BEACHHEAD_IDS}
     ie_raw = {did: ie_pressure_raw((late.get("districts") or {}).get(did)) for did in BEACHHEAD_IDS}
-    narr_raw = {did: narrative_raw(news_by_id.get(did) or [], as_of) for did in BEACHHEAD_IDS}
-
     money_scores = normalize_across(money_raw)
     ie_scores = normalize_across(ie_raw)
-    narrative_scores = normalize_across(narr_raw)
 
     snapshots = load_snapshots()
 
@@ -354,7 +351,6 @@ def main() -> int:
             gap_days,
             money_scores=money_scores,
             ie_scores=ie_scores,
-            narrative_scores=narrative_scores,
         )
         deltas = deltas_for_district(did, ti_block["threatIndex"], snapshots, as_of)
         lean_info = lean_map.get(did) or {"lean": "—", "source": "SWDB roll-up unavailable"}
@@ -393,10 +389,12 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "as_of_date": as_of.isoformat(),
         "formula": {
-            "description": "Weighted composite 0–100 of money velocity, IE pressure, narrative heat, and poll movement. Ad surge excluded (no free source).",
-            "weights": {"money": 0.3125, "ie": 0.25, "narrative": 0.25, "polls": 0.1875},
+            "description": "Weighted composite 0–100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+            "base_weights": {"money": 0.3125, "ie": 0.25, "narrative": 0.25, "polls": 0.1875},
+            "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+            "narrative_rule": "score = min(100, 20 × headlines in last 7 days from build-time Google News RSS); 0 headlines → 0.",
             "status_thresholds": {"elevated": 65, "watch": 45},
-            "normalization": "Money, IE, and narrative raw scores ranked across the six beachheads (min-max to ~18–95). Poll movement uses hand-curated poll rows with stale/none caps.",
+            "normalization": "Money and IE ranked across the six beachheads (min-max ~18–95). Narrative uses the fixed headline rule above.",
         },
         "inputs": {
             "money_late": {

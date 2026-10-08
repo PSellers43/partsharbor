@@ -1,21 +1,23 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T01:34:01.260871+00:00",
+  "generated_at": "2026-10-08T01:37:42.646793+00:00",
   "as_of_date": "2026-10-08",
   "formula": {
-    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, narrative heat, and poll movement. Ad surge excluded (no free source).",
-    "weights": {
+    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+    "base_weights": {
       "money": 0.3125,
       "ie": 0.25,
       "narrative": 0.25,
       "polls": 0.1875
     },
+    "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+    "narrative_rule": "score = min(100, 20 \u00d7 headlines in last 7 days from build-time Google News RSS); 0 headlines \u2192 0.",
     "status_thresholds": {
       "elevated": 65,
       "watch": 45
     },
-    "normalization": "Money, IE, and narrative raw scores ranked across the six beachheads (min-max to ~18\u201395). Poll movement uses hand-curated poll rows with stale/none caps."
+    "normalization": "Money and IE ranked across the six beachheads (min-max ~18\u201395). Narrative uses the fixed headline rule above."
   },
   "inputs": {
     "money_late": {
@@ -32,7 +34,7 @@
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T01:33:59.140677+00:00"
+      "fetched_at": "2026-10-08T01:37:42.646208+00:00"
     },
     "lean": {
       "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"
@@ -42,7 +44,7 @@
     "ad-7": {
       "id": "ad-7",
       "code": "AD-7",
-      "threatIndex": 51,
+      "threatIndex": 48,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
@@ -60,7 +62,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 78,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $123,539 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -68,7 +70,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 60,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "up",
           "blurb": "7-day IE $569,593; cycle oppose $597,707 vs support $568,006."
         },
@@ -78,31 +80,32 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 18,
-          "weight": 0.25,
+          "score": 0,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "0 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 38,
-          "weight": 0.1875,
-          "trend": "down",
-          "blurb": "No public horse-race poll in the last 90 days"
+          "score": null,
+          "weight": 0.0,
+          "trend": "flat",
+          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "unavailable": true
         }
       ]
     },
     "ad-27": {
       "id": "ad-27",
       "code": "AD-27",
-      "threatIndex": 39,
+      "threatIndex": 34,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
@@ -120,7 +123,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 74,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $435,432 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -128,7 +131,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 18,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "up",
           "blurb": "7-day IE $157,410; cycle oppose $463,435 vs support $499,087."
         },
@@ -138,31 +141,32 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 18,
-          "weight": 0.25,
+          "score": 0,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "0 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 38,
-          "weight": 0.1875,
-          "trend": "down",
-          "blurb": "No public horse-race poll in the last 90 days"
+          "score": null,
+          "weight": 0.0,
+          "trend": "flat",
+          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "unavailable": true
         }
       ]
     },
     "ad-36": {
       "id": "ad-36",
       "code": "AD-36",
-      "threatIndex": 65,
+      "threatIndex": 66,
       "status": "elevated",
       "delta24h": null,
       "delta7d": null,
@@ -180,7 +184,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 95,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $230,685 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -188,7 +192,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 95,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "up",
           "blurb": "7-day IE $1,043,154; cycle oppose $1,142,502 vs support $744,893."
         },
@@ -198,31 +202,32 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 18,
-          "weight": 0.25,
+          "score": 0,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "0 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 38,
-          "weight": 0.1875,
-          "trend": "down",
-          "blurb": "No public horse-race poll in the last 90 days"
+          "score": null,
+          "weight": 0.0,
+          "trend": "flat",
+          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "unavailable": true
         }
       ]
     },
     "ad-47": {
       "id": "ad-47",
       "code": "AD-47",
-      "threatIndex": 55,
+      "threatIndex": 51,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
@@ -240,7 +245,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 89,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $237,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -248,7 +253,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 54,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "up",
           "blurb": "7-day IE $793,826; cycle oppose $1,029,827 vs support $1,351,127."
         },
@@ -258,31 +263,32 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 18,
-          "weight": 0.25,
+          "score": 0,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "0 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 48,
-          "weight": 0.1875,
+          "score": null,
+          "weight": 0.0,
           "trend": "flat",
-          "blurb": "Stale public poll (field end 2022-09-28) \u2014 not current movement"
+          "blurb": "Excluded from composite \u2014 latest public poll ended 2022-09-28 (outside 90-day window); not scored as movement.",
+          "unavailable": true
         }
       ]
     },
     "ad-58": {
       "id": "ad-58",
       "code": "AD-58",
-      "threatIndex": 38,
+      "threatIndex": 32,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
@@ -300,7 +306,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 65,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $280,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -308,7 +314,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 24,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "up",
           "blurb": "7-day IE $141,316; cycle oppose $654,483 vs support $561,979."
         },
@@ -318,32 +324,33 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 18,
-          "weight": 0.25,
+          "score": 0,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "0 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 38,
-          "weight": 0.1875,
-          "trend": "down",
-          "blurb": "No public horse-race poll in the last 90 days"
+          "score": null,
+          "weight": 0.0,
+          "trend": "flat",
+          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "unavailable": true
         }
       ]
     },
     "ad-74": {
       "id": "ad-74",
       "code": "AD-74",
-      "threatIndex": 47,
-      "status": "watch",
+      "threatIndex": 26,
+      "status": "stable",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
@@ -360,7 +367,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 18,
-          "weight": 0.3125,
+          "weight": 0.38461538461538464,
           "trend": "flat",
           "blurb": "7-day late contributions $37,956 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -368,7 +375,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 42,
-          "weight": 0.25,
+          "weight": 0.3076923076923077,
           "trend": "flat",
           "blurb": "7-day IE $39,092; cycle oppose $251,490 vs support $27,510."
         },
@@ -378,24 +385,25 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Unavailable \u2014 no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
           "unavailable": true
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
-          "score": 95,
-          "weight": 0.25,
+          "score": 20,
+          "weight": 0.3076923076923077,
           "trend": "flat",
-          "blurb": "1 race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
+          "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 1 headline(s) \u2192 20. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": 38,
-          "weight": 0.1875,
-          "trend": "down",
-          "blurb": "No public horse-race poll in the last 90 days"
+          "score": null,
+          "weight": 0.0,
+          "trend": "flat",
+          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "unavailable": true
         }
       ]
     }
@@ -1258,7 +1266,14 @@
       },
       {
         "ts": "2026-10-08",
-        "title": "Threat Index 65 \u2014 Elevated",
+        "title": "Notable social posts (attack-tagged)",
+        "detail": "1 attack-tagged post(s) in latest X digest for AD-36.",
+        "decision": "message",
+        "decisionLabel": "Message check"
+      },
+      {
+        "ts": "2026-10-08",
+        "title": "Threat Index 66 \u2014 Elevated",
         "detail": "Composite crossed the Elevated threshold (\u226565) from live money, IE, news, and polling inputs.",
         "decision": "spend",
         "decisionLabel": "Consider spend"

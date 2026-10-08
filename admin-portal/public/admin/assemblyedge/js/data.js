@@ -118,11 +118,11 @@ AE.methodology = {
   },
   narrative: {
     title: "Narrative heat",
-    body: "Count of race-relevant Google News RSS headlines in the last 7 days, fetched at build time into static JSON (no runtime fetch).",
+    body: "score = min(100, 20 × headlines in the last 7 days) from Google News RSS at build time. Zero headlines → score 0.",
   },
   polls: {
     title: "Poll movement",
-    body: "Hand-curated public horse-race polls in data/polling/latest.json. Stale or missing polls are capped and labeled — never invent survey results.",
+    body: "Included only when a hand-curated public horse-race poll in data/polling/latest.json is inside the gap window. Missing or stale polls are excluded from the composite (weights renormalized) — never invent survey results.",
   },
 };
 

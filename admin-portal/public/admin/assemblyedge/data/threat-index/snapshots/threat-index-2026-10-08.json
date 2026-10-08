@@ -2,22 +2,22 @@
   "date": "2026-10-08",
   "districts": {
     "ad-7": {
-      "threatIndex": 51
+      "threatIndex": 48
     },
     "ad-27": {
-      "threatIndex": 39
+      "threatIndex": 34
     },
     "ad-36": {
-      "threatIndex": 65
+      "threatIndex": 66
     },
     "ad-47": {
-      "threatIndex": 55
+      "threatIndex": 51
     },
     "ad-58": {
-      "threatIndex": 38
+      "threatIndex": 32
     },
     "ad-74": {
-      "threatIndex": 47
+      "threatIndex": 26
     }
   }
 }

@@ -12,20 +12,34 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "data" / "threat-index" / "scripts"))
 
 from ti_compute import (  # noqa: E402
+    BASE_WEIGHTS,
     WEIGHTS,
     composite_ti,
     compute_district_ti,
+    effective_weights,
     ie_pressure_raw,
     money_velocity_raw,
+    narrative_score_from_count,
     normalize_across,
     poll_is_recent,
-    poll_movement_raw,
     status_from_ti,
 )
 
 
 def test_weights_sum_to_one():
     assert abs(sum(WEIGHTS.values()) - 1.0) < 1e-9
+
+
+def test_effective_weights_renormalize_without_polls():
+    w = effective_weights(False)
+    assert "polls" not in w
+    assert abs(sum(w.values()) - 1.0) < 1e-9
+    assert w["money"] > BASE_WEIGHTS["money"]
+
+
+def test_narrative_zero_is_zero():
+    assert narrative_score_from_count(0) == 0
+    assert narrative_score_from_count(3) == 60
 
 
 def test_status_thresholds():
@@ -42,24 +56,32 @@ def test_composite_ti_weighted():
     assert ti == round(expected)
 
 
+def test_poll_excluded_no_fake_score():
+    as_of = dt.date(2026, 10, 8)
+    poll_row = {"gap": {"message": "No public horse-race poll in the last 90 days"}}
+    out = compute_district_ti(
+        "ad-7",
+        {"totals": {"seven_day": 1000, "ie_seven_day": 5000, "ie_oppose": 1, "ie_support": 1}, "daily_buckets": [{"amount": 1}] * 20},
+        poll_row,
+        [],
+        as_of,
+        90,
+        money_scores={"ad-7": 50},
+        ie_scores={"ad-7": 50},
+    )
+    polls = next(f for f in out["factors"] if f["id"] == "polls")
+    assert polls.get("unavailable") is True
+    assert polls["score"] is None
+    assert "Excluded" in polls["blurb"]
+    assert out["poll_included"] is False
+    narr = next(f for f in out["factors"] if f["id"] == "narrative")
+    assert narr["score"] == 0
+
+
 def test_normalize_spreads_values():
     raw = {"ad-7": 1.0, "ad-74": 5.0}
     out = normalize_across(raw)
     assert out["ad-7"] < out["ad-74"]
-
-
-def test_poll_stale_caps_score():
-    as_of = dt.date(2026, 10, 7)
-    row = {
-        "poll": {
-            "pollster": "Test",
-            "field_end": "2022-01-01",
-            "margin": {"leader_party": "D", "leader_pct": 50, "trailer_pct": 45},
-        }
-    }
-    score, blurb = poll_movement_raw(row, 90, as_of)
-    assert score <= 48
-    assert "Stale" in blurb
 
 
 def test_bundle_json_valid():
@@ -74,13 +96,18 @@ def test_bundle_json_valid():
         assert len(row["factors"]) == 5
         ads = next(f for f in row["factors"] if f["id"] == "ads")
         assert ads.get("unavailable") is True
+        polls = next(f for f in row["factors"] if f["id"] == "polls")
+        if did == "ad-7":
+            assert polls.get("unavailable") is True
+            assert polls["score"] is None
+        narr = next(f for f in row["factors"] if f["id"] == "narrative")
+        assert narr["score"] == 0 or "headline" in narr["blurb"].lower()
         assert data["narrative"][did]
         assert data["rival"][did]["opponent"]
         assert data["alerts"][did]
 
 
 def test_late_money_inputs_change_ti():
-    as_of = dt.date(2026, 10, 8)
     late_high = {"totals": {"seven_day": 500000, "ie_seven_day": 400000, "ie_oppose": 200000, "ie_support": 50000}, "daily_buckets": [{"amount": 100}] * 20}
     late_low = {"totals": {"seven_day": 1000, "ie_seven_day": 500, "ie_oppose": 200, "ie_support": 100}, "daily_buckets": [{"amount": 10}] * 20}
     assert money_velocity_raw(late_high) > money_velocity_raw(late_low)
@@ -90,10 +117,12 @@ def test_late_money_inputs_change_ti():
 def main():
     tests = [
         test_weights_sum_to_one,
+        test_effective_weights_renormalize_without_polls,
+        test_narrative_zero_is_zero,
         test_status_thresholds,
         test_composite_ti_weighted,
+        test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
-        test_poll_stale_caps_score,
         test_late_money_inputs_change_ti,
         test_bundle_json_valid,
     ]

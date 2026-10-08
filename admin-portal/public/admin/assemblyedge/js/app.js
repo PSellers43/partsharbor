@@ -208,7 +208,6 @@
             <span>24h <strong class="delta ${deltaClass(d.delta24h)}">${deltaFmt(d.delta24h)}</strong></span>
             <span>7d <strong class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</strong></span>
             <span>${d.seatType}</span>
-            <span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">${AE.intelLoaded ? "Computed TI" : "Loading…"}</span>
           </div>
         </button>`;
       })
@@ -954,6 +953,17 @@
     $("#detail-d7").textContent = deltaFmt(d.delta7d);
     $("#detail-d7").className = "delta " + deltaClass(d.delta7d);
 
+    const intelChip = $("#detail-intel-chip");
+    if (intelChip) {
+      if (AE.intelLoaded) {
+        intelChip.hidden = false;
+        intelChip.className = "chip chip-live";
+        intelChip.textContent = "Computed TI";
+      } else {
+        intelChip.hidden = true;
+      }
+    }
+
     const deepNote = $("#deep-demo-note");
     if (deepNote) {
       deepNote.hidden = !d.history_note;
@@ -1595,9 +1605,9 @@
     }
     const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
     const el = $("#brief-body");
-    const demoChip = AE.intelLoaded
-      ? `<p class="chip chip-live brief-demo-chip">Threat Index + news/rival/alerts from build-time intel bundle; money/late-money live when JSON present</p>`
-      : `<p class="chip chip-demo brief-demo-chip">Intel bundle loading — money and other feeds may still be live below</p>`;
+    const briefNote = AE.intelLoaded
+      ? ""
+      : `<p class="chip chip-demo brief-demo-chip">Intel bundle still loading — figures below may update momentarily.</p>`;
     el.innerHTML = `
       <div class="brief-shell">
         <div class="brief-masthead">
@@ -1607,11 +1617,12 @@
           </div>
           <div class="brief-masthead-aside">
             <span class="chip ${meta.class}">${meta.label}</span>
+            <span class="chip chip-live">Computed TI</span>
             <div class="brief-ti">${d.threatIndex} <span class="brief-ti-unit">TI</span></div>
             <div class="brief-ti-delta">7d <span class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</span></div>
           </div>
         </div>
-        ${demoChip}
+        ${briefNote}
         <h2 class="brief-headline">${b.headline}</h2>
         <ul class="brief-bullets">
           ${briefBullets.map((x) => `<li>${x}</li>`).join("")}
@@ -1653,6 +1664,12 @@
     const blurb = $("#cm-mode-blurb");
     if (blurb && modeMeta) {
       blurb.innerHTML = `<strong>${modeMeta.label}</strong> — ${modeMeta.blurb} <span class="chip chip-demo">Demo mode switch</span>`;
+    }
+
+    const prioChip = $("#cm-priorities-chip");
+    if (prioChip) {
+      prioChip.className = AE.intelLoaded ? "chip chip-live" : "chip chip-demo";
+      prioChip.textContent = AE.intelLoaded ? "Live rules" : "Loading intel…";
     }
 
     const list = $("#cm-priority-list");

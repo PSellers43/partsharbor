@@ -5,13 +5,18 @@ from __future__ import annotations
 import datetime as dt
 from typing import Any
 
-# Ad surge omitted (no free Assembly-race source); weights sum to 1.0
-WEIGHTS = {
+# Ad surge omitted (no free Assembly-race source). Polls may be excluded per district.
+BASE_WEIGHTS = {
     "money": 0.3125,
     "ie": 0.25,
     "narrative": 0.25,
     "polls": 0.1875,
 }
+
+# Back-compat name used in tests
+WEIGHTS = BASE_WEIGHTS
+
+NARRATIVE_POINTS_PER_HEADLINE = 20
 
 ELEVATED_MIN = 65
 WATCH_MIN = 45
@@ -34,6 +39,28 @@ def status_from_ti(ti: float) -> str:
     return "stable"
 
 
+def effective_weights(poll_included: bool) -> dict[str, float]:
+    if poll_included:
+        return dict(BASE_WEIGHTS)
+    active = {k: v for k, v in BASE_WEIGHTS.items() if k != "polls"}
+    total = sum(active.values())
+    return {k: v / total for k, v in active.items()}
+
+
+def narrative_score_from_count(count_7d: int) -> int:
+    """Transparent: 0 headlines → 0; each headline in last 7d adds 20 points, cap 100."""
+    return min(100, max(0, int(count_7d) * NARRATIVE_POINTS_PER_HEADLINE))
+
+
+def narrative_blurb(count_7d: int) -> str:
+    score = narrative_score_from_count(count_7d)
+    return (
+        f"Rule: score = min(100, {NARRATIVE_POINTS_PER_HEADLINE} × headlines in last 7 days). "
+        f"This district: {count_7d} headline(s) → {score}. "
+        "Headlines from Google News RSS at build time."
+    )
+
+
 def money_velocity_raw(late_row: dict[str, Any] | None) -> float:
     """Higher = more late-cycle money velocity (contributions + IE in daily buckets)."""
     if not late_row:
@@ -50,7 +77,6 @@ def money_velocity_raw(late_row: dict[str, Any] | None) -> float:
             wow = (recent - prior) / prior
         elif recent > 0:
             wow = 1.0
-    # Log-scaled activity + WoW bump
     import math
 
     activity = math.log1p(seven + ie7)
@@ -92,29 +118,37 @@ def poll_is_recent(poll_row: dict[str, Any] | None, gap_days: int, as_of: dt.dat
     return (as_of - end).days <= gap_days
 
 
-def poll_movement_raw(poll_row: dict[str, Any] | None, gap_days: int, as_of: dt.date) -> tuple[float, str]:
-    """Higher = more challenger pressure / uncertainty for R-held beachheads."""
-    if not poll_row:
-        return 35.0, "No polling row on file"
-    poll = poll_row.get("poll")
-    if not poll:
-        msg = (poll_row.get("gap") or {}).get("message") or "No public horse-race poll"
-        return 38.0, msg
+def poll_movement_score(poll_row: dict[str, Any], gap_days: int, as_of: dt.date) -> tuple[float, str]:
+    """Score only when poll is recent; caller must gate with poll_is_recent."""
+    poll = poll_row["poll"]
     margin = poll.get("margin") or {}
     leader = margin.get("leader_party")
     spread = abs(float(margin.get("leader_pct") or 0) - float(margin.get("trailer_pct") or 0))
     field_end = poll.get("field_end") or "—"
-    recent = poll_is_recent(poll_row, gap_days, as_of)
     if leader == "D":
         base = 78.0 - min(spread, 30.0)
     elif leader == "R":
         base = 42.0 - min(spread / 3.0, 12.0)
     else:
         base = 50.0
-    if not recent:
-        base = min(base, 48.0)
-        return base, f"Stale public poll (field end {field_end}) — not current movement"
-    return base, f"Recent public poll ({poll.get('pollster')}, field end {field_end})"
+    blurb = f"Recent public poll ({poll.get('pollster')}, field end {field_end}) — in {gap_days}-day window."
+    return base, blurb
+
+
+def poll_excluded_blurb(poll_row: dict[str, Any] | None, gap_days: int, as_of: dt.date) -> str:
+    if not poll_row:
+        return f"Excluded from composite — no polling row on file."
+    poll = poll_row.get("poll")
+    if not poll:
+        msg = (poll_row.get("gap") or {}).get("message") or "No public horse-race poll"
+        return f"Excluded from composite — {msg}."
+    field_end = poll.get("field_end") or "—"
+    if not poll_is_recent(poll_row, gap_days, as_of):
+        return (
+            f"Excluded from composite — latest public poll ended {field_end} "
+            f"(outside {gap_days}-day window); not scored as movement."
+        )
+    return "Excluded from composite — no qualifying poll."
 
 
 def normalize_across(raw_by_id: dict[str, float], floor: float = 18.0, ceiling: float = 95.0) -> dict[str, float]:
@@ -131,10 +165,11 @@ def normalize_across(raw_by_id: dict[str, float], floor: float = 18.0, ceiling: 
     return out
 
 
-def composite_ti(factor_scores: dict[str, float]) -> float:
+def composite_ti(factor_scores: dict[str, float], weights: dict[str, float] | None = None) -> float:
+    w = weights or BASE_WEIGHTS
     total = 0.0
-    for key, w in WEIGHTS.items():
-        total += w * float(factor_scores.get(key) or 0)
+    for key, wt in w.items():
+        total += wt * float(factor_scores.get(key) or 0)
     return round(min(100.0, max(0.0, total)))
 
 
@@ -148,29 +183,40 @@ def compute_district_ti(
     *,
     money_scores: dict[str, float],
     ie_scores: dict[str, float],
-    narrative_scores: dict[str, float],
 ) -> dict[str, Any]:
-    poll_raw, poll_blurb = poll_movement_raw(poll_row, gap_days, as_of)
-    factor_scores = {
+    narr_count = int(narrative_raw(news_items, as_of))
+    narr_score = narrative_score_from_count(narr_count)
+
+    poll_included = poll_is_recent(poll_row, gap_days, as_of)
+    weights = effective_weights(poll_included)
+
+    factor_scores: dict[str, float] = {
         "money": money_scores.get(district_id, 50.0),
         "ie": ie_scores.get(district_id, 50.0),
-        "narrative": narrative_scores.get(district_id, 50.0),
-        "polls": poll_raw,
+        "narrative": float(narr_score),
     }
-    ti = composite_ti(factor_scores)
+    poll_blurb = poll_excluded_blurb(poll_row, gap_days, as_of)
+    poll_score_display: int | None = None
+    poll_trend = "flat"
+
+    if poll_included and poll_row:
+        poll_val, poll_blurb = poll_movement_score(poll_row, gap_days, as_of)
+        factor_scores["polls"] = poll_val
+        poll_score_display = int(round(poll_val))
+        poll_trend = "down" if poll_val < 45 else "up" if poll_val > 55 else "flat"
+
+    ti = composite_ti(factor_scores, weights)
     st = status_from_ti(ti)
 
     money_blurb = _money_blurb(late_row)
     ie_blurb = _ie_blurb(late_row)
-    narr_count = int(narrative_raw(news_items, as_of))
-    narr_blurb = f"{narr_count} race-relevant headline(s) in the last 7 days (Google News RSS, build-time)."
 
     factors = [
         {
             "id": "money",
             "label": "Money velocity",
             "score": int(round(factor_scores["money"])),
-            "weight": WEIGHTS["money"],
+            "weight": weights["money"],
             "trend": _trend_from_late(late_row),
             "blurb": money_blurb,
         },
@@ -178,7 +224,7 @@ def compute_district_ti(
             "id": "ie",
             "label": "IE pressure",
             "score": int(round(factor_scores["ie"])),
-            "weight": WEIGHTS["ie"],
+            "weight": weights["ie"],
             "trend": _ie_trend(late_row),
             "blurb": ie_blurb,
         },
@@ -188,32 +234,50 @@ def compute_district_ti(
             "score": None,
             "weight": 0.0,
             "trend": "flat",
-            "blurb": "Unavailable — no confirmed free Meta/Google source for CA Assembly advertisers; not included in composite.",
+            "blurb": "Excluded — no confirmed free Meta/Google source for CA Assembly advertisers.",
             "unavailable": True,
         },
         {
             "id": "narrative",
             "label": "Narrative heat",
-            "score": int(round(factor_scores["narrative"])),
-            "weight": WEIGHTS["narrative"],
+            "score": narr_score,
+            "weight": weights["narrative"],
             "trend": "up" if narr_count >= 3 else "flat",
-            "blurb": narr_blurb,
-        },
-        {
-            "id": "polls",
-            "label": "Poll movement",
-            "score": int(round(factor_scores["polls"])),
-            "weight": WEIGHTS["polls"],
-            "trend": "down" if poll_raw < 45 else "up" if poll_raw > 55 else "flat",
-            "blurb": poll_blurb,
+            "blurb": narrative_blurb(narr_count),
         },
     ]
+
+    if poll_included:
+        factors.append(
+            {
+                "id": "polls",
+                "label": "Poll movement",
+                "score": poll_score_display,
+                "weight": weights["polls"],
+                "trend": poll_trend,
+                "blurb": poll_blurb,
+            }
+        )
+    else:
+        factors.append(
+            {
+                "id": "polls",
+                "label": "Poll movement",
+                "score": None,
+                "weight": 0.0,
+                "trend": "flat",
+                "blurb": poll_blurb,
+                "unavailable": True,
+            }
+        )
 
     return {
         "threatIndex": int(ti),
         "status": st,
         "factors": factors,
         "factor_scores": factor_scores,
+        "weights_used": weights,
+        "poll_included": poll_included,
     }
 
 
@@ -255,38 +319,18 @@ def _ie_trend(late_row: dict[str, Any] | None) -> str:
     return "flat"
 
 
-def compute_deltas(
-    ti_today: int,
-    snapshot_today: dt.date,
-    history: list[dict[str, Any]],
-) -> dict[str, Any]:
-    """history: list of {date, districts: {id: {threatIndex}}} sorted by date asc."""
-    by_date: dict[str, int] = {}
-    for snap in history:
-        d = snap.get("date")
-        dist = (snap.get("districts") or {}).get("threatIndex")
-        if isinstance(dist, dict):
-            # full snapshot format
-            pass
-    # simpler: caller passes per-id history
-    return {}
-
-
 def deltas_for_district(
     district_id: str,
     ti_today: int,
     snapshots: list[dict[str, Any]],
     today: dt.date,
 ) -> dict[str, Any]:
-    """snapshots: [{date: 'YYYY-MM-DD', districts: {ad-7: {threatIndex: N}, ...}}]"""
     def ti_on(target: dt.date) -> int | None:
-        key = target.isoformat()
         for snap in reversed(snapshots):
-            if snap.get("date") == key:
+            if snap.get("date") == target.isoformat():
                 row = (snap.get("districts") or {}).get(district_id)
                 if row and row.get("threatIndex") is not None:
                     return int(row["threatIndex"])
-        # walk backwards for nearest prior snapshot within 2 days slack
         for snap in reversed(snapshots):
             sd = parse_date(snap.get("date"))
             if not sd or sd > target:
