@@ -22,6 +22,7 @@ from ti_compute import (  # noqa: E402
     money_velocity_raw,
     narrative_score_from_count,
     normalize_across,
+    normalize_ad_scores,
     poll_is_recent,
     status_from_ti,
 )
@@ -61,6 +62,14 @@ def test_ad_surge_raw_increases_with_spend():
     low = [{"week_start": "2026-09-20", "spend_usd": 1000}, {"week_start": "2026-09-27", "spend_usd": 1100}]
     high = [{"week_start": "2026-09-20", "spend_usd": 10000}, {"week_start": "2026-09-27", "spend_usd": 25000}]
     assert ad_surge_raw(high) > ad_surge_raw(low)
+
+
+def test_no_matched_ads_scores_zero_not_normalized_mid():
+    raw = {"ad-7": 5.0, "ad-27": 0.0}
+    has = {"ad-7": True, "ad-27": False}
+    out = normalize_ad_scores(raw, has)
+    assert out["ad-27"] == 0.0
+    assert out["ad-7"] > 0.0
 
 
 def test_poll_excluded_no_fake_score():
@@ -132,6 +141,7 @@ def main():
         test_status_thresholds,
         test_composite_ti_weighted,
         test_ad_surge_raw_increases_with_spend,
+        test_no_matched_ads_scores_zero_not_normalized_mid,
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,

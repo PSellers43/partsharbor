@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T02:25:10.444046+00:00",
+  "generated_at": "2026-10-08T02:37:49.453390+00:00",
   "as_of_date": "2026-10-08",
   "formula": {
     "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window.",
@@ -36,7 +36,7 @@
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T02:25:10.441381+00:00"
+      "fetched_at": "2026-10-08T02:37:49.451357+00:00"
     },
     "lean": {
       "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"
@@ -86,7 +86,7 @@
           "score": 31,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $17,500 (-63% vs prior week). District score after cross-beachhead normalization: 31. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $17,500 (-63% vs prior consecutive week). District score after cross-beachhead normalization: 31. Meta not included."
         },
         {
           "id": "narrative",
@@ -146,7 +146,7 @@
           "score": 18,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $3,700 (-75% vs prior week). District score after cross-beachhead normalization: 18. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $3,700 (-75% vs prior consecutive week). District score after cross-beachhead normalization: 18. Meta not included."
         },
         {
           "id": "narrative",
@@ -206,7 +206,7 @@
           "score": 29,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $13,700 (-71% vs prior week). District score after cross-beachhead normalization: 29. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $13,700 (-71% vs prior consecutive week). District score after cross-beachhead normalization: 29. Meta not included."
         },
         {
           "id": "narrative",
@@ -266,7 +266,7 @@
           "score": 50,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $45,200 (-63% vs prior week). District score after cross-beachhead normalization: 50. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $45,200 (-63% vs prior consecutive week). District score after cross-beachhead normalization: 50. Meta not included."
         },
         {
           "id": "narrative",
@@ -326,7 +326,7 @@
           "score": 46,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $29,800 (-66% vs prior week). District score after cross-beachhead normalization: 46. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $29,800 (-66% vs prior consecutive week). District score after cross-beachhead normalization: 46. Meta not included."
         },
         {
           "id": "narrative",
@@ -386,7 +386,7 @@
           "score": 95,
           "weight": 0.23529411764705882,
           "trend": "down",
-          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $9,100 (-28% vs prior week). District score after cross-beachhead normalization: 95. Meta not included."
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $9,100 (-28% vs prior consecutive week). District score after cross-beachhead normalization: 95. Meta not included."
         },
         {
           "id": "narrative",

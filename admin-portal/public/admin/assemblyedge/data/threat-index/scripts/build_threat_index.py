@@ -23,6 +23,7 @@ SCRIPTS = TI_ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS))
 from ti_compute import (  # noqa: E402
     ad_surge_raw,
+    normalize_ad_scores,
     compute_district_ti,
     deltas_for_district,
     ie_pressure_raw,
@@ -330,10 +331,14 @@ def main() -> int:
         did: ((ads_bundle.get("districts") or {}).get(did) or {}).get("weekly_total") or []
         for did in BEACHHEAD_IDS
     }
+    has_matched_ads = {
+        did: bool(((ads_bundle.get("districts") or {}).get(did) or {}).get("has_matched_ads"))
+        for did in BEACHHEAD_IDS
+    }
     ad_raw = {did: ad_surge_raw(ad_weekly_by_district.get(did)) for did in BEACHHEAD_IDS}
     money_scores = normalize_across(money_raw)
     ie_scores = normalize_across(ie_raw)
-    ad_scores = normalize_across(ad_raw)
+    ad_scores = normalize_ad_scores(ad_raw, has_matched_ads)
 
     snapshots = load_snapshots()
 

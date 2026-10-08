@@ -1034,7 +1034,7 @@
           <h3 class="card-title">How to read</h3>
           <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">
             Threat Index is a <strong style="color:var(--text)">relative desk signal</strong>, not a prediction of seat outcome.
-            Elevated (≥65) means money, IE, narrative, or poll inputs combined high enough to warrant operator attention this week. Ad surge is not included (no free source).
+            Elevated (≥65) means money, IE, Google ad surge, narrative, or poll inputs combined high enough to warrant operator attention this week. Ad surge uses the Google Political Ads Transparency bundle (see Ads tab; Meta not included).
           </p>
           <ul style="margin:14px 0 0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.55">
             <li>24h/7d TI change requires daily snapshots — first day shows a history note instead of invented deltas.</li>
@@ -1634,7 +1634,7 @@
             .join("")}
         </div>
         <div class="brief-footer">
-          MajorityIQ prototype · Sources in production: CAL-ACCESS, Meta Ad Library, Google Ads Transparency, sourced news.
+          MajorityIQ prototype · Sources in this build: CAL-ACCESS, Google Political Ads Transparency (Ads tab), build-time Google News RSS. Meta Ad Library not wired — add manually if needed.
           Not an official FPPC, Secretary of State, or caucus product. Decision chips are guidance taxonomy only.
         </div>
       </div>`;

@@ -40,6 +40,16 @@ UPDATED_CSV = "google-political-ads-updated.csv"
 CREATIVE_CSV = "google-political-ads-creative-stats.csv"
 
 BEACHHEAD_IDS = ["ad-7", "ad-27", "ad-36", "ad-47", "ad-58", "ad-74"]
+MAX_WEEKS_UI = 16
+MAX_ADVERTISERS_PER_DISTRICT = 10
+MAX_ADVERTISERS_PER_SIDE = 6
+
+MURPHY_BUNDLE_SEARCH_NOTE = (
+    "Bundle search (advertiser-stats + advertiser-weekly-spend): "
+    "'Mike Murphy for Assembly 2026', 'Murphy for Assembly 2026', 'Murphy for Assembly', "
+    "'Michael Murphy' + Assembly — no California AD-27 committee advertiser. "
+    "Hits: CAROL MURPHY FOR ASSEMBLY (NJ), FRIENDS OF CHRIS MURPHY (federal), Jaden Murphy (non-Assembly)."
+)
 
 # Hand-curated Google advertiser names tied to public IE/candidate context (not invented spend).
 EXTRA_NAME_MATCHES: dict[str, list[tuple[str, str]]] = {
@@ -337,7 +347,7 @@ def build_bundle(
     beach: dict,
     money: dict | None,
     *,
-    max_weeks_chart: int = 16,
+    max_weeks_chart: int = MAX_WEEKS_UI,
 ) -> dict[str, Any]:
     people_by_dist = district_people(beach)
     ie_patterns = ie_name_patterns(money)
@@ -416,17 +426,35 @@ def build_bundle(
             rows = [a for a in advertisers if a.get("side") == side]
             if not rows:
                 continue
+            side_weekly = aggregate_district_weekly(rows)
+            if max_weeks_chart and len(side_weekly) > max_weeks_chart:
+                side_weekly = side_weekly[-max_weeks_chart:]
+            trimmed_rows = []
+            for a in rows[:MAX_ADVERTISERS_PER_SIDE]:
+                copy = dict(a)
+                wk = copy.get("weekly") or []
+                if max_weeks_chart and len(wk) > max_weeks_chart:
+                    copy["weekly"] = wk[-max_weeks_chart:]
+                trimmed_rows.append(copy)
             by_side[side] = {
-                "advertisers": rows,
-                "weekly_total": aggregate_district_weekly(rows),
+                "advertisers": trimmed_rows,
+                "weekly_total": side_weekly,
             }
 
-        districts_out[did] = {
+        trimmed_adv = []
+        for a in advertisers[:MAX_ADVERTISERS_PER_DISTRICT]:
+            copy = dict(a)
+            wk = copy.get("weekly") or []
+            if max_weeks_chart and len(wk) > max_weeks_chart:
+                copy["weekly"] = wk[-max_weeks_chart:]
+            trimmed_adv.append(copy)
+
+        district_payload: dict[str, Any] = {
             "id": did,
             "code": did.upper().replace("AD-", "AD-"),
             "has_matched_ads": bool(advertisers),
-            "advertisers": advertisers,
-            "top_advertisers": advertisers[:8],
+            "advertisers": trimmed_adv,
+            "top_advertisers": trimmed_adv[:8],
             "weekly_total": weekly_total[-max_weeks_chart:] if weekly_total else [],
             "by_side": by_side,
             "matched_advertiser_count": len(advertisers),
@@ -435,6 +463,11 @@ def build_bundle(
                 "Meta Ad Library report can be added manually."
             ),
         }
+        if did == "ad-27" and not any(a.get("side") == "R" and "murphy" in (a.get("advertiser_name") or "").lower() for a in advertisers):
+            district_payload["candidate_google_gaps"] = [
+                {"candidate": "Mike Murphy (R)", "note": MURPHY_BUNDLE_SEARCH_NOTE}
+            ]
+        districts_out[did] = district_payload
 
     return {
         "schema_version": 1,
@@ -445,8 +478,12 @@ def build_bundle(
             "publisher": "Google",
             "dataset": "Political Ads Transparency bundle",
             "url": BUNDLE_URL,
-            "bundle_path": str(zip_path),
             "files_used": [WEEKLY_CSV, STATS_CSV, UPDATED_CSV, CREATIVE_CSV],
+            "commit_limits": {
+                "max_weeks": MAX_WEEKS_UI,
+                "max_advertisers_per_district": MAX_ADVERTISERS_PER_DISTRICT,
+                "max_advertisers_per_side": MAX_ADVERTISERS_PER_SIDE,
+            },
             "attribution": "Public Google Political Ads Transparency data. Not a Google endorsement of MajorityIQ.",
         },
         "matching": {
