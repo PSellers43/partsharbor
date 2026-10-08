@@ -13,7 +13,7 @@ window.AE = window.AE || {};
 
   /**
    * Focus / opportunity score (0–100, prototype):
-   *   40% Threat Index (computed desk signal)
+   *   40% Threat Index (computed)
    *   35% Money pressure (live CAL-ACCESS spend vs max across beachheads)
    *   25% Polling gap severity (no recent public horse-race poll → higher)
    * Documented on Focus map page + Methodology card.

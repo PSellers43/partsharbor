@@ -13,8 +13,9 @@ window.AE = window.AE || {};
 
   function leanLabel(raw, meta) {
     if (!raw || raw === "—") return "Lean unavailable";
-    const src = meta && meta.source ? " · 2024 g24" : "";
-    return raw + src;
+    const src = meta && meta.source ? " · " + meta.source : "";
+    const note = meta && meta.note_2026 ? " · " + meta.note_2026 : "";
+    return raw + src + note;
   }
 
   AE.intel.apply = function () {
@@ -55,9 +56,13 @@ window.AE = window.AE || {};
       AE.intelMeta = { formula: root.formula, inputs: root.inputs, generated_at: root.generated_at, as_of_date: root.as_of_date };
     }
 
+    const asOf = root.as_of_date || (root.generated_at || "").slice(0, 10);
     AE.DEMO_BANNER =
-      "Live Threat Index, news, rival, and alerts from CAL-ACCESS, Google News RSS (build-time), and SWDB 2024 lean. " +
-      "Ad surge unavailable (no free source). Precinct drill, ABEV live 2026, X sentiment tags, and some registration layers may still be partial — see Methodology.";
+      "Real public data, refreshed manually — each panel shows its as-of time (PT). " +
+      "Computed: Threat Index, news (RSS), rival/alerts (CAL-ACCESS + SOS roster). " +
+      "2024 lean from CA SOS Statement of Vote. Estimates tagged EST; gaps tagged unavailable. " +
+      (asOf ? "Intel as of " + asOf + " PT. " : "") +
+      "Not official FPPC/SOS/caucus figures.";
     const bannerEl = document.querySelector(".demo-banner-text");
     if (bannerEl) bannerEl.textContent = AE.DEMO_BANNER;
   };
@@ -90,12 +95,14 @@ window.AE = window.AE || {};
 
     const out = [];
 
-    if (ie7 >= 75000) {
+    const anti7 = totals.ie_seven_day_anti_r != null ? totals.ie_seven_day_anti_r : 0;
+    const pro7 = totals.ie_seven_day_pro_r != null ? totals.ie_seven_day_pro_r : 0;
+    if (anti7 >= 75000 || ie7 >= 150000) {
       out.push({
         id: "ie-" + districtId,
         horizon: "24h",
-        title: "Review oppose-R IE pressure",
-        detail: `7-day IE ${ie7 >= 1000 ? "$" + Math.round(ie7).toLocaleString("en-US") : ie7} in late-money window — verify filings before counter-spend.`,
+        title: "Review IE activity (direction-aware)",
+        detail: `7-day IE anti-R ${anti7 >= 1000 ? "$" + Math.round(anti7).toLocaleString("en-US") : anti7} · pro-R ${pro7 >= 1000 ? "$" + Math.round(pro7).toLocaleString("en-US") : pro7} · total ${ie7 >= 1000 ? "$" + Math.round(ie7).toLocaleString("en-US") : ie7}.`,
         actions: ["money"],
         evidence: ["cm-craft", "issenberg"],
         alertId: null,
@@ -189,6 +196,22 @@ window.AE = window.AE || {};
         AE.intelData = null;
         AE.intelLoadError = String(err && err.message ? err.message : err);
         AE.intelLoaded = false;
+        AE.factors = {};
+        AE.narrative = {};
+        AE.rival = {};
+        AE.alerts = {};
+        AE.districts.forEach((d) => {
+          d.threatIndex = null;
+          d.delta24h = null;
+          d.delta7d = null;
+          d.status = null;
+          d.lean = null;
+        });
+        AE.DEMO_BANNER =
+          "Threat Index bundle unavailable — panels show explicit gaps only (no placeholder scores). " +
+          AE.intelLoadError;
+        const bannerEl = document.querySelector(".demo-banner-text");
+        if (bannerEl) bannerEl.textContent = AE.DEMO_BANNER;
       });
   };
 })();

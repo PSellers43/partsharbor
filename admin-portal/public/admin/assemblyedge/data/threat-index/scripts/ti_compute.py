@@ -90,17 +90,10 @@ def ie_pressure_raw(late_row: dict[str, Any] | None) -> float:
     if not late_row:
         return 0.0
     totals = late_row.get("totals") or {}
-    ie7 = float(totals.get("ie_seven_day") or 0)
-    oppose = float(totals.get("ie_oppose") or 0)
-    support = float(totals.get("ie_support") or 0)
+    anti7 = float(totals.get("ie_seven_day_anti_r") or 0)
     import math
 
-    pressure = math.log1p(ie7)
-    total_ie = oppose + support
-    if total_ie > 0:
-        oppose_share = oppose / total_ie
-        pressure *= 0.75 + 0.5 * oppose_share
-    return pressure
+    return math.log1p(anti7)
 
 
 def narrative_raw(news_items: list[dict[str, Any]], as_of: dt.date) -> float:
@@ -316,8 +309,9 @@ def _ie_blurb(late_row: dict[str, Any] | None) -> str:
         return "IE totals missing."
     t = late_row.get("totals") or {}
     return (
-        f"7-day IE ${t.get('ie_seven_day', 0):,.0f}; "
-        f"cycle oppose ${t.get('ie_oppose', 0):,.0f} vs support ${t.get('ie_support', 0):,.0f}."
+        f"7-day anti-R IE ${t.get('ie_seven_day_anti_r', 0):,.0f} "
+        f"(pro-R ${t.get('ie_seven_day_pro_r', 0):,.0f}; total 7-day IE ${t.get('ie_seven_day', 0):,.0f}). "
+        f"TI IE factor = log1p(7-day anti-R only)."
     )
 
 

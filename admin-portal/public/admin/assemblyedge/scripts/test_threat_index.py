@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "data" / "threat-index" / "scripts"))
 
+from ti_ie_direction import ie_effect  # noqa: E402
 from ti_compute import (  # noqa: E402
     BASE_WEIGHTS,
     WEIGHTS,
@@ -132,10 +133,104 @@ def test_bundle_json_valid():
 
 
 def test_late_money_inputs_change_ti():
-    late_high = {"totals": {"seven_day": 500000, "ie_seven_day": 400000, "ie_oppose": 200000, "ie_support": 50000}, "daily_buckets": [{"amount": 100}] * 20}
-    late_low = {"totals": {"seven_day": 1000, "ie_seven_day": 500, "ie_oppose": 200, "ie_support": 100}, "daily_buckets": [{"amount": 10}] * 20}
+    late_high = {
+        "totals": {
+            "seven_day": 500000,
+            "ie_seven_day": 400000,
+            "ie_seven_day_anti_r": 200000,
+            "ie_seven_day_pro_r": 50000,
+        },
+        "daily_buckets": [{"amount": 100}] * 20,
+    }
+    late_low = {
+        "totals": {
+            "seven_day": 1000,
+            "ie_seven_day": 500,
+            "ie_seven_day_anti_r": 200,
+            "ie_seven_day_pro_r": 100,
+        },
+        "daily_buckets": [{"amount": 10}] * 20,
+    }
     assert money_velocity_raw(late_high) > money_velocity_raw(late_low)
     assert ie_pressure_raw(late_high) > ie_pressure_raw(late_low)
+    assert ie_pressure_raw({"totals": {"ie_seven_day": 999999, "ie_seven_day_anti_r": 0}}) == 0.0
+
+
+def test_official_lean_json():
+    path = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+    assert path.exists()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    ad7 = doc["districts"]["ad-7"]
+    assert ad7["lean"] == "R+7.3"
+    ad27 = doc["districts"]["ad-27"]
+    assert ad27["lean"] == "D+7.8"
+    assert doc["districts"]["ad-58"]["lean"] == "R+0.4"
+    assert "Middleton" in doc["districts"]["ad-7"]["loser"]
+
+
+def test_ie_effect_oppose_slavensky_is_pro_r():
+    roster = {
+        "incumbent": {"name": "Josh Hoover", "party": "R"},
+        "known_opponents": [{"name": "Amy L. Slavensky", "party": "D", "ballot_status": "general"}],
+    }
+    assert ie_effect("oppose", "Amy L. Slavensky", roster) == "pro_r"
+
+
+def test_ad7_zero_anti_r_lowest_ie_pressure():
+    late = json.loads((ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json").read_text())
+    raw = {}
+    for did in ["ad-7", "ad-27", "ad-36", "ad-47", "ad-58", "ad-74"]:
+        row = late.get("districts", {}).get(did)
+        raw[did] = ie_pressure_raw(row)
+    assert raw["ad-7"] == min(raw.values())
+
+
+def test_late_money_anti_r_within_seven_day():
+    late = json.loads((ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json").read_text())
+    for did, row in (late.get("districts") or {}).items():
+        t = row.get("totals") or {}
+        anti = float(t.get("ie_seven_day_anti_r") or 0)
+        total = float(t.get("ie_seven_day") or 0)
+        assert anti <= total + 0.01, f"{did}: anti-R {anti} > 7-day IE {total}"
+
+
+def test_precinct_g24_rollup_near_sos():
+    official_path = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+    idx_path = ROOT / "data" / "election-history" / "latest" / "election-history-index.json"
+    if not official_path.is_file() or not idx_path.is_file():
+        return
+    official = json.loads(official_path.read_text(encoding="utf-8"))
+    idx = json.loads(idx_path.read_text(encoding="utf-8"))
+    meta_by_id = {d["id"]: d for d in idx.get("districts") or []}
+    eh = ROOT / "data" / "election-history" / "latest"
+    for did, row in official.get("districts", {}).items():
+        geo_path = eh / f"{did}-precincts.geojson"
+        if not geo_path.is_file():
+            continue
+        g24_cov = float(meta_by_id.get(did, {}).get("g24_results_pct") or 0)
+        g = json.loads(geo_path.read_text(encoding="utf-8"))
+        dem_v = rep_v = 0.0
+        for feat in g.get("features") or []:
+            g24 = (feat.get("properties") or {}).get("g24_asm")
+            if not g24 or not g24.get("votes_two_party"):
+                continue
+            v = float(g24["votes_two_party"])
+            dem_pct = g24.get("dem_pct")
+            if dem_pct is None:
+                continue
+            dem_v += v * float(dem_pct) / 100.0
+            rep_v += v * (100.0 - float(dem_pct)) / 100.0
+        tot = dem_v + rep_v
+        assert tot > 0, f"{did}: no g24 votes in GeoJSON"
+        sos_tot = float(row["dem_votes"]) + float(row["rep_votes"])
+        margin_r = rep_v / tot * 100.0 - dem_v / tot * 100.0
+        if g24_cov >= 90.0:
+            assert abs(tot - sos_tot) / sos_tot <= 0.02, f"{did}: roll-up {tot:.0f} vs SOS {sos_tot:.0f} (g24 cov {g24_cov}%)"
+            assert abs(margin_r - float(row["margin_r_pct"])) <= 0.5, f"{did}: margin {margin_r:.2f} vs SOS {row['margin_r_pct']}"
+        else:
+            assert abs(margin_r - float(row["margin_r_pct"])) <= 2.0, (
+                f"{did}: partial g24 shape coverage ({g24_cov}%) — margin {margin_r:.2f} vs SOS {row['margin_r_pct']}"
+            )
 
 
 def main():
@@ -149,6 +244,11 @@ def main():
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,
+        test_ie_effect_oppose_slavensky_is_pro_r,
+        test_late_money_anti_r_within_seven_day,
+        test_ad7_zero_anti_r_lowest_ie_pressure,
+        test_official_lean_json,
+        test_precinct_g24_rollup_near_sos,
         test_bundle_json_valid,
     ]
     for t in tests:

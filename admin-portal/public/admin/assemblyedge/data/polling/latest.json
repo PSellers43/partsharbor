@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-08T02:16:33.155142+00:00",
+  "updated_at": "2026-10-08T02:43:58.130000+00:00",
   "updated_by": "build_polling_latest.py",
   "gap_recent_days": 90,
   "released_path": "data/polls/released.json",

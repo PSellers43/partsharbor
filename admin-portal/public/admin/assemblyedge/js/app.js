@@ -156,6 +156,16 @@
     if (n < 0) return "delta-down";
     return "delta-flat";
   }
+  function tiFmt(n) {
+    if (n == null || n === undefined || Number.isNaN(Number(n))) return "—";
+    return String(n);
+  }
+  function statusMetaFor(d) {
+    if (!AE.intelLoaded || AE.intelLoadError || d.status == null) {
+      return AE.statusMeta.unavailable || { label: "Unavailable", class: "chip-gap" };
+    }
+    return AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
+  }
   function deltaFmt(n, suffix) {
     const s = suffix || "";
     if (n == null || n === undefined || Number.isNaN(n)) return "—";
@@ -191,10 +201,16 @@
 
     grid.innerHTML = AE.districts
       .map((d) => {
-        const meta = AE.statusMeta[d.status];
-        const barW = Math.min(100, d.threatIndex);
+        const meta = statusMetaFor(d);
+        const barW = d.threatIndex != null ? Math.min(100, d.threatIndex) : 0;
+        const statusClass = d.status || "unavailable";
+        const intelChip = AE.intelLoadError
+          ? `<span class="chip chip-gap">Data unavailable</span>`
+          : AE.intelLoaded
+            ? `<span class="chip chip-live-weak">Computed · ${AE.intelMeta && AE.intelMeta.as_of_date ? AE.intelMeta.as_of_date + " PT" : "as-of stamped"}</span>`
+            : `<span class="chip chip-gap">Loading intel…</span>`;
         return `
-        <button type="button" class="district-card status-${d.status}" data-district="${d.id}" aria-label="Open ${d.code} ${d.name}">
+        <button type="button" class="district-card status-${statusClass}" data-district="${d.id}" aria-label="Open ${d.code} ${d.name}">
           <div class="district-card-top">
             <div>
               <div class="district-code">${d.code}</div>
@@ -202,7 +218,8 @@
             </div>
             <span class="chip ${meta.class}">${meta.label}</span>
           </div>
-          <div class="threat-score">${d.threatIndex}<span class="unit">TI</span></div>
+          ${intelChip}
+          <div class="threat-score">${tiFmt(d.threatIndex)}<span class="unit">TI</span></div>
           <div class="threat-bar" aria-hidden="true"><span style="width:${barW}%"></span></div>
           <div class="district-card-meta">
             <span>24h <strong class="delta ${deltaClass(d.delta24h)}">${deltaFmt(d.delta24h)}</strong></span>
@@ -252,6 +269,7 @@
     const poll = row.poll;
     const recent = poll && AE.polling.isRecent(poll);
     const hasPoll = !!poll;
+    const historical = row.historical_polls || [];
     const gapMsg = (row.gap && row.gap.message) || "No public horse-race poll in the last 90 days";
     const isGapOnly = !hasPoll;
     const isStale = hasPoll && !recent;
@@ -277,15 +295,31 @@
         </div>
         <div class="poll-meta-chips">
           <span class="chip ${recent ? "chip-poll-live" : "chip-poll-stale"}">${recent ? "Recent public poll" : "Latest available · stale"}</span>
-          <span class="chip chip-demo">${poll.pollster}</span>
-          ${poll.moe_pct != null ? `<span class="chip chip-demo">±${poll.moe_pct}% MoE</span>` : ""}
-          <span class="chip chip-demo">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
-          <span class="chip chip-demo">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
-          ${poll.sponsor ? `<span class="chip chip-demo" title="Sponsor">${poll.sponsor}</span>` : ""}
+          <span class="chip chip-live-weak">${poll.pollster}</span>
+          ${poll.moe_pct != null ? `<span class="chip chip-live-weak">±${poll.moe_pct}% MoE</span>` : ""}
+          <span class="chip chip-live-weak">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
+          <span class="chip chip-live-weak">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
+          ${poll.sponsor ? `<span class="chip chip-live-weak" title="Sponsor">${poll.sponsor}</span>` : ""}
         </div>
         ${poll.source_url ? `<a class="poll-source-link" href="${poll.source_url}" target="_blank" rel="noopener noreferrer">${poll.source_label || "Source"} ↗</a>` : ""}`;
     } else {
       bars = `<div class="poll-gap-block"><div class="poll-gap-message">${gapMsg}</div></div>`;
+    }
+
+    if (historical.length) {
+      bars += historical
+        .map((hp) => {
+          const m = hp.margin || {};
+          return `<details class="poll-historical" style="margin-top:10px">
+            <summary class="chip chip-demo">${hp.label || "Historical poll"}</summary>
+            <div class="poll-meta-chips" style="margin-top:6px">
+              <span class="chip chip-demo">${hp.pollster || "Pollster"}</span>
+              <span class="chip chip-demo">Field ${hp.field_start || "—"} → ${hp.field_end || "—"}</span>
+            </div>
+            <p style="font-size:12px;margin:6px 0 0">${m.leader_name || "—"} ${m.leader_pct || "—"}% vs ${m.trailer_name || "—"} ${m.trailer_pct || "—"}%</p>
+          </details>`;
+        })
+        .join("");
     }
 
     const gapChip =
@@ -305,7 +339,7 @@
         <div class="poll-row-head">
           <div class="poll-code">${row.code}</div>
           <div class="poll-race">${row.race_label || (dMeta ? dMeta.name + " · " + dMeta.region : "")}</div>
-          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">TI ${dMeta.threatIndex}${AE.intelLoaded ? "" : " (loading)"}</span></div>` : ""}
+          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip ${AE.intelLoaded ? "chip-live-weak" : "chip-gap"}">TI ${tiFmt(dMeta.threatIndex)}</span></div>` : ""}
         </div>
         <div class="poll-bars">${bars}</div>
         ${actions}
@@ -329,8 +363,8 @@
     }
 
     if (badge) {
-      badge.textContent = "CURATED PUBLIC POLLS";
-      badge.className = "chip chip-live";
+      badge.textContent = "Curated public polls";
+      badge.className = "chip chip-demo";
     }
     if (note) {
       const asOf = root.updated_at ? formatAsOf(root.updated_at) : "—";
@@ -951,7 +985,7 @@
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#b8860b"></span> High focus (70+)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#8b6914"></span> Elevated (50–69)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#5c4a12"></span> Watch (&lt;50)</span>
-        <span class="focus-legend-item"><span class="chip chip-demo">Threat Index illustrative</span></span>
+        <span class="focus-legend-item"><span class="chip chip-live-weak">Computed TI</span></span>
         <span class="focus-legend-item">Gray outlines = other ADs (context)</span>`;
     }
 
@@ -990,13 +1024,13 @@
   function renderDistrict() {
     const d = AE.districts.find((x) => x.id === state.districtId) || AE.districts[0];
     state.districtId = d.id;
-    const meta = AE.statusMeta[d.status];
+    const meta = statusMetaFor(d);
 
     $("#detail-code").textContent = d.code;
     $("#detail-name").textContent = d.name;
-    $("#detail-region").textContent = d.region + " · " + d.lean;
+    $("#detail-region").textContent = d.region + " · " + (d.lean || "Lean unavailable");
     $("#detail-incumbent").textContent = d.incumbent + (d.party !== "—" ? ` (${d.party})` : "");
-    $("#detail-ti").textContent = d.threatIndex;
+    $("#detail-ti").textContent = tiFmt(d.threatIndex);
     $("#detail-status").className = "chip " + meta.class;
     $("#detail-status").textContent = meta.label;
     $("#detail-d24").textContent = deltaFmt(d.delta24h);
@@ -1035,12 +1069,12 @@
   function renderThreat(d) {
     const el = $("#threat-panel");
     const factors = AE.factors[d.id];
-    if (!factors) {
-      el.innerHTML = `<div class="empty-state"><h3>Threat Index bundle not loaded</h3><p>${AE.intelLoadError || "Run scripts/update-intel.sh after CAL-ACCESS ingest."}</p></div>`;
+    if (!factors || AE.intelLoadError) {
+      el.innerHTML = `<div class="empty-state"><h3>Threat Index unavailable</h3><p>${AE.intelLoadError || "Run scripts/update-intel.sh after CAL-ACCESS ingest."}</p></div>`;
       return;
     }
-    const intelChip = AE.intelLoaded ? `<span class="chip chip-live">Computed</span>` : `<span class="chip chip-demo">Fallback</span>`;
-    const asOf = AE.intelMeta && AE.intelMeta.as_of_date ? ` · as of ${AE.intelMeta.as_of_date}` : "";
+    const intelChip = AE.intelLoaded ? `<span class="chip chip-live-weak">Computed</span>` : `<span class="chip chip-gap">Loading…</span>`;
+    const asOf = AE.intelMeta && AE.intelMeta.as_of_date ? ` · as of ${AE.intelMeta.as_of_date} PT` : "";
     el.innerHTML = `
       <div class="panel-grid">
         <div class="card">
@@ -1092,6 +1126,23 @@
       btn.addEventListener("click", () => openDrawer(btn.dataset.factor));
     });
     el.querySelector("[data-page-jump]")?.addEventListener("click", () => navigate("methodology"));
+  }
+
+  function formatPtDate(iso) {
+    if (!iso) return "—";
+    try {
+      const d = new Date(String(iso).length === 10 ? iso + "T12:00:00" : iso);
+      return (
+        d.toLocaleDateString("en-US", {
+          timeZone: "America/Los_Angeles",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }) + " PT"
+      );
+    } catch {
+      return iso;
+    }
   }
 
   function formatAsOf(iso) {
@@ -1197,42 +1248,7 @@
       return;
     }
 
-    // Fallback: demo data — never silently mixed with live
-    const data = AE.money[d.id];
-    if (!data) {
-      el.innerHTML = `<div class="empty-state"><h3>Money panel — AD-7 deep demo</h3><p>Illustrative receipts/spend with WoW deltas and sparklines. Run <code>scripts/update-calaccess.sh</code> for LIVE CAL-ACCESS.</p></div>`;
-      return;
-    }
-    const rows = (list, sparkCls) =>
-      list
-        .map((r) => {
-          const spendDelta = r.deltaSpend;
-          return `<tr>
-            <td><div class="money-name">${r.name}</div><div class="money-role">${r.role || (r.side === "oppose" ? "IE oppose" : "IE support")}</div></td>
-            <td class="mono">${AE.formatMoney(r.receipts)} <span class="chip chip-demo">Demo</span></td>
-            <td class="mono">${AE.formatMoney(r.spend)}</td>
-            <td class="delta ${deltaClass(spendDelta)}">${deltaFmt(spendDelta, "%")} WoW</td>
-            <td>${sparkline(r.series, sparkCls || (r.side === "oppose" ? "oppose" : r.side === "support" ? "support" : ""))}</td>
-          </tr>`;
-        })
-        .join("");
-
-    const missingNote = AE.liveMoneyLoadError
-      ? `Live JSON missing or failed (${AE.liveMoneyLoadError}). Showing demo.`
-      : "Live CAL-ACCESS JSON not loaded — showing demo placeholders.";
-
-    el.innerHTML = `
-      <div class="card">
-        <h3 class="card-title">Candidate & IE money <span class="chip chip-demo">DEMO / ILLUSTRATIVE</span></h3>
-        <p class="money-source-note">${missingNote} ${data.updated} · Not real CAL-ACCESS totals</p>
-        <table class="money-table">
-          <thead><tr><th>Entity</th><th>Receipts</th><th>Spend</th><th>Spend Δ</th><th>8w pace</th></tr></thead>
-          <tbody>
-            ${rows(data.candidates)}
-            ${rows(data.ie)}
-          </tbody>
-        </table>
-      </div>`;
+    el.innerHTML = `<div class="empty-state"><h3>CAL-ACCESS money unavailable</h3><p>${AE.liveMoneyLoadError || "Run scripts/update-calaccess.sh to build money-by-district.json."}</p></div>`;
   }
 
   function loadLiveMoney() {
@@ -1333,7 +1349,7 @@
     const wrap = $("#cm-social-spark-wrap");
     if (!wrap || !AE.social || !AE.social.renderBoardSparklines) return;
     wrap.innerHTML = `
-      <h3 class="card-title">X sentiment · all beachheads <span class="chip chip-demo">AI tone est.</span></h3>
+      <h3 class="card-title">X sentiment · all beachheads <span class="chip chip-demo">Keyword tone estimate</span></h3>
       <p class="social-sentiment-note" style="margin:0 0 10px;font-size:12px">Daily net tone sparklines from public X posts — <strong>not polling</strong>. Click a district for the Social panel.</p>
       ${AE.social.renderBoardSparklines()}`;
     wrap.querySelectorAll("[data-district-social-open]").forEach((btn) => {
@@ -1393,6 +1409,29 @@
     wrap.querySelector(`[data-open-focus="${d.id}"]`)?.addEventListener("click", () =>
       navigate("focus-map", { focusDrillId: d.id })
     );
+  }
+
+  function briefSourcesLine(d) {
+    const parts = [];
+    if (AE.liveMoney && !AE.liveMoneyLoadError) {
+      parts.push("CAL-ACCESS (" + (AE.liveMoney.data_as_of || "as-of stamped") + ")");
+    }
+    if (AE.intelLoaded && !AE.intelLoadError) {
+      parts.push("Threat Index + news RSS (" + ((AE.intelMeta && AE.intelMeta.as_of_date) || "PT") + ")");
+    }
+    if (AE.abevData && !AE.abevLoadError) {
+      parts.push("ABEV / SOS ballot status");
+    }
+    if (AE.pollingData && !AE.pollingLoadError) {
+      parts.push("Curated polls");
+    }
+    if (AE.demographyData && !AE.demographyLoadError) {
+      parts.push("SOS registration (demography)");
+    }
+    if (AE.socialData && !AE.socialLoadError) {
+      parts.push("X digest (paid API)");
+    }
+    return parts.length ? parts.join("; ") : "none — refresh static bundles";
   }
 
   function briefWeekLabel() {
@@ -1478,7 +1517,7 @@
       headline,
       bullets,
       decisions: [
-        { type: "hold", label: "Hold & monitor", note: "Use live money + ballot pace; deep CM priorities ship first on AD-7." },
+        { type: "hold", label: "Hold & monitor", note: "Use CAL-ACCESS + ballot pace; verify direction-aware IE before counter-spend." },
         { type: "message", label: "Message check", note: "Confirm public poll / narrative gaps before major spend shifts." },
       ],
       statusClass: meta.class,
@@ -1567,7 +1606,7 @@
                 <div class="feed-title">${n.url ? `<a href="${n.url}" target="_blank" rel="noopener noreferrer">${n.title}</a>` : n.title}</div>
                 <div class="feed-ts">${n.ts}</div>
               </div>
-              <span class="chip chip-sentiment-${n.sentiment}">${n.sentiment}</span>
+              <span class="chip chip-demo" title="Keyword regex flag, not polling">Keyword tone est. · ${n.sentiment}</span>
             </article>`
             )
             .join("")}
@@ -1588,7 +1627,7 @@
           <h3 class="card-title">Opponent</h3>
           <h3>${r.opponent} <span class="chip chip-watch">${r.party}</span></h3>
           <p>${r.notes}</p>
-          <h3 class="card-title">IE supporting challenger / oppose R</h3>
+          <h3 class="card-title">Anti-Republican IE (support D or oppose R)</h3>
           <ul class="ie-list">
             ${r.ieSupporters
               .map(
@@ -1598,7 +1637,7 @@
           </ul>
         </div>
         <div class="card rival-block">
-          <h3 class="card-title">IE allies (support incumbent)</h3>
+          <h3 class="card-title">Pro-Republican IE (support R or oppose D)</h3>
           <ul class="ie-list">
             ${r.ieAllies
               .map(
@@ -1626,7 +1665,7 @@
             .map(
               (a) => `
             <div class="timeline-item">
-              <div class="timeline-ts">${a.ts}</div>
+              <div class="timeline-ts">${formatPtDate(a.ts)}</div>
               <div class="timeline-title">${a.title}</div>
               <div class="timeline-detail">${a.detail}</div>
               <span class="chip chip-decision-${a.decision}">${a.decisionLabel}</span>
@@ -1671,7 +1710,7 @@
           <div class="brief-masthead-aside">
             <span class="chip ${meta.class}">${meta.label}</span>
             <span class="chip chip-live">Computed TI</span>
-            <div class="brief-ti">${d.threatIndex} <span class="brief-ti-unit">TI</span></div>
+            <div class="brief-ti">${tiFmt(d.threatIndex)} <span class="brief-ti-unit">TI</span></div>
             <div class="brief-ti-delta">7d <span class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</span></div>
           </div>
         </div>
@@ -1693,7 +1732,7 @@
             .join("")}
         </div>
         <div class="brief-footer">
-          MajorityIQ prototype · Sources in production: CAL-ACCESS, Meta Ad Library, Google Ads Transparency, sourced news.
+          MajorityIQ · Sources loaded this session: ${briefSourcesLine(d)}.
           Not an official FPPC, Secretary of State, or caucus product. Decision chips are guidance taxonomy only.
         </div>
       </div>`;
@@ -1708,7 +1747,7 @@
     const tiLabel = $("#cm-ti-label");
     if (tiLabel) tiLabel.textContent = `${d.code} Threat Index`;
     if (ti && d) {
-      ti.textContent = d.threatIndex;
+      ti.textContent = tiFmt(d.threatIndex);
       ti.style.color = d.status === "elevated" ? "var(--danger)" : d.status === "watch" ? "var(--warn)" : "var(--text)";
     }
     const mode = AE.CM.getRaceMode();
@@ -1716,13 +1755,13 @@
     const modeMeta = AE.cmMode[mode];
     const blurb = $("#cm-mode-blurb");
     if (blurb && modeMeta) {
-      blurb.innerHTML = `<strong>${modeMeta.label}</strong> — ${modeMeta.blurb} <span class="chip chip-demo">Demo mode switch</span>`;
+      blurb.innerHTML = `<strong>${modeMeta.label}</strong> — ${modeMeta.blurb} <span class="chip chip-demo">Preference only — doesn't re-rank priorities</span>`;
     }
 
     const prioChip = $("#cm-priorities-chip");
     if (prioChip) {
       prioChip.className = AE.intelLoaded ? "chip chip-live" : "chip chip-demo";
-      prioChip.textContent = AE.intelLoaded ? "Live rules" : "Loading intel…";
+      prioChip.textContent = AE.intelLoaded ? "Rule-based" : "Loading intel…";
     }
 
     const list = $("#cm-priority-list");
@@ -1788,8 +1827,15 @@
     renderCMLiveIntel();
   }
 
+  function cmPrioritiesNow(districtId) {
+    return AE.intel && AE.intel.cmPrioritiesForDistrict
+      ? AE.intel.cmPrioritiesForDistrict(districtId)
+      : [];
+  }
+
   function quickLog(priorityId, decisionId) {
-    const p = AE.cmPriorities.find((x) => x.id === priorityId);
+    const d = deskDistrict();
+    const p = cmPrioritiesNow(d.id).find((x) => x.id === priorityId);
     const dt = AE.cmDecisionTypes.find((x) => x.id === decisionId);
     AE.CM.addLogEntry({
       id: "log-" + Date.now(),
@@ -1945,19 +1991,19 @@
       },
       {
         id: "tab-ads",
-        label: "AD-7 · Ads (deep demo)",
+        label: `${deskDistrict().code} · Ads`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "ads" }),
       },
       {
         id: "tab-narrative",
-        label: "AD-7 · Narrative (deep demo)",
+        label: `${deskDistrict().code} · News`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "narrative" }),
       },
       {
         id: "tab-alerts",
-        label: "AD-7 · Alerts (deep demo)",
+        label: `${deskDistrict().code} · Alerts`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "alerts" }),
       },
@@ -2136,7 +2182,7 @@
       const priorityId = $("#cm-log-priority").value;
       const decisionId = $("#cm-log-decision").value;
       const note = ($("#cm-log-note").value || "").trim() || "Logged from form";
-      const p = AE.cmPriorities.find((x) => x.id === priorityId);
+      const p = cmPrioritiesNow(deskDistrict().id).find((x) => x.id === priorityId);
       const dt = AE.cmDecisionTypes.find((x) => x.id === decisionId);
       AE.CM.addLogEntry({
         id: "log-" + Date.now(),

@@ -25,6 +25,10 @@ import urllib.request
 import zipfile
 from datetime import date, datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
+
+PT = ZoneInfo("America/Los_Angeles")
+MIN_PRECINCT_INTERSECT_SHARE = 0.05
 
 from shapely.geometry import mapping, shape
 from shapely.ops import transform, unary_union
@@ -37,7 +41,7 @@ LATEST = ROOT / "latest"
 
 BEACHHEAD = {"7", "27", "36", "47", "58", "74"}
 COUNTY_FIPS = {
-    "7": [67, 61],
+    "7": [67],
     "27": [19, 39, 47],  # Fresno, Madera, Merced
     "36": [25, 65, 71],  # Imperial, Riverside, San Bernardino (CRC AD-36)
     "47": [65, 71],
@@ -353,15 +357,17 @@ def place_overlap_props(geom, precinct_area: float, places: list[dict], tree: ST
     }
 
 
-def sov_by_srprec(rows: list[dict]) -> dict[str, dict]:
-    """Map SR precinct id → Assembly two-party stats for the county file.
-
-    SWDB's addist column reflects registration district lines; for CRC 2020
-    beachhead clips we join by srprec for shapes intersecting the AD polygon.
-    """
+def sov_by_srprec(rows: list[dict], dist_no: int) -> dict[str, dict]:
+    """Map SR precinct id → Assembly two-party stats for rows assigned to this AD (addist)."""
     out = {}
     for row in rows:
-        srprec = (row.get("srprec") or "").strip()
+        try:
+            addist = int(float(row.get("addist") or row.get("ADDIST") or 0))
+        except (TypeError, ValueError):
+            continue
+        if addist != dist_no:
+            continue
+        srprec = (row.get("srprec") or row.get("SRPREC") or "").strip().strip('"')
         if not srprec:
             continue
         out[srprec] = asm_two_party(row)
@@ -401,7 +407,7 @@ def load_srprec_shapes(cid: int, cycle: str) -> list[dict]:
     return out
 
 
-def load_county_sov_by_cycle(dist: str, cid: int) -> tuple[dict[str, dict], dict[str, dict], list[str]]:
+def load_county_sov_by_cycle(dist: str, cid: int, dist_no: int) -> tuple[dict[str, dict], dict[str, dict], list[str]]:
     """Per county: g22/g24 SOV maps keyed by srprec + gap notes."""
     gaps: list[str] = []
     by_cycle: dict[str, dict[str, dict]] = {"g22": {}, "g24": {}}
@@ -414,7 +420,7 @@ def load_county_sov_by_cycle(dist: str, cid: int) -> tuple[dict[str, dict], dict
                 f"AD-{dist}: missing {meta['label']} SOV in {CA_COUNTY_NAMES.get(cid, cid)} ({cid:03d})"
             )
             continue
-        by_cycle[cycle].update(sov_by_srprec(rows))
+        by_cycle[cycle].update(sov_by_srprec(rows, dist_no))
     return by_cycle["g22"], by_cycle["g24"], gaps
 
 
@@ -436,6 +442,8 @@ def clipped_precincts_for_county(ad_poly, cid: int, cycle: str) -> dict[tuple[in
         inter = fix_geom(ad_poly.intersection(geom))
         if inter.is_empty or inter.area <= 0:
             continue
+        if geom.area > 0 and inter.area / geom.area < MIN_PRECINCT_INTERSECT_SHARE:
+            continue
         out[key] = inter
     return out
 
@@ -453,7 +461,7 @@ def build_district(
 
     for cid in expected:
         print(f"  county {cid:03d} …")
-        g22_map, g24_map, county_gaps = load_county_sov_by_cycle(dist, cid)
+        g22_map, g24_map, county_gaps = load_county_sov_by_cycle(dist, cid, int(dist))
         gaps.extend(county_gaps)
         county_sov_g22[cid] = g22_map
         county_sov_g24[cid] = g24_map
@@ -560,10 +568,11 @@ def build_district(
         "schema_version": SCHEMA_VERSION,
         "source": {
             "boundaries": "UC Berkeley Statewide Database SR precinct shapefiles (g22/g24 v01)",
-            "results": "SWDB SOV by SR precinct — Assembly contest (ASSDEM* vs ASSREP*)",
+            "results": "SWDB SOV by SR precinct — Assembly contest (ASSDEM* vs ASSREP*), addist-filtered to this AD",
             "places": "U.S. Census Bureau TIGER/Line 2020 cartographic places (cb_2020_06_place_500k)",
             "assembly_boundary": "CRC 2020 (ca-assembly-crc-2020.geojson)",
-            "built_at": date.today().isoformat(),
+            "built_at": datetime.now(PT).date().isoformat(),
+            "built_at_pt": datetime.now(PT).replace(microsecond=0).isoformat(),
             "races": {k: {"label": v["label"], "election": v["election"]} for k, v in RACES.items()},
         },
         "features": features,
@@ -596,7 +605,7 @@ def main() -> int:
     all_places = load_places()
     manifest = {
         "schema_version": SCHEMA_VERSION,
-        "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "updated_at": datetime.now(PT).replace(microsecond=0).isoformat(),
         "sources": {
             "swdb_g22": "https://statewidedatabase.org/d20/g22.html",
             "swdb_g24": "https://statewidedatabase.org/d20/g24.html",
