@@ -13,8 +13,8 @@ window.AE = window.AE || {};
 
   /**
    * Focus / opportunity score (0–100, prototype):
-   *   40% Threat Index (demo desk signal, normalized)
-   *   35% Money pressure (live CAL-ACCESS spend when matched, else TI proxy)
+   *   40% Threat Index (computed desk signal)
+   *   35% Money pressure (live CAL-ACCESS spend vs max across beachheads)
    *   25% Polling gap severity (no recent public horse-race poll → higher)
    * Documented on Focus map page + Methodology card.
    */
@@ -31,8 +31,8 @@ window.AE = window.AE || {};
         const s = typeof r.spend === "number" ? r.spend : 0;
         return sum + s;
       }, 0);
-      const cap = 800000;
-      moneyPart = Math.min(1, spend / cap);
+      const cap = AE.intelMaxSpend && AE.intelMaxSpend > 0 ? AE.intelMaxSpend : spend;
+      moneyPart = cap > 0 ? Math.min(1, spend / cap) : tiPart * 0.85;
     }
 
     const gapPart = AE.polling && AE.polling.gapSeverity ? AE.polling.gapSeverity(districtId) : 1;

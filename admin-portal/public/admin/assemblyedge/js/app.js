@@ -158,6 +158,7 @@
   }
   function deltaFmt(n, suffix) {
     const s = suffix || "";
+    if (n == null || n === undefined || Number.isNaN(n)) return "—";
     if (n > 0) return "+" + n + s;
     if (n < 0) return String(n) + s;
     return "0" + s;
@@ -207,7 +208,7 @@
             <span>24h <strong class="delta ${deltaClass(d.delta24h)}">${deltaFmt(d.delta24h)}</strong></span>
             <span>7d <strong class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</strong></span>
             <span>${d.seatType}</span>
-            <span class="chip chip-demo">Demo</span>
+            <span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">${AE.intelLoaded ? "Computed TI" : "Loading…"}</span>
           </div>
         </button>`;
       })
@@ -280,7 +281,7 @@
         <div class="poll-row-head">
           <div class="poll-code">${row.code}</div>
           <div class="poll-race">${row.race_label || (dMeta ? dMeta.name + " · " + dMeta.region : "")}</div>
-          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip chip-demo">TI ${dMeta.threatIndex} (illustrative)</span></div>` : ""}
+          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">TI ${dMeta.threatIndex}${AE.intelLoaded ? "" : " (loading)"}</span></div>` : ""}
         </div>
         <div class="poll-bars">${bars}</div>
         ${actions}
@@ -953,12 +954,11 @@
     $("#detail-d7").textContent = deltaFmt(d.delta7d);
     $("#detail-d7").className = "delta " + deltaClass(d.delta7d);
 
-    // Deep demo only fully wired for AD-7; others show empty/partial
-    const isDeep = d.id === "ad-7";
-    $("#deep-demo-note").hidden = isDeep;
-    $("#deep-demo-note").textContent = isDeep
-      ? ""
-      : `${d.code} shows portfolio Threat Index. Full factor / money / ads / narrative panels are wired for AD-7 (Hoover) as the deep demo — open AD-7 for the complete desk.`;
+    const deepNote = $("#deep-demo-note");
+    if (deepNote) {
+      deepNote.hidden = !d.history_note;
+      deepNote.textContent = d.history_note || "";
+    }
 
     renderDistrictPollingStrip(d);
     renderThreat(d);
@@ -975,20 +975,24 @@
     const el = $("#threat-panel");
     const factors = AE.factors[d.id];
     if (!factors) {
-      el.innerHTML = `<div class="empty-state"><h3>Factors available in AD-7 deep demo</h3><p>Portfolio score is live above. Click AD-7 from home for explainable factor breakdown.</p>
-        <button type="button" class="btn btn-primary" id="goto-ad7">Open AD-7</button></div>`;
-      $("#goto-ad7")?.addEventListener("click", () => navigate("district", { districtId: "ad-7", tab: "threat" }));
+      el.innerHTML = `<div class="empty-state"><h3>Threat Index bundle not loaded</h3><p>${AE.intelLoadError || "Run scripts/update-intel.sh after CAL-ACCESS ingest."}</p></div>`;
       return;
     }
+    const intelChip = AE.intelLoaded ? `<span class="chip chip-live">Computed</span>` : `<span class="chip chip-demo">Fallback</span>`;
+    const asOf = AE.intelMeta && AE.intelMeta.as_of_date ? ` · as of ${AE.intelMeta.as_of_date}` : "";
     el.innerHTML = `
       <div class="panel-grid">
         <div class="card">
-          <h3 class="card-title">Threat Index breakdown <span class="chip chip-demo">Demo</span></h3>
-          <p style="margin:0 0 12px;font-size:12.5px;color:var(--text-muted)">Weighted composite. Click a factor for methodology.</p>
+          <h3 class="card-title">Threat Index breakdown ${intelChip}</h3>
+          <p style="margin:0 0 12px;font-size:12.5px;color:var(--text-muted)">Weighted composite from CAL-ACCESS late money, build-time news RSS, and curated polls${asOf}. Click a factor for methodology.</p>
           <div class="factor-list">
             ${factors
               .map(
-                (f) => `
+                (f) => {
+                  const score = f.score != null ? f.score : "—";
+                  const meterW = f.score != null ? f.score : 0;
+                  const wLabel = f.unavailable || f.weight === 0 ? "excluded" : `w ${(f.weight * 100).toFixed(0)}%`;
+                  return `
               <button type="button" class="factor-row" data-factor="${f.id}">
                 <div>
                   <div class="factor-label">${f.label}
@@ -997,11 +1001,12 @@
                   <div class="factor-blurb">${f.blurb}</div>
                 </div>
                 <div>
-                  <div class="factor-score">${f.score}</div>
-                  <div class="factor-weight">w ${(f.weight * 100).toFixed(0)}%</div>
+                  <div class="factor-score">${score}</div>
+                  <div class="factor-weight">${wLabel}</div>
                 </div>
-                <div class="factor-meter"><i style="width:${f.score}%"></i></div>
-              </button>`
+                <div class="factor-meter"><i style="width:${meterW}%"></i></div>
+              </button>`;
+                }
               )
               .join("")}
           </div>
@@ -1010,11 +1015,11 @@
           <h3 class="card-title">How to read</h3>
           <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">
             Threat Index is a <strong style="color:var(--text)">relative desk signal</strong>, not a prediction of seat outcome.
-            Elevated (≥65 demo threshold) means money, IE, ads, narrative, or poll factors moved enough to warrant operator attention this week.
+            Elevated (≥65) means money, IE, narrative, or poll inputs combined high enough to warrant operator attention this week. Ad surge is not included (no free source).
           </p>
           <ul style="margin:14px 0 0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.55">
-            <li>Scores are illustrative placeholders with plausible structure.</li>
-            <li>Production wires CAL-ACCESS, ad libraries, and sourced headlines only.</li>
+            <li>24h/7d TI change requires daily snapshots — first day shows a history note instead of invented deltas.</li>
+            <li>News links are fetched at build time (Google News RSS); no runtime external calls in the app.</li>
             <li>Decision chips on Alerts are guidance types — not automated orders.</li>
           </ul>
           <button type="button" class="btn" style="margin-top:16px" data-page-jump="methodology">Methodology & trust</button>
@@ -1345,7 +1350,7 @@
     const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
     const bullets = [];
     bullets.push(
-      `Threat Index ${d.threatIndex} (${deltaFmt(d.delta7d)} / 7d) — status ${meta.label}. <em>Demo desk signal only</em> — not a prediction.`
+      `Threat Index ${d.threatIndex} (${deltaFmt(d.delta7d)} / 7d) — status ${meta.label}. ${d.history_note || "Computed desk signal — not a prediction."}`
     );
     bullets.push(`${d.incumbent} (${d.party}) · ${d.region}. Roster aligned to <code>beachheads.json</code> and public SOS/CAL-ACCESS context.`);
 
@@ -1404,7 +1409,7 @@
       if (socialBullet) bullets.push(socialBullet);
     }
 
-    const headline = `${d.code} · ${d.incumbent} (${d.party}) — live feeds brief (${meta.label} demo TI ${d.threatIndex})`;
+    const headline = `${d.code} · ${d.incumbent} (${d.party}) — Monday brief (${meta.label}, TI ${d.threatIndex})`;
     return {
       weekOf: briefWeekLabel(),
       headline,
@@ -1450,9 +1455,12 @@
 
   function renderAds(d) {
     const el = $("#ads-panel");
-    const ads = AE.ads[d.id];
+    const ads = AE.ads && AE.ads[d.id];
+    const unavail = AE.adsUnavailable || { message: "No free, reliable ad data source yet for CA Assembly races." };
     if (!ads) {
-      el.innerHTML = `<div class="empty-state"><h3>Ads panel — AD-7 deep demo</h3><p>Meta + Google transparency-style cards.</p></div>`;
+      el.innerHTML = `<div class="empty-state"><h3>Ad data unavailable</h3><p>${unavail.message}</p>
+        <p style="margin-top:12px;font-size:13px;color:var(--text-muted)">When a confirmed free Meta Ad Library / Google Ads Transparency feed covers these Assembly advertisers, this tab can wire creative counts here. Until then, no demo bands are shown.</p>
+        <p style="margin-top:12px"><a href="https://www.facebook.com/ads/library/" target="_blank" rel="noopener noreferrer">Meta Ad Library ↗</a> · <a href="https://adstransparency.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Transparency ↗</a></p></div>`;
       return;
     }
     el.innerHTML = `
@@ -1479,13 +1487,13 @@
   function renderNarrative(d) {
     const el = $("#narrative-panel");
     const items = AE.narrative[d.id];
-    if (!items) {
-      el.innerHTML = `<div class="empty-state"><h3>Narrative feed — AD-7 deep demo</h3></div>`;
+    if (!items || !items.length) {
+      el.innerHTML = `<div class="empty-state"><h3>No headlines in bundle</h3><p>Re-run <code>scripts/update-intel.sh</code> to refresh Google News RSS at build time.</p></div>`;
       return;
     }
     el.innerHTML = `
       <div class="card">
-        <h3 class="card-title">Sourced headlines <span class="chip chip-demo">Demo feed</span></h3>
+        <h3 class="card-title">Sourced headlines <span class="chip chip-live">Build-time RSS</span></h3>
         <div class="feed-list">
           ${items
             .map(
@@ -1493,7 +1501,7 @@
             <article class="feed-item">
               <div>
                 <div class="feed-outlet">${n.outlet}</div>
-                <div class="feed-title">${n.title}</div>
+                <div class="feed-title">${n.url ? `<a href="${n.url}" target="_blank" rel="noopener noreferrer">${n.title}</a>` : n.title}</div>
                 <div class="feed-ts">${n.ts}</div>
               </div>
               <span class="chip chip-sentiment-${n.sentiment}">${n.sentiment}</span>
@@ -1508,7 +1516,7 @@
     const el = $("#rival-panel");
     const r = AE.rival[d.id];
     if (!r) {
-      el.innerHTML = `<div class="empty-state"><h3>Rival card — AD-7 deep demo</h3></div>`;
+      el.innerHTML = `<div class="empty-state"><h3>Rival card unavailable</h3><p>Threat Index bundle missing for ${d.code}.</p></div>`;
       return;
     }
     el.innerHTML = `
@@ -1535,7 +1543,7 @@
               )
               .join("")}
           </ul>
-          <p style="margin-top:16px;font-size:12px;color:var(--text-dim)">All spend bands labeled demo. Production maps to filed IE disclosures only.</p>
+          <p style="margin-top:16px;font-size:12px;color:var(--text-dim)">IE spend from filed CAL-ACCESS totals (matched committees). Not FPPC advice.</p>
         </div>
       </div>`;
   }
@@ -1544,7 +1552,7 @@
     const el = $("#alerts-panel");
     const items = AE.alerts[d.id];
     if (!items) {
-      el.innerHTML = `<div class="empty-state"><h3>Alerts — AD-7 deep demo</h3></div>`;
+      el.innerHTML = `<div class="empty-state"><h3>Alerts unavailable</h3><p>Threat Index bundle missing for ${d.code}.</p></div>`;
       return;
     }
     el.innerHTML = `
@@ -1580,17 +1588,16 @@
     if (desc) {
       desc.textContent = `One-page printable desk brief for ${d.code} (${d.incumbent}). Export uses your browser print / Save as PDF.`;
     }
-    const isDeep = d.id === "ad-7";
-    const b = isDeep ? AE.brief["ad-7"] : templatedBriefContent(d);
+    const b = templatedBriefContent(d);
     const briefBullets = [...(b.bullets || [])];
     if (AE.lateMoney && AE.lateMoney.briefLine) {
       briefBullets.push(AE.CM.escapeHtml(AE.lateMoney.briefLine(d.id)));
     }
     const meta = AE.statusMeta[d.status] || { label: d.status, class: "chip-stable" };
     const el = $("#brief-body");
-    const demoChip = isDeep
-      ? `<p class="chip chip-demo brief-demo-chip">DEMO / ILLUSTRATIVE — Deep desk narrative; not filed campaign data</p>`
-      : `<p class="chip chip-demo brief-demo-chip">Built from live CAL-ACCESS, ABEV, demography, polling gaps, and precinct index — Threat Index remains demo</p>`;
+    const demoChip = AE.intelLoaded
+      ? `<p class="chip chip-live brief-demo-chip">Threat Index + news/rival/alerts from build-time intel bundle; money/late-money live when JSON present</p>`
+      : `<p class="chip chip-demo brief-demo-chip">Intel bundle loading — money and other feeds may still be live below</p>`;
     el.innerHTML = `
       <div class="brief-shell">
         <div class="brief-masthead">
@@ -1599,7 +1606,7 @@
             <div class="brief-week">${b.weekOf} · ${d.code} ${d.name}</div>
           </div>
           <div class="brief-masthead-aside">
-            <span class="chip ${isDeep ? "chip-elevated" : meta.class}">${meta.label}</span>
+            <span class="chip ${meta.class}">${meta.label}</span>
             <div class="brief-ti">${d.threatIndex} <span class="brief-ti-unit">TI</span></div>
             <div class="brief-ti-delta">7d <span class="delta ${deltaClass(d.delta7d)}">${deltaFmt(d.delta7d)}</span></div>
           </div>
@@ -1635,7 +1642,7 @@
     syncDeskDistrictSelects();
     const ti = $("#cm-ti-value");
     const tiLabel = $("#cm-ti-label");
-    if (tiLabel) tiLabel.textContent = `${d.code} Threat (demo)`;
+    if (tiLabel) tiLabel.textContent = `${d.code} Threat Index`;
     if (ti && d) {
       ti.textContent = d.threatIndex;
       ti.style.color = d.status === "elevated" ? "var(--danger)" : d.status === "watch" ? "var(--warn)" : "var(--text)";
@@ -1648,21 +1655,11 @@
       blurb.innerHTML = `<strong>${modeMeta.label}</strong> — ${modeMeta.blurb} <span class="chip chip-demo">Demo mode switch</span>`;
     }
 
-    const isDeep = d.id === "ad-7";
     const list = $("#cm-priority-list");
     if (list) {
-      if (!isDeep) {
-        list.innerHTML = `<div class="empty-state" style="padding:20px 16px">
-          <h3>Deep desk coming for ${d.code}</h3>
-          <p>Money, ballot pace, and precinct data are live below. CM priority queue, factor breakdown, and illustrative alerts remain on <strong>AD-7</strong> until expanded.</p>
-          <button type="button" class="btn btn-primary" id="cm-open-ad7">Open AD-7 deep desk</button>
-        </div>`;
-        $("#cm-open-ad7")?.addEventListener("click", () => {
-          setDeskDistrictId("ad-7");
-          navigate("cm");
-        });
-      } else {
-      const sorted = [...AE.cmPriorities].sort((a, b) => {
+      const prioSource =
+        AE.intel && AE.intel.cmPrioritiesForDistrict ? AE.intel.cmPrioritiesForDistrict(d.id) : AE.cmPriorities;
+      const sorted = [...prioSource].sort((a, b) => {
         const order = { high: 0, medium: 1, low: 2 };
         return order[a.urgency] - order[b.urgency];
       });
@@ -1698,20 +1695,16 @@
           quickLog(btn.dataset.priority, btn.dataset.decision);
         });
       });
-      }
     }
 
     // Form selects
     const selP = $("#cm-log-priority");
     const selD = $("#cm-log-decision");
     if (selP) {
-      if (isDeep) {
-        selP.innerHTML = AE.cmPriorities.map((p) => `<option value="${p.id}">${p.horizon} · ${p.title}</option>`).join("");
-        selP.disabled = false;
-      } else {
-        selP.innerHTML = `<option value="">— Deep desk priorities on AD-7 —</option>`;
-        selP.disabled = true;
-      }
+      const prioOpts =
+        AE.intel && AE.intel.cmPrioritiesForDistrict ? AE.intel.cmPrioritiesForDistrict(d.id) : AE.cmPriorities;
+      selP.innerHTML = prioOpts.map((p) => `<option value="${p.id}">${p.horizon} · ${p.title}</option>`).join("");
+      selP.disabled = prioOpts.length === 0;
     }
     if (selD) {
       selD.innerHTML = AE.cmDecisionTypes.map((dt) => `<option value="${dt.id}">${dt.label}</option>`).join("");
@@ -2208,7 +2201,15 @@
       AE.lateMoney.load(),
       AE.focusMap.loadGeo(),
       AE.social && AE.social.load ? AE.social.load() : Promise.resolve(),
-    ]).then(refreshIntelViews);
+      AE.intel && AE.intel.load ? AE.intel.load() : Promise.resolve(),
+    ]).then(() => {
+      if (AE.intel && AE.intel.computeMaxSpend) AE.intel.computeMaxSpend();
+      refreshIntelViews();
+      if (state.page === "portfolio") renderPortfolio();
+      if (state.page === "district") renderDistrict();
+      if (state.page === "brief") renderBrief();
+      if (state.page === "cm") renderCM();
+    });
     applyFocusHash();
     if (state.page !== "focus-map") {
       if (state.role === "cm") {
