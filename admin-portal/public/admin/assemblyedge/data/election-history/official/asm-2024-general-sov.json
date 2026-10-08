@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "election": "2024-11-05",
+  "office": "State Assemblymember",
+  "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+  "source_label": "CA SOS Statement of Vote, Nov 5 2024 General, State Assembly",
+  "as_of": "2026-10-07",
+  "even_threshold_abs_margin_r_pct": 1.0,
+  "districts": {
+    "ad-7": {
+      "dist_no": 7,
+      "dem_votes": 100487,
+      "rep_votes": 116254,
+      "dem_candidate": "Adam Middleton",
+      "rep_candidate": "Josh Hoover",
+      "rep_incumbent": true,
+      "margin_r_pct": 7.3,
+      "lean": "R+7.3"
+    },
+    "ad-27": {
+      "dist_no": 27,
+      "dem_votes": 75559,
+      "rep_votes": 64576,
+      "dem_candidate": "Esmeralda Soria",
+      "rep_candidate": "Joanna Garcia Rose",
+      "dem_incumbent": true,
+      "margin_r_pct": -7.8,
+      "lean": "D+7.8",
+      "note_2026": "Soria not on 2026 AD-27 ballot (open seat: Murphy vs Pacheco)"
+    },
+    "ad-36": {
+      "dist_no": 36,
+      "dem_votes": 73926,
+      "rep_votes": 79477,
+      "dem_candidate": "Eric Acuña",
+      "rep_candidate": "Jeff Gonzalez",
+      "rep_incumbent": true,
+      "margin_r_pct": 3.6,
+      "lean": "R+3.6"
+    },
+    "ad-47": {
+      "dist_no": 47,
+      "dem_votes": 113538,
+      "rep_votes": 119072,
+      "dem_candidate": "Christy Holstege",
+      "rep_candidate": "Greg Wallis",
+      "rep_incumbent": true,
+      "margin_r_pct": 2.4,
+      "lean": "R+2.4"
+    },
+    "ad-58": {
+      "dist_no": 58,
+      "dem_votes": 77696,
+      "rep_votes": 78292,
+      "dem_candidate": "Clarissa Cervantes",
+      "rep_candidate": "Leticia Castillo",
+      "rep_incumbent": true,
+      "margin_r_pct": 0.4,
+      "lean": "R+0.4"
+    },
+    "ad-74": {
+      "dist_no": 74,
+      "dem_votes": 113338,
+      "rep_votes": 117208,
+      "dem_candidate": "Chris Duncan",
+      "rep_candidate": "Laurie Davies",
+      "rep_incumbent": true,
+      "margin_r_pct": 1.7,
+      "lean": "R+1.7"
+    }
+  }
+}

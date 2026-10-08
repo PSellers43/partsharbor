@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[3]  # assemblyedge/
 TI_ROOT = ROOT / "data" / "threat-index"
@@ -21,6 +22,13 @@ SNAPSHOTS = TI_ROOT / "snapshots"
 SCRIPTS = TI_ROOT / "scripts"
 
 sys.path.insert(0, str(SCRIPTS))
+from pt_dates import now_pt_iso, today_pt  # noqa: E402
+from ti_ie_direction import (  # noqa: E402
+    enrich_late_totals,
+    ie_effect,
+    is_ballot_target,
+    target_party,
+)
 from ti_compute import (  # noqa: E402
     compute_district_ti,
     deltas_for_district,
@@ -33,6 +41,8 @@ from ti_compute import (  # noqa: E402
 )
 
 BEACHHEAD_IDS = ["ad-7", "ad-27", "ad-36", "ad-47", "ad-58", "ad-74"]
+OFFICIAL_LEAN_PATH = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+PT = ZoneInfo("America/Los_Angeles")
 
 NEWS_QUERIES = {
     "ad-7": "California Assembly District 7 Sacramento Hoover election 2026",
@@ -67,7 +77,7 @@ def fetch_google_news_rss(query: str, max_items: int = 12) -> list[dict]:
             try:
                 dt = parsedate_to_datetime(pub)
                 pub_date = dt.date().isoformat()
-                ts_label = dt.astimezone(timezone.utc).strftime("%b %d · %I:%M%p UTC")
+                ts_label = dt.astimezone(PT).strftime("%b %d · %I:%M%p PT")
             except (TypeError, ValueError, OSError):
                 pass
         outlet = title.split(" - ")[-1].strip() if " - " in title else "Google News"
@@ -85,48 +95,53 @@ def fetch_google_news_rss(query: str, max_items: int = 12) -> list[dict]:
     return items
 
 
-def compute_lean_from_geojson() -> dict[str, dict]:
-    eh = ROOT / "data" / "election-history" / "latest"
-    out = {}
-    for did in BEACHHEAD_IDS:
-        path = eh / f"{did}-precincts.geojson"
-        if not path.exists():
-            continue
-        g = load_json(path)
-        dem_v = rep_v = 0.0
-        prec_with = 0
-        for feat in g.get("features") or []:
-            g24 = (feat.get("properties") or {}).get("g24_asm")
-            if not g24:
-                continue
-            v = float(g24.get("votes_two_party") or 0)
-            if v <= 0:
-                continue
-            dem_pct = g24.get("dem_pct")
-            if dem_pct is None:
-                continue
-            dem_v += v * float(dem_pct) / 100.0
-            rep_v += v * (100.0 - float(dem_pct)) / 100.0
-            prec_with += 1
-        tot = dem_v + rep_v
-        if tot <= 0:
-            out[did] = {"lean": "—", "source": "SWDB 2024 precinct roll-up (no votes in bundle)"}
-            continue
-        margin_r = rep_v / tot * 100.0 - dem_v / tot * 100.0
-        if abs(margin_r) < 1.0:
+def load_official_lean() -> dict[str, dict]:
+    if not OFFICIAL_LEAN_PATH.exists():
+        return {}
+    doc = load_json(OFFICIAL_LEAN_PATH)
+    threshold = float(doc.get("even_threshold_abs_margin_r_pct") or 1.0)
+    src = doc.get("source_label") or "CA SOS SOV"
+    url = doc.get("source_url")
+    as_of = doc.get("as_of")
+    out: dict[str, dict] = {}
+    for did, row in (doc.get("districts") or {}).items():
+        margin = float(row.get("margin_r_pct") or 0)
+        if abs(margin) < threshold:
             lean = "Even"
-        elif margin_r > 0:
-            lean = f"R+{margin_r:.1f}"
+        elif margin > 0:
+            lean = f"R+{margin:.1f}"
         else:
-            lean = f"D+{-margin_r:.1f}"
+            lean = f"D+{-margin:.1f}"
         out[did] = {
             "lean": lean,
-            "margin_r_pct": round(margin_r, 2),
-            "votes_two_party": int(tot),
-            "precincts_with_g24": prec_with,
-            "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)",
+            "margin_r_pct": margin,
+            "dem_votes": row.get("dem_votes"),
+            "rep_votes": row.get("rep_votes"),
+            "source": "2024 Assembly result (SOS SOV)",
+            "source_url": url,
+            "official_as_of": as_of,
+            "note_2026": row.get("note_2026"),
         }
     return out
+
+
+def roster_for_district(beach: dict | None, did: str) -> dict | None:
+    if not beach:
+        return None
+    for d in beach.get("districts") or []:
+        if d.get("id") == did:
+            return d
+    return None
+
+
+def late_row_with_ie_direction(late_row: dict | None, money_dist: dict | None, roster: dict | None) -> dict | None:
+    if not late_row:
+        return None
+    merged = dict(late_row)
+    totals = dict(late_row.get("totals") or {})
+    totals.update(enrich_late_totals(late_row, money_dist, roster))
+    merged["totals"] = totals
+    return merged
 
 
 def format_money(n: float | None) -> str:
@@ -137,47 +152,77 @@ def format_money(n: float | None) -> str:
     return f"${n:.0f}"
 
 
+def _ie_role_label(effect: str, target: str, roster: dict | None) -> str:
+    party = target_party(target, roster) or "?"
+    if effect == "anti_r":
+        return f"Anti-Republican (support D or oppose R) · target {target} ({party})"
+    if effect == "pro_r":
+        return f"Pro-Republican (support R or oppose D) · target {target} ({party})"
+    return f"IE · target {target}"
+
+
 def build_rival(did: str, money_dist: dict | None, beach: dict | None) -> dict:
-    roster = None
-    if beach:
-        for d in beach.get("districts") or []:
-            if d.get("id") == did:
-                roster = d
-                break
-    opponent_name = "Opponent (see CAL-ACCESS match)"
+    roster = roster_for_district(beach, did)
+    opponent_name = "—"
     opponent_party = "—"
-    if roster and roster.get("known_opponents"):
-        opp = roster["known_opponents"][0]
-        opponent_name = opp.get("name") or opponent_name
-        opponent_party = opp.get("party") or opponent_party
-    notes = "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals."
-    ie_supporters: list[dict] = []
-    ie_allies: list[dict] = []
+    race_label = None
+    if roster and roster.get("open_seat"):
+        gc = roster.get("general_candidates") or []
+        r_c = next((c for c in gc if c.get("party") == "R"), None)
+        d_c = next((c for c in gc if c.get("party") == "D"), None)
+        if r_c and d_c:
+            opponent_name = f"{r_c.get('name')} (R) vs {d_c.get('name')} (D)"
+            opponent_party = "Open seat"
+            race_label = opponent_name
+        if roster.get("outgoing_note"):
+            race_label = (race_label or "Open seat") + " · " + roster["outgoing_note"]
+    elif roster:
+        inc = roster.get("incumbent") or {}
+        if roster.get("known_opponents"):
+            opp = roster["known_opponents"][0]
+            opponent_name = opp.get("name") or opponent_name
+            opponent_party = opp.get("party") or opponent_party
+        if inc.get("name"):
+            race_label = f"{inc.get('name')} ({inc.get('party')}) incumbent vs {opponent_name} ({opponent_party})"
+
+    notes = "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code."
+    ie_anti_r: list[dict] = []
+    ie_pro_r: list[dict] = []
     if money_dist:
         for c in money_dist.get("candidates") or []:
-            if c.get("role") == "Opponent" and c.get("name"):
+            if c.get("role") == "Opponent" and c.get("name") and not (roster and roster.get("open_seat")):
                 opponent_name = c["name"]
+                opponent_party = c.get("party") or opponent_party
         for ie in money_dist.get("ie") or []:
-            side = (ie.get("side") or "").lower()
+            targets = ie.get("targets") or []
+            if not targets:
+                continue
+            target = str(targets[0])
+            if not is_ballot_target(target, roster):
+                continue
+            effect = ie_effect(ie.get("side") or "", target, roster)
+            if not effect:
+                continue
             spend = ie.get("spend")
             band = format_money(spend) + " filed spend" if spend else "—"
             entry = {
                 "name": ie.get("name") or "IE committee",
-                "role": "Oppose incumbent / support challenger" if side == "oppose" else "Support incumbent",
+                "role": _ie_role_label(effect, target, roster),
                 "spendBand": band,
             }
-            if side == "oppose":
-                ie_supporters.append(entry)
+            if effect == "anti_r":
+                ie_anti_r.append(entry)
             else:
-                ie_allies.append(entry)
-    ie_supporters.sort(key=lambda x: x.get("spendBand", ""), reverse=True)
-    ie_allies.sort(key=lambda x: x.get("spendBand", ""), reverse=True)
+                ie_pro_r.append(entry)
+    ie_anti_r.sort(key=lambda x: x.get("spendBand", ""), reverse=True)
+    ie_pro_r.sort(key=lambda x: x.get("spendBand", ""), reverse=True)
     return {
         "opponent": opponent_name,
         "party": opponent_party,
+        "race_label": race_label,
         "notes": notes,
-        "ieSupporters": ie_supporters[:6],
-        "ieAllies": ie_allies[:6],
+        "ieSupporters": ie_anti_r[:6],
+        "ieAllies": ie_pro_r[:6],
     }
 
 
@@ -195,24 +240,26 @@ def build_alerts(
     t = (late_row or {}).get("totals") or {}
 
     ie7 = float(t.get("ie_seven_day") or 0)
-    if ie7 >= 100000:
+    anti7 = float(t.get("ie_anti_r_period") or 0)
+    if anti7 >= 100000:
         alerts.append(
             {
                 "ts": as_of.isoformat(),
-                "title": "IE activity in 7-day window",
-                "detail": f"{code}: ${ie7:,.0f} independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
+                "title": "Anti-Republican IE in 7-day window",
+                "detail": f"{code}: ${anti7:,.0f} direction-aware anti-R IE in the latest 7 days (${ie7:,.0f} total IE).",
                 "decision": "spend",
                 "decisionLabel": "Consider spend",
             }
         )
 
-    last24 = float(t.get("last_24h") or 0)
-    if last24 >= 25000:
+    last_day = float(t.get("last_filed_day") or t.get("last_24h") or 0)
+    filed_label = t.get("last_filed_day_date") or as_of.isoformat()
+    if last_day >= 25000:
         alerts.append(
             {
                 "ts": as_of.isoformat(),
-                "title": "Late contribution filings (24h)",
-                "detail": f"${last24:,.0f} in Form 497/496 activity in the last 24h vs export as-of.",
+                "title": "Late contributions on last filed day",
+                "detail": f"${last_day:,.0f} in Form 497 activity on last filed day ({filed_label}) in the export.",
                 "decision": "hold",
                 "decisionLabel": "Hold & monitor",
             }
@@ -290,7 +337,7 @@ def main() -> int:
     parser.add_argument("--as-of", default=None, help="YYYY-MM-DD (default: UTC today)")
     args = parser.parse_args()
 
-    as_of = parse_date(args.as_of) or datetime.now(timezone.utc).date()
+    as_of = parse_date(args.as_of) or today_pt()
 
     money = load_json(ROOT / "data" / "calaccess" / "latest" / "money-by-district.json")
     late = load_json(ROOT / "data" / "calaccess" / "latest" / "late-money-by-district.json")
@@ -301,7 +348,7 @@ def main() -> int:
     gap_days = int(polling.get("gap_recent_days") or 90)
     poll_by_id = {d["id"]: d for d in polling.get("districts") or []}
 
-    lean_map = compute_lean_from_geojson()
+    lean_map = load_official_lean()
 
     prev_latest = LATEST / "threat-index-by-district.json"
     prev_news: dict[str, list] = {}
@@ -309,7 +356,7 @@ def main() -> int:
         prev_news = (load_json(prev_latest).get("narrative") or {})
 
     news_by_id: dict[str, list] = {}
-    news_fetched_at = datetime.now(timezone.utc).isoformat()
+    news_fetched_at = now_pt_iso()
     for did in BEACHHEAD_IDS:
         if args.skip_news and did in prev_news:
             news_by_id[did] = prev_news[did]
@@ -321,8 +368,14 @@ def main() -> int:
             print(f"News fetch failed {did}: {exc}", file=sys.stderr)
             news_by_id[did] = prev_news.get(did, [])
 
-    money_raw = {did: money_velocity_raw((late.get("districts") or {}).get(did)) for did in BEACHHEAD_IDS}
-    ie_raw = {did: ie_pressure_raw((late.get("districts") or {}).get(did)) for did in BEACHHEAD_IDS}
+    money_raw = {}
+    ie_raw = {}
+    for did in BEACHHEAD_IDS:
+        roster = roster_for_district(beach, did)
+        money_dist = (money.get("districts") or {}).get(did)
+        late_enriched = late_row_with_ie_direction((late.get("districts") or {}).get(did), money_dist, roster)
+        money_raw[did] = money_velocity_raw(late_enriched)
+        ie_raw[did] = ie_pressure_raw(late_enriched)
     money_scores = normalize_across(money_raw)
     ie_scores = normalize_across(ie_raw)
 
@@ -340,7 +393,9 @@ def main() -> int:
                 social_districts[row["id"]] = row
 
     for did in BEACHHEAD_IDS:
-        late_row = (late.get("districts") or {}).get(did)
+        roster = roster_for_district(beach, did)
+        money_dist = (money.get("districts") or {}).get(did)
+        late_row = late_row_with_ie_direction((late.get("districts") or {}).get(did), money_dist, roster)
         poll_row = poll_by_id.get(did)
         ti_block = compute_district_ti(
             did,
@@ -353,7 +408,7 @@ def main() -> int:
             ie_scores=ie_scores,
         )
         deltas = deltas_for_district(did, ti_block["threatIndex"], snapshots, as_of)
-        lean_info = lean_map.get(did) or {"lean": "—", "source": "SWDB roll-up unavailable"}
+        lean_info = lean_map.get(did) or {"lean": "—", "source": "Official 2024 SOS lean unavailable"}
 
         code = did.upper().replace("AD-", "AD-")
         if did.startswith("ad-"):
@@ -377,7 +432,6 @@ def main() -> int:
             "factors": ti_block["factors"],
         }
         narrative_out[did] = news_by_id.get(did) or []
-        money_dist = (money.get("districts") or {}).get(did)
         rival_out[did] = build_rival(did, money_dist, beach)
         alerts_out[did] = build_alerts(
             did, code, late_row, narrative_out[did], ti_block["threatIndex"], ti_block["status"], posts, as_of
@@ -386,7 +440,7 @@ def main() -> int:
     payload = {
         "schema_version": 1,
         "product": "MajorityIQ",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": now_pt_iso(),
         "as_of_date": as_of.isoformat(),
         "formula": {
             "description": "Weighted composite 0–100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
@@ -414,7 +468,8 @@ def main() -> int:
                 "fetched_at": news_fetched_at,
             },
             "lean": {
-                "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)",
+                "path": "data/election-history/official/asm-2024-general-sov.json",
+                "source": "2024 Assembly result (SOS SOV)",
             },
         },
         "districts": districts_out,

@@ -70,7 +70,6 @@ window.AE = window.AE || {};
     if (!row) return 1;
     const poll = row.poll;
     if (poll && AE.polling.isRecent(poll)) return 0.15;
-    if (poll) return 0.55;
     return 1;
   };
 })();

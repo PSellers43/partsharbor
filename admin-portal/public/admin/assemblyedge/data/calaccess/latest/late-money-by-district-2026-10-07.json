@@ -52,7 +52,11 @@
         "ie_seven_day": 569592.66,
         "ie_support": 568005.82,
         "ie_oppose": 597707.11,
-        "ie_reports": 36
+        "ie_reports": 36,
+        "last_filed_day_date": "2026-10-06",
+        "last_filed_day": 5900.0,
+        "ie_last_filed_day_date": "2026-10-05",
+        "ie_last_filed_day": 333619.8
       },
       "sparkline": [
         12900.0,
@@ -2065,7 +2069,11 @@
         "ie_seven_day": 793826.28,
         "ie_support": 1351126.89,
         "ie_oppose": 1029827.22,
-        "ie_reports": 54
+        "ie_reports": 54,
+        "last_filed_day_date": "2026-10-05",
+        "last_filed_day": 112000.0,
+        "ie_last_filed_day_date": "2026-10-06",
+        "ie_last_filed_day": 38994.03
       },
       "sparkline": [
         0.0,
@@ -4078,7 +4086,11 @@
         "ie_seven_day": 141316.11,
         "ie_support": 561979.48,
         "ie_oppose": 654482.52,
-        "ie_reports": 29
+        "ie_reports": 29,
+        "last_filed_day_date": "2026-10-06",
+        "last_filed_day": 16800.0,
+        "ie_last_filed_day_date": "2026-10-05",
+        "ie_last_filed_day": 90889.87
       },
       "sparkline": [
         5900.0,
@@ -6091,7 +6103,11 @@
         "ie_seven_day": 39092.0,
         "ie_support": 27510.0,
         "ie_oppose": 251489.95,
-        "ie_reports": 13
+        "ie_reports": 13,
+        "last_filed_day_date": "2026-10-05",
+        "last_filed_day": 25000.0,
+        "ie_last_filed_day_date": "2026-10-05",
+        "ie_last_filed_day": 39092.0
       },
       "sparkline": [
         9900.0,
@@ -8020,7 +8036,11 @@
         "ie_seven_day": 1043153.81,
         "ie_support": 744893.01,
         "ie_oppose": 1142501.72,
-        "ie_reports": 61
+        "ie_reports": 61,
+        "last_filed_day_date": "2026-10-06",
+        "last_filed_day": 5900.0,
+        "ie_last_filed_day_date": "2026-10-05",
+        "ie_last_filed_day": 949173.56
       },
       "sparkline": [
         6000.0,
@@ -10033,7 +10053,11 @@
         "ie_seven_day": 157410.02,
         "ie_support": 499086.52,
         "ie_oppose": 463435.09,
-        "ie_reports": 25
+        "ie_reports": 25,
+        "last_filed_day_date": "2026-10-06",
+        "last_filed_day": 9400.0,
+        "ie_last_filed_day_date": "2026-10-05",
+        "ie_last_filed_day": 99282.02
       },
       "sparkline": [
         0.0,

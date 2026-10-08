@@ -88,15 +88,15 @@ def ie_pressure_raw(late_row: dict[str, Any] | None) -> float:
         return 0.0
     totals = late_row.get("totals") or {}
     ie7 = float(totals.get("ie_seven_day") or 0)
-    oppose = float(totals.get("ie_oppose") or 0)
-    support = float(totals.get("ie_support") or 0)
+    anti_r = float(totals.get("ie_anti_r_period") or totals.get("ie_anti_r") or 0)
+    pro_r = float(totals.get("ie_pro_r_period") or totals.get("ie_pro_r") or 0)
     import math
 
     pressure = math.log1p(ie7)
-    total_ie = oppose + support
-    if total_ie > 0:
-        oppose_share = oppose / total_ie
-        pressure *= 0.75 + 0.5 * oppose_share
+    directional = anti_r + pro_r
+    if directional > 0:
+        anti_share = anti_r / directional
+        pressure *= 0.75 + 0.5 * anti_share
     return pressure
 
 
@@ -295,7 +295,8 @@ def _ie_blurb(late_row: dict[str, Any] | None) -> str:
     t = late_row.get("totals") or {}
     return (
         f"7-day IE ${t.get('ie_seven_day', 0):,.0f}; "
-        f"cycle oppose ${t.get('ie_oppose', 0):,.0f} vs support ${t.get('ie_support', 0):,.0f}."
+        f"direction-aware cycle totals: anti-R ${t.get('ie_anti_r', 0):,.0f} vs pro-R ${t.get('ie_pro_r', 0):,.0f} "
+        f"(from target candidate party + support/oppose)."
     )
 
 

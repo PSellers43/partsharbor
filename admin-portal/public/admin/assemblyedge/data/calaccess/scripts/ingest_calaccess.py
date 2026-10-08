@@ -997,9 +997,14 @@ def build_late_money_district_payload(
     ie_oppose = sum_amount([i for i in ie_items if i["side"] == "oppose"])
 
     seven_start = max(win_start, as_of_date - timedelta(days=6))
+    contrib_dates = sorted({i.get("contrib_date") for i in period_items if i.get("contrib_date")})
+    last_filed_day_date = contrib_dates[-1] if contrib_dates else None
     last_24h_total = sum_amount(
         [i for i in period_items if i.get("contrib_date") == as_of_date.isoformat()]
     )
+    last_filed_day_total = sum_amount(
+        [i for i in period_items if i.get("contrib_date") == last_filed_day_date]
+    ) if last_filed_day_date else 0.0
     seven_day_total = sum_amount(
         [
             i for i in period_items
@@ -1007,7 +1012,12 @@ def build_late_money_district_payload(
             and seven_start.isoformat() <= i["contrib_date"] <= as_of_date.isoformat()
         ]
     )
+    exp_dates = sorted({i.get("exp_date") for i in ie_items if i.get("exp_date")})
+    last_ie_filed_day = exp_dates[-1] if exp_dates else None
     ie_last_24h = sum_amount([i for i in ie_items if i.get("exp_date") == as_of_date.isoformat()])
+    ie_last_filed_day = sum_amount(
+        [i for i in ie_items if i.get("exp_date") == last_ie_filed_day]
+    ) if last_ie_filed_day else 0.0
     ie_seven_day = sum_amount(
         [
             i for i in ie_items
@@ -1075,9 +1085,13 @@ def build_late_money_district_payload(
             "received": money(received_total),
             "made": money(made_total),
             "last_24h": money(last_24h_total),
+            "last_filed_day": money(last_filed_day_total),
+            "last_filed_day_date": last_filed_day_date,
             "seven_day": money(seven_day_total),
             "ie_period": money(ie_total),
             "ie_last_24h": money(ie_last_24h),
+            "ie_last_filed_day": money(ie_last_filed_day),
+            "ie_last_filed_day_date": last_ie_filed_day,
             "ie_seven_day": money(ie_seven_day),
             "ie_support": money(ie_support),
             "ie_oppose": money(ie_oppose),

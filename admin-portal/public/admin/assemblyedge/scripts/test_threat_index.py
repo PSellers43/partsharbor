@@ -108,10 +108,77 @@ def test_bundle_json_valid():
 
 
 def test_late_money_inputs_change_ti():
-    late_high = {"totals": {"seven_day": 500000, "ie_seven_day": 400000, "ie_oppose": 200000, "ie_support": 50000}, "daily_buckets": [{"amount": 100}] * 20}
-    late_low = {"totals": {"seven_day": 1000, "ie_seven_day": 500, "ie_oppose": 200, "ie_support": 100}, "daily_buckets": [{"amount": 10}] * 20}
+    late_high = {
+        "totals": {
+            "seven_day": 500000,
+            "ie_seven_day": 400000,
+            "ie_anti_r": 200000,
+            "ie_pro_r": 50000,
+            "ie_anti_r_period": 150000,
+        },
+        "daily_buckets": [{"amount": 100}] * 20,
+    }
+    late_low = {
+        "totals": {
+            "seven_day": 1000,
+            "ie_seven_day": 500,
+            "ie_anti_r": 200,
+            "ie_pro_r": 100,
+            "ie_anti_r_period": 50,
+        },
+        "daily_buckets": [{"amount": 10}] * 20,
+    }
     assert money_velocity_raw(late_high) > money_velocity_raw(late_low)
     assert ie_pressure_raw(late_high) > ie_pressure_raw(late_low)
+
+
+def test_official_lean_json():
+    path = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+    assert path.exists()
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    ad7 = doc["districts"]["ad-7"]
+    assert ad7["lean"] == "R+7.3"
+    ad27 = doc["districts"]["ad-27"]
+    assert ad27["lean"] == "D+7.8"
+
+
+def test_precinct_g24_rollup_near_sos():
+    official_path = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+    idx_path = ROOT / "data" / "election-history" / "latest" / "election-history-index.json"
+    if not official_path.is_file() or not idx_path.is_file():
+        return
+    official = json.loads(official_path.read_text(encoding="utf-8"))
+    idx = json.loads(idx_path.read_text(encoding="utf-8"))
+    meta_by_id = {d["id"]: d for d in idx.get("districts") or []}
+    eh = ROOT / "data" / "election-history" / "latest"
+    for did, row in official.get("districts", {}).items():
+        geo_path = eh / f"{did}-precincts.geojson"
+        if not geo_path.is_file():
+            continue
+        g24_cov = float(meta_by_id.get(did, {}).get("g24_results_pct") or 0)
+        g = json.loads(geo_path.read_text(encoding="utf-8"))
+        dem_v = rep_v = 0.0
+        for feat in g.get("features") or []:
+            g24 = (feat.get("properties") or {}).get("g24_asm")
+            if not g24 or not g24.get("votes_two_party"):
+                continue
+            v = float(g24["votes_two_party"])
+            dem_pct = g24.get("dem_pct")
+            if dem_pct is None:
+                continue
+            dem_v += v * float(dem_pct) / 100.0
+            rep_v += v * (100.0 - float(dem_pct)) / 100.0
+        tot = dem_v + rep_v
+        assert tot > 0, f"{did}: no g24 votes in GeoJSON"
+        sos_tot = float(row["dem_votes"]) + float(row["rep_votes"])
+        margin_r = rep_v / tot * 100.0 - dem_v / tot * 100.0
+        if g24_cov >= 90.0:
+            assert abs(tot - sos_tot) / sos_tot <= 0.02, f"{did}: roll-up {tot:.0f} vs SOS {sos_tot:.0f} (g24 cov {g24_cov}%)"
+            assert abs(margin_r - float(row["margin_r_pct"])) <= 0.5, f"{did}: margin {margin_r:.2f} vs SOS {row['margin_r_pct']}"
+        else:
+            assert abs(margin_r - float(row["margin_r_pct"])) <= 2.0, (
+                f"{did}: partial g24 shape coverage ({g24_cov}%) — margin {margin_r:.2f} vs SOS {row['margin_r_pct']}"
+            )
 
 
 def main():
@@ -124,6 +191,8 @@ def main():
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,
+        test_official_lean_json,
+        test_precinct_g24_rollup_near_sos,
         test_bundle_json_valid,
     ]
     for t in tests:

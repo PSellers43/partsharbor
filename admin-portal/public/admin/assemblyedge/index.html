@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MajorityIQ — Threat Index + Campaign Manager (Demo)</title>
-  <meta name="description" content="MajorityIQ prototype: CA Assembly Republican competitive-intelligence desk. Demo / illustrative data only." />
+  <title>MajorityIQ — Threat Index desk (mixed real + estimated)</title>
+  <meta name="description" content="MajorityIQ: CA Assembly beachhead desk — computed Threat Index, CAL-ACCESS money, SOS/SWDB public aggregates. Estimates and gaps labeled; not official FPPC or SOS figures." />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
@@ -12,7 +12,7 @@
   <!-- Live vs demo banner -->
   <div class="demo-banner" role="status">
     <span class="pulse" aria-hidden="true"></span>
-    <span class="demo-banner-text">Mixed live + demo — Threat Index, Focus score, Ads/News/Rival tabs, and several CM toggles remain illustrative. LIVE when stamped: CAL-ACCESS money, SWDB precinct history &amp; ABEV baselines, SOS registration (demography), SOS county ballot-status rows (ABEV), X digest + lexicon tone est. Not official FPPC, SOS, or caucus figures.</span>
+    <span class="demo-banner-text">Real public data, refreshed manually — each panel shows its as-of time (PT). Computed TI, news, rival, and alerts load from static JSON after refresh. Estimates are tagged EST; unavailable layers show explicit gaps. Not official FPPC, SOS, or caucus figures.</span>
   </div>
 
   <nav class="app-nav no-print" aria-label="Primary">
@@ -125,8 +125,8 @@
             <div class="focus-legend" id="focus-legend" aria-label="Score legend"></div>
           </div>
           <aside class="card focus-map-aside">
-            <h3 class="card-title">Score formula <span class="chip chip-demo">Prototype</span></h3>
-            <p class="focus-formula">Focus score (0–100) = <strong>40%</strong> Threat Index (demo desk signal) + <strong>35%</strong> money pressure (LIVE CAL-ACCESS spend totals when matched, else TI proxy) + <strong>25%</strong> polling gap severity (no recent public poll → higher).</p>
+            <h3 class="card-title">Score formula <span class="chip chip-demo">EST · heuristic</span></h3>
+            <p class="focus-formula">Focus score (0–100) = <strong>40%</strong> computed Threat Index + <strong>35%</strong> money pressure (CAL-ACCESS spend totals when matched, else TI proxy) + <strong>25%</strong> polling gap severity (no recent public horse-race poll → higher).</p>
             <p style="margin:12px 0 0;font-size:12px;color:var(--text-dim)">Tap a highlighted beachhead district for an intra-district city/area heat map (2022 g22 proxy).</p>
             <button type="button" class="btn" data-page-jump="methodology" style="margin-top:14px">Methodology &amp; trust</button>
             <div id="focus-rank-list" class="focus-rank-list"></div>
@@ -251,7 +251,7 @@
             <select id="desk-district-select-cm" class="desk-district-select" aria-label="Beachhead district for Today's Board"></select>
           </label>
           <div class="stat-pill">
-            <div class="label" id="cm-ti-label">Threat (demo)</div>
+            <div class="label" id="cm-ti-label">Threat Index</div>
             <div class="value" id="cm-ti-value">72</div>
           </div>
           <div class="mode-switch" role="group" aria-label="Race mode">
@@ -295,7 +295,7 @@
               </label>
               <label class="cm-note-label">
                 <span>After-action note</span>
-                <input type="text" id="cm-log-note" maxlength="200" placeholder="What you did / why (demo)" />
+                <input type="text" id="cm-log-note" maxlength="200" placeholder="What you did / why" />
               </label>
               <button type="submit" class="btn btn-primary">Log decision</button>
             </form>
@@ -347,37 +347,38 @@
         <div class="card method-card">
           <h3>Sources in this build</h3>
           <ul>
-            <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions (<span class="chip chip-live">live</span> JSON; weekday refresh via <code>scripts/update-calaccess.sh</code>)</li>
-            <li><strong>SWDB</strong> — precinct Assembly margins (2022/2024), ABEV mail-return baselines (<span class="chip chip-live">live</span> static JSON; manual <code>update-election-history.sh</code> / <code>update-abev.sh</code>)</li>
-            <li><strong>CA SOS ROR</strong> — registration by Assembly district (<span class="chip chip-live">live</span> via <code>update-demography.sh</code>)</li>
-            <li><strong>CA SOS BSR</strong> — county mail ballot status XLSX (<span class="chip chip-live">live</span> county rows in ABEV; <code>scripts/update-daily-majorityiq.sh</code>)</li>
-            <li><strong>Public X digest</strong> — D1/API + bundled fallback; tone est. from post text (lexicon, not polling)</li>
+            <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions (static JSON; manual <code>scripts/update-calaccess.sh</code>)</li>
+            <li><strong>Threat Index + News + Rival + Alerts</strong> — computed from CAL-ACCESS + Google News RSS + curated polls (<code>scripts/update-intel.sh</code>)</li>
+            <li><strong>2024 lean</strong> — CA SOS Statement of Vote Assembly totals (<code>data/election-history/official/asm-2024-general-sov.json</code>)</li>
+            <li><strong>SWDB</strong> — precinct Assembly margins (2022/2024, addist-filtered), ABEV mail-return baselines (<code>update-election-history.sh</code> / <code>update-abev.sh</code>)</li>
+            <li><strong>CA SOS ROR</strong> — registration by Assembly district (<code>update-demography.sh</code>)</li>
+            <li><strong>CA SOS BSR</strong> — county mail ballot status XLSX (county rows in ABEV; not AD totals)</li>
+            <li><strong>Public X digest</strong> — paid X API + bundled fallback; keyword tone estimate (not polling)</li>
             <li><strong>Curated polls</strong> — hand-maintained <code>data/polling/latest.json</code> with explicit gap rows</li>
-            <li><strong>Threat Index / Ads / News</strong> — <span class="chip chip-demo">demo or missing</span> on most districts (see banner)</li>
+            <li><strong>Ads tab</strong> — unavailable in this build until wired (no silent placeholders)</li>
           </ul>
-          <p style="margin-top:12px">Money tab loads <span class="chip chip-live">LIVE CAL-ACCESS</span> when JSON is present (as-of stamped). Otherwise <span class="chip chip-demo">demo</span> placeholders — never silently mixed. See <code>CALACCESS.md</code>.</p>
+          <p style="margin-top:12px">Panels show as-of stamps in Pacific Time. Missing bundles render explicit unavailable states — no fictional numbers. See <code>CALACCESS.md</code>.</p>
         </div>
         <div class="card method-card">
-          <h3>Update cadence (target)</h3>
+          <h3>Update cadence</h3>
           <ul>
-            <li>Ad libraries: multiple times daily</li>
-            <li>CAL-ACCESS deltas: on filing / late-contribution cycles</li>
-            <li>Narrative: continuous ingest with human-reviewable tags</li>
-            <li>Monday Brief: weekly rollup for operators</li>
+            <li>All layers are manual refresh today — run <code>scripts/update-daily-majorityiq.sh</code> or individual update scripts on a schedule you control.</li>
+            <li>CAL-ACCESS: weekday SOS ZIP export</li>
+            <li>Intel (TI/news/rival): after CAL-ACCESS + polling JSON</li>
+            <li>Monday Brief: printable rollup from loaded bundles</li>
           </ul>
         </div>
         <div class="card method-card">
           <h3>Threat Index factors</h3>
           <ul>
-            <li>Money velocity — receipts/spend vs 8-week baseline</li>
-            <li>IE pressure — independent expenditure concentration</li>
-            <li>Ad surge — Meta + Google volume &amp; bands</li>
-            <li>Narrative heat — headline velocity + sentiment</li>
-            <li>Poll movement — disclosed ranges only when available</li>
-            <li>Polling &amp; gaps panel — curated <code>data/polling/latest.json</code> (public horse-race only)</li>
-            <li>Focus map — 40% TI + 35% money + 25% polling gap severity (prototype); drill adds SWDB precinct Assembly margins (2022/2024) and ACS + SOS demography panels</li>
+            <li>Money velocity — 7-day late contributions in FPPC 90-day window (CAL-ACCESS S497), ranked across beachheads</li>
+            <li>IE pressure — 7-day IE with direction-aware anti-R vs pro-R totals</li>
+            <li>Ad surge — excluded (not in composite)</li>
+            <li>Narrative heat — headline count in last 7 days (Google News RSS at build time)</li>
+            <li>Poll movement — included only when a curated public poll is inside the gap window</li>
+            <li>Focus map — EST heuristic (40% TI + 35% money + 25% poll gap); drill adds addist-filtered SWDB precinct margins and ACS + SOS registration</li>
           </ul>
-          <p style="margin-top:12px">Click any factor on AD-7 for an in-product methodology drawer.</p>
+          <p style="margin-top:12px">Click any factor on a district Threat Index tab for the methodology drawer.</p>
         </div>
         <div class="card method-card">
           <h3>Decision chips</h3>
@@ -399,7 +400,7 @@
       </div>
       <div class="disclaimer-box">
         <strong>Disclaimers</strong>
-        MajorityIQ is not an official product of the FPPC, California Secretary of State, or any caucus. Public candidate and district names appear because they are public races. CAL-ACCESS, SWDB, SOS, and X layers are real public aggregates with as-of stamps; Threat Index, Focus score, ads/news/rival tabs, and some CM copy remain demo until wired. Curated polls are third-party public surveys or explicit gaps — not internal modeling. No outreach, pricing, or waitlist flows are included.
+        MajorityIQ is not an official product of the FPPC, California Secretary of State, or any caucus. Public candidate and district names appear because they are public races. Layers are public aggregates with as-of stamps; estimates and gaps are labeled in the UI. Curated polls are third-party public surveys or explicit gaps — not internal modeling. No outreach, pricing, or waitlist flows are included.
       </div>
     </section>
   </main>
@@ -410,7 +411,7 @@
     <button type="button" class="btn drawer-close" id="drawer-close" aria-label="Close">Close</button>
     <h2 id="drawer-title">Factor</h2>
     <p id="drawer-body"></p>
-    <p style="margin-top:16px"><span class="chip chip-demo">Demo methodology copy</span></p>
+    <p style="margin-top:16px"><span class="chip chip-live-weak">Methodology · v1 formula</span></p>
   </aside>
 
   <!-- Command palette -->
