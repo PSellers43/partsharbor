@@ -189,20 +189,31 @@
     $("#stat-elevated").textContent = elevated;
     $("#stat-watch").textContent = watch;
 
+    const tiAsOf =
+      AE.intelMeta && AE.intelMeta.as_of_date
+        ? formatAsOfDate(AE.intelMeta.as_of_date)
+        : AE.intelLoaded
+          ? "PT"
+          : "";
     grid.innerHTML = AE.districts
       .map((d) => {
-        const meta = AE.statusMeta[d.status];
-        const barW = Math.min(100, d.threatIndex);
+        const meta = AE.statusMeta[d.status] || AE.statusMeta.unavailable;
+        const tiVal = d.threatIndex != null ? d.threatIndex : "—";
+        const barW = d.threatIndex != null ? Math.min(100, d.threatIndex) : 0;
+        const tiChip = AE.intelLoaded
+          ? `<span class="chip chip-real-static" style="margin-top:6px;font-size:10px">Computed TI${tiAsOf ? " · " + tiAsOf : ""}</span>`
+          : `<span class="chip chip-gap" style="margin-top:6px;font-size:10px">TI unavailable</span>`;
         return `
         <button type="button" class="district-card status-${d.status}" data-district="${d.id}" aria-label="Open ${d.code} ${d.name}">
           <div class="district-card-top">
             <div>
               <div class="district-code">${d.code}</div>
               <div class="district-name">${d.name} · ${d.region}</div>
+              ${tiChip}
             </div>
             <span class="chip ${meta.class}">${meta.label}</span>
           </div>
-          <div class="threat-score">${d.threatIndex}<span class="unit">TI</span></div>
+          <div class="threat-score">${tiVal}<span class="unit">TI</span></div>
           <div class="threat-bar" aria-hidden="true"><span style="width:${barW}%"></span></div>
           <div class="district-card-meta">
             <span>24h <strong class="delta ${deltaClass(d.delta24h)}">${deltaFmt(d.delta24h)}</strong></span>
@@ -227,12 +238,13 @@
     const poll = row.poll;
     const recent = poll && AE.polling.isRecent(poll);
     const hasPoll = !!poll;
+    const historical = row.historical_polls || [];
     const gapMsg = (row.gap && row.gap.message) || "No public horse-race poll in the last 90 days";
-    const isGapOnly = !hasPoll;
+    const isGapOnly = !hasPoll || !recent;
     const isStale = hasPoll && !recent;
 
     let bars = "";
-    if (hasPoll && poll.margin) {
+    if (hasPoll && recent && poll.margin) {
       const m = poll.margin;
       const u = m.undecided_pct || 0;
       const lead = m.leader_party === "R" ? "r" : "d";
@@ -260,7 +272,11 @@
         </div>
         ${poll.source_url ? `<a class="poll-source-link" href="${poll.source_url}" target="_blank" rel="noopener noreferrer">${poll.source_label || "Source"} ↗</a>` : ""}`;
     } else {
-      bars = `<div class="poll-gap-block"><div class="poll-gap-message">${gapMsg}</div></div>`;
+      const hist =
+        historical.length && !recent
+          ? `<details class="poll-historical" style="margin-top:10px"><summary>Historical poll (prior cycle / different matchup)</summary><p style="font-size:12px;color:var(--text-muted)">${historical[0].label || "Not a 2026 horse-race poll."} · ${historical[0].pollster || ""} · field end ${historical[0].field_end || "—"}</p></details>`
+          : "";
+      bars = `<div class="poll-gap-block"><div class="poll-gap-message">${gapMsg}</div>${hist}</div>`;
     }
 
     const gapChip =
@@ -304,8 +320,8 @@
     }
 
     if (badge) {
-      badge.textContent = "CURATED PUBLIC POLLS";
-      badge.className = "chip chip-live";
+      badge.textContent = "Curated public polls";
+      badge.className = "chip chip-curated";
     }
     if (note) {
       const asOf = root.updated_at ? formatAsOf(root.updated_at) : "—";
@@ -909,7 +925,8 @@
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#b8860b"></span> High focus (70+)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#8b6914"></span> Elevated (50–69)</span>
         <span class="focus-legend-item"><span class="focus-legend-swatch" style="background:#5c4a12"></span> Watch (&lt;50)</span>
-        <span class="focus-legend-item"><span class="chip chip-demo">Threat Index illustrative</span></span>
+        <span class="focus-legend-item"><span class="chip chip-real-static">Computed TI</span></span>
+        <span class="focus-legend-item"><span class="chip chip-est">EST · heuristic</span></span>
         <span class="focus-legend-item">Gray outlines = other ADs (context)</span>`;
     }
 
@@ -952,9 +969,9 @@
 
     $("#detail-code").textContent = d.code;
     $("#detail-name").textContent = d.name;
-    $("#detail-region").textContent = d.region + " · " + d.lean;
+    $("#detail-region").textContent = d.region + " · " + (d.lean || "Lean loading…");
     $("#detail-incumbent").textContent = d.incumbent + (d.party !== "—" ? ` (${d.party})` : "");
-    $("#detail-ti").textContent = d.threatIndex;
+    $("#detail-ti").textContent = d.threatIndex != null ? d.threatIndex : "—";
     $("#detail-status").className = "chip " + meta.class;
     $("#detail-status").textContent = meta.label;
     $("#detail-d24").textContent = deltaFmt(d.delta24h);
@@ -997,8 +1014,8 @@
       el.innerHTML = `<div class="empty-state"><h3>Threat Index bundle not loaded</h3><p>${AE.intelLoadError || "Run scripts/update-intel.sh after CAL-ACCESS ingest."}</p></div>`;
       return;
     }
-    const intelChip = AE.intelLoaded ? `<span class="chip chip-live">Computed</span>` : `<span class="chip chip-demo">Fallback</span>`;
-    const asOf = AE.intelMeta && AE.intelMeta.as_of_date ? ` · as of ${AE.intelMeta.as_of_date}` : "";
+    const intelChip = AE.intelLoaded ? `<span class="chip chip-real-static">Computed</span>` : `<span class="chip chip-gap">Unavailable</span>`;
+    const asOf = AE.intelMeta && AE.intelMeta.as_of_date ? ` · as of ${formatAsOfDate(AE.intelMeta.as_of_date)}` : "";
     el.innerHTML = `
       <div class="panel-grid">
         <div class="card">
@@ -1048,6 +1065,21 @@
       btn.addEventListener("click", () => openDrawer(btn.dataset.factor));
     });
     el.querySelector("[data-page-jump]")?.addEventListener("click", () => navigate("methodology"));
+  }
+
+  function formatAsOfDate(iso) {
+    if (!iso) return "";
+    try {
+      const d = new Date(String(iso).length === 10 ? iso + "T12:00:00" : iso);
+      return d.toLocaleDateString("en-US", {
+        timeZone: "America/Los_Angeles",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }) + " PT";
+    } catch {
+      return iso;
+    }
   }
 
   function formatAsOf(iso) {
@@ -1289,7 +1321,7 @@
     const wrap = $("#cm-social-spark-wrap");
     if (!wrap || !AE.social || !AE.social.renderBoardSparklines) return;
     wrap.innerHTML = `
-      <h3 class="card-title">X sentiment · all beachheads <span class="chip chip-demo">AI tone est.</span></h3>
+      <h3 class="card-title">X sentiment · all beachheads <span class="chip chip-est">Keyword tone est.</span></h3>
       <p class="social-sentiment-note" style="margin:0 0 10px;font-size:12px">Daily net tone sparklines from public X posts — <strong>not polling</strong>. Click a district for the Social panel.</p>
       ${AE.social.renderBoardSparklines()}`;
     wrap.querySelectorAll("[data-district-social-open]").forEach((btn) => {
@@ -1523,7 +1555,7 @@
                 <div class="feed-title">${n.url ? `<a href="${n.url}" target="_blank" rel="noopener noreferrer">${n.title}</a>` : n.title}</div>
                 <div class="feed-ts">${n.ts}</div>
               </div>
-              <span class="chip chip-sentiment-${n.sentiment}">${n.sentiment}</span>
+              <span class="chip chip-est" title="Keyword flag from headline text">${n.sentiment} · keyword</span>
             </article>`
             )
             .join("")}
@@ -1544,9 +1576,9 @@
           <h3 class="card-title">Opponent</h3>
           <h3>${r.opponent} <span class="chip chip-watch">${r.party}</span></h3>
           <p>${r.notes}</p>
-          <h3 class="card-title">IE supporting challenger / oppose R</h3>
+          <h3 class="card-title">${r.open_seat ? "IE helping D side / anti-R" : "IE anti-R (support D or oppose R target)"}</h3>
           <ul class="ie-list">
-            ${r.ieSupporters
+            ${(r.ieSupporters || [])
               .map(
                 (i) => `<li><div><div class="ie-name">${i.name}</div><div class="ie-role">${i.role}</div></div><span class="ie-band">${i.spendBand}</span></li>`
               )
@@ -1554,9 +1586,9 @@
           </ul>
         </div>
         <div class="card rival-block">
-          <h3 class="card-title">IE allies (support incumbent)</h3>
+          <h3 class="card-title">${r.open_seat ? "IE helping R side / pro-R" : "IE pro-R (support R or oppose D target)"}</h3>
           <ul class="ie-list">
-            ${r.ieAllies
+            ${(r.ieAllies || [])
               .map(
                 (i) => `<li><div><div class="ie-name">${i.name}</div><div class="ie-role">${i.role}</div></div><span class="ie-band">${i.spendBand}</span></li>`
               )
@@ -1582,7 +1614,7 @@
             .map(
               (a) => `
             <div class="timeline-item">
-              <div class="timeline-ts">${a.ts}</div>
+              <div class="timeline-ts">${formatAsOfDate(a.ts)}</div>
               <div class="timeline-title">${a.title}</div>
               <div class="timeline-detail">${a.detail}</div>
               <span class="chip chip-decision-${a.decision}">${a.decisionLabel}</span>
@@ -1649,7 +1681,7 @@
             .join("")}
         </div>
         <div class="brief-footer">
-          MajorityIQ prototype · Sources in production: CAL-ACCESS, Meta Ad Library, Google Ads Transparency, sourced news.
+          MajorityIQ · Sources: CAL-ACCESS (money/late IE), CA SOS SOV lean, SWDB precincts/ABEV, SOS ROR/BSR, build-time Google News RSS, curated polling gaps, X digest (paid API). As-of stamps shown in PT.
           Not an official FPPC, Secretary of State, or caucus product. Decision chips are guidance taxonomy only.
         </div>
       </div>`;
@@ -1901,19 +1933,19 @@
       },
       {
         id: "tab-ads",
-        label: "AD-7 · Ads (deep demo)",
+        label: `${deskDistrict().code} · Ads`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "ads" }),
       },
       {
         id: "tab-narrative",
-        label: "AD-7 · Narrative (deep demo)",
+        label: `${deskDistrict().code} · Narrative`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "narrative" }),
       },
       {
         id: "tab-alerts",
-        label: "AD-7 · Alerts (deep demo)",
+        label: `${deskDistrict().code} · Alerts`,
         hint: "Tab",
         run: () => navigate("district", { districtId: "ad-7", tab: "alerts" }),
       },

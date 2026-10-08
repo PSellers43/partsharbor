@@ -245,17 +245,17 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 352528.32,
-          "deltaSpend": 50.0,
+          "deltaSpend": 392.7,
           "deltaReceipts": 0,
           "series": [
             0.0,
             0.0,
             0.0,
             0.0,
-            128192.12,
-            64096.06,
-            64096.06,
-            96144.09
+            0.0,
+            0.0,
+            28734.0,
+            141580.0
           ],
           "targets": [
             "Amy L. Slavensky"
@@ -274,7 +274,9 @@
               "3205328"
             ],
             "filing_id_count": 7
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "PACSA PAC, A sponsored committee of Parents Against Child Sexual Abuse",
@@ -305,7 +307,9 @@
               "3206899"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Keeping Californians Working, a Coalition of Insurance Agents, Energy, Education, and Health Care Providers",
@@ -336,7 +340,9 @@
               "3204355"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Californians to Preserve and Protect Local Jobs and Essential Community Services, sponsored by Hawaiian Gardens Casino",
@@ -352,9 +358,9 @@
             0.0,
             0.0,
             0.0,
-            102061.32,
-            34020.44,
-            68040.88
+            0.0,
+            0.0,
+            87778.0
           ],
           "targets": [
             "Josh Hoover"
@@ -370,7 +376,9 @@
               "3203805"
             ],
             "filing_id_count": 4
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Citizens and Communities for Fair Government, sponsored by California Commerce Club",
@@ -378,7 +386,7 @@
           "role": "IE support",
           "receipts": 0.0,
           "spend": 186341.32,
-          "deltaSpend": -80.0,
+          "deltaSpend": 100.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -387,8 +395,8 @@
             0.0,
             0.0,
             0.0,
-            155284.43,
-            31056.89
+            0.0,
+            35451.0
           ],
           "targets": [
             "Josh Hoover"
@@ -403,7 +411,9 @@
               "3198185"
             ],
             "filing_id_count": 3
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Uber Innovation Political Action Committee",
@@ -466,7 +476,9 @@
               "3205736"
             ],
             "filing_id_count": 2
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
@@ -497,7 +509,9 @@
               "3205852"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "California Correctional Peace Officers Association Local Political Action Committee",
@@ -560,7 +574,9 @@
               "3205985"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Families & Teachers United , sponsored by California Charter Schools Association Advocates",
@@ -591,7 +607,9 @@
               "3207118"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         }
       ],
       "notes": [
@@ -819,7 +837,7 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 400166.48,
-          "deltaSpend": -40.0,
+          "deltaSpend": -53.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -828,8 +846,8 @@
             0.0,
             0.0,
             0.0,
-            250104.05,
-            150062.43
+            240526.37,
+            112948.67
           ],
           "targets": [
             "Leila Namvar"
@@ -847,7 +865,9 @@
               "3206886"
             ],
             "filing_id_count": 6
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Legislative Bipartisan Action PAC",
@@ -855,17 +875,17 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 391048.46,
-          "deltaSpend": -33.3,
+          "deltaSpend": 100.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
             0.0,
             0.0,
             0.0,
-            195524.23,
-            55864.07,
-            83796.1,
-            55864.07
+            0.0,
+            0.0,
+            0.0,
+            135500.0
           ],
           "targets": [
             "Leila Namvar"
@@ -886,7 +906,9 @@
               "3205329"
             ],
             "filing_id_count": 9
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
@@ -894,7 +916,7 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 182987.28,
-          "deltaSpend": 0.0,
+          "deltaSpend": 100.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -902,9 +924,9 @@
             0.0,
             0.0,
             0.0,
-            91493.64,
-            45746.82,
-            45746.82
+            0.0,
+            0.0,
+            1690.52
           ],
           "targets": [
             "Greg Wallis"
@@ -920,7 +942,9 @@
               "3205315"
             ],
             "filing_id_count": 4
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
@@ -938,7 +962,7 @@
             0.0,
             0.0,
             0.0,
-            55625.0
+            46000.0
           ],
           "targets": [
             "Leila Namvar"
@@ -951,7 +975,9 @@
               "3200347"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "California Leads",
@@ -1014,7 +1040,9 @@
               "3206141"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
@@ -1022,7 +1050,7 @@
           "role": "IE support",
           "receipts": 0.0,
           "spend": 266913.47,
-          "deltaSpend": -33.3,
+          "deltaSpend": 100.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -1031,8 +1059,8 @@
             0.0,
             0.0,
             0.0,
-            160148.08,
-            106765.39
+            0.0,
+            60646.45
           ],
           "targets": [
             "Leila Namvar"
@@ -1046,7 +1074,9 @@
               "3204383"
             ],
             "filing_id_count": 2
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Uber Innovation Political Action Committee",
@@ -1128,7 +1158,7 @@
             0.0,
             0.0,
             0.0,
-            144524.25
+            59514.91
           ],
           "targets": [
             "Leila Namvar"
@@ -1143,7 +1173,9 @@
               "3204158"
             ],
             "filing_id_count": 3
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Legislative Bipartisan Action PAC",
@@ -1446,17 +1478,17 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 535651.74,
-          "deltaSpend": 100.0,
+          "deltaSpend": 159.3,
           "deltaReceipts": 0,
           "series": [
             0.0,
             0.0,
             0.0,
-            153043.35,
-            114782.52,
-            38260.84,
-            76521.68,
-            153043.35
+            0.0,
+            30767.0,
+            30767.0,
+            70767.0,
+            183534.0
           ],
           "targets": [
             "Clarissa Cervantes"
@@ -1477,7 +1509,9 @@
               "3206925"
             ],
             "filing_id_count": 9
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
@@ -1485,7 +1519,7 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 118830.78,
-          "deltaSpend": 200.0,
+          "deltaSpend": 60.7,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -1493,9 +1527,9 @@
             0.0,
             0.0,
             0.0,
-            23766.16,
-            23766.16,
-            71298.47
+            1214.51,
+            45122.87,
+            72493.4
           ],
           "targets": [
             "Leticia Castillo"
@@ -1512,7 +1546,9 @@
               "3207159"
             ],
             "filing_id_count": 5
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
@@ -1520,17 +1556,17 @@
           "role": "IE support",
           "receipts": 0.0,
           "spend": 497565.33,
-          "deltaSpend": 100.0,
+          "deltaSpend": -48.5,
           "deltaReceipts": 0,
           "series": [
             0.0,
             0.0,
             0.0,
             0.0,
-            165855.11,
-            82927.56,
-            82927.56,
-            165855.11
+            0.0,
+            17644.95,
+            46472.33,
+            23910.9
           ],
           "targets": [
             "Clarissa Cervantes"
@@ -1548,7 +1584,9 @@
               "3207157"
             ],
             "filing_id_count": 6
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "United Domestic Workers of America Independent Expenditure PAC",
@@ -1579,7 +1617,9 @@
               "3204155"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Riverside Sheriffs' Association Public Education Fund",
@@ -1597,7 +1637,7 @@
             0.0,
             0.0,
             0.0,
-            22211.0
+            15000.0
           ],
           "targets": [
             "Leticia Castillo"
@@ -1611,7 +1651,9 @@
               "3207058"
             ],
             "filing_id_count": 2
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Courage California State PAC",
@@ -1629,7 +1671,7 @@
             0.0,
             0.0,
             0.0,
-            5430.85
+            2182.01
           ],
           "targets": [
             "Clarissa Cervantes"
@@ -1644,7 +1686,9 @@
               "3203510"
             ],
             "filing_id_count": 3
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "GOLDEN STATE REVIVAL - SUPPORTING GONZALEZ FOR SENATE 2026, NORDBLUM FOR ASSEMBLY 2026, AND CASTILLO FOR ASSEMBLY 2026",
@@ -1951,11 +1995,11 @@
             0.0,
             0.0,
             0.0,
-            83829.98,
-            55886.66,
-            55886.66,
+            63734.95,
+            86772.0,
+            81437.0,
             0.0,
-            55886.66
+            19546.0
           ],
           "targets": [
             "Sergio Farias"
@@ -1973,7 +2017,9 @@
               "3206920"
             ],
             "filing_id_count": 6
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Legislative Action PAC, sponsored by Legislative Action California",
@@ -2004,7 +2050,9 @@
               "3206919"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Advance California, Sponsored by California Apartment Association",
@@ -2050,10 +2098,10 @@
             0.0,
             0.0,
             0.0,
-            3982.0,
+            3350.0,
             0.0,
             0.0,
-            3982.0
+            4614.0
           ],
           "targets": [
             "Sergio Farias"
@@ -2067,7 +2115,9 @@
               "3194358"
             ],
             "filing_id_count": 2
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         }
       ],
       "notes": [
@@ -2305,7 +2355,7 @@
             0.0,
             0.0,
             0.0,
-            384835.0
+            352985.0
           ],
           "targets": [
             "Ida S. Obeso-Martinez"
@@ -2318,7 +2368,9 @@
               "3206143"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
@@ -2326,7 +2378,7 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 355244.51,
-          "deltaSpend": -20.0,
+          "deltaSpend": 100.0,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -2335,8 +2387,8 @@
             0.0,
             0.0,
             0.0,
-            197358.06,
-            157886.45
+            0.0,
+            30412.04
           ],
           "targets": [
             "IDA OBESO-MARTINEZ"
@@ -2353,7 +2405,9 @@
               "3205807"
             ],
             "filing_id_count": 5
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Legislative Bipartisan Action PAC",
@@ -2419,7 +2473,9 @@
               "3206901"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
@@ -2547,7 +2603,9 @@
               "3206142"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
@@ -2902,17 +2960,17 @@
           "role": "IE oppose",
           "receipts": 0.0,
           "spend": 412182.59,
-          "deltaSpend": 200.0,
+          "deltaSpend": 69.5,
           "deltaReceipts": 0,
           "series": [
             0.0,
             0.0,
             0.0,
-            206091.29,
-            29441.61,
-            58883.23,
-            29441.61,
-            88324.84
+            102500.0,
+            38496.0,
+            76992.0,
+            38496.0,
+            65256.0
           ],
           "targets": [
             "Brian Pacheco"
@@ -2932,7 +2990,9 @@
               "3206927"
             ],
             "filing_id_count": 8
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
@@ -2963,7 +3023,9 @@
               "3204428"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Quality Health Care for Californians, sponsored by California Association of Hospitals and Health Systems",
@@ -2971,7 +3033,7 @@
           "role": "IE support",
           "receipts": 0.0,
           "spend": 319654.02,
-          "deltaSpend": 400.0,
+          "deltaSpend": -75.9,
           "deltaReceipts": 0,
           "series": [
             0.0,
@@ -2980,8 +3042,8 @@
             0.0,
             0.0,
             0.0,
-            53275.67,
-            266378.35
+            257500.0,
+            62154.02
           ],
           "targets": [
             "Brian Pacheco",
@@ -2997,7 +3059,9 @@
               "3205983"
             ],
             "filing_id_count": 3
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "California's Credit Unions Political Action Committee, Sponsored by California Credit Union League",
@@ -3028,7 +3092,9 @@
               "3204178"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
@@ -3077,7 +3143,7 @@
             0.0,
             0.0,
             0.0,
-            60000.0
+            30000.0
           ],
           "targets": [
             "Brian Pacheco"
@@ -3091,7 +3157,9 @@
               "3205850"
             ],
             "filing_id_count": 2
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
@@ -3122,7 +3190,9 @@
               "3204427"
             ],
             "filing_id_count": 1
-          }
+          },
+          "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
+          "deltaSpend_note": "WoW % from S496 dollar totals by week"
         },
         {
           "name": "Working Families for a Stronger California, Sponsored by LCCC PAC, A Bi-partisan Coalition of Municipal, County, Latino ",

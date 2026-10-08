@@ -87,17 +87,12 @@ def ie_pressure_raw(late_row: dict[str, Any] | None) -> float:
     if not late_row:
         return 0.0
     totals = late_row.get("totals") or {}
-    ie7 = float(totals.get("ie_seven_day") or 0)
-    oppose = float(totals.get("ie_oppose") or 0)
-    support = float(totals.get("ie_support") or 0)
     import math
 
-    pressure = math.log1p(ie7)
-    total_ie = oppose + support
-    if total_ie > 0:
-        oppose_share = oppose / total_ie
-        pressure *= 0.75 + 0.5 * oppose_share
-    return pressure
+    ie7_anti = float(totals.get("ie_seven_day_anti_r") or totals.get("ie_anti_r") or 0)
+    if ie7_anti <= 0:
+        ie7_anti = float(totals.get("ie_seven_day") or 0)
+    return math.log1p(ie7_anti)
 
 
 def narrative_raw(news_items: list[dict[str, Any]], as_of: dt.date) -> float:
@@ -293,6 +288,13 @@ def _ie_blurb(late_row: dict[str, Any] | None) -> str:
     if not late_row:
         return "IE totals missing."
     t = late_row.get("totals") or {}
+    pro = t.get("ie_pro_r")
+    anti = t.get("ie_anti_r")
+    if pro is not None and anti is not None:
+        return (
+            f"7-day anti-R IE ${t.get('ie_seven_day_anti_r', t.get('ie_seven_day', 0)):,.0f}; "
+            f"cycle pro-R ${pro:,.0f} vs anti-R ${anti:,.0f} (target-party classified)."
+        )
     return (
         f"7-day IE ${t.get('ie_seven_day', 0):,.0f}; "
         f"cycle oppose ${t.get('ie_oppose', 0):,.0f} vs support ${t.get('ie_support', 0):,.0f}."
@@ -314,7 +316,8 @@ def _trend_from_late(late_row: dict[str, Any] | None) -> str:
 
 def _ie_trend(late_row: dict[str, Any] | None) -> str:
     t = (late_row or {}).get("totals") or {}
-    if float(t.get("ie_last_24h") or 0) > 0 or float(t.get("ie_seven_day") or 0) > 50000:
+    last_filed = float(t.get("ie_last_filed_day") or t.get("ie_last_24h") or 0)
+    if last_filed > 0 or float(t.get("ie_seven_day_anti_r") or t.get("ie_seven_day") or 0) > 50000:
         return "up"
     return "flat"
 

@@ -13,8 +13,12 @@ window.AE = window.AE || {};
 
   function leanLabel(raw, meta) {
     if (!raw || raw === "—") return "Lean unavailable";
-    const src = meta && meta.source ? " · 2024 g24" : "";
-    return raw + src;
+    const tag = meta && meta.source_label ? ` · ${meta.source_label}` : " · SOS 2024 SOV";
+    let label = raw + tag;
+    if (meta && meta.context_2026) {
+      label += " · open seat 2026";
+    }
+    return label;
   }
 
   AE.intel.apply = function () {
@@ -56,8 +60,9 @@ window.AE = window.AE || {};
     }
 
     AE.DEMO_BANNER =
-      "Live Threat Index, news, rival, and alerts from CAL-ACCESS, Google News RSS (build-time), and SWDB 2024 lean. " +
-      "Ad surge unavailable (no free source). Precinct drill, ABEV live 2026, X sentiment tags, and some registration layers may still be partial — see Methodology.";
+      "Real public data, refreshed manually — each panel shows its as-of time (PT). Estimates are tagged EST. " +
+      "Synthetic/illustrative items are tagged DEMO. Threat Index, news, rival, and alerts from CAL-ACCESS + build-time Google News RSS; " +
+      "2024 lean from CA SOS Statement of Vote. Ad data: see Ads tab. Not official FPPC/SOS/caucus figures.";
     const bannerEl = document.querySelector(".demo-banner-text");
     if (bannerEl) bannerEl.textContent = AE.DEMO_BANNER;
   };
@@ -94,7 +99,7 @@ window.AE = window.AE || {};
       out.push({
         id: "ie-" + districtId,
         horizon: "24h",
-        title: "Review oppose-R IE pressure",
+        title: "Review anti-R IE pressure",
         detail: `7-day IE ${ie7 >= 1000 ? "$" + Math.round(ie7).toLocaleString("en-US") : ie7} in late-money window — verify filings before counter-spend.`,
         actions: ["money"],
         evidence: ["cm-craft", "issenberg"],

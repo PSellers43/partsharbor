@@ -798,8 +798,8 @@ window.AE = window.AE || {};
     }
     return {
       ok: true,
-      title: `${d.code} Threat Index (illustrative)`,
-      summary: `TI ${d.threatIndex} · ${d.status} · ${d.lean}`,
+      title: `${d.code} Threat Index`,
+      summary: `TI ${d.threatIndex != null ? d.threatIndex : "—"} · ${d.status} · ${d.lean || "—"}`,
       rows: [{ metric: "Threat Index", value: d.threatIndex, delta_7d: d.delta7d, status: d.status }],
       columns: [
         { key: "metric", label: "Metric" },
@@ -807,7 +807,12 @@ window.AE = window.AE || {};
         { key: "delta_7d", label: "7d Δ" },
         { key: "status", label: "Status" },
       ],
-      sources: [sourceMeta("MajorityIQ desk (demo TI)", null)],
+      sources: [
+        sourceMeta(
+          "Computed TI · CAL-ACCESS + news RSS" + (AE.intelMeta && AE.intelMeta.as_of_date ? " · as of " + AE.intelMeta.as_of_date : ""),
+          null
+        ),
+      ],
       deepLinks: [{ label: `Open ${d.code} war room`, type: "district-tab", districtId: d.id, tab: "threat" }],
       mode: "deterministic",
       query: q,

@@ -372,6 +372,27 @@ button {
   letter-spacing: 0;
   font-weight: 600;
 }
+.chip-real-static {
+  background: rgba(100, 160, 255, 0.16);
+  color: #7eb8ff;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.chip-est {
+  background: rgba(180, 140, 255, 0.16);
+  color: #c4a8ff;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
+.chip-curated {
+  background: rgba(160, 160, 170, 0.2);
+  color: var(--text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 600;
+}
 .money-source-note {
   margin: 0 0 12px;
   font-size: 12px;

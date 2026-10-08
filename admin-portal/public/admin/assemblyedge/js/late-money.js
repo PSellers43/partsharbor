@@ -112,7 +112,7 @@ window.AE = window.AE || {};
     return (
       `Late money (90-day FPPC period): ` +
       `${fmtMoney(t.period_contributions)} on ${t.period_contribution_reports || 0} Form 497 lines` +
-      ` · last 24h ${fmtMoney(t.last_24h)} · 7d ${fmtMoney(t.seven_day)}` +
+      ` · last filed day ${fmtMoney(t.last_filed_day != null ? t.last_filed_day : t.last_24h)} (${fmtDate(t.last_filed_day_date || row.as_of_date)}) · 7d ${fmtMoney(t.seven_day)}` +
       ` · IE ${fmtMoney(t.ie_period)} (${t.ie_reports || 0} S496). As of ${asOfShort}.`
     );
   };
@@ -131,12 +131,15 @@ window.AE = window.AE || {};
     const asOfIso = row.as_of_date || (meta && (meta.data_as_of || meta.generated_at || "").slice(0, 10));
     const asOfLabel = asOfIso ? fmtDate(asOfIso) : "—";
     const periodContrib = t.period_contributions != null ? t.period_contributions : t.window_contributions;
-    const last24 = t.last_24h != null ? t.last_24h : t.daily;
+    const last24 = t.last_filed_day != null ? t.last_filed_day : t.last_24h != null ? t.last_24h : t.daily;
+    const last24Label = t.last_filed_day_date
+      ? `Last filed day (${fmtDate(t.last_filed_day_date)})`
+      : "Last filed day";
     const iePeriod = t.ie_period != null ? t.ie_period : t.ie_window;
 
     const stats = `
       <div class="late-money-stats">
-        <div class="late-stat"><span class="late-stat-label">Last 24h</span><span class="late-stat-val mono">${fmtMoney(last24)}</span></div>
+        <div class="late-stat"><span class="late-stat-label">${last24Label}</span><span class="late-stat-val mono">${fmtMoney(last24)}</span></div>
         <div class="late-stat"><span class="late-stat-label">7-day</span><span class="late-stat-val mono">${fmtMoney(t.seven_day)}</span></div>
         <div class="late-stat"><span class="late-stat-label">90-day 497</span><span class="late-stat-val mono">${fmtMoney(periodContrib)}</span></div>
         <div class="late-stat"><span class="late-stat-label">90-day 496</span><span class="late-stat-val mono">${fmtMoney(iePeriod)}</span></div>

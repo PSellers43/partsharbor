@@ -45,7 +45,7 @@ BEACHHEADS = {
 
 # Counties that intersect beachhead ADs (from intra-district map build)
 COUNTIES_BY_AD: dict[str, list[int]] = {
-    "7": [67, 61],
+    "7": [67],
     "27": [19, 39, 47],
     "36": [25, 65, 71],
     "47": [65, 71],
@@ -251,12 +251,18 @@ def aggregate_vbm(election_key: str, addist_map: dict[tuple[str, str], int]) -> 
         dem = num(row.get("DEM"))
         rep = num(row.get("REP"))
         dcl = num(row.get("DCL"))
-        other = returned - dem - rep - dcl
+        aip = num(row.get("AIP"))
+        grn = num(row.get("GRN"))
+        lib = num(row.get("LIB"))
+        other = returned - dem - rep - dcl - aip - grn - lib
         if other < 0:
             other = 0.0
         acc[addist]["parties"]["dem"] += dem
         acc[addist]["parties"]["rep"] += rep
         acc[addist]["parties"]["npp"] += dcl
+        acc[addist]["parties"]["aip"] += aip
+        acc[addist]["parties"]["grn"] += grn
+        acc[addist]["parties"]["lib"] += lib
         acc[addist]["parties"]["other"] += other
     return acc
 

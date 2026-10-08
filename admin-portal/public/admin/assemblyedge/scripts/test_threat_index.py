@@ -84,6 +84,38 @@ def test_normalize_spreads_values():
     assert out["ad-7"] < out["ad-74"]
 
 
+def test_precinct_g24_rollup_within_sov_tolerance():
+    sov_path = ROOT / "data" / "election-history" / "official" / "asm-2024-general-sov.json"
+    assert sov_path.exists(), "Missing official asm-2024-general-sov.json"
+    official = json.loads(sov_path.read_text(encoding="utf-8"))
+    eh = ROOT / "data" / "election-history" / "latest"
+    idx_path = eh / "election-history-index.json"
+    manifest = json.loads(idx_path.read_text(encoding="utf-8")) if idx_path.is_file() else {}
+    meta_by_id = {r["id"]: r for r in manifest.get("districts") or []}
+    for did, row in (official.get("districts") or {}).items():
+        geo_path = eh / f"{did}-precincts.geojson"
+        assert geo_path.exists(), f"Missing {geo_path.name}"
+        g = json.loads(geo_path.read_text(encoding="utf-8"))
+        dem_v = rep_v = 0.0
+        for feat in g.get("features") or []:
+            g24 = (feat.get("properties") or {}).get("g24_asm")
+            if not g24 or not g24.get("votes_two_party"):
+                continue
+            v = float(g24["votes_two_party"])
+            dem_v += v * float(g24["dem_pct"]) / 100.0
+            rep_v += v * (100.0 - float(g24["dem_pct"])) / 100.0
+        tot = dem_v + rep_v
+        sos_tot = float(row["dem_votes"]) + float(row["rep_votes"])
+        assert sos_tot > 0
+        g24_cov = float(meta_by_id.get(did, {}).get("g24_results_pct") or 0)
+        if g24_cov < 90.0:
+            assert tot > 0, f"{did}: no g24 votes in precinct bundle (SWDB/shape coverage {g24_cov}%)"
+            continue
+        assert abs(tot - sos_tot) / sos_tot <= 0.02, f"{did} vote total off >2%: rollup={int(tot)} sos={int(sos_tot)}"
+        margin_r = rep_v / tot * 100 - dem_v / tot * 100
+        assert abs(margin_r - float(row["margin_r_pct"])) <= 0.5, f"{did} margin off >0.5pt"
+
+
 def test_bundle_json_valid():
     path = ROOT / "data" / "threat-index" / "latest" / "threat-index-by-district.json"
     assert path.exists(), "Run build_threat_index.py first"
@@ -124,6 +156,7 @@ def main():
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,
+        test_precinct_g24_rollup_within_sov_tolerance,
         test_bundle_json_valid,
     ]
     for t in tests:

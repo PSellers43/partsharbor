@@ -18,30 +18,32 @@
       "id": "ad-47",
       "code": "AD-47",
       "race_label": "Greg Wallis (R) incumbent vs Leila Namvar (D) · Coachella Valley",
-      "poll": {
-        "pollster": "Moore Information Group",
-        "sponsor": "Greg Wallis for Assembly (campaign-commissioned)",
-        "field_start": "2022-09-23",
-        "field_end": "2022-09-28",
-        "sample_n": 300,
-        "population": "likely voters",
-        "margin": {
-          "leader_name": "Christy Holstege",
-          "leader_party": "D",
-          "leader_pct": 43,
-          "trailer_name": "Greg Wallis",
-          "trailer_party": "R",
-          "trailer_pct": 42,
-          "undecided_pct": 14
-        },
-        "moe_pct": 6,
-        "source_label": "Campaign press release",
-        "source_url": "https://www.gregwallis.org/post/assembly-district-47-a-statistical-tie-environment-swinging-republican"
-      },
+      "historical_polls": [
+        {
+          "label": "2022 cycle · Holstege vs Wallis (not 2026 matchup)",
+          "pollster": "Moore Information Group",
+          "sponsor": "Greg Wallis for Assembly (campaign-commissioned)",
+          "field_start": "2022-09-23",
+          "field_end": "2022-09-28",
+          "sample_n": 300,
+          "population": "likely voters",
+          "margin": {
+            "leader_name": "Christy Holstege",
+            "leader_party": "D",
+            "leader_pct": 43,
+            "trailer_name": "Greg Wallis",
+            "trailer_party": "R",
+            "trailer_pct": 42,
+            "undecided_pct": 14
+          },
+          "moe_pct": 6,
+          "source_label": "Campaign press release",
+          "source_url": "https://www.gregwallis.org/post/assembly-district-47-a-statistical-tie-environment-swinging-republican"
+        }
+      ],
       "gap": {
-        "message": "No public horse-race poll in the last 90 days",
-        "as_of": "2026-10-07",
-        "days_since_field_end": 1105
+        "message": "No recent public horse-race poll for the 2026 Wallis vs Namvar matchup",
+        "as_of": "2026-10-07"
       }
     },
     {

@@ -28,6 +28,10 @@ from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
+
+AE_ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(AE_ROOT / "scripts"))
+from ie_direction import classify_ie_row, excluded_target_names, roster_parties  # noqa: E402
 from urllib.request import Request, urlretrieve
 
 # ---------------------------------------------------------------------------
@@ -587,7 +591,7 @@ def collect_ie_for_district(
             "target": target,
             "spend": 0.0,
             "receipts": 0.0,  # IE schedules don't give committee receipts here
-            "exp_dates": [],
+            "exp_events": [],
             "filing_ids": [],
             "line_count": 0,
         })
@@ -596,7 +600,7 @@ def collect_ie_for_district(
         slot["line_count"] += len(items)
         for i in items:
             if i["exp_date"]:
-                slot["exp_dates"].append(i["exp_date"])
+                slot["exp_events"].append((i["exp_date"], i["amount"]))
 
     # Optional: filter to our candidate name patterns if we have them
     name_norms = [norm_name(n) for n in candidate_names if n]
@@ -613,28 +617,17 @@ def collect_ie_for_district(
     return out
 
 
-def wow_and_series(exp_dates: List[datetime], amounts_by_date: Optional[Dict[datetime, float]] = None) -> Tuple[Optional[float], List[float]]:
-    """
-    Compute WoW % change in spend using last 7 days vs prior 7 days from exp_dates.
-    Also build 8 weekly buckets (oldest→newest) counting events or summing amounts.
-    """
-    if not exp_dates:
-        return None, [0, 0, 0, 0, 0, 0, 0, 0]
-    now = max(exp_dates)
-    # If amounts_by_date not provided, count events as proxy intensity
+def wow_and_series(exp_events: List[Tuple[datetime, float]]) -> Tuple[Optional[float], List[float]]:
+    """WoW % change in dollar spend: last 7 days vs prior 7 days; 8 weekly $ buckets."""
+    if not exp_events:
+        return None, [0.0] * 8
+    now = max(d for d, _ in exp_events)
     week_sums = [0.0] * 8
-    for d in exp_dates:
-        days_ago = (now.date() - d.date()).days
-        week_idx = 7 - min(7, days_ago // 7)  # 0=oldest of 8w window-ish
-        # Better: bucket relative to now
+    for exp_dt, amt in exp_events:
+        days_ago = (now.date() - exp_dt.date()).days
         w = days_ago // 7
         if 0 <= w < 8:
-            idx = 7 - w
-            if amounts_by_date and d.date() in {x.date() if isinstance(x, datetime) else x for x in amounts_by_date}:
-                week_sums[idx] += 1
-            else:
-                week_sums[idx] += 1
-    # WoW from last two weeks of the series
+            week_sums[7 - w] += float(amt or 0)
     last = week_sums[7]
     prev = week_sums[6]
     if prev == 0 and last == 0:
@@ -659,20 +652,17 @@ def build_ie_entities(ie_slots: List[dict], as_of: datetime) -> List[dict]:
             "spend": 0.0,
             "receipts": 0.0,
             "targets": set(),
-            "exp_dates": [],
+            "exp_events": [],
             "filing_ids": [],
         })
         g["spend"] += s["spend"]
         g["targets"].add(s["target"])
-        g["exp_dates"].extend(s["exp_dates"])
+        g["exp_events"].extend(s.get("exp_events") or [])
         g["filing_ids"].extend(s["filing_ids"])
 
     entities = []
     for g in grouped.values():
-        delta, series = wow_and_series(g["exp_dates"])
-        # scale series to reflect spend distribution roughly by event share
-        total_events = sum(series) or 1
-        series_scaled = [round(g["spend"] * (v / total_events), 2) for v in series]
+        delta, series = wow_and_series(g["exp_events"])
         entities.append({
             "name": g["name"][:120],
             "side": g["side"],
@@ -680,8 +670,10 @@ def build_ie_entities(ie_slots: List[dict], as_of: datetime) -> List[dict]:
             "receipts": money(g["receipts"]),
             "spend": money(g["spend"]),
             "deltaSpend": delta if delta is not None else 0,
+            "deltaSpend_note": "WoW % from S496 dollar totals by week",
             "deltaReceipts": 0,
-            "series": series_scaled,
+            "series": series,
+            "series_note": "Weekly S496 expenditure dollars (8 buckets, newest last)",
             "targets": sorted(t for t in g["targets"] if t),
             "match_quality": "live",
             "provenance": {
@@ -996,10 +988,39 @@ def build_late_money_district_payload(
     ie_support = sum_amount([i for i in ie_items if i["side"] == "support"])
     ie_oppose = sum_amount([i for i in ie_items if i["side"] == "oppose"])
 
+    parties_roster = roster_parties(district, district_money)
+    excluded = excluded_target_names(district)
+    ie_pro_r = ie_anti_r = 0.0
+    ie_seven_pro = ie_seven_anti = 0.0
     seven_start = max(win_start, as_of_date - timedelta(days=6))
-    last_24h_total = sum_amount(
-        [i for i in period_items if i.get("contrib_date") == as_of_date.isoformat()]
-    )
+    for item in ie_items:
+        effect = classify_ie_row(item.get("side") or "", item.get("target") or "", parties_roster, excluded)
+        if effect is None:
+            continue
+        amt = float(item.get("amount") or 0)
+        if effect == "pro_r":
+            ie_pro_r += amt
+        else:
+            ie_anti_r += amt
+        exp = item.get("exp_date")
+        if exp and seven_start.isoformat() <= exp <= as_of_date.isoformat():
+            if effect == "pro_r":
+                ie_seven_pro += amt
+            else:
+                ie_seven_anti += amt
+
+    contrib_dates = [i.get("contrib_date") for i in period_items if i.get("contrib_date")]
+    exp_dates = [i.get("exp_date") for i in ie_items if i.get("exp_date")]
+    all_filed = sorted(set(contrib_dates + exp_dates))
+    last_filed_day_date = all_filed[-1] if all_filed else None
+    last_filed_day_total = sum_amount(
+        [i for i in period_items if i.get("contrib_date") == last_filed_day_date]
+    ) if last_filed_day_date else 0.0
+    ie_last_filed_day = sum_amount(
+        [i for i in ie_items if i.get("exp_date") == last_filed_day_date]
+    ) if last_filed_day_date else 0.0
+
+    last_24h_total = last_filed_day_total
     seven_day_total = sum_amount(
         [
             i for i in period_items
@@ -1007,7 +1028,7 @@ def build_late_money_district_payload(
             and seven_start.isoformat() <= i["contrib_date"] <= as_of_date.isoformat()
         ]
     )
-    ie_last_24h = sum_amount([i for i in ie_items if i.get("exp_date") == as_of_date.isoformat()])
+    ie_last_24h = ie_last_filed_day
     ie_seven_day = sum_amount(
         [
             i for i in ie_items
@@ -1075,12 +1096,19 @@ def build_late_money_district_payload(
             "received": money(received_total),
             "made": money(made_total),
             "last_24h": money(last_24h_total),
+            "last_filed_day": money(last_filed_day_total),
+            "last_filed_day_date": last_filed_day_date,
             "seven_day": money(seven_day_total),
             "ie_period": money(ie_total),
             "ie_last_24h": money(ie_last_24h),
+            "ie_last_filed_day": money(ie_last_filed_day),
             "ie_seven_day": money(ie_seven_day),
+            "ie_seven_day_pro_r": money(ie_seven_pro),
+            "ie_seven_day_anti_r": money(ie_seven_anti),
             "ie_support": money(ie_support),
             "ie_oppose": money(ie_oppose),
+            "ie_pro_r": money(ie_pro_r),
+            "ie_anti_r": money(ie_anti_r),
             "ie_reports": len(ie_items),
         },
         "sparkline": sparkline,

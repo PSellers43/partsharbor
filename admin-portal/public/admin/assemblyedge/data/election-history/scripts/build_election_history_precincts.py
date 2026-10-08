@@ -36,8 +36,10 @@ ASSEMBLY_GEO = MAP_ROOT / "ca-assembly-crc-2020.geojson"
 LATEST = ROOT / "latest"
 
 BEACHHEAD = {"7", "27", "36", "47", "58", "74"}
+MIN_AD_OVERLAP_SHARE = 0.05
+
 COUNTY_FIPS = {
-    "7": [67, 61],
+    "7": [67],
     "27": [19, 39, 47],  # Fresno, Madera, Merced
     "36": [25, 65, 71],  # Imperial, Riverside, San Bernardino (CRC AD-36)
     "47": [65, 71],
@@ -353,14 +355,14 @@ def place_overlap_props(geom, precinct_area: float, places: list[dict], tree: ST
     }
 
 
-def sov_by_srprec(rows: list[dict]) -> dict[str, dict]:
-    """Map SR precinct id → Assembly two-party stats for the county file.
-
-    SWDB's addist column reflects registration district lines; for CRC 2020
-    beachhead clips we join by srprec for shapes intersecting the AD polygon.
-    """
+def sov_by_srprec(rows: list[dict], dist: str) -> dict[str, dict]:
+    """Map SR precinct id → Assembly two-party stats for rows assigned to this AD (`addist`)."""
+    target = int(dist)
     out = {}
     for row in rows:
+        addist = int(num(row.get("addist") or row.get("ADDIST") or 0))
+        if addist != target:
+            continue
         srprec = (row.get("srprec") or "").strip()
         if not srprec:
             continue
@@ -414,18 +416,30 @@ def load_county_sov_by_cycle(dist: str, cid: int) -> tuple[dict[str, dict], dict
                 f"AD-{dist}: missing {meta['label']} SOV in {CA_COUNTY_NAMES.get(cid, cid)} ({cid:03d})"
             )
             continue
-        by_cycle[cycle].update(sov_by_srprec(rows))
+        by_cycle[cycle].update(sov_by_srprec(rows, dist))
     return by_cycle["g22"], by_cycle["g24"], gaps
 
 
 def clipped_precincts_for_county(ad_poly, cid: int, cycle: str) -> dict[tuple[int, str], object]:
     """(county_fips, srprec) → shapely geometry clipped to AD."""
     out: dict[tuple[int, str], object] = {}
+    shapes = None
     try:
         shapes = load_srprec_shapes(cid, cycle)
     except Exception as exc:
         print(f"    shape load {cycle} county {cid:03d} failed: {exc}", file=sys.stderr)
-        return out
+        if cycle == "g24":
+            try:
+                shapes = load_srprec_shapes(cid, "g22")
+                print(
+                    f"    g24 shapes unavailable for {cid:03d}; using g22 precinct geometry for g24 results",
+                    file=sys.stderr,
+                )
+            except Exception as exc2:
+                print(f"    g22 geometry fallback failed for {cid:03d}: {exc2}", file=sys.stderr)
+                return out
+        else:
+            return out
     for sh in shapes:
         key = (cid, sh["srprec"])
         if key in out:
@@ -435,6 +449,8 @@ def clipped_precincts_for_county(ad_poly, cid: int, cycle: str) -> dict[tuple[in
             continue
         inter = fix_geom(ad_poly.intersection(geom))
         if inter.is_empty or inter.area <= 0:
+            continue
+        if geom.area > 0 and inter.area / geom.area < MIN_AD_OVERLAP_SHARE:
             continue
         out[key] = inter
     return out
