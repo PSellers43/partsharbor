@@ -37,7 +37,7 @@ Figures are **filed public totals**, not polls or caucus numbers. Period sums ca
 - **Redistricting:** `DIST_NO` on covers is what filers reported; historical AD-7 is not the same geography as today’s AD-7.
 - **Opponent discovery** auto-adds other in-district `* for Assembly 2026` CTL committees not listed in `beachheads.json` (`match_quality: discovered`).
 - **Candidate WoW** is `n/a` in the UI — Form 460 SMRY is period-based. IE WoW uses `S496` expenditure dates when present (noisy for sparse filers).
-- **8-week pace** sparklines for candidates are an even-pace illustration from cycle totals (not daily cashflow). IE sparklines allocate spend across weeks with IE activity.
+- **Weekly receipts** sparklines for candidates come from itemized `RCPT_CD` + `S497_CD` (Mon-week buckets via `build_weekly_receipts.py`). If insufficient rows, UI shows “not enough filings”. IE sparklines allocate spend across weeks with IE activity.
 
 Edit patterns in `data/calaccess/beachheads.json` to improve matches; re-run the ingest (no re-download needed with `--skip-download`).
 

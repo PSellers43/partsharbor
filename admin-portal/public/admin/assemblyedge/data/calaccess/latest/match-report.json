@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-07T21:43:49.626134Z",
+  "generated_at": "2026-10-08T02:07:45.810907Z",
   "report": [
     {
       "id": "ad-7",
@@ -14,19 +14,17 @@
           "committee_name": "Hoover for Assembly 2026",
           "receipts": 1260889.55,
           "spend": 768672.05,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
-          "name": "Amy L. Slavensky",
+          "name": "Amy Slavensky",
           "role": "Opponent",
           "match_quality": "strong",
           "filer_id": "1484959",
           "committee_name": "Amy Slavensky for Assembly 2026",
           "receipts": 1069635.09,
           "spend": 886969.85,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 11
@@ -44,8 +42,7 @@
           "committee_name": "Greg Wallis for Assembly 2026",
           "receipts": 1558288.88,
           "spend": 1246380.78,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Leila Namvar",
@@ -55,8 +52,7 @@
           "committee_name": "Leila Namvar for Assembly 2026",
           "receipts": 460178.41,
           "spend": 380628.37,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 12
@@ -74,8 +70,7 @@
           "committee_name": "Leticia Castillo for Assembly 2026",
           "receipts": 799573.08,
           "spend": 287615.37,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Clarissa Cervantes",
@@ -85,8 +80,7 @@
           "committee_name": "Clarissa Cervantes for Assembly 2026",
           "receipts": 1777002.94,
           "spend": 1448989.41,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 8
@@ -104,8 +98,7 @@
           "committee_name": "Laurie Davies For Assembly 2026",
           "receipts": 1204642.61,
           "spend": 879970.92,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Sergio Farias",
@@ -115,8 +108,7 @@
           "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
           "receipts": 170241.35,
           "spend": 220938.13,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 4
@@ -134,19 +126,17 @@
           "committee_name": "Jeff Gonzalez for Assembly 2026",
           "receipts": 1296142.24,
           "spend": 883836.91,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
-          "name": "Ida S. Obeso-Martinez",
+          "name": "Ida Obeso-Martinez",
           "role": "Opponent",
           "match_quality": "strong",
           "filer_id": "1483893",
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "receipts": 2102600.38,
           "spend": 1760101.91,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 12
@@ -157,15 +147,14 @@
       "status": "live",
       "candidates": [
         {
-          "name": "Mike Murphy",
+          "name": "Michael Murphy",
           "role": "Open seat \u2013 R",
           "match_quality": "strong",
           "filer_id": "1478647",
           "committee_name": "Murphy for Assembly 2026",
           "receipts": 608515.6,
           "spend": 577939.46,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Brian Pacheco",
@@ -175,11 +164,10 @@
           "committee_name": "Brian Pacheco for Assembly 2026",
           "receipts": 2998579.8,
           "spend": 2572054.43,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
-      "ie_count": 9
+      "ie_count": 8
     }
   ]
 }

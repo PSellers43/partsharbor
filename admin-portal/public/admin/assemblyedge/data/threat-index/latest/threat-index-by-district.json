@@ -1,32 +1,34 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T01:37:42.646793+00:00",
+  "generated_at": "2026-10-08T02:19:27.106964+00:00",
   "as_of_date": "2026-10-08",
   "formula": {
-    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window.",
     "base_weights": {
-      "money": 0.3125,
-      "ie": 0.25,
-      "narrative": 0.25,
-      "polls": 0.1875
+      "money": 0.25,
+      "ie": 0.2,
+      "ads": 0.2,
+      "narrative": 0.2,
+      "polls": 0.15
     },
-    "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+    "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/ads/narrative weights renormalized to sum to 1.",
+    "ad_surge_rule": "Rank log1p(\u224814d Google weekly spend) \u00d7 (1 + clamp(latest-week WoW, \u221250%, +200%)) across beachheads (~18\u201395). Source: Google Political Ads Transparency bundle.",
     "narrative_rule": "score = min(100, 20 \u00d7 headlines in last 7 days from build-time Google News RSS); 0 headlines \u2192 0.",
     "status_thresholds": {
       "elevated": 65,
       "watch": 45
     },
-    "normalization": "Money and IE ranked across the six beachheads (min-max ~18\u201395). Narrative uses the fixed headline rule above."
+    "normalization": "Money, IE, and ad surge ranked across the six beachheads (min-max ~18\u201395). Narrative uses the fixed headline rule above."
   },
   "inputs": {
     "money_late": {
       "path": "data/calaccess/latest/late-money-by-district.json",
-      "data_as_of": "2026-10-07T21:05:17.725231Z"
+      "data_as_of": "2026-10-08T02:03:41.194819Z"
     },
     "money_cycle": {
       "path": "data/calaccess/latest/money-by-district.json",
-      "data_as_of": "2026-10-07T21:05:17.725231Z"
+      "data_as_of": "2026-10-08T02:03:41.194819Z"
     },
     "polling": {
       "path": "data/polling/latest.json",
@@ -34,60 +36,63 @@
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T01:37:42.646208+00:00"
+      "fetched_at": "2026-10-08T02:19:27.100949+00:00"
     },
     "lean": {
       "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"
+    },
+    "google_ads": {
+      "path": "data/ads/latest/ads-by-district.json",
+      "as_of_pt": "2026-10-07 13:51:37"
     }
   },
   "districts": {
     "ad-7": {
       "id": "ad-7",
       "code": "AD-7",
-      "threatIndex": 48,
-      "status": "watch",
+      "threatIndex": 38,
+      "status": "stable",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+5.0",
+      "lean": "R+6.4",
       "lean_meta": {
-        "lean": "R+5.0",
-        "margin_r_pct": 5.03,
-        "votes_two_party": 177985,
-        "precincts_with_g24": 172,
+        "lean": "R+6.4",
+        "margin_r_pct": 6.42,
+        "votes_two_party": 256657,
+        "precincts_with_g24": 248,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 78,
-          "weight": 0.38461538461538464,
+          "score": 65,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $123,539 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $66,136 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 60,
-          "weight": 0.3076923076923077,
+          "score": 48,
+          "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $569,593; cycle oppose $597,707 vs support $568,006."
+          "blurb": "7-day IE $333,620; cycle oppose $597,707 vs support $568,006."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 31,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $17,500 (-63% vs prior week). District score after cross-beachhead normalization: 31. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -105,50 +110,49 @@
     "ad-27": {
       "id": "ad-27",
       "code": "AD-27",
-      "threatIndex": 34,
+      "threatIndex": 30,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+18.9",
+      "lean": "R+3.6",
       "lean_meta": {
-        "lean": "R+18.9",
-        "margin_r_pct": 18.9,
-        "votes_two_party": 65902,
-        "precincts_with_g24": 103,
+        "lean": "R+3.6",
+        "margin_r_pct": 3.63,
+        "votes_two_party": 153432,
+        "precincts_with_g24": 494,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 74,
-          "weight": 0.38461538461538464,
+          "score": 70,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $435,432 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $319,202 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 18,
-          "weight": 0.3076923076923077,
+          "score": 23,
+          "weight": 0.23529411764705882,
           "trend": "up",
           "blurb": "7-day IE $157,410; cycle oppose $463,435 vs support $499,087."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 18,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $3,700 (-75% vs prior week). District score after cross-beachhead normalization: 18. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -166,17 +170,17 @@
     "ad-36": {
       "id": "ad-36",
       "code": "AD-36",
-      "threatIndex": 66,
-      "status": "elevated",
+      "threatIndex": 57,
+      "status": "watch",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "Even",
+      "lean": "R+4.4",
       "lean_meta": {
-        "lean": "Even",
-        "margin_r_pct": 0.13,
-        "votes_two_party": 50274,
-        "precincts_with_g24": 131,
+        "lean": "R+4.4",
+        "margin_r_pct": 4.39,
+        "votes_two_party": 184651,
+        "precincts_with_g24": 323,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -184,32 +188,31 @@
           "id": "money",
           "label": "Money velocity",
           "score": 95,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $230,685 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $179,666 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
           "score": 95,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $1,043,154; cycle oppose $1,142,502 vs support $744,893."
+          "blurb": "7-day IE $1,030,404; cycle oppose $1,142,502 vs support $744,893."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 29,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $13,700 (-71% vs prior week). District score after cross-beachhead normalization: 29. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -227,50 +230,49 @@
     "ad-47": {
       "id": "ad-47",
       "code": "AD-47",
-      "threatIndex": 51,
+      "threatIndex": 46,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "D+4.7",
+      "lean": "Even",
       "lean_meta": {
-        "lean": "D+4.7",
-        "margin_r_pct": -4.72,
-        "votes_two_party": 140562,
-        "precincts_with_g24": 165,
+        "lean": "Even",
+        "margin_r_pct": 0.29,
+        "votes_two_party": 273792,
+        "precincts_with_g24": 430,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 89,
-          "weight": 0.38461538461538464,
+          "score": 79,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $237,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $131,733 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 54,
-          "weight": 0.3076923076923077,
+          "score": 46,
+          "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $793,826; cycle oppose $1,029,827 vs support $1,351,127."
+          "blurb": "7-day IE $539,702; cycle oppose $1,029,827 vs support $1,351,127."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 50,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $45,200 (-63% vs prior week). District score after cross-beachhead normalization: 50. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -293,45 +295,44 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+10.1",
+      "lean": "Even",
       "lean_meta": {
-        "lean": "R+10.1",
-        "margin_r_pct": 10.07,
-        "votes_two_party": 101649,
-        "precincts_with_g24": 76,
+        "lean": "Even",
+        "margin_r_pct": -0.6,
+        "votes_two_party": 228884,
+        "precincts_with_g24": 185,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 65,
-          "weight": 0.38461538461538464,
+          "score": 56,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $280,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $192,744 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 24,
-          "weight": 0.3076923076923077,
+          "score": 18,
+          "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $141,316; cycle oppose $654,483 vs support $561,979."
+          "blurb": "7-day IE $95,699; cycle oppose $654,483 vs support $561,979."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 46,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $29,800 (-66% vs prior week). District score after cross-beachhead normalization: 46. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -349,17 +350,17 @@
     "ad-74": {
       "id": "ad-74",
       "code": "AD-74",
-      "threatIndex": 26,
+      "threatIndex": 43,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+14.7",
+      "lean": "R+5.0",
       "lean_meta": {
-        "lean": "R+14.7",
-        "margin_r_pct": 14.7,
-        "votes_two_party": 120914,
-        "precincts_with_g24": 107,
+        "lean": "R+5.0",
+        "margin_r_pct": 4.97,
+        "votes_two_party": 269569,
+        "precincts_with_g24": 296,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -367,32 +368,31 @@
           "id": "money",
           "label": "Money velocity",
           "score": 18,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $37,956 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $30,940 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 42,
-          "weight": 0.3076923076923077,
+          "score": 45,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "7-day IE $39,092; cycle oppose $251,490 vs support $27,510."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 95,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $9,100 (-28% vs prior week). District score after cross-beachhead normalization: 95. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 20,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 1 headline(s) \u2192 20. Headlines from Google News RSS at build time."
         },
@@ -928,7 +928,7 @@
   },
   "rival": {
     "ad-7": {
-      "opponent": "Amy L. Slavensky",
+      "opponent": "Amy Slavensky",
       "party": "D",
       "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
       "ieSupporters": [
@@ -1031,7 +1031,7 @@
       ]
     },
     "ad-36": {
-      "opponent": "Ida S. Obeso-Martinez",
+      "opponent": "Ida Obeso-Martinez",
       "party": "D",
       "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
       "ieSupporters": [
@@ -1068,6 +1068,11 @@
       ],
       "ieAllies": [
         {
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "role": "Support incumbent",
+          "spendBand": "$95,751 filed spend"
+        },
+        {
           "name": "GROW CALIFORNIA",
           "role": "Support incumbent",
           "spendBand": "$818,333 filed spend"
@@ -1081,11 +1086,6 @@
           "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
           "role": "Support incumbent",
           "spendBand": "$346,791 filed spend"
-        },
-        {
-          "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
-          "role": "Support incumbent",
-          "spendBand": "$263,204 filed spend"
         },
         {
           "name": "Uber Innovation Political Action Committee",
@@ -1242,7 +1242,7 @@
       {
         "ts": "2026-10-08",
         "title": "IE activity in 7-day window",
-        "detail": "AD-7: $569,593 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
+        "detail": "AD-7: $333,620 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
         "decision": "spend",
         "decisionLabel": "Consider spend"
       }
@@ -1260,7 +1260,7 @@
       {
         "ts": "2026-10-08",
         "title": "IE activity in 7-day window",
-        "detail": "AD-36: $1,043,154 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
+        "detail": "AD-36: $1,030,404 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
         "decision": "spend",
         "decisionLabel": "Consider spend"
       },
@@ -1270,20 +1270,13 @@
         "detail": "1 attack-tagged post(s) in latest X digest for AD-36.",
         "decision": "message",
         "decisionLabel": "Message check"
-      },
-      {
-        "ts": "2026-10-08",
-        "title": "Threat Index 66 \u2014 Elevated",
-        "detail": "Composite crossed the Elevated threshold (\u226565) from live money, IE, news, and polling inputs.",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
       }
     ],
     "ad-47": [
       {
         "ts": "2026-10-08",
         "title": "IE activity in 7-day window",
-        "detail": "AD-47: $793,826 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
+        "detail": "AD-47: $539,702 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
         "decision": "spend",
         "decisionLabel": "Consider spend"
       }
@@ -1291,10 +1284,10 @@
     "ad-58": [
       {
         "ts": "2026-10-08",
-        "title": "IE activity in 7-day window",
-        "detail": "AD-58: $141,316 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
+        "title": "No high-severity rule triggers",
+        "detail": "Routine monitoring \u2014 review Money and late-money tabs on filing days.",
+        "decision": "hold",
+        "decisionLabel": "Hold & monitor"
       }
     ],
     "ad-74": [
@@ -1307,7 +1300,9 @@
       }
     ]
   },
-  "ads_unavailable": {
-    "message": "No free, reliable Meta/Google political ad feed confirmed for CA Assembly races. Ads tab shows this state for all districts."
+  "ads_meta": {
+    "source": "Google Political Ads Transparency bundle (build-time)",
+    "as_of_pt": "2026-10-07 13:51:37",
+    "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
   }
 }

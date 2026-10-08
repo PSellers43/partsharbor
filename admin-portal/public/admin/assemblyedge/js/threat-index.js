@@ -43,13 +43,7 @@ window.AE = window.AE || {};
     AE.narrative = root.narrative || {};
     AE.rival = root.rival || {};
     AE.alerts = root.alerts || {};
-    AE.ads = AE.ads || {};
-    BEACHHEADS.forEach((id) => {
-      AE.ads[id] = null;
-    });
-    AE.adsUnavailable = root.ads_unavailable || {
-      message: "No free, reliable ad data source yet for CA Assembly races.",
-    };
+    AE.adsMeta = root.ads_meta || root.ads_unavailable || {};
 
     if (root.formula && root.inputs) {
       AE.intelMeta = { formula: root.formula, inputs: root.inputs, generated_at: root.generated_at, as_of_date: root.as_of_date };
@@ -57,7 +51,7 @@ window.AE = window.AE || {};
 
     AE.DEMO_BANNER =
       "Live Threat Index, news, rival, and alerts from CAL-ACCESS, Google News RSS (build-time), and SWDB 2024 lean. " +
-      "Ad surge unavailable (no free source). Precinct drill, ABEV live 2026, X sentiment tags, and some registration layers may still be partial — see Methodology.";
+      "Ad data: see Ads tab (Google Political Ads Transparency bundle; Meta not included). Precinct drill, ABEV live 2026, X sentiment tags, and some registration layers may still be partial — see Methodology.";
     const bannerEl = document.querySelector(".demo-banner-text");
     if (bannerEl) bannerEl.textContent = AE.DEMO_BANNER;
   };

@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "data" / "threat-index" / "scripts"))
 from ti_compute import (  # noqa: E402
     BASE_WEIGHTS,
     WEIGHTS,
+    ad_surge_raw,
     composite_ti,
     compute_district_ti,
     effective_weights,
@@ -50,10 +51,16 @@ def test_status_thresholds():
 
 
 def test_composite_ti_weighted():
-    scores = {"money": 80, "ie": 60, "narrative": 40, "polls": 50}
+    scores = {"money": 80, "ie": 60, "ads": 55, "narrative": 40, "polls": 50}
     ti = composite_ti(scores)
     expected = sum(WEIGHTS[k] * scores[k] for k in WEIGHTS)
     assert ti == round(expected)
+
+
+def test_ad_surge_raw_increases_with_spend():
+    low = [{"week_start": "2026-09-20", "spend_usd": 1000}, {"week_start": "2026-09-27", "spend_usd": 1100}]
+    high = [{"week_start": "2026-09-20", "spend_usd": 10000}, {"week_start": "2026-09-27", "spend_usd": 25000}]
+    assert ad_surge_raw(high) > ad_surge_raw(low)
 
 
 def test_poll_excluded_no_fake_score():
@@ -95,7 +102,10 @@ def test_bundle_json_valid():
         assert row["status"] in ("elevated", "watch", "stable")
         assert len(row["factors"]) == 5
         ads = next(f for f in row["factors"] if f["id"] == "ads")
-        assert ads.get("unavailable") is True
+        assert ads.get("unavailable") is not True
+        assert ads["score"] is not None
+        assert ads["weight"] > 0
+        assert "Google" in ads["blurb"]
         polls = next(f for f in row["factors"] if f["id"] == "polls")
         if did == "ad-7":
             assert polls.get("unavailable") is True
@@ -121,6 +131,7 @@ def main():
         test_narrative_zero_is_zero,
         test_status_thresholds,
         test_composite_ti_weighted,
+        test_ad_surge_raw_increases_with_spend,
         test_poll_excluded_no_fake_score,
         test_normalize_spreads_values,
         test_late_money_inputs_change_ti,
