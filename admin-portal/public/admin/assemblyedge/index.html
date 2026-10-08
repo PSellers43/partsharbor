@@ -12,7 +12,7 @@
   <!-- Live vs demo banner -->
   <div class="demo-banner" role="status">
     <span class="pulse" aria-hidden="true"></span>
-    <span class="demo-banner-text">DEMO / ILLUSTRATIVE DATA — Threat Index &amp; most signals are rounded placeholders until more feeds are live. Money may show LIVE CAL-ACCESS when JSON is present. Not official FPPC, SOS, or caucus figures.</span>
+    <span class="demo-banner-text">Mixed live + demo — Threat Index, Focus score, Ads/News/Rival tabs, and several CM toggles remain illustrative. LIVE when stamped: CAL-ACCESS money, SWDB precinct history &amp; ABEV baselines, SOS registration (demography), SOS county ballot-status rows (ABEV), X digest + lexicon tone est. Not official FPPC, SOS, or caucus figures.</span>
   </div>
 
   <nav class="app-nav no-print" aria-label="Primary">
@@ -345,14 +345,17 @@
       </div>
       <div class="method-grid">
         <div class="card method-card">
-          <h3>Sources (production)</h3>
+          <h3>Sources in this build</h3>
           <ul>
-            <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions</li>
-            <li><strong>Meta Ad Library</strong> — creatives, spend bands, dates</li>
-            <li><strong>Google Ads Transparency</strong> — creatives, spend bands</li>
-            <li><strong>News</strong> — sourced headlines with outlet + timestamp</li>
+            <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions (<span class="chip chip-live">live</span> JSON; weekday refresh via <code>scripts/update-calaccess.sh</code>)</li>
+            <li><strong>SWDB</strong> — precinct Assembly margins (2022/2024), ABEV mail-return baselines (<span class="chip chip-live">live</span> static JSON; manual <code>update-election-history.sh</code> / <code>update-abev.sh</code>)</li>
+            <li><strong>CA SOS ROR</strong> — registration by Assembly district (<span class="chip chip-live">live</span> via <code>update-demography.sh</code>)</li>
+            <li><strong>CA SOS BSR</strong> — county mail ballot status XLSX (<span class="chip chip-live">live</span> county rows in ABEV; <code>scripts/update-daily-majorityiq.sh</code>)</li>
+            <li><strong>Public X digest</strong> — D1/API + bundled fallback; tone est. from post text (lexicon, not polling)</li>
+            <li><strong>Curated polls</strong> — hand-maintained <code>data/polling/latest.json</code> with explicit gap rows</li>
+            <li><strong>Threat Index / Ads / News</strong> — <span class="chip chip-demo">demo or missing</span> on most districts (see banner)</li>
           </ul>
-          <p style="margin-top:12px">Money tab loads <span class="chip chip-live">LIVE CAL-ACCESS</span> from <code>data/calaccess/latest/money-by-district.json</code> when present (as-of stamped). Otherwise <span class="chip chip-demo">demo</span> placeholders — never silently mixed. See <code>CALACCESS.md</code>.</p>
+          <p style="margin-top:12px">Money tab loads <span class="chip chip-live">LIVE CAL-ACCESS</span> when JSON is present (as-of stamped). Otherwise <span class="chip chip-demo">demo</span> placeholders — never silently mixed. See <code>CALACCESS.md</code>.</p>
         </div>
         <div class="card method-card">
           <h3>Update cadence (target)</h3>
@@ -396,7 +399,7 @@
       </div>
       <div class="disclaimer-box">
         <strong>Disclaimers</strong>
-        MajorityIQ is not an official product of the FPPC, California Secretary of State, or any caucus. Demo data is illustrative. Public candidate and district names appear because they are public races; money, poll, and ad figures in this prototype are fictional rounded placeholders. No outreach, pricing, or waitlist flows are included.
+        MajorityIQ is not an official product of the FPPC, California Secretary of State, or any caucus. Public candidate and district names appear because they are public races. CAL-ACCESS, SWDB, SOS, and X layers are real public aggregates with as-of stamps; Threat Index, Focus score, ads/news/rival tabs, and some CM copy remain demo until wired. Curated polls are third-party public surveys or explicit gaps — not internal modeling. No outreach, pricing, or waitlist flows are included.
       </div>
     </section>
   </main>

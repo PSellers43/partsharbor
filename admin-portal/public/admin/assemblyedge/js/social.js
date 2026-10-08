@@ -276,7 +276,7 @@ window.AE = window.AE || {};
     return `
       <section class="social-sentiment-wrap" aria-label="Daily sentiment trend">
         <h4 class="social-subtitle">Daily sentiment trend</h4>
-        <p class="social-sentiment-note">AI-estimated tone from public X posts and mentions (−1 negative → +1 positive). <strong>Not polling.</strong> Faint bars = scored post count that day.</p>
+        <p class="social-sentiment-note">Tone est. from public X post text (deterministic lexicon in <code>enrich_sentiment.py</code>; −1 negative → +1 positive). <strong>Not polling.</strong> Faint bars = scored post count that day.</p>
         ${historyNote}
         ${
           lowSample

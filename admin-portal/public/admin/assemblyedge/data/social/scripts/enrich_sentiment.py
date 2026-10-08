@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Deterministic seed sentiment from flags (not LLM). For operator pulls, the assistant scores posts."""
+"""Deterministic sentiment from public post text (lexicon + optional flags).
+
+Runs offline in push-social-feed.sh — no paid API. Scores are labeled in the UI as
+tone estimates (not polling). Flags nudge but do not replace text scoring.
+"""
 from __future__ import annotations
 
 import json
@@ -16,33 +20,139 @@ TZ = ZoneInfo("America/Los_Angeles")
 MAX_HISTORY_DAYS = 120
 MIN_NET_SAMPLES = 1
 
-# Flag → (score, label) — only when flag is present; otherwise unknown.
-FLAG_SENTIMENT = {
-    "attack": (-0.72, "negative"),
-    "ad": (0.38, "positive"),
-    "endorsement": (0.62, "positive"),
-    "spike": (0.0, "neutral"),
-    "event": (0.28, "positive"),
-    "policy": (0.12, "neutral"),
-    "fundraising": (0.05, "neutral"),
+# Compact campaign lexicon (deterministic, English + common political cues).
+POSITIVE = {
+    "thank",
+    "thanks",
+    "grateful",
+    "honored",
+    "proud",
+    "excited",
+    "celebrate",
+    "endorse",
+    "endorsement",
+    "support",
+    "supporter",
+    "together",
+    "community",
+    "volunteer",
+    "canvass",
+    "town hall",
+    "great",
+    "fantastic",
+    "win",
+    "victory",
+    "strong",
+    "leadership",
+    "freedom",
+    "opportunity",
+    "record",
+    "bipartisan",
+}
+NEGATIVE = {
+    "attack",
+    "lie",
+    "lies",
+    "lying",
+    "corrupt",
+    "corruption",
+    "failed",
+    "failure",
+    "disaster",
+    "dangerous",
+    "radical",
+    "extreme",
+    "soft",
+    "crime",
+    "crisis",
+    "tax",
+    "taxes",
+    "inflation",
+    "border",
+    "illegal",
+    "shame",
+    "shameful",
+    "betray",
+    "betrayal",
+    "hypocrisy",
+    "hypocrite",
+    "out of touch",
+    "recall",
+    "impeach",
+    "against",
+    "oppose",
+    "opposed",
+    "stop",
+    "reject",
+    "defeat",
+    "worst",
+    "broken",
+    "fraud",
+}
+
+FLAG_NUDGE = {
+    "attack": -0.35,
+    "ad": 0.08,
+    "endorsement": 0.25,
+    "spike": 0.0,
+    "event": 0.12,
+    "policy": 0.05,
+    "fundraising": 0.03,
 }
 
 
-def score_from_flags(flags: list[str] | None) -> tuple[float | None, str | None]:
-    if not flags:
+def normalize_text(post: dict) -> str:
+    chunks = [
+        post.get("text") or "",
+        post.get("summary") or "",
+        post.get("title") or "",
+    ]
+    raw = " ".join(c for c in chunks if c).lower()
+    raw = re.sub(r"https?://\S+", " ", raw)
+    raw = re.sub(r"@[\w_]+", " ", raw)
+    raw = re.sub(r"[^a-z0-9\s'-]", " ", raw)
+    return re.sub(r"\s+", " ", raw).strip()
+
+
+def lexicon_score(text: str) -> tuple[float | None, str | None]:
+    if not text or len(text) < 8:
         return None, None
-    best_score = None
-    best_label = None
-    best_rank = 999
-    order = list(FLAG_SENTIMENT.keys())
-    for f in flags:
-        if f not in FLAG_SENTIMENT:
-            continue
-        rank = order.index(f)
-        if rank < best_rank:
-            best_rank = rank
-            best_score, best_label = FLAG_SENTIMENT[f]
-    return best_score, best_label
+    tokens = set(text.split())
+    pos = sum(1 for w in POSITIVE if w in tokens or w in text)
+    neg = sum(1 for w in NEGATIVE if w in tokens or w in text)
+    if pos == 0 and neg == 0:
+        return None, None
+    raw = (pos - neg) / max(3, pos + neg)
+    score = max(-1.0, min(1.0, round(raw * 0.85, 3)))
+    if score > 0.12:
+        label = "positive"
+    elif score < -0.12:
+        label = "negative"
+    else:
+        label = "neutral"
+    return score, label
+
+
+def score_post(post: dict) -> tuple[float | None, str | None]:
+    text = normalize_text(post)
+    score, label = lexicon_score(text)
+    nudge = 0.0
+    for f in post.get("flags") or []:
+        nudge += FLAG_NUDGE.get(f, 0.0)
+    if score is None and nudge == 0.0:
+        return None, None
+    if score is None:
+        score = max(-1.0, min(1.0, round(nudge, 3)))
+    else:
+        score = max(-1.0, min(1.0, round(score + nudge * 0.35, 3)))
+    if label is None:
+        if score > 0.12:
+            label = "positive"
+        elif score < -0.12:
+            label = "negative"
+        else:
+            label = "neutral"
+    return score, label
 
 
 def pacific_date(iso: str) -> str | None:
@@ -99,13 +209,15 @@ def sides_from_mention(item: dict) -> list[str]:
 
 
 def apply_post_sentiment(post: dict) -> None:
-    if post.get("sentiment") is not None:
-        return
-    score, label = score_from_flags(post.get("flags") or [])
+    score, label = score_post(post)
     if score is None:
+        post.pop("sentiment", None)
+        post.pop("sentiment_label", None)
+        post["sentiment_method"] = "lexicon_unscored"
         return
     post["sentiment"] = score
     post["sentiment_label"] = label
+    post["sentiment_method"] = "lexicon"
 
 
 def build_history(feed: dict) -> list[dict]:
@@ -185,7 +297,6 @@ def build_history(feed: dict) -> list[dict]:
 
     out.sort(key=lambda r: (r["date"], r["district"]))
     if len(out) > MAX_HISTORY_DAYS * 6:
-        # Keep most recent dates (all districts per date)
         dates = sorted({r["date"] for r in out})
         keep = set(dates[-MAX_HISTORY_DAYS:])
         out = [r for r in out if r["date"] in keep]
@@ -212,6 +323,10 @@ def main() -> int:
     feed = json.loads(path.read_text(encoding="utf-8"))
     computed = build_history(feed)
     feed["sentiment_history"] = merge_history(feed.get("sentiment_history"), computed)
+    feed["sentiment_scoring"] = {
+        "method": "lexicon",
+        "label": "Tone est. from post text (deterministic lexicon; not polling)",
+    }
     path.write_text(json.dumps(feed, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     scored = sum(
         1

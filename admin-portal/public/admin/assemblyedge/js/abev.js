@@ -117,17 +117,35 @@ window.AE = window.AE || {};
     const g24 = baseline(row, "g24");
     const g22 = baseline(row, "g22");
     const reg = row.registration_current;
-    const liveChip =
-      live.status === "not_published" || live.returned == null
+    const countyLive = live.status === "county_level" && live.counties && live.counties.length;
+    const liveChip = countyLive
+      ? `<span class="chip chip-live">SOS county</span>`
+      : live.status === "not_published" || live.returned == null
         ? `<span class="chip chip-gap">Live gap</span>`
         : `<span class="chip chip-live">Live feed</span>`;
     const histChip = `<span class="chip chip-live-weak">SWDB baseline</span>`;
 
-    const strip = AE.abev.progressStripHtml({
-      pctLive: live.pct_of_registration,
-      pctBaseline: g24 && g24.vbm_pct_of_sov_registration,
-      gapLabel: live.gap_label || "Live 2026 returns not published",
-    });
+    const strip = countyLive
+      ? `<p class="demo-footnote"><strong>Live 2026 (county-level):</strong> CA SOS Ballot Status Report as of ${live.as_of || "—"}. Rows below are full-county mail ballot returns for counties that intersect this AD — not apportioned district totals.</p>`
+      : AE.abev.progressStripHtml({
+          pctLive: live.pct_of_registration,
+          pctBaseline: g24 && g24.vbm_pct_of_sov_registration,
+          gapLabel: live.gap_label || "Live 2026 returns not published",
+        });
+
+    let countyTable = "";
+    if (countyLive) {
+      countyTable = `<div class="abev-block"><h4 class="demo-block-title">2026 mail ballots returned (SOS county rows)</h4>
+        <ul class="demo-legend-list">${live.counties
+          .map(
+            (c) =>
+              `<li><span>${c.name}</span><span class="demo-legend-val">${AE.abev.formatNumber(c.returned)} returned${
+                c.issued != null ? " · " + AE.abev.formatNumber(c.issued) + " issued" : ""
+              }</span></li>`
+          )
+          .join("")}</ul>
+        <p class="demo-footnote">${live.aggregation_note || live.detail || ""}</p></div>`;
+    }
 
     let partyHtml = "";
     if (g24 && g24.party_returns && g24.party_returns.length) {
@@ -173,6 +191,7 @@ window.AE = window.AE || {};
       </div>
       <p class="demo-source-line">JSON built ${updated} · SWDB All_VBM + county SOV · ${regLine}</p>
       ${strip}
+      ${countyTable}
       <div class="demo-stat-grid">${stats.join("")}</div>
       ${partyHtml}
       ${pace}
@@ -194,7 +213,8 @@ window.AE = window.AE || {};
         const live = row.live || {};
         const code = row.code;
         const bench = g24 ? AE.abev.formatPct(g24.vbm_pct_of_sov_registration, 0) : "—";
-        const gap = live.returned == null;
+        const countyOk = live.status === "county_level" && live.counties && live.counties.length;
+        const gap = !countyOk && live.returned == null;
         const fill = gap ? 0 : Math.min(100, live.pct_of_registration || 0);
         return `<article class="abev-portfolio-card ${gap ? "has-gap" : ""}" data-district-abev="${row.id}">
           <div class="abev-portfolio-code">${code}</div>
@@ -203,13 +223,13 @@ window.AE = window.AE || {};
             ${g24 ? `<span class="abev-bench-marker" style="left:${Math.min(100, g24.vbm_pct_of_sov_registration)}%"></span>` : ""}
           </div>
           <div class="abev-portfolio-meta">
-            ${gap ? `<span class="chip chip-gap">Live pending</span>` : `<span class="chip chip-live">Live</span>`}
+            ${countyOk ? `<span class="chip chip-live">SOS county</span>` : gap ? `<span class="chip chip-gap">Live pending</span>` : `<span class="chip chip-live">Live</span>`}
             <span class="abev-portfolio-bench" title="2024 general final mail return rate">2024 ${bench}</span>
           </div>
         </article>`;
       })
       .join("");
     return `<div class="abev-portfolio-strip" role="list">${cards}</div>
-      <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">Marker = 2024 general final mail returns as % of SOV registration. Live 2026 AD feeds not published — gaps labeled.</p>`;
+      <p style="margin:10px 0 0;font-size:12px;color:var(--text-dim)">Marker = 2024 general final mail returns as % of SOV registration. Live 2026 = SOS county rows where available (not AD apportionment).</p>`;
   };
 })();

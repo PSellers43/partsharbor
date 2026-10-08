@@ -681,9 +681,18 @@
     const gapBanner = $("#focus-drill-gap-banner");
     if (gapBanner) {
       const gaps = (histMeta && histMeta.gaps) || [];
-      if (inHistory && gaps.length) {
+      const cov =
+        histMeta && histMeta.area_coverage_pct != null ? histMeta.area_coverage_pct : null;
+      const covNote =
+        inHistory && cov != null && cov < 99.5
+          ? `SR precinct area coverage ~${cov}% of district (SWDB free layers).`
+          : "";
+      if (inHistory && (gaps.length || covNote)) {
         gapBanner.hidden = false;
-        gapBanner.textContent = "Data gap: " + gaps.join(" · ");
+        const parts = [];
+        if (covNote) parts.push(covNote);
+        if (gaps.length) parts.push(gaps.slice(0, 3).join(" · "));
+        gapBanner.textContent = parts.join(" ");
       } else if (inHistory && histMeta && histMeta.precinct_count === 0) {
         gapBanner.hidden = false;
         gapBanner.textContent = "No precinct-level Assembly history is available for this district in the current static bundle.";
@@ -2001,7 +2010,7 @@
     state.focusDrillRace = "g24_asm";
     AE.electionHistory.loadPrecincts(districtId).then(() => {
       selectFocusDrillPrecinct(precinctId, { pan: true });
-      renderFocusDrill();
+      renderFocusDrillMap();
     });
   }
   function renderPaletteList(q) {

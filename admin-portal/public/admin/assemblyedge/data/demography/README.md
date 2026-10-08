@@ -7,7 +7,7 @@ Static JSON for beachhead Assembly districts: **ACS 5-year** demographics and **
 | Layer | Source | URL |
 |-------|--------|-----|
 | ACS (population, age, race/ethnicity, income, tenure) | U.S. Census Bureau ACS 5-year, CA Assembly (lower chamber / CRC 2020 lines) | Default fetch: [Census Reporter API](https://api.censusreporter.org/) (`latest` → ACS 2024 5-year as of build). Optional: [Census Data API](https://api.census.gov/data/2023/acs/acs5) with free `CENSUS_API_KEY`. |
-| Registration by party | CA Secretary of State **Report of Registration** — Registration by State Assembly District (XLSX) | [Feb 2025 odd-year ROR](https://www.sos.ca.gov/elections/report-registration/ror-odd-year-2025) → `assembly.xlsx` on `elections.cdn.sos.ca.gov` |
+| Registration by party | CA Secretary of State **Report of Registration** — Registration by State Assembly District (XLSX) | [Sep 4, 2026 60-day ROR](https://www.sos.ca.gov/elections/report-registration/60day-general-2026) → `https://elections.cdn.sos.ca.gov/ror/60day-gen-2026/assembly.xlsx` |
 
 **Not included:** voter file, contact fields, precinct-level registration, or paid enrichment.
 

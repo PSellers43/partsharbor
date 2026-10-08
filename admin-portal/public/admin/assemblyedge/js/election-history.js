@@ -223,7 +223,10 @@ window.AE = window.AE || {};
       const band = AE.electionHistory.marginBand(margin);
       if (filterBands && !filterBands[band.class]) return;
 
-      const geom = f.geometry;
+      let geom = f.geometry;
+      if (raceId === "g24_asm" && f.geometry_g24) {
+        geom = f.geometry_g24;
+      }
       let d = "";
       if (geom.type === "Polygon") {
         geom.coordinates.forEach((ring) => {
