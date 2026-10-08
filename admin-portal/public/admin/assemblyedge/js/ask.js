@@ -492,7 +492,7 @@ window.AE = window.AE || {};
       title: `Late money · ${districtLabel(districtId)} · FPPC 90-day period`,
       summary:
         `${formatMoneyFull(t.period_contributions)} on ${t.period_contribution_reports || 0} Form 497 lines ` +
-        `(${win.start || "—"} → ${win.end || "—"}). Last 24h ${formatMoneyFull(t.last_24h)} · 7-day ${formatMoneyFull(t.seven_day)} · ` +
+        `(${win.start || "—"} → ${win.end || "—"}). Last filed day ${formatMoneyFull(t.last_filed_day != null ? t.last_filed_day : t.last_24h)} (${t.last_filed_day_date || "—"}) · 7-day ${formatMoneyFull(t.seven_day)} · ` +
         `IE ${formatMoneyFull(t.ie_period)} (${t.ie_reports || 0} S496 lines).`,
       columns: [
         { key: "date", label: "Date" },
@@ -798,8 +798,8 @@ window.AE = window.AE || {};
     }
     return {
       ok: true,
-      title: `${d.code} Threat Index (illustrative)`,
-      summary: `TI ${d.threatIndex} · ${d.status} · ${d.lean}`,
+      title: `${d.code} Threat Index`,
+      summary: `TI ${d.threatIndex != null ? d.threatIndex : "—"} · ${d.status || "—"} · ${d.lean || "—"}`,
       rows: [{ metric: "Threat Index", value: d.threatIndex, delta_7d: d.delta7d, status: d.status }],
       columns: [
         { key: "metric", label: "Metric" },
@@ -807,7 +807,13 @@ window.AE = window.AE || {};
         { key: "delta_7d", label: "7d Δ" },
         { key: "status", label: "Status" },
       ],
-      sources: [sourceMeta("MajorityIQ desk (demo TI)", null)],
+      sources: [
+        sourceMeta(
+          "Computed TI · build_threat_index.py",
+          AE.intelMeta && AE.intelMeta.as_of_date,
+          "data/threat-index/latest/threat-index-by-district.json"
+        ),
+      ],
       deepLinks: [{ label: `Open ${d.code} war room`, type: "district-tab", districtId: d.id, tab: "threat" }],
       mode: "deterministic",
       query: q,

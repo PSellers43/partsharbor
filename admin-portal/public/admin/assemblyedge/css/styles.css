@@ -2555,6 +2555,25 @@ body[data-role="cm"] .cm-strip {
   gap: 8px;
   align-items: flex-end;
 }
+.poll-released-item {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
+}
+.poll-released-item.stale {
+  opacity: 0.85;
+}
+.poll-older-details {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.poll-leads-list {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
 .district-polling-strip {
   margin: 16px 0 4px;
 }

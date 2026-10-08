@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T02:37:49.453390+00:00",
-  "as_of_date": "2026-10-08",
+  "generated_at": "2026-10-07T19:50:58-07:00",
+  "as_of_date": "2026-10-07",
   "formula": {
-    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window.",
+    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a verified horse-race poll falls in the gap window.",
     "base_weights": {
       "money": 0.25,
       "ie": 0.2,
@@ -13,6 +13,7 @@
       "polls": 0.15
     },
     "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/ads/narrative weights renormalized to sum to 1.",
+    "poll_sponsor_weight": "Independent polls: full movement score. Campaign, party/caucus, or IE-sponsored polls: same formula then \u00d70.5 (flagged partisan sponsor on factor card). Private internal polls are merged at runtime in the authenticated app only.",
     "ad_surge_rule": "Rank log1p(\u224814d Google weekly spend) \u00d7 (1 + clamp(latest-week WoW, \u221250%, +200%)) across beachheads (~18\u201395). Source: Google Political Ads Transparency bundle.",
     "narrative_rule": "score = min(100, 20 \u00d7 headlines in last 7 days from build-time Google News RSS); 0 headlines \u2192 0.",
     "status_thresholds": {
@@ -24,22 +25,24 @@
   "inputs": {
     "money_late": {
       "path": "data/calaccess/latest/late-money-by-district.json",
-      "data_as_of": "2026-10-08T02:03:41.194819Z"
+      "data_as_of": "2026-10-08T02:22:20.754540Z"
     },
     "money_cycle": {
       "path": "data/calaccess/latest/money-by-district.json",
-      "data_as_of": "2026-10-08T02:03:41.194819Z"
+      "data_as_of": "2026-10-08T02:22:20.754540Z"
     },
     "polling": {
-      "path": "data/polling/latest.json",
-      "updated_at": "2026-10-07T16:00:00-07:00"
+      "path": "data/polls/released.json",
+      "legacy_path": "data/polling/latest.json",
+      "updated_at": "2026-10-08T14:00:00-07:00"
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T02:37:49.451357+00:00"
+      "fetched_at": "2026-10-07T19:50:56-07:00"
     },
     "lean": {
-      "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"
+      "path": "data/election-history/official/asm-2024-general-sov.json",
+      "source": "2024 Assembly result (SOS SOV)"
     },
     "google_ads": {
       "path": "data/ads/latest/ads-by-district.json",
@@ -50,35 +53,38 @@
     "ad-7": {
       "id": "ad-7",
       "code": "AD-7",
-      "threatIndex": 38,
+      "threatIndex": 34,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+6.4",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "R+7.3",
       "lean_meta": {
-        "lean": "R+6.4",
-        "margin_r_pct": 6.42,
-        "votes_two_party": 256657,
-        "precincts_with_g24": 248,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "R+7.3",
+        "margin_r_pct": 7.3,
+        "dem_votes": 100487,
+        "rep_votes": 116254,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": null
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 65,
+          "score": 78,
           "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $66,136 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $123,539 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 48,
+          "score": 18,
           "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $333,620; cycle oppose $597,707 vs support $568,006."
+          "blurb": "7-day anti-R IE $0 (pro-R $569,593; total 7-day IE $569,593). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
@@ -102,7 +108,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -110,35 +116,38 @@
     "ad-27": {
       "id": "ad-27",
       "code": "AD-27",
-      "threatIndex": 30,
-      "status": "stable",
+      "threatIndex": 48,
+      "status": "watch",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+3.6",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "D+7.8",
       "lean_meta": {
-        "lean": "R+3.6",
-        "margin_r_pct": 3.63,
-        "votes_two_party": 153432,
-        "precincts_with_g24": 494,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "D+7.8",
+        "margin_r_pct": -7.8,
+        "dem_votes": 75559,
+        "rep_votes": 64576,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": "Open seat in 2026 \u2014 Soria not on AD-27 ballot (running for State Senate)."
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 70,
+          "score": 74,
           "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $319,202 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $435,432 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 23,
+          "score": 93,
           "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $157,410; cycle oppose $463,435 vs support $499,087."
+          "blurb": "7-day anti-R IE $92,154 (pro-R $65,256; total 7-day IE $157,410). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
@@ -162,7 +171,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -170,41 +179,44 @@
     "ad-36": {
       "id": "ad-36",
       "code": "AD-36",
-      "threatIndex": 57,
-      "status": "watch",
+      "threatIndex": 36,
+      "status": "stable",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+4.4",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "R+3.6",
       "lean_meta": {
-        "lean": "R+4.4",
-        "margin_r_pct": 4.39,
-        "votes_two_party": 184651,
-        "precincts_with_g24": 323,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "R+3.6",
+        "margin_r_pct": 3.6,
+        "dem_votes": 73926,
+        "rep_votes": 79477,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": null
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
           "score": 95,
-          "weight": 0.2941176470588235,
+          "weight": 0.25,
           "trend": "flat",
-          "blurb": "7-day late contributions $179,666 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $230,685 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 95,
-          "weight": 0.23529411764705882,
+          "score": 18,
+          "weight": 0.2,
           "trend": "up",
-          "blurb": "7-day IE $1,030,404; cycle oppose $1,142,502 vs support $744,893."
+          "blurb": "7-day anti-R IE $0 (pro-R $1,043,154; total 7-day IE $1,043,154). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
           "score": 29,
-          "weight": 0.23529411764705882,
+          "weight": 0.2,
           "trend": "down",
           "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $13,700 (-71% vs prior consecutive week). District score after cross-beachhead normalization: 29. Meta not included."
         },
@@ -212,53 +224,56 @@
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.23529411764705882,
+          "weight": 0.2,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
-          "unavailable": true
+          "score": 20,
+          "weight": 0.15,
+          "trend": "down",
+          "blurb": "Recent poll (Guidant Polling & Strategy, field end 2026-09-23) \u2014 in 90-day window. Partisan sponsor (ie) \u2014 poll factor at 50% weight.",
+          "partisan_sponsor": true
         }
       ]
     },
     "ad-47": {
       "id": "ad-47",
       "code": "AD-47",
-      "threatIndex": 46,
+      "threatIndex": 60,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "Even",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "R+2.4",
       "lean_meta": {
-        "lean": "Even",
-        "margin_r_pct": 0.29,
-        "votes_two_party": 273792,
-        "precincts_with_g24": 430,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "R+2.4",
+        "margin_r_pct": 2.4,
+        "dem_votes": 113538,
+        "rep_votes": 119072,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": null
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 79,
+          "score": 89,
           "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $131,733 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $237,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 46,
+          "score": 95,
           "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $539,702; cycle oppose $1,029,827 vs support $1,351,127."
+          "blurb": "7-day anti-R IE $120,314 (pro-R $673,512; total 7-day IE $793,826). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
@@ -282,7 +297,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 latest public poll ended 2022-09-28 (outside 90-day window); not scored as movement.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -290,35 +305,38 @@
     "ad-58": {
       "id": "ad-58",
       "code": "AD-58",
-      "threatIndex": 32,
-      "status": "stable",
+      "threatIndex": 52,
+      "status": "watch",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "Even",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "R+0.4",
       "lean_meta": {
-        "lean": "Even",
-        "margin_r_pct": -0.6,
-        "votes_two_party": 228884,
-        "precincts_with_g24": 185,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "R+0.4",
+        "margin_r_pct": 0.4,
+        "dem_votes": 77696,
+        "rep_votes": 78292,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": null
       },
       "factors": [
         {
           "id": "money",
           "label": "Money velocity",
-          "score": 56,
+          "score": 65,
           "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $192,744 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $280,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 18,
+          "score": 93,
           "weight": 0.23529411764705882,
           "trend": "up",
-          "blurb": "7-day IE $95,699; cycle oppose $654,483 vs support $561,979."
+          "blurb": "7-day anti-R IE $95,549 (pro-R $45,767; total 7-day IE $141,316). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
@@ -342,7 +360,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -350,18 +368,21 @@
     "ad-74": {
       "id": "ad-74",
       "code": "AD-74",
-      "threatIndex": 43,
+      "threatIndex": 37,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
-      "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+5.0",
+      "history_note": "History builds daily from 2026-10-07; 24h/7d change appears after the next refresh.",
+      "lean": "R+1.7",
       "lean_meta": {
-        "lean": "R+5.0",
-        "margin_r_pct": 4.97,
-        "votes_two_party": 269569,
-        "precincts_with_g24": 296,
-        "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
+        "lean": "R+1.7",
+        "margin_r_pct": 1.7,
+        "dem_votes": 113338,
+        "rep_votes": 117208,
+        "source": "2024 Assembly result (SOS SOV)",
+        "source_url": "https://elections.cdn.sos.ca.gov/sov/2024-general/sov/42-state-assembly.pdf",
+        "official_as_of": "2026-10-07",
+        "note_2026": null
       },
       "factors": [
         {
@@ -370,15 +391,15 @@
           "score": 18,
           "weight": 0.2941176470588235,
           "trend": "flat",
-          "blurb": "7-day late contributions $30,940 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
+          "blurb": "7-day late contributions $37,956 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
         {
           "id": "ie",
           "label": "IE pressure",
-          "score": 45,
+          "score": 18,
           "weight": 0.23529411764705882,
           "trend": "flat",
-          "blurb": "7-day IE $39,092; cycle oppose $251,490 vs support $27,510."
+          "blurb": "7-day anti-R IE $0 (pro-R $39,092; total 7-day IE $39,092). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
@@ -402,7 +423,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -413,7 +434,7 @@
       {
         "outlet": "Sacramento Bee",
         "title": "Your guide to California\u2019s 7th Assembly District race",
-        "ts": "Sep 21 \u00b7 07:00AM UTC",
+        "ts": "Sep 21 \u00b7 12:00AM PT",
         "pub_date": "2026-09-21",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOQ0hxeFhtZFZTdERfWWlvRjR4Ym1WRnZwcjNXU2VJM2E3NFlOSmU1VGt1STlVR1QyWE13VGNJSktWRE5OUWZ3cVdfcDc3SHZoU0pTTUY0RjRhY2ZhWFA3S1djaFJjdFNHQUFLSU5YR00xeW9LWl9zOERYZXUyVGU3d0NSd0NuVmxTS2h3ZWNUNXlIY0VB0gGUAUFVX3lxTE5jZlZsbXpFN2RBaVpNbHVjSnlyei10UjFBSWdfNEpDVzBVVnByUUt4QTdOelAtdGxlMHc5S1RUNkFweU1uZDhGWDVXT1NBcGt1dmNjeGVQenFVTzByTEJTd1BlV0xyTXpLcjg2Ry1YdHp1QjhUbkFlT0wwVmQ5UWh0dzFTd3o0cFllT18xczhiLTRkQk4?oc=5"
@@ -421,7 +442,7 @@
       {
         "outlet": "capradio.org",
         "title": "What to know about California\u2019s Assembly District 7 race",
-        "ts": "May 11 \u00b7 07:00AM UTC",
+        "ts": "May 11 \u00b7 12:00AM PT",
         "pub_date": "2026-05-11",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNWERxVGdta3VUNVFHWFo3NGx6Z1VUNWxxN0Y2UHJEMll5VGpfU2F2WnRjbUI1ZGdEaklvYktoU2xoYndrNGxiZ0YzcEhDNl9fem40Z0x2VWdkb1Z6bXQxejM0Vy00dE5FbmdiU0xuQllSLWFBa3luT0NfU01QVmFCcUxqMXFpSVV1aDdINjNpUjVHdHlYUWlPSHFWRlA4VHpLNTdZ?oc=5"
@@ -429,7 +450,7 @@
       {
         "outlet": "ABC10",
         "title": "Hoover, Slavensky and Motamedi: Tracking California State Assembly District 7 Election Results",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi7AFBVV95cUxOVTRuUk5TZV9hQWNyTmdpbFFUenNMQ1k5WlpFRl9Zb2k1dmF0RUlZcEptVC1NQjlPX2VZQVBDQUVzbEp1TjFILU56MEd2dFlhRTFHd1VZMzNzUUFCRm5ud0Rld1N1LU9xVFpHWFQyWkFsTDltelkwV2dFck4wekU1VWFUbUI5UFg5blVoMF9keXpJSnFweWFKbVpqalBiV0J0T2lkbDN4SzdxWUp0S2dQajVTWU5CQzJ3Q2k3X3lzZDNNLXNlaXd3aEwzNWRpU0RqRXFJd2liYVp4b1hVQUxtYnRGTERUSjFkSko5dA?oc=5"
@@ -437,7 +458,7 @@
       {
         "outlet": "Citrus Heights Sentinel",
         "title": "Meet the candidates running for Assembly District 7",
-        "ts": "Aug 25 \u00b7 07:00AM UTC",
+        "ts": "Aug 25 \u00b7 12:00AM PT",
         "pub_date": "2026-08-25",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxQR3JoQXJmSGlkaXBjdkg2RUFnc09idlVxZU9tVmNGYnY0RENRekc5NmJVTmtJNWdhTWZQbkFTd2tFcnJwTWl5MThicmt4d2NVdnQ4eHRWdklfQWVlc2lYMWh6WWRkdlZZZVVQVk56QVpDS1EtdTdxWDg1aWlaLU1KSGE4TUZFZDl2b1NSNVgwV0RSbTFLSEVkR2V1YWtIQQ?oc=5"
@@ -445,7 +466,7 @@
       {
         "outlet": "CalMatters",
         "title": "State Assembly",
-        "ts": "May 03 \u00b7 04:58PM UTC",
+        "ts": "May 03 \u00b7 09:58AM PT",
         "pub_date": "2026-05-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE41b0JCMkgtd0Q1a0hnNXV6ZGdLUG0tOHNsdzBYQTZmLVRZZHdUUGZ5RktCeklsS3FZZ2NmeFRTa3ZiOXNRRThVM0Vfa09XYkZQcVdIOENxc3Z4TFhsNUx1TVlmdTNxcXFhNFQ4RnBEakNPU2to?oc=5"
@@ -453,7 +474,7 @@
       {
         "outlet": "FOX40",
         "title": "Hoover to face Slavensky in Assembly District 7 general election",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQZ1pVYlY3am5WUjBNNEEzQ0pMeDZVV09OWHJWUEFCamlTaWFhbGxLRXR5dTBQOFhyOVNjVTdEU3gzWi1JbnlDbi1oNHduc0gtemxFSG9neXREXy1KZlpNVEVCQzdHMjdWZ2V4V0dlSVBpYTFUMHF1TExOY3ViMWZTdnRSOVl0cjVFaW5EWkdnV2lwSGh30gGaAUFVX3lxTE9qX09ITFJtTVgtck04TC1kcVJZWjBiNUNqRTZLWDh5bnpsX25wLVl4Z1hpZHB6LUx6cTktRk92WmtJenViYk5KS3ZsSnQycExWaDVyMkpSNXlYWHpCbmgxWm03bXB1X2JnOWtoMFB6UXhpdl9kVUpjQlNUbW1UbGtiOXhsVXppeGtvUngwYWRBMFFXT21seG0tY3c?oc=5"
@@ -461,7 +482,7 @@
       {
         "outlet": "KCRA",
         "title": "California June 2 Primary Election Results: State Senate, Assembly races",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPbjJ4V0NSZUtSSE94UTczaWtVVk5SQTNHd3hST1lfTFA3M2h6cEFNVlVBSUJtbFN6SGt6X1J5eVRER1FZNGFJQkZhc1Q5SlNqYmNGWEYyZVlDUHZkOE9jN2xVV1h1amVlUENUMkhTMVMwejF4MWJkUXdYRFltdmJkeEZKWUpCVERTSnhFeWd3N2J6SHNYeHd0Mm9ldw?oc=5"
@@ -469,7 +490,7 @@
       {
         "outlet": "USA Today",
         "title": "California state senate, assembly election results: Follow key races",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOS2ZXOTVZTTZPY3BwVW5RTlM2bFV0U2xnLW5oQ0pnOTVPb05NOE01VmFFcUphM1htV2llMEdRWWJnejY2SHE5N25ZalFTREctU244SkZEMlAtTWxmSi05STBiZlR0dlZvNE1tNDBScEZNeWQ5WnFrNV9GUWJCY3pJbjJkRjRnMXNKcTBZdDBPRHBKMTBqQzh1NXNyckdmQ0p1Tzd0NVhBbFNkakVSSHFrajBIcmg5X05aNE1hdHBtX3J6cEk5SmlN?oc=5"
@@ -477,7 +498,7 @@
       {
         "outlet": "Folsom Times",
         "title": "Election Latest: Hilton Tops Becerra In Gov. Race, Hoover Holds Dist. 7 Edge",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxOWnUzSTdheUJBZ2U4UG45bkE0eVJSMlN3THJUN0xaMk84VU82cGJVdkFHbjhMaDdianpEVTBZdmpQVTZBVVIzRHpyRDhyU1dBTmhBNUVjMFpjUXF0VnA5UmFJWkRmQmxlcE9kN3phWG5XaXo0S3NIb2hKZ0dWWUwtV0hZMXk0ZjRXWFhkZ3UxSVgzTWtfaWZPTC1FbFQ5QQ?oc=5"
@@ -485,7 +506,7 @@
       {
         "outlet": "Sacramento Bee",
         "title": "Hoover takes the lead in CA 7th Assembly District, what do initial results show?",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPRmNOVl9WaHBxRWd0UndqVjlxX0R5NkR3V3lYOXRaWVRlblo0ZEVVWE5LaHdyeUt2d0c0TEFpd05KUlR5d2sxaUpiV2hUdFN0dFc2blVMajRubmpsOS1ld0QtSHVyay1iaHh6cDdLcG15LUNQTmdaTnEyazB5S1lrTVN6ZkZGWUctYkdrZFJJOHhCcjI5TWE1Tw?oc=5"
@@ -493,7 +514,7 @@
       {
         "outlet": "CalMatters",
         "title": "California GOP plays defense in purple districts as Trump's approval slides",
-        "ts": "May 04 \u00b7 07:00AM UTC",
+        "ts": "May 04 \u00b7 12:00AM PT",
         "pub_date": "2026-05-04",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSmRQZTZUaUM0NkRzZFVuS25NRXlub010U1A1MFdBVVhYeS1pUnFBd2l6cGY2VlltTVEyNWRUUzZrWi16WDFlczFZeDlPZTRBVjNNTWJ6Um5naGVDaFhPOFFHem5tV0Q2aHA3YmFfVl9tRkhPNGtQV3NlMVJIazFtZFh2aw?oc=5"
@@ -501,7 +522,7 @@
       {
         "outlet": "Independent Voter News",
         "title": "Independent Voters Hold the Power in Several California Races \u2013 If They Vote",
-        "ts": "May 05 \u00b7 07:00AM UTC",
+        "ts": "May 05 \u00b7 12:00AM PT",
         "pub_date": "2026-05-05",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNc2NPODFOVDUzMFBQVFFvR21nbng2am95TVJUOE1idk9XRXNYUGFOckY1Z2FiQmxDZXA1Q1RoQXFObHB4bi0wUzJDLWczTWlWSDFySGZHem0tLUJORjI3R2N5MkV1MVkyaXJKSWF6RnNkQTRLMGNTejZqUkUtZlNLVy1Rd0RxbVlmNmI1YkN0Q0JpNW1FcVFNOTdvbkdkSHFma3c?oc=5"
@@ -511,7 +532,7 @@
       {
         "outlet": "Fresno Bee",
         "title": "Republican candidate leads race to represent Merced, Fresno-area assembly district",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOc0VqY2lJVlMwbno1YTJFaF82My1lR2REc2VsYXozelR5WDgzYkRia1lMYUFMWHVKQUV6Um1KUHpYX2pGaFlUdk5FMWk5VzdIMGo1T2p4dUk5RGlVaEpnZ2I1WHJRQkZPdjNXZDIwZWhtVExPUmh5bFdPcGFoeTdsUkxqWDlRX092?oc=5"
@@ -519,7 +540,7 @@
       {
         "outlet": "YourCentralValley.com",
         "title": "Meet the candidates running for California State Assembly District 27",
-        "ts": "May 22 \u00b7 07:00AM UTC",
+        "ts": "May 22 \u00b7 12:00AM PT",
         "pub_date": "2026-05-22",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPR0FlMlo5a3pqamlEalFtUm9rN25RSU5aR1F0bmtkOGdrTjFsSTd0cllhSUdrTzJhTUx1bVVJQ3NZeklxLUhoZXN0Wm9HVXB6dEZzWC1YVnV1anFPdHRzY3FGZkg0MWVYODlJMHhXbnJPbnBYQ1Vtb0FneWsxZFpxMVU0Q3FSZ3BIeVFweVNjakVlZmJsd0RoNkEzeHdNeTlUcDdzWi1zWHhnUGhfaFZGbTU5ZlN6Y2ZPS0HSAb8BQVVfeXFMTmtlSWhzV2UxcUJ2YWdidEdjU2RIQnk1MWROWFNHWHlIVGthbEZDcEhWNG5ldndzMWlpR0FtN2JtYkN5NVJSRjZZcEI4RkJncHE0ZUlQSTk2WkJYc0M1a3g5M01QVHJGcEZIdXpnNkM4UnNseEs2NGJnbTFVMWRFM0V6N0puQ1ZadnpWZksxbmhvSEdhakpaZmplankycHI0bWIxdk1MbGFiX3NhMnVKMTVubDBFdUE3eTlQamlKcEU?oc=5"
@@ -527,7 +548,7 @@
       {
         "outlet": "GV Wire",
         "title": "Esmeralda Soria, Brian Pacheco. Adam Gray Advance to November Runoffs",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQY0c0X3ppNXRveV9TZDJ2RUNNa2l0V1M1bXV5ckRsNjJENG1mbTJzeTVtN0ZOUjZ5ci03Vk1PYVJucXJ1RUhRZ1JyM0JtT3pkTnB5aG55R0JjeWdCM3VGYU1fT1M2STN2SVhVWVEwWDR1b0NxLUl5OXhicmNrNGlDdnV5MmdkZWt1LWRobEZzRmRaaVh1LU1KZDNQU3BXTDg?oc=5"
@@ -535,7 +556,7 @@
       {
         "outlet": "Fresno Bee",
         "title": "Your guide to CA Assembly 27th District primary. Who\u2019s running for Fresno-area seat?",
-        "ts": "Apr 30 \u00b7 07:00AM UTC",
+        "ts": "Apr 30 \u00b7 12:00AM PT",
         "pub_date": "2026-04-30",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOTUQ4b3FfSmg3TnVfdzUyRTBhb21lNVNrdWFYOFBsQjE2NHloczB2aGs3dGdpcGtwZXdUTHQ4R0x6eHlESTlnbWMxRnQxNGE0VGRxM0l2SmxKVTRYOHk4Y3laSHdZbkR2aWlrNFFwdWVpN1Y1V2Q0bFZrV2hJWDhSZHBIOEN1YlhLTjI1bkNuMS13cmd4MFREQg?oc=5"
@@ -543,7 +564,7 @@
       {
         "outlet": "The Merced FOCUS",
         "title": "Watch Mike Murphy and Japjeet Singh Uppal in 27th Assembly District debate",
-        "ts": "May 01 \u00b7 07:00AM UTC",
+        "ts": "May 01 \u00b7 12:00AM PT",
         "pub_date": "2026-05-01",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE14bmphaTFSZUtIb2VLWEdyemYyNmlqQTVMa0ZzMnl5NnNxa0h4eXhmNWxRd1hnanlBNFVpNENFdHpQa2p0WWw0Q0w3TlRhNElIOUtSNkN2bU1ndw?oc=5"
@@ -551,7 +572,7 @@
       {
         "outlet": "Merced County Times",
         "title": "Fresno County Supervisor Brian Pacheco announces campaign for District. 27 Assembly seat",
-        "ts": "Dec 09 \u00b7 08:00AM UTC",
+        "ts": "Dec 09 \u00b7 12:00AM PT",
         "pub_date": "2025-12-09",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOT0pHYzV1ZnNEdUdaYVpTX2NyM1FBc3doNkFJQ0drdTNxNWVpX0M0cDN6aFFGblVqMDBkaFFtSDRNV1hUR0s5aWJKcnF2U3RRdmVPSHA3dU9IWnlRcVlEUUI5UnBHdkVRRHJ5OEx2VU5JcEhiNjVSQk5fS3Jpb0ZwTWtEdXg1cF9kaWFERXhHbE52alN2YU9mNmZucFl6SGs2UTRybXdNTlFkSVRqUWd5bGpMUlRJd1FKb0E?oc=5"
@@ -559,7 +580,7 @@
       {
         "outlet": "Mid Valley Times",
         "title": "Candidates set for June primary election ballot",
-        "ts": "Mar 26 \u00b7 07:00AM UTC",
+        "ts": "Mar 26 \u00b7 12:00AM PT",
         "pub_date": "2026-03-26",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOMmZXdXBVNXlfSkJFbkRJRU9OcHZrV0ZMQVRvS2p5TzRPSTY5dVMxUjBrUWotQjFaS2NSczZ3WHQ4dVpvLW5KY3JQQS1IWDQxbldsczdkMVNxZjdLMGtadVdVd0hfOEt1WEdjWWN1eTBHY3FDY3FmdHpBNTlPQkZxdnJyV3pfY3kyS0FtZlBXMDMwZEFmanhaMTE1X3lQaVI1?oc=5"
@@ -567,7 +588,7 @@
       {
         "outlet": "GV Wire",
         "title": "Pacheco Enters Assembly District 27 Race",
-        "ts": "Dec 09 \u00b7 08:00AM UTC",
+        "ts": "Dec 09 \u00b7 12:00AM PT",
         "pub_date": "2025-12-09",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQU1VxVURiR0ExTTFrTDVNYV9pSXJoUWhtNWhPU0VlblBISTRZN1ZkQ29TQUd2dmt6dXZtVE45SF8zd0MzR3d4czMzdHhQVEhyZ250Q0NqTzVRcF96NGNSSmEzRGZlQzJxNEUtQkxKcVVIRUFxVlU0UVozVkhDVVVpVkpUTGRqVUJNTDU2N2xOT3g?oc=5"
@@ -575,7 +596,7 @@
       {
         "outlet": "USA Today",
         "title": "California state senate, assembly election results: Follow key races",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOS2ZXOTVZTTZPY3BwVW5RTlM2bFV0U2xnLW5oQ0pnOTVPb05NOE01VmFFcUphM1htV2llMEdRWWJnejY2SHE5N25ZalFTREctU244SkZEMlAtTWxmSi05STBiZlR0dlZvNE1tNDBScEZNeWQ5WnFrNV9GUWJCY3pJbjJkRjRnMXNKcTBZdDBPRHBKMTBqQzh1NXNyckdmQ0p1Tzd0NVhBbFNkakVSSHFrajBIcmg5X05aNE1hdHBtX3J6cEk5SmlN?oc=5"
@@ -583,7 +604,7 @@
       {
         "outlet": "GV Wire",
         "title": "Brian Pacheco Enters Race for Assembly District 27",
-        "ts": "Dec 05 \u00b7 08:00AM UTC",
+        "ts": "Dec 05 \u00b7 12:00AM PT",
         "pub_date": "2025-12-05",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQLUFUaVFaTUVZeFgwdG1rT28yTzdMYS1iTnUzYmRIQ0syVVktc0Y3YjRwM1RGaWpKNnZmbzhZdlJRdDNGMkh3TTl4NnVaeHlkQl9DYmRZdi1COGQ3WV9Vd29YWERfWkNLYTVYNFd1cm9LbnRidDdyNW50X1ozaE96eThkUGRzSjB1cjNTN255UQ?oc=5"
@@ -593,7 +614,7 @@
       {
         "outlet": "NBC Palm Springs",
         "title": "Jeff Gonzalez Launches 2026 Reelection Campaign in Indio",
-        "ts": "Sep 13 \u00b7 07:00AM UTC",
+        "ts": "Sep 13 \u00b7 12:00AM PT",
         "pub_date": "2026-09-13",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOM29YMS1aa0RTb09ZQTZ5TGlFTVgyYVhZcVVFWHZwd2N2M0luWUJVdjZCbnBUMnBxMXVaekk5TWxyS0xkNUZ4M0NwZDYyVFVNR1pNR25lLXhaTERMUWgyR21Wc1gwSV9zQklwWVliZ1I3WEwzUHB5azF2cmlUQ2dHYUU5eEJsOUc4Z05VcVBqc0x1VVJSVzIzQmtaUDdYUXRzVGlobGtwZGJfYUxLNzlvbElnLXI1Z3AwbEE?oc=5"
@@ -601,7 +622,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "Jeff Gonzalez leading in California's 36th Assembly District",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOLW50eEtSSS1VcEdFd0FjVGsxdGhEampxdWprcTVqZkFlYjk3YldfQWVaNWgxNWJfdGdjRDhtT3Q4a041dHB3Zm5ieWdCMkVDMUlDNkd3VS1aZFRDRGVob09TdUdVbWNhcU8tSWlQdUtXYTdzNnNUZURETWdHdF9mSWdjTDdRNkRkalNqTGg4ZUY2TnpiRE9LRTNDZDhWQkVDdnBIVXdWRjZZOW01MGxsV05xWHdtUnBHMmFvMVZ0STFHVzE2RnFPcThCaFQ5NU4tWXhGLVV5ZXZQRnRn?oc=5"
@@ -609,7 +630,7 @@
       {
         "outlet": "NBC Palm Springs",
         "title": "Republican Front-Runners Establish Early Leads in Coachella Valley Congressional and State Assembly Primary Races",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxPZWplMXluSS0zWUpycTdvU1NfS2R2VjgzYk9leElwOFE3SkgyYm1uZlNxQW9BUW5mQXMtdWdnLVc0SjNHUHlGRjJ5aEd3cy1nSUJXNGZ3Wnd0UHVXNV8yLXVoZ3JGRWxLRERxWXFiWmRxemhMY0VrSVVIU3VYM1lIbHFLWHBtS21ORHJPNVR2R21iSkhpd3dyRTUtUzZMT1RpMU9JVy1TRlA2dS1pdVJLTEJzLWFwQUVfdmNvZHVwNUtPR3V3VWdFaHRYd285SHBZUUI3dEdmQ0o2bHh4RmRNd0J3SmRib2FaOW9GX011OWNncm5TaEtOWDJZWmtNX2pKNVppZg?oc=5"
@@ -617,7 +638,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "Imperial mayor tops Indio councilmember in state assembly primary",
-        "ts": "Jun 17 \u00b7 07:00AM UTC",
+        "ts": "Jun 17 \u00b7 12:00AM PT",
         "pub_date": "2026-06-17",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxQTzFES1huazVjVlFtbGZVU0M5YTJuVXoyMUROVFE4bmdzWnlUV0k2aVEzM0x0Q3dnbWRqRUZIQkRVRnJGeGJ3c0htYUhzRWxobG9QanlUeW9aUjFBSkxQSDdtRXhZNE5ZR0hwLUQ0aWVuQ1M4TkJ6XzY4bzVoSnpYWmF2ZTBURUxxRzdTTkdob1dWOGVyYXBLNG5HSkVmZGhJR1NpNWJlV2kxZ3BCdzVES09EdEtSNldWM0VJMFk2UThjTEREcnZwXzJMTGUwbm1pODFPN3hqeWxubjlkUHRON2s5Mk5sUk1M?oc=5"
@@ -625,7 +646,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "Democrats take on Jeff Gonzalez for Assembly in east Coachella Valley",
-        "ts": "May 26 \u00b7 07:00AM UTC",
+        "ts": "May 26 \u00b7 12:00AM PT",
         "pub_date": "2026-05-26",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQS0NQSTBhOElUbWJiV2pfaGZSdmFWcDFycTVBeXlRRGRSdmhua29oQUpfc1kxUnFZeDZQeVB6UUVXR3l5LVhQSWZWU0dRdm11aUFzeEdBWVVReXVRTXRqeTZBcEUtVlgtclVNX3ViMW9GVWpQbFlZRWlmR25RWVREc3N6bHRwbnpFSzU5cmllQ1FDOWFQYU4zeEZoMXVzdDJRWHEtbl96X3FRWjBQUU9TR2ViWjZfMzc3Nkc1MC1Kd0dJMnVRYnFHOGQ0QUE3R0UxRGJDT08zNHZGUjRXMmV4aw?oc=5"
@@ -633,7 +654,7 @@
       {
         "outlet": "NBC Palm Springs",
         "title": "California Primary Results: Becerra Takes the Lead, Local Assembly Races Taking Shape",
-        "ts": "Jun 08 \u00b7 07:00AM UTC",
+        "ts": "Jun 08 \u00b7 12:00AM PT",
         "pub_date": "2026-06-08",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNaUotRW9qaGxRRGxqUVA4bTQydVV6S1VjVG1DX3BhTnNQNUFnVThkMmYyaWtYWE0wYXFCalhYbHI0ODB5SWoza3FoQ243TlQ2TmV3NFJPWGxfWVBzYTFYWG1NSmlUY3Y0OGtSNGpGcWY2UHFCb3N3Znplck9ZdXdSbmdoSHlmdXBoVHBLX1dBa2EzYjVtVXpNcnhGZHBob1I5WnEySjk5T1RMSlNOZDcxVk44WTU5WW5pV2tXVDM2cGhjVl9NWmU0anRCaGZ6TUpSZDlCdXBPMmZ1S2ZxUVE?oc=5"
@@ -641,7 +662,7 @@
       {
         "outlet": "Uken Report",
         "title": "Peggy Price Named Woman of the Year in District 36",
-        "ts": "Mar 19 \u00b7 07:00AM UTC",
+        "ts": "Mar 19 \u00b7 12:00AM PT",
         "pub_date": "2026-03-19",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9UVFNsalphNDVremEzMzNYVFR0UjBUeHZ6MlNIc1hxWG5YQzluaXZmWTlrdzhVbWd1cGxpQzFZSXZSMFFCc2lFNHdVck50T1FNaXJDRE9wVU1Ca2dKYjRQSXJUQ0ZSdF80RHdwX3N0ejd0LW1ZcHdjU2k2SmdIZnc?oc=5"
@@ -649,7 +670,7 @@
       {
         "outlet": "Independent Voter News",
         "title": "Trump Won This Latino California District; Now Independents Will Decide Who Holds It",
-        "ts": "Apr 07 \u00b7 07:00AM UTC",
+        "ts": "Apr 07 \u00b7 12:00AM PT",
         "pub_date": "2026-04-07",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOcDk3ZEVCeERkVkFUQW9ITkhJcEl0bnJhZ2FiUnVsVXVYbkdqU1NqRkpoSVNEUHczZnZoU3VSaXFDUEQ5ODQxNHpZU3M0YVRKTlBqMlpaRGkzSER5VVAxNE9uWHNvSVBZX3Fma1N1N0JweHIxMWNyOURaNjFSak1Ib1U1RjdRcDQzc3BlYVR2czVISVhsNFVvaFZzWU9wbVpYOG5xSWZiQnQ3cFRFdWMw?oc=5"
@@ -657,7 +678,7 @@
       {
         "outlet": "Los Angeles Times",
         "title": "This Latino Republican flipped a deep-blue California Assembly district. How?",
-        "ts": "Dec 08 \u00b7 08:00AM UTC",
+        "ts": "Dec 08 \u00b7 12:00AM PT",
         "pub_date": "2024-12-08",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOSmFYR3JFYXJpVnRXRERfaWdFa1pjWFpKRVVJZVRTNlpFazlUaVR5NmZJYVRnZkV1S01WdTVWRmozaHBKYm5tUnlhbTlsSkM1Q2o3MGR6emJ4ekEyYmRtQ01JOVd0NEpYS1VEcFhpRXlPRHJad2tpQVlieUc5VmlPZHcxRnlXWWk1OHJBOWJjNWhSakpKT0RVSXZsUWotNzBrUHNFMQ?oc=5"
@@ -665,7 +686,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "CVUSD is headed toward financial disaster. Families deserve better",
-        "ts": "Feb 19 \u00b7 08:00AM UTC",
+        "ts": "Feb 19 \u00b7 12:00AM PT",
         "pub_date": "2026-02-19",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxObXpGR2F2eHAwSDJlZ280Mm1YOF9vODJSRk5ZV0RqU3hOamc0dUJtS2dHQll1OVNpQ3ZoSFBYZkVzRWpLVkdRMWhUMld5eGphZWFTT09aSEJlbk5VUTRxYW9lTHRhOGJ3OTZoMkcwV2R4aTJSSnZOSWR0Q1FEcWI5Vm1qY3Bnc2JCT2JkeGRVbTdOTm9kdGR5MXN3QWRDTGt4RkpsdGpja0UxNjVVZEJzLWRsX1FFRXlIN0k2WXhVRzZSTDVYNTZjMlQxa3lIYm91d1dseGN1cUN1NWR6?oc=5"
@@ -675,7 +696,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "California Assembly election results; Greg Wallis leading 2 Democrats",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPMENuUDQ2THZ3V3JIVE45RVdpbkotcnBhNl9BcHpCRTR6UHlIalJFdEJHY1VMVE9VTUJmMDRpRVlJejUtSVIzRnREQ2x5bXB3M01wVkRGaTBWVko4b0xiM1ZSNnYwZ2FvSzFxX1IzY2NPOE1KQVI5cDNfLUlmN1paTDNzd19tUU1FOWVQaVJXRXoxN1V0X09LNkZpMHlPYnp4TEN6cWJtb2Q1aEtKemFqTTV2Y2NXTmxtRkVDTk0tV29WbG5XcWhhRWtyWVR5c1g2ZlRoTFNvWQ?oc=5"
@@ -683,7 +704,7 @@
       {
         "outlet": "NBC Palm Springs",
         "title": "Candidates Outline Priorities in California\u2019s 47th Assembly District Race",
-        "ts": "May 13 \u00b7 07:00AM UTC",
+        "ts": "May 13 \u00b7 12:00AM PT",
         "pub_date": "2026-05-13",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNX2cydmhoTjFlTUVOcHFLa0tPQV9WenlOekdGRVpSTjcyZUhDVlk1dElaelJwRmlhQk9sOE42Mk0wYUM2aWJweEc0emNzLTkwaklrSGV4dzRpZlhPSFBkcDJWaXJmdGRaaXZXdnYxb3NUeE8tNmhWVTVjaDNqc0RSUXBSVU05VXhKdnVTdGNGcjFVeFRJZXZPWllhLUVuQ0VNV2dVYXVyNG1hWjJzUk1ldE0tZmt5MmYwdTRzTjBUM1RhSlJLU1JJ?oc=5"
@@ -691,7 +712,7 @@
       {
         "outlet": "Independent Voter News",
         "title": "Neither Party Owns This Seat: Independent Voters Control California\u2019s Desert Battleground",
-        "ts": "Jan 28 \u00b7 08:00AM UTC",
+        "ts": "Jan 28 \u00b7 12:00AM PT",
         "pub_date": "2026-01-28",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOYUUwUkY2QVZuVkNqcHpPT3FybHBwV2Nlb2NBSkJaR0JmemVxV2swR3ZzTko0bDFSVUp3cUk2R2xBR3NDV2txY1NsNktPMnIxV09uQ1pWYV92N2E0ZkRZTHY0TFpNOFVLRnctU0dNUjVEcXo5R3hleDhrM2Y5RFVFQ1FqU2hXT2JGSk5MdTNyM2k1TWpmWDRGQmZRa2NBcHZhMTRzTzBkNXEtdmFiZ2pRanZXbw?oc=5"
@@ -699,7 +720,7 @@
       {
         "outlet": "CalMatters",
         "title": "State Assembly",
-        "ts": "May 03 \u00b7 04:58PM UTC",
+        "ts": "May 03 \u00b7 09:58AM PT",
         "pub_date": "2026-05-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE41b0JCMkgtd0Q1a0hnNXV6ZGdLUG0tOHNsdzBYQTZmLVRZZHdUUGZ5RktCeklsS3FZZ2NmeFRTa3ZiOXNRRThVM0Vfa09XYkZQcVdIOENxc3Z4TFhsNUx1TVlmdTNxcXFhNFQ4RnBEakNPU2to?oc=5"
@@ -707,7 +728,7 @@
       {
         "outlet": "Idyllwild Town Crier",
         "title": "June 2 Primary Election Candidate Interviews",
-        "ts": "May 26 \u00b7 07:00AM UTC",
+        "ts": "May 26 \u00b7 12:00AM PT",
         "pub_date": "2026-05-26",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNNHlCVnF4ajVCVjd6d1FVRU4xX2VXQXlxbk5vVThRRk82bkhvLXM5dzRHOWcwQ21zZWFyaTUzTzNlRXVrNVdSeHBobFAzdHJpR3M0Vi1ZWlhmNUgyQW1sRDM0ay1HSHFoczRPSXRwRm9tMm9qaEVaQTA2bTh1Vi1BcVlxOHhqaGpub3cydVdTN0w?oc=5"
@@ -715,7 +736,7 @@
       {
         "outlet": "The Press-Enterprise",
         "title": "2026 Election Results: Who\u2019s leading in Inland Empire Assembly races",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNbEZubDl0UUtVcUdMaXZtZFliMDZMN2ZtdjNfZlhza1doSDhCSk5XMDdkdFNuenA5LXk3bW05clZjQmc2eUYtWEJhSXBsU1ZUNHdRX1I2dmJtSkh5Sm9aR21PTXI0bThDQ0piQXg1NXJ5ZWpfVDhkNEotc0E1dzlneTBRaEtYZjRIYnVoRTVIc1JiVHBJZXlKM0NsOXY3TVJ5ZmZKUWJLQWpNTmE1NHJ0dDBhM2dtQkFsbDJWS0Q4UGtldHRJWHVvT2Nn?oc=5"
@@ -723,7 +744,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "Greg Wallis seeks third time in competitive Assembly race",
-        "ts": "May 22 \u00b7 07:00AM UTC",
+        "ts": "May 22 \u00b7 12:00AM PT",
         "pub_date": "2026-05-22",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQTXkyYzRMVVhxWGFZdW9heExCTDVKc054TzYxLWVJdVRXREl1N0pLM2VndlFiYWVFR1ZZN0VNYjM0T0paZnNQTWN5c2FmUE9zQnVSa3FzTV83YkN5YXl1cV9GYmhkckpYQXV0ZE90RDhNT1JLSXRpY0RocGpja24weFlsZV9sTl9XaTM5MFBVT2JlMFZpMVZhWmVXaEVleVRqNUZ1cnhZbWZHWHdmang1b0NUODFwdw?oc=5"
@@ -731,7 +752,7 @@
       {
         "outlet": "NBC Palm Springs",
         "title": "California Primary Results: Becerra Takes the Lead, Local Assembly Races Taking Shape",
-        "ts": "Jun 08 \u00b7 07:00AM UTC",
+        "ts": "Jun 08 \u00b7 12:00AM PT",
         "pub_date": "2026-06-08",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNaUotRW9qaGxRRGxqUVA4bTQydVV6S1VjVG1DX3BhTnNQNUFnVThkMmYyaWtYWE0wYXFCalhYbHI0ODB5SWoza3FoQ243TlQ2TmV3NFJPWGxfWVBzYTFYWG1NSmlUY3Y0OGtSNGpGcWY2UHFCb3N3Znplck9ZdXdSbmdoSHlmdXBoVHBLX1dBa2EzYjVtVXpNcnhGZHBob1I5WnEySjk5T1RMSlNOZDcxVk44WTU5WW5pV2tXVDM2cGhjVl9NWmU0anRCaGZ6TUpSZDlCdXBPMmZ1S2ZxUVE?oc=5"
@@ -739,7 +760,7 @@
       {
         "outlet": "The Desert Sun",
         "title": "La Quinta Democrat joins assembly race to challenge GOP incumbent Greg Wallis",
-        "ts": "Oct 15 \u00b7 07:00AM UTC",
+        "ts": "Oct 15 \u00b7 12:00AM PT",
         "pub_date": "2025-10-15",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxQNUdXdUQ4OW5CQ3N1eU1ZekdhLXpVVkpOZ3pxamJTM3hKc2ZDYWZHX19YMVRXcGhyU1ZJRVMxSndtRGNFSGRtcm1CdTFxRVhjaHhLWHk5ekxjejBWT0VQOGpRSHBWZER3ZXFQMFpPYW90ZXVZVVd2WEFaaHNqWG5PMXZEQkJCa1BCeEUzMk1iTlR2cERJcXVfbF82WnlGY05GUEx1ekI5Rkk3UDRuTDlsZnUwbXdiZk4taTE5UGhySFNKQTRTZDh4YlRzZzYzeDNIX3ViLTFZaGRkMDgzcUE?oc=5"
@@ -749,7 +770,7 @@
       {
         "outlet": "pressenterprise.com",
         "title": "Fiscal responsibility takes a backseat in Assembly District 58",
-        "ts": "Sep 07 \u00b7 07:00AM UTC",
+        "ts": "Sep 07 \u00b7 12:00AM PT",
         "pub_date": "2026-09-07",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWnBvdml1aWxVTVFWWUJDVl9pNEs2WWczNU9mcWdMRHFOdW90N200Sl9ZcW1TV0p3MDYteWhiSjFOUEN3b2tVQkxFOEkzcEo4YXhldi0tOUZFY0paTlFtVWJCZjFIYWo2bUU2d1RpYV9XMElYRjd6cmNfR3o0UGV6VnNlUGdzdjlwOVFvT1lKZUVvcTRlZmxESG1qa3pFQ1pySWtMekRLVkFDZw?oc=5"
@@ -757,7 +778,7 @@
       {
         "outlet": "USA Today",
         "title": "California state senate, assembly election results: Follow key races",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOS2ZXOTVZTTZPY3BwVW5RTlM2bFV0U2xnLW5oQ0pnOTVPb05NOE01VmFFcUphM1htV2llMEdRWWJnejY2SHE5N25ZalFTREctU244SkZEMlAtTWxmSi05STBiZlR0dlZvNE1tNDBScEZNeWQ5WnFrNV9GUWJCY3pJbjJkRjRnMXNKcTBZdDBPRHBKMTBqQzh1NXNyckdmQ0p1Tzd0NVhBbFNkakVSSHFrajBIcmg5X05aNE1hdHBtX3J6cEk5SmlN?oc=5"
@@ -765,7 +786,7 @@
       {
         "outlet": "The Press-Enterprise",
         "title": "2026 Election Results: Who\u2019s leading in Inland Empire Assembly races",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNbEZubDl0UUtVcUdMaXZtZFliMDZMN2ZtdjNfZlhza1doSDhCSk5XMDdkdFNuenA5LXk3bW05clZjQmc2eUYtWEJhSXBsU1ZUNHdRX1I2dmJtSkh5Sm9aR21PTXI0bThDQ0piQXg1NXJ5ZWpfVDhkNEotc0E1dzlneTBRaEtYZjRIYnVoRTVIc1JiVHBJZXlKM0NsOXY3TVJ5ZmZKUWJLQWpNTmE1NHJ0dDBhM2dtQkFsbDJWS0Q4UGtldHRJWHVvT2Nn?oc=5"
@@ -773,7 +794,7 @@
       {
         "outlet": "Independent Voter News",
         "title": "Leticia Castillo Doesn\u2019t Fit California\u2019s Political Boxes, and Neither Does Her District",
-        "ts": "Jan 19 \u00b7 08:00AM UTC",
+        "ts": "Jan 19 \u00b7 12:00AM PT",
         "pub_date": "2026-01-19",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQZy1SbmlEQ0R4V3dRcC1iMXYtZnRQcmJ6MnhtNHA3a1hxdkJ5SEpIa2I4TGRPdlpKdkUtYVh2d2JsbEZud2F1UkI2ZjU1OHFjV2lLZWhIY1dsSnNOems1UWtOekJScU1BMGhGZHRLOFNZaFFOck5OSm13T3BiMEQ1SmxZMDh4SnFxWVBteGxsU1ZkTkFrMmhXRkoyUWlQcE1SX3FZaWQ4SUFqVWFOS2c?oc=5"
@@ -781,7 +802,7 @@
       {
         "outlet": "CalMatters",
         "title": "State Assembly",
-        "ts": "May 03 \u00b7 04:58PM UTC",
+        "ts": "May 03 \u00b7 09:58AM PT",
         "pub_date": "2026-05-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE41b0JCMkgtd0Q1a0hnNXV6ZGdLUG0tOHNsdzBYQTZmLVRZZHdUUGZ5RktCeklsS3FZZ2NmeFRTa3ZiOXNRRThVM0Vfa09XYkZQcVdIOENxc3Z4TFhsNUx1TVlmdTNxcXFhNFQ4RnBEakNPU2to?oc=5"
@@ -789,7 +810,7 @@
       {
         "outlet": "The Raincross Gazette",
         "title": "2024 Election: Leticia Castillo is running for California State Assembly 58th District",
-        "ts": "Jun 28 \u00b7 07:00AM UTC",
+        "ts": "Jun 28 \u00b7 12:00AM PT",
         "pub_date": "2023-06-28",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPdHd5Z3EyY3JtQzNRNTI5VU9MOUNzMnROazBWVHZXV0VTYlptdk9KMGxBSlRxUEYzSmFzenI4ajRVMkwxQ0hrSWktYUktYnYyZ05WcG1qS00zNGlzZEtpTi1YOVdTTW94al9hRmJCc2VqR2hfVGZQSWZDU2JPWl8zd2VidGdGN3hWSVVBMXZNR1BHa2JSZTlNYmhScjlKVXpiTmdSQTI4bkdTSm9lU2kwQ2V1RGtIWXI3UTE4?oc=5"
@@ -797,7 +818,7 @@
       {
         "outlet": "CalMatters",
         "title": "California GOP plays defense in purple districts as Trump's approval slides",
-        "ts": "May 04 \u00b7 07:00AM UTC",
+        "ts": "May 04 \u00b7 12:00AM PT",
         "pub_date": "2026-05-04",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSmRQZTZUaUM0NkRzZFVuS25NRXlub010U1A1MFdBVVhYeS1pUnFBd2l6cGY2VlltTVEyNWRUUzZrWi16WDFlczFZeDlPZTRBVjNNTWJ6Um5naGVDaFhPOFFHem5tV0Q2aHA3YmFfVl9tRkhPNGtQV3NlMVJIazFtZFh2aw?oc=5"
@@ -805,7 +826,7 @@
       {
         "outlet": "The Press-Enterprise",
         "title": "Clarissa Cervantes makes another run for California Assembly",
-        "ts": "May 08 \u00b7 07:00AM UTC",
+        "ts": "May 08 \u00b7 12:00AM PT",
         "pub_date": "2026-05-08",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNa1FXU2RvLUVxeXo1UWd1QlZYZGwyMDU1SjI3YzJLS3VNVFJrTElxdGRBUE9GN1RiOGV6NFYybGplaFluRmJJN0F6US02RlNoRXNpT2dNTmRnTm9NSDRsRDZ2eVlyeEZmSnE0MmdhcmhtRHE5NkFLMVRVV3g2cEdSLWM2eTJUY0R0Q3p5VXhLTGdFRFRKOWNGc0VQRFNlVXgySjJGQWFhTQ?oc=5"
@@ -813,7 +834,7 @@
       {
         "outlet": "pressenterprise.com",
         "title": "596 votes decided this Inland Empire election that\u2019s headed toward a rematch",
-        "ts": "Apr 17 \u00b7 07:00AM UTC",
+        "ts": "Apr 17 \u00b7 12:00AM PT",
         "pub_date": "2026-04-17",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQWUFoeU1aREFVUUJvUFo0QUF4Q21adXhoNnhjN2Q0cjNHTW1rVEg5S1Eza0xyeXhRVzkxQlNIb1cxUmJzMDdLZXpJQ1VlSFJyTzlncVdBc2lVYXNkSTkxRnB4Z0JXcGZzSTB0Q081dGRwY1B0eE9KV1RHb3NpRjNfaUwyRXlSWV9NU3dJR2Y3SXZ4MFNDaC0zZWlMaHFYdlBOLTNPOEpXaHh1S1RNTWZiY2VuQUpuM0FHdTFV?oc=5"
@@ -821,7 +842,7 @@
       {
         "outlet": "The Press-Enterprise",
         "title": "Clarissa Cervantes plans to run for Inland Empire Assembly seat in 2026",
-        "ts": "Feb 01 \u00b7 08:00AM UTC",
+        "ts": "Feb 01 \u00b7 12:00AM PT",
         "pub_date": "2025-02-01",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOZjNLWUhSNnpIdUNOLW9FZExrTnBaRHBxQkt1REhWOENDZ3FaRzhoRjB0VWFQYWV6VXBnTHNEV2ZlSEF0bU5rTXhISFNlYUpsOTBRUHVQSUN2Z0VHUkZpQlBDRWtZRGRSMjEtMF9pM3V3a25RZUd6MmVZdjA2bzZKNmxlV2hDMXg2bkt0TGpMRUQxUjZxRmcwWmpZSGQtTEFOM2ZwSnM0RU92aHZvLWgtTVJjM29DUQ?oc=5"
@@ -831,7 +852,7 @@
       {
         "outlet": "Orange County Register",
         "title": "Endorsement: Laurie Davies for Assembly District 74",
-        "ts": "Sep 27 \u00b7 07:00AM UTC",
+        "ts": "Sep 27 \u00b7 12:00AM PT",
         "pub_date": "2026-09-27",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQQWxQMHdqV3J4V01XdWtjMTd4MDNGUjBCY3FXbXhVY0xpVFFEd19GRFBKY3haMW4weGFRSHJGcjVQbkh4RTVSdlRoa2hlbkFpTmFpc0NTajdYVTdKb3RIWU56NTNwa09ma1JaTWN2UldWenYxREJnQktrd3FDM0Q3WmxtUkdXeTA4emIwMWgxYWY1RlU?oc=5"
@@ -839,7 +860,7 @@
       {
         "outlet": "FOX 5 San Diego & KUSI News",
         "title": "San Diego County voter guide for the California November general election",
-        "ts": "Oct 02 \u00b7 07:10PM UTC",
+        "ts": "Oct 02 \u00b7 12:10PM PT",
         "pub_date": "2026-10-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQWlpSel9zYVBzVnZuLWlzM0pMWHRQZlgybm1DbV9VSDRFdU5Hczc4RDRhZXZZaEk2SkNyWDFUdGxFajdRSkU0NktCbVJzNUpMd3hCMklqR3JMd0hmNjdTR2RraUxJTVI4cnZLZThGSjJ0TnduTWJQblJyd0tlek03X19QbUF5OWNU0gGOAUFVX3lxTFBTcS1BTlFJWWlzR0lUY3JkYVoxY2szZ2Zyb1MzZDJSVHJoN3hyeklRZkhWRWdTMW9JYkFqbTc2RXFqMzVrQ0ZiMzJJTF9HME5GR2xINzdqU1J0Qlo1dFZmZGsyS2dyMFZqcWJoNU5PcjlHbmhyLTR4RUVJYmNhV3ViR0FETUNMYjdlRmYxdVE?oc=5"
@@ -847,7 +868,7 @@
       {
         "outlet": "CalMatters",
         "title": "State Assembly",
-        "ts": "May 03 \u00b7 04:58PM UTC",
+        "ts": "May 03 \u00b7 09:58AM PT",
         "pub_date": "2026-05-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE41b0JCMkgtd0Q1a0hnNXV6ZGdLUG0tOHNsdzBYQTZmLVRZZHdUUGZ5RktCeklsS3FZZ2NmeFRTa3ZiOXNRRThVM0Vfa09XYkZQcVdIOENxc3Z4TFhsNUx1TVlmdTNxcXFhNFQ4RnBEakNPU2to?oc=5"
@@ -855,7 +876,7 @@
       {
         "outlet": "KPBS",
         "title": "Meet the candidates for the California State Assembly",
-        "ts": "Apr 23 \u00b7 07:00AM UTC",
+        "ts": "Apr 23 \u00b7 12:00AM PT",
         "pub_date": "2026-04-23",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQNk5IX3U2NWdlNXFZN1FOQm1UZWVqZmFJbkZfRFZCTDlVYVR1VS10VVJsUUNtMV9WRWdwMjFjUGNiUzhIc1Ewd0tuRVU1TEVELU5qeTYxRExrcnB4RXFLWVNNeVdCcHE5amRQVkdGSU1OTnp0UFhLUGFhcnVJeGRaeXRqU1JXWUpJTDFxRzN4RFRrazhLRHIxTXNTZjFpRzUtaWVTdFN4OWcwZi05aXhra2RwMlZVUU9YdzdMYlRyZFJNc1VNMi1nZkc1NWdvZU9PWm9BX3IzUUdhUWdfQTVocHp4TE5YbGlQR3kxOG1NQkVKakZ1bHE3U0lzTU4?oc=5"
@@ -863,7 +884,7 @@
       {
         "outlet": "FOX 5 San Diego & KUSI News",
         "title": "Primary election results for California\u2019s Assembly District 74, Senate Districts 38 and 40",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNSGZ0a01GcTdQQWF3OGR0T2FOck5xcE9CX1d1Y0xEMHNweVVPV0tpTHhGQ0lEbDhuOUZkRlpsWGl0OXdrX0RJd2ZMZTJTakRlLTRqWkNKSmhhVG9Ub0w4NkpBdksxeUxSZ3RzUnF2RnhTeDVPMVd1cWI0VmVqa1Y1WnRnbkVMNGtPS2ZRN2F30gGTAUFVX3lxTE9UMnhWLW9kb3pOOFlCWm9LR3I2VEF6dU53N2JYQWkyRTh3WEoyOGlIZ2ptUmhOY2xkZ3BUakRNenh6Si13RTVxbll5Tm1zUHZ3QWFYZmp3MEpyNTFXWWF6cUxBMkpXM3JDMHJmVWRhNVhPQUdJWEc0Q2hVY1E2bHJoOUt2cmhyVFc1aU5GU3ZHZWZpZw?oc=5"
@@ -871,7 +892,7 @@
       {
         "outlet": "North County Pipeline",
         "title": "2026 North County primary election results",
-        "ts": "Jun 03 \u00b7 07:00AM UTC",
+        "ts": "Jun 03 \u00b7 12:00AM PT",
         "pub_date": "2026-06-03",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNS0RnN05yMXJxSDh2a3A2MUdXQl9tTzg4OTM2NVJNb1JGRkpNYUJnMlJyTExuTk5MSnB4S0I5ZDdZbjFpZUxHdVJyMEd3dVZGbjY4UkZPRllyeEMwS3IyTDRRVGJKZ0g2aEZQMTZZdG1HSWJFSGIzcW92UGVpOWpsRG93?oc=5"
@@ -879,7 +900,7 @@
       {
         "outlet": "Times of San Diego",
         "title": "Complete election results for June 2 primary in San Diego County",
-        "ts": "Jun 12 \u00b7 07:00AM UTC",
+        "ts": "Jun 12 \u00b7 12:00AM PT",
         "pub_date": "2026-06-12",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdnB0TzNrSkhrcFk2ZFZORlFrWXJlTXpSSmd0VGZYeF9GMzlMM1FPeGxQb1lQekVxekQzcm1NZUtpenNXTk15T2YxeWF4c1Fib0NCWkN1YVpmd3lqRHRaek1LNDM0TVNPdm1BVi1CZnNsY0ZFWTlKbFlJaGtHbEluTEJ2OVlvSVRMUjZCeHhkRmY0QkRwX0lLWkZjdmFyTElNM3c0RFFscXpVdw?oc=5"
@@ -887,7 +908,7 @@
       {
         "outlet": "Orange County Register",
         "title": "Sergio Farias, AD-74 candidate, 2026 primary election questionnaire",
-        "ts": "May 06 \u00b7 07:00AM UTC",
+        "ts": "May 06 \u00b7 12:00AM PT",
         "pub_date": "2026-05-06",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQQ3ZWV1I5b29fWGV6TUtvb2pPcTU5NnhjcUUtVk5ZYUNYT1dCb3RDV2RlNnRsVV9LOFZsdG9VM2lxNmJsY2ZXb3ZFejdGQVZIaXdrLUI1VnplVE05d2RJTTN3cXQ5TlFpMDNJcTAzd3hrRlQyZ0V1WEU5MjBDWlMyQnJjZkg2RllZaDlSby1HdmwwWlRveUhZUExGQTVuSnQ5d1NIR09jbw?oc=5"
@@ -895,7 +916,7 @@
       {
         "outlet": "CalMatters",
         "title": "California GOP plays defense in purple districts as Trump's approval slides",
-        "ts": "May 04 \u00b7 07:00AM UTC",
+        "ts": "May 04 \u00b7 12:00AM PT",
         "pub_date": "2026-05-04",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSmRQZTZUaUM0NkRzZFVuS25NRXlub010U1A1MFdBVVhYeS1pUnFBd2l6cGY2VlltTVEyNWRUUzZrWi16WDFlczFZeDlPZTRBVjNNTWJ6Um5naGVDaFhPOFFHem5tV0Q2aHA3YmFfVl9tRkhPNGtQV3NlMVJIazFtZFh2aw?oc=5"
@@ -903,7 +924,7 @@
       {
         "outlet": "Orange County Register",
         "title": "Election 2026: Orange County\u2019s legislative races take shape ahead of November",
-        "ts": "Jul 07 \u00b7 07:00AM UTC",
+        "ts": "Jul 07 \u00b7 12:00AM PT",
         "pub_date": "2026-07-07",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQeFdRdURnLVZKTGV0UG1pdjRXT1hSWF9yU0Yyb3ZsQmFSUmctOTMzdjFFMGxGZFBSR1gzVEtoRDkwNUVBYktYMm5lWE12OVhTZDlMdi1waHJfUW5oMTN4UEZDaFpkUVNVWFkwYTZmU1RNbTd4OVhPN1gtU09udXlHS3JVbmxXLWRsZjJwdWh5Q3Y4UXlqWjcxeVNZQnkyUWl2NUtlRmNwSTNEUHNLb2xIMnQ0OWs?oc=5"
@@ -911,7 +932,7 @@
       {
         "outlet": "LAist",
         "title": "Latest California Assembly race results tell us who's likely to face off in November",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQUlRnZkxTeDJacTd4LXlTNWpoblNhSWR4WHhZUzhNbkxMamRacE40dHNpUGkyM0tncnloVlZoU0RfSi14aXFuS0kxNS1lNkQzMzdpd0t3aGVpNk9Pcjh4LVZVbzlVa0dHNUNLdjdHTGZXWFJXTkpLdjlXWUtPbTFIUFBwNjdLWXpQdm9MWmJzZWc5YURPMmVlVVBwdWRDUmd0YTI4QzRodEJUWDRzNnpwMm1BOUhra2c?oc=5"
@@ -919,7 +940,7 @@
       {
         "outlet": "San Diego Union-Tribune",
         "title": "Elliott, Bruce-Lane hold early leads in District 40, while incumbents favored in other state legislative races",
-        "ts": "Jun 02 \u00b7 07:00AM UTC",
+        "ts": "Jun 02 \u00b7 12:00AM PT",
         "pub_date": "2026-06-02",
         "sentiment": "neutral",
         "url": "https://news.google.com/rss/articles/CBMi7gFBVV95cUxQekIyQi1JLVBENXZDcW51bURQNGo0QnVNTFRCRGRncGhQM0ZfSnZCTnhhbzhIa2o5enJpd0tyZkg5RVVqMkhJbzBmcm4yZk9SNWZlTGNqUnBuVEl4MnVmV0JpRERmcHJLdW1pQ2tiMENuQTVpaVkzWGw0V3oxbUplTVp2VlFUREU3QnlDZTNmbHplbVFQZW9hZElWSHlzdXRHOVFPNTNWMEZVUjUzM01fMTFXSzFLd3Z0N3RkRmtnVkxITV9ZQTlJVVZlNmgzWTVYUE4wRWxTNFZRYnpuV3IxZ1VXNllTLXhXV29md2JR?oc=5"
@@ -928,281 +949,250 @@
   },
   "rival": {
     "ad-7": {
-      "opponent": "Amy Slavensky",
+      "opponent": "Amy L. Slavensky",
       "party": "D",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
-      "ieSupporters": [
-        {
-          "name": "Keeping Californians Working, a Coalition of Insurance Agents, Energy, Education, and Health Care Providers",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$38,597 filed spend"
-        },
-        {
-          "name": "Legislative Action Victory PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$352,528 filed spend"
-        },
-        {
-          "name": "PACSA PAC, A sponsored committee of Parents Against Child Sexual Abuse",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$206,582 filed spend"
-        }
-      ],
+      "race_label": "Josh Hoover (R) incumbent vs Amy L. Slavensky (D)",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
+      "ieSupporters": [],
       "ieAllies": [
         {
           "name": "California Alliance for Progress and Education, an alliance of business organizations",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Josh Hoover (R)",
           "spendBand": "$91,488 filed spend"
         },
         {
           "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Josh Hoover (R)",
           "spendBand": "$39,525 filed spend"
         },
         {
+          "name": "Keeping Californians Working, a Coalition of Insurance Agents, Energy, Education, and Health Care Providers",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy L. Slavensky (D)",
+          "spendBand": "$38,597 filed spend"
+        },
+        {
+          "name": "Legislative Action Victory PAC",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy L. Slavensky (D)",
+          "spendBand": "$352,528 filed spend"
+        },
+        {
           "name": "California Correctional Peace Officers Association Local Political Action Committee",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Josh Hoover (R)",
           "spendBand": "$35,000 filed spend"
         },
         {
           "name": "California Correctional Peace Officers Association Political Action Committee",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Josh Hoover (R)",
           "spendBand": "$25,000 filed spend"
-        },
-        {
-          "name": "Families & Teachers United , sponsored by California Charter Schools Association Advocates",
-          "role": "Support incumbent",
-          "spendBand": "$21,529 filed spend"
-        },
-        {
-          "name": "Californians to Preserve and Protect Local Jobs and Essential Community Services, sponsored by Hawaiian Gardens Casino",
-          "role": "Support incumbent",
-          "spendBand": "$204,123 filed spend"
         }
       ]
     },
     "ad-27": {
-      "opponent": "Opponent (see CAL-ACCESS match)",
-      "party": "\u2014",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
+      "opponent": "Mike Murphy (R) vs Brian Pacheco (D)",
+      "party": "Open seat",
+      "race_label": "Mike Murphy (R) vs Brian Pacheco (D) \u00b7 Esmeralda Soria (D), current AD-27 member, is not on the AD-27 ballot \u2014 certified for State Senate District 14.",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
       "ieSupporters": [
         {
-          "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$51,252 filed spend"
-        },
-        {
-          "name": "Legislative Bipartisan Action PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$412,183 filed spend"
-        }
-      ],
-      "ieAllies": [
-        {
           "name": "California's Credit Unions Political Action Committee, Sponsored by California Credit Union League",
-          "role": "Support incumbent",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Brian Pacheco (D)",
           "spendBand": "$98,180 filed spend"
         },
         {
           "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
-          "role": "Support incumbent",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Brian Pacheco (D)",
           "spendBand": "$92,684 filed spend"
         },
         {
           "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
-          "role": "Support incumbent",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Brian Pacheco (D)",
           "spendBand": "$60,000 filed spend"
         },
         {
           "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
-          "role": "Support incumbent",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Mike Murphy (R)",
+          "spendBand": "$51,252 filed spend"
+        },
+        {
+          "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Brian Pacheco (D)",
           "spendBand": "$51,252 filed spend"
         },
         {
           "name": "Quality Health Care for Californians, sponsored by California Association of Hospitals and Health Systems",
-          "role": "Support incumbent",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Brian Pacheco (D)",
           "spendBand": "$319,654 filed spend"
-        },
+        }
+      ],
+      "ieAllies": [
         {
-          "name": "Working Families for a Stronger California, Sponsored by LCCC PAC, A Bi-partisan Coalition of Municipal, County, Latino ",
-          "role": "Support incumbent",
-          "spendBand": "$31,439 filed spend"
+          "name": "Legislative Bipartisan Action PAC",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Brian Pacheco (D)",
+          "spendBand": "$412,183 filed spend"
         }
       ]
     },
     "ad-36": {
-      "opponent": "Ida Obeso-Martinez",
+      "opponent": "Ida S. Obeso-Martinez",
       "party": "D",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
+      "race_label": "Jeff Gonzalez (R) incumbent vs Ida S. Obeso-Martinez (D)",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
       "ieSupporters": [
         {
-          "name": "Personal Insurance Federation of CA Agents & Employees PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$6,375 filed spend"
-        },
-        {
-          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$384,835 filed spend"
-        },
-        {
-          "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$355,245 filed spend"
-        },
-        {
-          "name": "Legislative Bipartisan Action PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$254,831 filed spend"
-        },
-        {
-          "name": "PACSA PAC, A sponsored committee of Parents Against Child Sexual Abuse",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$141,216 filed spend"
+          "name": "GROW CALIFORNIA",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target IDA OBESO-MARTINEZ (D)",
+          "spendBand": "$818,333 filed spend"
         },
         {
           "name": "Californians for an Affordable Future sponsored by California Environmental Voters and labor organizations supporting Os",
-          "role": "Oppose incumbent / support challenger",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Jeff Gonzalez (R)",
           "spendBand": "$11,075 filed spend"
         }
       ],
       "ieAllies": [
         {
           "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Jeff Gonzalez (R)",
           "spendBand": "$95,751 filed spend"
         },
         {
-          "name": "GROW CALIFORNIA",
-          "role": "Support incumbent",
-          "spendBand": "$818,333 filed spend"
+          "name": "Personal Insurance Federation of CA Agents & Employees PAC",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida S. Obeso-Martinez (D)",
+          "spendBand": "$6,375 filed spend"
         },
         {
           "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Jeff Gonzalez (R)",
           "spendBand": "$385,435 filed spend"
         },
         {
+          "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida S. Obeso-Martinez (D)",
+          "spendBand": "$384,835 filed spend"
+        },
+        {
           "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target IDA OBESO-MARTINEZ (D)",
+          "spendBand": "$355,245 filed spend"
+        },
+        {
+          "name": "JOBSPAC, A BI-PARTISAN COALITION OF CALIFORNIA EMPLOYERS, SPONSORED BY THE CALIFORNIA CHAMBER OF COMMERCE",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target JEFF GONZALEZ (R)",
           "spendBand": "$346,791 filed spend"
-        },
-        {
-          "name": "Uber Innovation Political Action Committee",
-          "role": "Support incumbent",
-          "spendBand": "$164,966 filed spend"
-        },
-        {
-          "name": "Legislative Bipartisan Action PAC",
-          "role": "Support incumbent",
-          "spendBand": "$141,763 filed spend"
         }
       ]
     },
     "ad-47": {
       "opponent": "Leila Namvar",
       "party": "D",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
+      "race_label": "Greg Wallis (R) incumbent vs Leila Namvar (D)",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
       "ieSupporters": [
         {
-          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$55,625 filed spend"
-        },
-        {
-          "name": "California Alliance for Progress and Education, an alliance of business organizations",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$400,166 filed spend"
-        },
-        {
-          "name": "Legislative Bipartisan Action PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$391,048 filed spend"
+          "name": "Service Employees International Union Local 721 CTW, CLC Workers' Strength Committee",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$53,022 filed spend"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
-          "role": "Oppose incumbent / support challenger",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$266,913 filed spend"
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Greg Wallis (R)",
           "spendBand": "$182,987 filed spend"
+        },
+        {
+          "name": "Nurses and Educators for Healthy CA Communities sponsored by SEIU California State Council",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$151,844 filed spend"
+        },
+        {
+          "name": "United Domestic Workers of America Independent Expenditure PAC",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$144,524 filed spend"
         }
       ],
       "ieAllies": [
         {
           "name": "Legislative Bipartisan Action PAC",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Greg Wallis (R)",
           "spendBand": "$60,786 filed spend"
         },
         {
-          "name": "Service Employees International Union Local 721 CTW, CLC Workers' Strength Committee",
-          "role": "Support incumbent",
-          "spendBand": "$53,022 filed spend"
+          "name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$55,625 filed spend"
         },
         {
           "name": "California Leads",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Greg Wallis (R)",
           "spendBand": "$499,671 filed spend"
         },
         {
           "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Greg Wallis (R)",
           "spendBand": "$447,060 filed spend"
         },
         {
-          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
-          "role": "Support incumbent",
-          "spendBand": "$266,913 filed spend"
+          "name": "California Alliance for Progress and Education, an alliance of business organizations",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$400,166 filed spend"
         },
         {
-          "name": "Uber Innovation Political Action Committee",
-          "role": "Support incumbent",
-          "spendBand": "$164,966 filed spend"
+          "name": "Legislative Bipartisan Action PAC",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Leila Namvar (D)",
+          "spendBand": "$391,048 filed spend"
         }
       ]
     },
     "ad-58": {
       "opponent": "Clarissa Cervantes",
       "party": "D",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
+      "race_label": "Leticia Castillo (R) incumbent vs Clarissa Cervantes (D)",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
       "ieSupporters": [
         {
-          "name": "Legislative Action Victory PAC",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$535,652 filed spend"
+          "name": "Planned Parenthood Action Fund of the Pacific Southwest PAC",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Clarissa Cervantes (D)",
+          "spendBand": "$627 filed spend"
+        },
+        {
+          "name": "Courage California State PAC",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Clarissa Cervantes (D)",
+          "spendBand": "$5,431 filed spend"
         },
         {
           "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
-          "role": "Oppose incumbent / support challenger",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Clarissa Cervantes (D)",
+          "spendBand": "$497,565 filed spend"
+        },
+        {
+          "name": "United Domestic Workers of America Independent Expenditure PAC",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Clarissa Cervantes (D)",
+          "spendBand": "$45,617 filed spend"
+        },
+        {
+          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Leticia Castillo (R)",
           "spendBand": "$118,831 filed spend"
         }
       ],
       "ieAllies": [
         {
-          "name": "Planned Parenthood Action Fund of the Pacific Southwest PAC",
-          "role": "Support incumbent",
-          "spendBand": "$627 filed spend"
-        },
-        {
-          "name": "Courage California State PAC",
-          "role": "Support incumbent",
-          "spendBand": "$5,431 filed spend"
-        },
-        {
-          "name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public a",
-          "role": "Support incumbent",
-          "spendBand": "$497,565 filed spend"
-        },
-        {
-          "name": "United Domestic Workers of America Independent Expenditure PAC",
-          "role": "Support incumbent",
-          "spendBand": "$45,617 filed spend"
+          "name": "Legislative Action Victory PAC",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Clarissa Cervantes (D)",
+          "spendBand": "$535,652 filed spend"
         },
         {
           "name": "Riverside Sheriffs' Association Public Education Fund",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Leticia Castillo (R)",
           "spendBand": "$22,211 filed spend"
         },
         {
           "name": "GOLDEN STATE REVIVAL - SUPPORTING GONZALEZ FOR SENATE 2026, NORDBLUM FOR ASSEMBLY 2026, AND CASTILLO FOR ASSEMBLY 2026",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target LETICIA CASTILLO (R)",
           "spendBand": "$1,615 filed spend"
         }
       ]
@@ -1210,28 +1200,29 @@
     "ad-74": {
       "opponent": "Sergio Farias",
       "party": "D",
-      "notes": "Public race context from SOS certified list + CAL-ACCESS committee match. Spend from filed totals.",
+      "race_label": "Laurie Davies (R) incumbent vs Sergio Farias (D)",
+      "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
       "ieSupporters": [
         {
-          "name": "Legislative Action PAC, sponsored by Legislative Action California",
-          "role": "Oppose incumbent / support challenger",
-          "spendBand": "$251,490 filed spend"
+          "name": "DEMOCRATIC PARTY OF ORANGE COUNTY",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Sergio Farias (D)",
+          "spendBand": "$7,964 filed spend"
         }
       ],
       "ieAllies": [
         {
-          "name": "DEMOCRATIC PARTY OF ORANGE COUNTY",
-          "role": "Support incumbent",
-          "spendBand": "$7,964 filed spend"
+          "name": "Legislative Action PAC, sponsored by Legislative Action California",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Sergio Farias (D)",
+          "spendBand": "$251,490 filed spend"
         },
         {
           "name": "Legislative Action PAC, sponsored by Legislative Action California",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Laurie Davies (R)",
           "spendBand": "$19,546 filed spend"
         },
         {
           "name": "Advance California, Sponsored by California Apartment Association",
-          "role": "Support incumbent",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Laurie Davies (R)",
           "spendBand": "$11,106 filed spend"
         }
       ]
@@ -1240,32 +1231,25 @@
   "alerts": {
     "ad-7": [
       {
-        "ts": "2026-10-08",
-        "title": "IE activity in 7-day window",
-        "detail": "AD-7: $333,620 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
+        "ts": "2026-10-07",
+        "title": "No high-severity rule triggers",
+        "detail": "Routine monitoring \u2014 review Money and late-money tabs on filing days.",
+        "decision": "hold",
+        "decisionLabel": "Hold & monitor"
       }
     ],
     "ad-27": [
       {
-        "ts": "2026-10-08",
-        "title": "IE activity in 7-day window",
-        "detail": "AD-27: $157,410 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
+        "ts": "2026-10-07",
+        "title": "No high-severity rule triggers",
+        "detail": "Routine monitoring \u2014 review Money and late-money tabs on filing days.",
+        "decision": "hold",
+        "decisionLabel": "Hold & monitor"
       }
     ],
     "ad-36": [
       {
-        "ts": "2026-10-08",
-        "title": "IE activity in 7-day window",
-        "detail": "AD-36: $1,030,404 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
-      },
-      {
-        "ts": "2026-10-08",
+        "ts": "2026-10-07",
         "title": "Notable social posts (attack-tagged)",
         "detail": "1 attack-tagged post(s) in latest X digest for AD-36.",
         "decision": "message",
@@ -1274,16 +1258,23 @@
     ],
     "ad-47": [
       {
-        "ts": "2026-10-08",
-        "title": "IE activity in 7-day window",
-        "detail": "AD-47: $539,702 independent expenditures in the latest 7 days (CAL-ACCESS late-money ingest).",
+        "ts": "2026-10-07",
+        "title": "Anti-Republican IE in 7-day window",
+        "detail": "AD-47: $120,314 anti-R IE in the latest 7 days ($793,826 total IE).",
         "decision": "spend",
         "decisionLabel": "Consider spend"
+      },
+      {
+        "ts": "2026-10-07",
+        "title": "Late contributions on last filed day",
+        "detail": "$112,000 in Form 497 activity on last filed day (2026-10-05) in the export.",
+        "decision": "hold",
+        "decisionLabel": "Hold & monitor"
       }
     ],
     "ad-58": [
       {
-        "ts": "2026-10-08",
+        "ts": "2026-10-07",
         "title": "No high-severity rule triggers",
         "detail": "Routine monitoring \u2014 review Money and late-money tabs on filing days.",
         "decision": "hold",
@@ -1292,9 +1283,9 @@
     ],
     "ad-74": [
       {
-        "ts": "2026-10-08",
-        "title": "No high-severity rule triggers",
-        "detail": "Routine monitoring \u2014 review Money and late-money tabs on filing days.",
+        "ts": "2026-10-07",
+        "title": "Late contributions on last filed day",
+        "detail": "$25,000 in Form 497 activity on last filed day (2026-10-05) in the export.",
         "decision": "hold",
         "decisionLabel": "Hold & monitor"
       }

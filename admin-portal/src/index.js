@@ -21,6 +21,18 @@ import {
   runAssemblyEdgeAskAi,
 } from "./assemblyedge-ask.js";
 import { loadSocialFeed } from "./assemblyedge-social-feed.js";
+import { renderPollsAdminPage } from "./assemblyedge-polls-admin.js";
+import {
+  bumpPollWriteUsage,
+  countInternalPolls,
+  deleteInternalPoll,
+  insertInternalPoll,
+  listInternalPolls,
+  parseInternalPollsCsv,
+  pollWriteQuotaRemaining,
+  updateInternalPoll,
+  validateInternalPollInput,
+} from "./assemblyedge-internal-polls.js";
 import {
   htmlResponse,
   renderDashboard,
@@ -434,6 +446,172 @@ async function handleDeskApiAsk(c) {
   return c.json({ ok: false, error: "bad_request", message: "Unknown mode." }, 400);
 }
 
+const LEADS_ASSET = "/admin/assemblyedge/data/polls/leads.json";
+
+async function loadPollLeadsFromBundle(env) {
+  const assets = env.ASSETS;
+  if (!assets) return null;
+  try {
+    const res = await assets.fetch(new Request(`https://assets.local${LEADS_ASSET}`));
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+async function handlePollsAdminPage(c, deskPrefix) {
+  const session = requireDeskSession(c);
+  if (!session) {
+    return c.redirect(`/admin/login?next=${encodeURIComponent(new URL(c.req.url).pathname)}`, 302);
+  }
+  return htmlBody(
+    c,
+    renderPollsAdminPage({
+      csrfToken: c.get("csrfToken"),
+      username: session.admin.username,
+      deskPrefix,
+    }),
+  );
+}
+
+async function handleDeskApiPollsInternalList(c) {
+  if (!requireDeskSession(c)) {
+    return c.json({ error: "unauthorized" }, 401);
+  }
+  const polls = await listInternalPolls(c.env.DB);
+  const headers = new Headers({ "Content-Type": "application/json; charset=utf-8" });
+  applyAssemblyEdgeSecurityHeaders(headers, c.get("config").isProduction);
+  return new Response(JSON.stringify({ ok: true, polls }), { status: 200, headers });
+}
+
+async function handleDeskApiPollsAdminBundle(c) {
+  if (!requireDeskSession(c)) {
+    return c.json({ error: "unauthorized" }, 401);
+  }
+  const polls = await listInternalPolls(c.env.DB);
+  const leadsPayload = await loadPollLeadsFromBundle(c.env);
+  const headers = new Headers({ "Content-Type": "application/json; charset=utf-8" });
+  applyAssemblyEdgeSecurityHeaders(headers, c.get("config").isProduction);
+  return new Response(
+    JSON.stringify({ ok: true, polls, leads: leadsPayload?.leads || [] }),
+    { status: 200, headers },
+  );
+}
+
+async function handleDeskApiPollsLeads(c) {
+  if (!requireDeskSession(c)) {
+    return c.json({ error: "unauthorized" }, 401);
+  }
+  const leadsPayload = await loadPollLeadsFromBundle(c.env);
+  if (!leadsPayload) {
+    return c.json({ ok: false, error: "not_found", message: "Leads bundle missing." }, 404);
+  }
+  const headers = new Headers({ "Content-Type": "application/json; charset=utf-8" });
+  applyAssemblyEdgeSecurityHeaders(headers, c.get("config").isProduction);
+  return new Response(JSON.stringify({ ok: true, ...leadsPayload }), { status: 200, headers });
+}
+
+async function handleDeskApiPollsInternalMutate(c, method) {
+  const config = c.get("config");
+  const sid = c.get("sid");
+  let session = requireDeskSession(c);
+  if (!session) {
+    return c.json({ ok: false, error: "unauthorized" }, 401);
+  }
+
+  let body = {};
+  if (method !== "DELETE") {
+    try {
+      body = await c.req.json();
+    } catch {
+      return c.json({ ok: false, error: "bad_request", message: "Invalid JSON." }, 400);
+    }
+  } else {
+    try {
+      body = await c.req.json();
+    } catch {
+      body = {};
+    }
+  }
+
+  const csrfBody = typeof body._csrf === "string" ? body._csrf : "";
+  if (
+    !validateCsrfSubmission(
+      c.req.raw,
+      sid,
+      config.sessionSecret,
+      config.csrfCookieName,
+      csrfBody,
+    )
+  ) {
+    return c.json({ ok: false, error: "forbidden", message: "CSRF validation failed." }, 403);
+  }
+
+  if (pollWriteQuotaRemaining(session) <= 0) {
+    return c.json(
+      { ok: false, error: "rate_limit", message: "Hourly internal poll write quota reached." },
+      429,
+    );
+  }
+
+  if (method === "POST" && c.req.path.endsWith("/import-csv")) {
+    const parsed = parseInternalPollsCsv(body.csv);
+    if (!parsed.ok) {
+      return c.json({ ok: false, error: "bad_request", message: parsed.error }, 400);
+    }
+    if ((await countInternalPolls(c.env.DB)) + parsed.data.length > 200) {
+      return c.json({ ok: false, error: "bad_request", message: "Would exceed internal poll cap." }, 400);
+    }
+    const ids = [];
+    for (const row of parsed.data) {
+      ids.push(await insertInternalPoll(c.env.DB, row, session.admin.id));
+      session = bumpPollWriteUsage(session);
+    }
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+    return c.json({ ok: true, imported: ids.length, ids });
+  }
+
+  if (method === "DELETE") {
+    const id = Number(c.req.param("id"));
+    if (!Number.isInteger(id) || id < 1) {
+      return c.json({ ok: false, error: "bad_request", message: "Invalid id." }, 400);
+    }
+    await deleteInternalPoll(c.env.DB, id);
+    session = bumpPollWriteUsage(session);
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+    return c.json({ ok: true });
+  }
+
+  const validated = validateInternalPollInput(body);
+  if (!validated.ok) {
+    return c.json({ ok: false, error: "bad_request", message: validated.error }, 400);
+  }
+
+  if (method === "POST") {
+    if ((await countInternalPolls(c.env.DB)) >= 200) {
+      return c.json({ ok: false, error: "bad_request", message: "Internal poll cap reached." }, 400);
+    }
+    const id = await insertInternalPoll(c.env.DB, validated.data, session.admin.id);
+    session = bumpPollWriteUsage(session);
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+    return c.json({ ok: true, id });
+  }
+
+  if (method === "PUT") {
+    const id = Number(c.req.param("id"));
+    if (!Number.isInteger(id) || id < 1) {
+      return c.json({ ok: false, error: "bad_request", message: "Invalid id." }, 400);
+    }
+    await updateInternalPoll(c.env.DB, id, validated.data);
+    session = bumpPollWriteUsage(session);
+    await setSession(c.env.DB, sid, session, config.sessionMaxAgeMs);
+    return c.json({ ok: true, id });
+  }
+
+  return c.json({ ok: false, error: "bad_request" }, 400);
+}
+
 async function handleDeskApiSocialFeed(c) {
   if (!requireDeskSession(c)) {
     return c.json({ error: "unauthorized" }, 401);
@@ -461,6 +639,14 @@ for (const deskPrefix of [ASSEMBLYEDGE_PREFIX, MAJORITYIQ_PREFIX]) {
   app.get(`${deskPrefix}/api/csrf`, handleDeskApiCsrf);
   app.get(`${deskPrefix}/api/social-feed`, handleDeskApiSocialFeed);
   app.post(`${deskPrefix}/api/ask`, handleDeskApiAsk);
+  app.get(`${deskPrefix}/api/polls/internal`, handleDeskApiPollsInternalList);
+  app.get(`${deskPrefix}/api/polls/leads`, handleDeskApiPollsLeads);
+  app.get(`${deskPrefix}/api/polls/admin-bundle`, handleDeskApiPollsAdminBundle);
+  app.post(`${deskPrefix}/api/polls/internal`, (c) => handleDeskApiPollsInternalMutate(c, "POST"));
+  app.post(`${deskPrefix}/api/polls/internal/import-csv`, (c) => handleDeskApiPollsInternalMutate(c, "POST"));
+  app.put(`${deskPrefix}/api/polls/internal/:id`, (c) => handleDeskApiPollsInternalMutate(c, "PUT"));
+  app.delete(`${deskPrefix}/api/polls/internal/:id`, (c) => handleDeskApiPollsInternalMutate(c, "DELETE"));
+  app.get(`${deskPrefix}/polls-admin`, (c) => handlePollsAdminPage(c, deskPrefix));
 }
 
 app.get(ASSEMBLYEDGE_PREFIX, (c) => c.redirect(`${ASSEMBLYEDGE_PREFIX}/`, 302));

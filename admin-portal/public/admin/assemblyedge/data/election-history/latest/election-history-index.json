@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-08T01:35:09Z",
+  "updated_at": "2026-10-07T19:01:35-07:00",
   "sources": {
     "swdb_g22": "https://statewidedatabase.org/d20/g22.html",
     "swdb_g24": "https://statewidedatabase.org/d20/g24.html",
@@ -12,36 +12,34 @@
       "id": "ad-7",
       "code": "AD-7",
       "file": "ad-7-precincts.geojson",
-      "precinct_count": 332,
-      "place_primary_matched": 321,
-      "place_primary_matched_pct": 96.7,
-      "area_coverage_pct": 91.5,
-      "g24_results_pct": 74.7,
+      "precinct_count": 277,
+      "place_primary_matched": 276,
+      "place_primary_matched_pct": 99.6,
+      "area_coverage_pct": 90.9,
+      "g24_results_pct": 75.8,
       "counties_loaded": [
-        61,
         67
       ],
       "counties_expected": [
-        67,
-        61
+        67
       ],
       "races": [
         "g22_asm",
         "g24_asm"
       ],
       "gaps": [
-        "AD-7: ~91.5% of district area has SR precinct coverage in this bundle"
+        "AD-7: ~90.9% of district area has SR precinct coverage in this bundle"
       ]
     },
     {
       "id": "ad-27",
       "code": "AD-27",
       "file": "ad-27-precincts.geojson",
-      "precinct_count": 822,
-      "place_primary_matched": 453,
-      "place_primary_matched_pct": 55.1,
-      "area_coverage_pct": 97.5,
-      "g24_results_pct": 60.1,
+      "precinct_count": 743,
+      "place_primary_matched": 430,
+      "place_primary_matched_pct": 57.9,
+      "area_coverage_pct": 96.9,
+      "g24_results_pct": 57.1,
       "counties_loaded": [
         19,
         39,
@@ -57,18 +55,18 @@
         "g24_asm"
       ],
       "gaps": [
-        "AD-27: ~97.5% of district area has SR precinct coverage in this bundle"
+        "AD-27: ~96.9% of district area has SR precinct coverage in this bundle"
       ]
     },
     {
       "id": "ad-36",
       "code": "AD-36",
       "file": "ad-36-precincts.geojson",
-      "precinct_count": 430,
-      "place_primary_matched": 220,
-      "place_primary_matched_pct": 51.2,
-      "area_coverage_pct": 68.8,
-      "g24_results_pct": 75.1,
+      "precinct_count": 378,
+      "place_primary_matched": 191,
+      "place_primary_matched_pct": 50.5,
+      "area_coverage_pct": 68.0,
+      "g24_results_pct": 75.4,
       "counties_loaded": [
         25,
         65,
@@ -84,18 +82,18 @@
         "g24_asm"
       ],
       "gaps": [
-        "AD-36: ~68.8% of district area has SR precinct coverage in this bundle"
+        "AD-36: ~68.0% of district area has SR precinct coverage in this bundle"
       ]
     },
     {
       "id": "ad-47",
       "code": "AD-47",
       "file": "ad-47-precincts.geojson",
-      "precinct_count": 574,
-      "place_primary_matched": 443,
-      "place_primary_matched_pct": 77.2,
-      "area_coverage_pct": 65.3,
-      "g24_results_pct": 74.9,
+      "precinct_count": 491,
+      "place_primary_matched": 395,
+      "place_primary_matched_pct": 80.4,
+      "area_coverage_pct": 64.4,
+      "g24_results_pct": 73.7,
       "counties_loaded": [
         65,
         71
@@ -109,18 +107,18 @@
         "g24_asm"
       ],
       "gaps": [
-        "AD-47: ~65.3% of district area has SR precinct coverage in this bundle"
+        "AD-47: ~64.4% of district area has SR precinct coverage in this bundle"
       ]
     },
     {
       "id": "ad-58",
       "code": "AD-58",
       "file": "ad-58-precincts.geojson",
-      "precinct_count": 276,
-      "place_primary_matched": 273,
-      "place_primary_matched_pct": 98.9,
-      "area_coverage_pct": 96.1,
-      "g24_results_pct": 67.0,
+      "precinct_count": 205,
+      "place_primary_matched": 205,
+      "place_primary_matched_pct": 100.0,
+      "area_coverage_pct": 94.3,
+      "g24_results_pct": 67.3,
       "counties_loaded": [
         65,
         71
@@ -134,18 +132,18 @@
         "g24_asm"
       ],
       "gaps": [
-        "AD-58: ~96.1% of district area has SR precinct coverage in this bundle"
+        "AD-58: ~94.3% of district area has SR precinct coverage in this bundle"
       ]
     },
     {
       "id": "ad-74",
       "code": "AD-74",
       "file": "ad-74-precincts.geojson",
-      "precinct_count": 362,
-      "place_primary_matched": 321,
-      "place_primary_matched_pct": 88.7,
-      "area_coverage_pct": 79.3,
-      "g24_results_pct": 81.8,
+      "precinct_count": 293,
+      "place_primary_matched": 273,
+      "place_primary_matched_pct": 93.2,
+      "area_coverage_pct": 78.6,
+      "g24_results_pct": 84.3,
       "counties_loaded": [
         59,
         73
@@ -159,16 +157,16 @@
         "g24_asm"
       ],
       "gaps": [
-        "AD-74: ~79.3% of district area has SR precinct coverage in this bundle"
+        "AD-74: ~78.6% of district area has SR precinct coverage in this bundle"
       ]
     }
   ],
   "gaps": [
-    "AD-7: ~91.5% of district area has SR precinct coverage in this bundle",
-    "AD-27: ~97.5% of district area has SR precinct coverage in this bundle",
-    "AD-36: ~68.8% of district area has SR precinct coverage in this bundle",
-    "AD-47: ~65.3% of district area has SR precinct coverage in this bundle",
-    "AD-58: ~96.1% of district area has SR precinct coverage in this bundle",
-    "AD-74: ~79.3% of district area has SR precinct coverage in this bundle"
+    "AD-7: ~90.9% of district area has SR precinct coverage in this bundle",
+    "AD-27: ~96.9% of district area has SR precinct coverage in this bundle",
+    "AD-36: ~68.0% of district area has SR precinct coverage in this bundle",
+    "AD-47: ~64.4% of district area has SR precinct coverage in this bundle",
+    "AD-58: ~94.3% of district area has SR precinct coverage in this bundle",
+    "AD-74: ~78.6% of district area has SR precinct coverage in this bundle"
   ]
 }
