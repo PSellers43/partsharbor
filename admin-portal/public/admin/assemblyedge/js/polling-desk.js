@@ -67,6 +67,44 @@ window.AE = window.AE || {};
     return { cls: "chip-demo", label: t };
   };
 
+  AE.pollingDesk.isPartisanSponsor = function (poll) {
+    const t = poll && poll.sponsor_type;
+    return t === "campaign" || t === "party" || t === "ie";
+  };
+
+  AE.pollingDesk.partisanTiChipLabel = function (poll) {
+    const t = (poll && poll.sponsor_type) || "partisan";
+    if (t === "campaign") return "Sponsor: campaign — half weight in TI";
+    if (t === "party") return "Sponsor: party / caucus — half weight in TI";
+    if (t === "ie") return "Sponsor: IE / partisan — half weight in TI";
+    return "Sponsor: partisan — half weight in TI";
+  };
+
+  AE.pollingDesk.formatFieldDates = function (poll) {
+    if (poll.field_start && poll.field_end) return `Field ${poll.field_start} → ${poll.field_end}`;
+    if (poll.field_end) return `Field end ${poll.field_end}`;
+    return "Field dates not reported";
+  };
+
+  AE.pollingDesk.formatMoe = function (poll) {
+    return poll.moe_pct != null ? `±${poll.moe_pct}% MoE` : "MoE not reported";
+  };
+
+  AE.pollingDesk.formatSample = function (poll) {
+    const n = poll.sample_n != null ? poll.sample_n : "not reported";
+    const pop = poll.population || "";
+    return `n=${n}${pop ? " " + pop : ""}`;
+  };
+
+  AE.pollingDesk.countRecentReleasedDistricts = function () {
+    const polls = (AE.pollingReleased && AE.pollingReleased.polls) || [];
+    const ids = new Set();
+    polls.forEach((p) => {
+      if (p.district_id && isRecentPoll(p)) ids.add(p.district_id);
+    });
+    return ids.size;
+  };
+
   AE.pollingDesk.releasedForDistrict = function (districtId) {
     const polls = (AE.pollingReleased && AE.pollingReleased.polls) || [];
     return polls.filter((p) => p.district_id === districtId).sort((a, b) => (b.field_end || "").localeCompare(a.field_end || ""));
@@ -102,7 +140,7 @@ window.AE = window.AE || {};
       <div class="poll-bar-labels">
         <span>${margin.leader_name} (${margin.leader_party}) ${margin.leader_pct}%</span>
         <span>${margin.trailer_name} (${margin.trailer_party}) ${margin.trailer_pct}%</span>
-        ${u ? `<span>Undecided ${u}%</span>` : ""}
+        ${poll.undecided_pct != null ? `<span>Undecided ${poll.undecided_pct}%</span>` : `<span>Undecided not reported</span>`}
       </div>
       <div class="poll-bar-track" aria-hidden="true">
         <span class="poll-bar-seg ${lead}" style="width:${margin.leader_pct}%"></span>
@@ -112,11 +150,12 @@ window.AE = window.AE || {};
       <div class="poll-meta-chips">
         <span class="chip ${recent ? "chip-poll-live" : "chip-poll-stale"}">${recent ? "Recent" : "Stale · outside " + gapDays() + "d"}</span>
         <span class="chip ${chip.cls}">${chip.label}</span>
+        ${AE.pollingDesk.isPartisanSponsor(poll) ? `<span class="chip chip-gap">${AE.pollingDesk.partisanTiChipLabel(poll)}</span>` : ""}
         ${vis ? `<span class="chip chip-gap">Internal (private)${poll.sponsor ? " — " + poll.sponsor : ""}</span>` : ""}
         <span class="chip chip-demo">${poll.pollster || "—"}</span>
-        ${poll.moe_pct != null ? `<span class="chip chip-demo">±${poll.moe_pct}% MoE</span>` : ""}
-        <span class="chip chip-demo">n=${poll.sample_n || "—"} ${poll.population || ""}</span>
-        <span class="chip chip-demo">Field ${poll.field_start || "—"} → ${poll.field_end || "—"}</span>
+        <span class="chip chip-demo">${AE.pollingDesk.formatMoe(poll)}</span>
+        <span class="chip chip-demo">${AE.pollingDesk.formatSample(poll)}</span>
+        <span class="chip chip-demo">${AE.pollingDesk.formatFieldDates(poll)}</span>
       </div>
       ${poll.source_url ? `<a class="poll-source-link" href="${poll.source_url}" target="_blank" rel="noopener noreferrer">${poll.source_label || "Source"} ↗</a>` : ""}`;
   };
@@ -160,7 +199,7 @@ window.AE = window.AE || {};
       .slice(0, 25)
       .map(
         (l) =>
-          `<li><strong>${l.matched_district || "—"}</strong> · ${l.source || "—"} · ${l.date || "—"} — <a href="${l.link}" target="_blank" rel="noopener noreferrer">${l.title || "Link"}</a></li>`,
+          `<li><strong>${l.matched_district || "—"}</strong> · ${l.source || "—"} · ${l.date || "—"} — <a href="${l.link}" target="_blank" rel="noopener noreferrer">${l.title || "Link"}</a>${l.verification_note ? `<div class="muted" style="margin-top:4px">${l.verification_note}</div>` : ""}</li>`,
       )
       .join("");
     const n = sorted.length;
@@ -175,12 +214,20 @@ window.AE = window.AE || {};
     } catch {
       /* try static */
     }
-    if (!json) {
+    const apiLeadCount = json && Array.isArray(json.leads) ? json.leads.length : 0;
+    if (!json || !apiLeadCount) {
       try {
         const res = await fetch("data/polls/leads.json", { cache: "no-store" });
-        if (res.ok) json = await res.json();
+        if (res.ok) {
+          const staticJson = await res.json();
+          if (staticJson && Array.isArray(staticJson.leads) && staticJson.leads.length) {
+            json = staticJson;
+          } else if (!json) {
+            json = staticJson;
+          }
+        }
       } catch {
-        json = null;
+        /* keep API payload if any */
       }
     }
     AE.pollingLeads = json;

@@ -73,19 +73,17 @@ def main() -> int:
 
         if best:
             row["poll"] = legacy_poll_row(best)
-        gap_msg = "No released poll in last 90 days"
-        gap: dict = {"message": gap_msg, "as_of": as_of.isoformat()}
-        if best:
-            gap["message"] = gap_msg
-        elif district_polls:
-            stale = district_polls[0]
-            end = stale.get("field_end")
-            gap["days_since_field_end"] = None
-            if end:
-                end_d = parse_date(end)
-                if end_d:
-                    gap["days_since_field_end"] = (as_of - end_d).days
-        row["gap"] = gap
+        else:
+            gap_msg = "No released poll in last 90 days"
+            gap: dict = {"message": gap_msg, "as_of": as_of.isoformat()}
+            if district_polls:
+                stale = district_polls[0]
+                end = stale.get("field_end")
+                if end:
+                    end_d = parse_date(end)
+                    if end_d:
+                        gap["days_since_field_end"] = (as_of - end_d).days
+            row["gap"] = gap
         districts_out.append(row)
 
     payload = {

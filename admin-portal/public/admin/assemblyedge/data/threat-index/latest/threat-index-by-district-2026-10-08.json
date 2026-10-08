@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T01:37:42.646793+00:00",
+  "generated_at": "2026-10-08T02:16:28.890000+00:00",
   "as_of_date": "2026-10-08",
   "formula": {
-    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, and narrative heat; poll movement included only when a verified horse-race poll falls in the gap window. Ad surge excluded (no free source).",
     "base_weights": {
       "money": 0.3125,
       "ie": 0.25,
@@ -12,6 +12,7 @@
       "polls": 0.1875
     },
     "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+    "poll_sponsor_weight": "Independent polls: full movement score. Campaign, party/caucus, or IE-sponsored polls: same formula then \u00d70.5 (flagged partisan sponsor on factor card). Private internal polls are merged at runtime in the authenticated app only.",
     "narrative_rule": "score = min(100, 20 \u00d7 headlines in last 7 days from build-time Google News RSS); 0 headlines \u2192 0.",
     "status_thresholds": {
       "elevated": 65,
@@ -29,12 +30,13 @@
       "data_as_of": "2026-10-07T21:05:17.725231Z"
     },
     "polling": {
-      "path": "data/polling/latest.json",
-      "updated_at": "2026-10-07T16:00:00-07:00"
+      "path": "data/polls/released.json",
+      "legacy_path": "data/polling/latest.json",
+      "updated_at": "2026-10-08T14:00:00-07:00"
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-08T01:37:42.646208+00:00"
+      "fetched_at": "2026-10-08T02:16:28.889398+00:00"
     },
     "lean": {
       "source": "SWDB 2024 Assembly precinct roll-up (election-history GeoJSON)"
@@ -49,12 +51,12 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+5.0",
+      "lean": "R+6.4",
       "lean_meta": {
-        "lean": "R+5.0",
-        "margin_r_pct": 5.03,
-        "votes_two_party": 177985,
-        "precincts_with_g24": 172,
+        "lean": "R+6.4",
+        "margin_r_pct": 6.42,
+        "votes_two_party": 256657,
+        "precincts_with_g24": 248,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -97,7 +99,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -110,12 +112,12 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+18.9",
+      "lean": "R+3.6",
       "lean_meta": {
-        "lean": "R+18.9",
-        "margin_r_pct": 18.9,
-        "votes_two_party": 65902,
-        "precincts_with_g24": 103,
+        "lean": "R+3.6",
+        "margin_r_pct": 3.63,
+        "votes_two_party": 153432,
+        "precincts_with_g24": 494,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -158,7 +160,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -166,17 +168,17 @@
     "ad-36": {
       "id": "ad-36",
       "code": "AD-36",
-      "threatIndex": 66,
-      "status": "elevated",
+      "threatIndex": 57,
+      "status": "watch",
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "Even",
+      "lean": "R+4.4",
       "lean_meta": {
-        "lean": "Even",
-        "margin_r_pct": 0.13,
-        "votes_two_party": 50274,
-        "precincts_with_g24": 131,
+        "lean": "R+4.4",
+        "margin_r_pct": 4.39,
+        "votes_two_party": 184651,
+        "precincts_with_g24": 323,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -184,7 +186,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 95,
-          "weight": 0.38461538461538464,
+          "weight": 0.3125,
           "trend": "flat",
           "blurb": "7-day late contributions $230,685 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -192,7 +194,7 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 95,
-          "weight": 0.3076923076923077,
+          "weight": 0.25,
           "trend": "up",
           "blurb": "7-day IE $1,043,154; cycle oppose $1,142,502 vs support $744,893."
         },
@@ -209,18 +211,18 @@
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.25,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
-          "unavailable": true
+          "score": 20,
+          "weight": 0.1875,
+          "trend": "down",
+          "blurb": "Recent poll (Guidant Polling & Strategy, field end 2026-09-23) \u2014 in 90-day window. Partisan sponsor (ie) \u2014 poll factor at 50% weight.",
+          "partisan_sponsor": true
         }
       ]
     },
@@ -232,12 +234,12 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "D+4.7",
+      "lean": "Even",
       "lean_meta": {
-        "lean": "D+4.7",
-        "margin_r_pct": -4.72,
-        "votes_two_party": 140562,
-        "precincts_with_g24": 165,
+        "lean": "Even",
+        "margin_r_pct": 0.29,
+        "votes_two_party": 273792,
+        "precincts_with_g24": 430,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -280,7 +282,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 latest public poll ended 2022-09-28 (outside 90-day window); not scored as movement.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -293,12 +295,12 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+10.1",
+      "lean": "Even",
       "lean_meta": {
-        "lean": "R+10.1",
-        "margin_r_pct": 10.07,
-        "votes_two_party": 101649,
-        "precincts_with_g24": 76,
+        "lean": "Even",
+        "margin_r_pct": -0.6,
+        "votes_two_party": 228884,
+        "precincts_with_g24": 185,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -341,7 +343,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -354,12 +356,12 @@
       "delta24h": null,
       "delta7d": null,
       "history_note": "History builds daily from 2026-10-08; 24h/7d change appears after the next refresh.",
-      "lean": "R+14.7",
+      "lean": "R+5.0",
       "lean_meta": {
-        "lean": "R+14.7",
-        "margin_r_pct": 14.7,
-        "votes_two_party": 120914,
-        "precincts_with_g24": 107,
+        "lean": "R+5.0",
+        "margin_r_pct": 4.97,
+        "votes_two_party": 269569,
+        "precincts_with_g24": 296,
         "source": "SWDB 2024 general Assembly (precinct roll-up in election-history GeoJSON)"
       },
       "factors": [
@@ -402,7 +404,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -1270,13 +1272,6 @@
         "detail": "1 attack-tagged post(s) in latest X digest for AD-36.",
         "decision": "message",
         "decisionLabel": "Message check"
-      },
-      {
-        "ts": "2026-10-08",
-        "title": "Threat Index 66 \u2014 Elevated",
-        "detail": "Composite crossed the Elevated threshold (\u226565) from live money, IE, news, and polling inputs.",
-        "decision": "spend",
-        "decisionLabel": "Consider spend"
       }
     ],
     "ad-47": [

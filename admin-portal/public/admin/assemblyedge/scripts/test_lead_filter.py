@@ -20,7 +20,7 @@ def load_beach():
 def test_accepts_ad_and_poll():
     beach = load_beach()
     lead = {
-        "title": "New poll shows tight AD-7 Assembly race in Sacramento",
+        "title": "New poll shows tight AD-7 California Assembly race in Sacramento",
         "link": "https://example.com/1",
     }
     assert is_relevant_lead(lead, beach)
@@ -35,14 +35,28 @@ def test_rejects_poll_without_beachhead():
 def test_accepts_candidate_name_and_survey():
     beach = load_beach()
     lead = {
-        "title": "Internal survey memo: Josh Hoover leads Slavensky in Assembly contest",
+        "title": "Internal survey memo: Josh Hoover leads Slavensky in California Assembly contest",
         "link": "https://example.com/3",
     }
     assert is_relevant_lead(lead, beach)
 
 
+def test_rejects_iowa_ad27_false_positive():
+    beach = load_beach()
+    lead = {
+        "title": 'Poll shows Chris Jones "within striking distance" of Mike Naig - Bleeding Heartland',
+        "link": "https://example.com/iowa",
+    }
+    assert not is_relevant_lead(lead, beach)
+
+
 def main():
-    for fn in [test_accepts_ad_and_poll, test_rejects_poll_without_beachhead, test_accepts_candidate_name_and_survey]:
+    for fn in [
+        test_accepts_ad_and_poll,
+        test_rejects_poll_without_beachhead,
+        test_accepts_candidate_name_and_survey,
+        test_rejects_iowa_ad27_false_positive,
+    ]:
         fn()
         print("OK", fn.__name__)
 

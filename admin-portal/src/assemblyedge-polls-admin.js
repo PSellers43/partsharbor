@@ -129,7 +129,7 @@ export function renderPollsAdminPage({ csrfToken, username, deskPrefix }) {
   </div>
 </main>
 <script>
-window.__POLL_ADMIN__ = { csrf: ${JSON.stringify(csrfToken)}, apiBase: ${JSON.stringify(prefix + "/api/polls")}, rosterUrl: ${JSON.stringify(prefix + "/data/calaccess/beachheads.json")} };
+window.__POLL_ADMIN__ = { csrf: ${JSON.stringify(csrfToken)}, apiBase: ${JSON.stringify(prefix + "/api/polls")}, rosterUrl: ${JSON.stringify(prefix + "/data/calaccess/beachheads.json")}, leadsUrl: ${JSON.stringify(prefix + "/data/polls/leads.json")} };
 </script>
 <script src="${esc(prefix)}/js/polls-admin.js"></script>
 </body>

@@ -11,59 +11,53 @@ const CAPTURE_HTML = "/workspace/admin-portal/public/admin/assemblyedge/_capture
 
 mkdirSync(OUT, { recursive: true });
 
-const adminHtml = renderPollsAdminPage({
-  csrfToken: "screenshot-fixture",
-  username: "desk",
-  deskPrefix: "/admin/assemblyedge",
-});
-writeFileSync(CAPTURE_HTML, adminHtml, "utf8");
+writeFileSync(
+  CAPTURE_HTML,
+  renderPollsAdminPage({
+    csrfToken: "screenshot-fixture",
+    username: "desk",
+    deskPrefix: "/admin/assemblyedge",
+  }),
+  "utf8",
+);
 
 const browser = await chromium.launch({ headless: true });
 
-async function shotAdmin(width, name) {
-  const page = await browser.newPage({ viewport: { width, height: 900 } });
-  await page.route("**/api/polls/**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify({ ok: true, polls: [], leads: [] }),
-    }),
-  );
-  await page.goto(`${BASE}/_capture-polls-admin.html`, { waitUntil: "networkidle" });
-  await page.waitForSelector("#candidate-rows .candidate-row");
-  await page.waitForTimeout(400);
-  await page.screenshot({ path: join(OUT, name), fullPage: true });
-  await page.close();
-}
-
-await shotAdmin(1280, "majorityiq-polls-admin-desktop.png");
-await shotAdmin(390, "majorityiq-polls-admin-mobile.png");
-
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.route("**/api/csrf**", (route) =>
+  route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ csrf: "screenshot" }) }),
+);
+await page.route("**/api/polls/**", (route) => {
+  const url = route.request().url();
+  if (url.includes("/api/polls/leads")) {
+    return route.fulfill({ status: 401, contentType: "application/json", body: "{}" });
+  }
+  return route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ ok: true, polls: [] }),
+  });
+});
 await page.goto(`${BASE}/index.html`, { waitUntil: "networkidle" });
-await page.evaluate(() => {
+await page.waitForFunction(() => window.AE && window.AE.pollingReleased && window.AE.pollingData);
+await page.evaluate(async () => {
+  if (window.AE.pollingDesk.load) await window.AE.pollingDesk.load();
   window.AE.pollingDesk.adminSession = true;
 });
-await page.waitForTimeout(1500);
 await page.click('button[data-page="polling"]');
 await page.waitForSelector("#polling-infographic .poll-row");
-await page.evaluate(async () => {
-  try {
-    const r = await fetch("data/polls/leads.json");
-    if (r.ok) window.AE.pollingLeads = await r.json();
-  } catch {
-    /* ignore */
-  }
-  document.querySelector('button[data-page="portfolio"]')?.click();
-});
-await page.waitForTimeout(200);
-await page.click('button[data-page="polling"]');
-await page.waitForTimeout(400);
+await page.waitForSelector(".poll-leads-list li", { timeout: 8000 });
+await page.evaluate(() => document.querySelector(".poll-leads-admin")?.scrollIntoView({ block: "center" }));
+await page.waitForTimeout(300);
+await page.screenshot({ path: join(OUT, "majorityiq-polling-ad36-released.png"), fullPage: true });
+
+await page.click('button[data-district-open="ad-36"]');
+await page.waitForTimeout(800);
+await page.waitForSelector("#district-polling-strip");
 await page.evaluate(() => {
-  document.querySelector(".poll-leads-admin")?.scrollIntoView({ block: "start" });
+  document.getElementById("district-polling-strip")?.scrollIntoView({ block: "center" });
 });
-await page.waitForTimeout(200);
-await page.screenshot({ path: join(OUT, "majorityiq-polling-leads.png"), fullPage: true });
+await page.screenshot({ path: join(OUT, "majorityiq-district-ad36-polling.png"), fullPage: false });
 
 await browser.close();
 console.log("Saved screenshots to", OUT);

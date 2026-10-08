@@ -271,6 +271,7 @@
         (l) => `<li>
           <strong>${l.matched_district || "—"}</strong> · ${l.source || "—"} · ${l.date || "—"}
           <div><a href="${l.link}" target="_blank" rel="noopener noreferrer">${l.title || "Link"}</a></div>
+          ${l.verification_note ? `<p class="muted" style="margin:6px 0 0">${l.verification_note}</p>` : ""}
           <button type="button" class="btn" data-promote='${encodeURIComponent(JSON.stringify(l))}'>Promote to form</button>
         </li>`,
       )
@@ -288,16 +289,38 @@
           notes: "Promoted from lead: " + (lead.title || "") + " " + (lead.link || ""),
           toplines: null,
         });
-        renderCandidateRows(did, null);
         setStatus("Lead loaded — enter verified toplines before save.");
       });
     });
   }
 
+  async function loadLeadsFallback() {
+    const url = cfg.leadsUrl || "data/polls/leads.json";
+    try {
+      const res = await fetch(url, { cache: "no-store" });
+      if (res.ok) {
+        const json = await res.json();
+        return json.leads || [];
+      }
+    } catch {
+      /* ignore */
+    }
+    return [];
+  }
+
   async function refresh() {
-    const data = await api("/admin-bundle", { method: "GET" });
-    renderList(data.polls || []);
-    renderLeads(data.leads || []);
+    let polls = [];
+    let leads = [];
+    try {
+      const data = await api("/admin-bundle", { method: "GET" });
+      polls = data.polls || [];
+      leads = data.leads || [];
+    } catch {
+      polls = [];
+    }
+    if (!leads.length) leads = await loadLeadsFallback();
+    renderList(polls);
+    renderLeads(leads);
   }
 
   districtSel?.addEventListener("change", () => {

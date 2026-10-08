@@ -356,14 +356,29 @@
       if (badge) badge.textContent = "—";
       return;
     }
-    const gaps = root.districts.filter((row) => {
+    const total = root.districts.length;
+    let recentReleased = 0;
+    if (AE.pollingDesk && AE.pollingDesk.countRecentReleasedDistricts) {
+      recentReleased = AE.pollingDesk.countRecentReleasedDistricts();
+    } else {
+      recentReleased = root.districts.filter((row) => row.poll && AE.polling.isRecent(row.poll)).length;
+    }
+    const gaps = total - recentReleased;
+    if (badge) {
+      badge.textContent = recentReleased + " recent · " + gaps + " gap" + (gaps === 1 ? "" : "s");
+      badge.className = recentReleased > 0 ? "chip chip-live" : "chip chip-gap";
+    }
+    const gapRows = root.districts.filter((row) => {
+      const releasedRecent =
+        AE.pollingDesk &&
+        AE.pollingDesk.releasedForDistrict(row.id).some((p) => AE.polling.isRecent({ field_end: p.field_end }));
+      if (releasedRecent) return false;
       if (!row.poll) return true;
       return !AE.polling.isRecent(row.poll);
     });
-    if (badge) badge.textContent = gaps.length + " gap" + (gaps.length === 1 ? "" : "s");
-    body.innerHTML = `<div class="intel-gap-pills">${gaps
+    body.innerHTML = `<p style="margin:0 0 8px">${recentReleased}/${total} beachheads with a released poll in the last ${root.gap_recent_days || 90} days.</p><div class="intel-gap-pills">${gapRows
       .map((g) => `<span class="intel-gap-pill">${g.code}</span>`)
-      .join("")}</div><p style="margin:8px 0 0">${gaps.length}/${root.districts.length} districts without a recent public poll.</p>`;
+      .join("")}</div>`;
   }
 
   function renderDistrictPollingStrip(d) {

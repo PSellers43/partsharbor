@@ -1,43 +1,15 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-08T02:11:33.921731+00:00",
+  "updated_at": "2026-10-08T14:00:00-07:00",
   "notes": "Automated leads only — verify toplines before adding to data/polls/released.json. Never auto-import margins.",
   "leads": [
     {
-      "title": "Poll Shows Gonzalez Up 6 Points in AD-36 Race - Uken Report",
-      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTFAwY3hOTXJ5RlJrellBMGRhLXZZWFFMZnVpOUI1ZDBoaEo0Wm5RNUdyaHNHMFRvd01XR1NxWXRpbVJVN1F1dl9pbkpCMlY0dVNBejluQnBKR1RvM3RKN053N2ZRWGpwVUVySVozQm5XbWl6RE1FQ1otRQ?oc=5",
-      "date": "2026-09-30",
-      "source": "Google News",
-      "matched_district": "ad-36",
-      "query": "California Assembly District 36 poll",
-      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
-      "last_seen": "2026-10-08T02:11:33.921731+00:00"
-    },
-    {
       "title": "New Poll Shows Obeso-Martinez Leads Gonzalez - Uken Report",
-      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBvR2JSc2tZRE43djhFbEpXWjJGbVNENThjZ0E2aURjVjdtWEsydGs4a2ZwTTlCVUxKaEpqa3ZTT3dmVzVVbzlpNXFDR0tsbTliTUhlbnktX29pUTdOVGpnMlFMdGFTRDZhNXFrYkJWLXJkYVk0enFV?oc=5",
+      "link": "https://ukenreport.com/new-poll-shows-obeso-martinez-leads-gonzalez/",
       "date": "2026-08-12",
-      "source": "Google News",
+      "source": "Uken Report",
       "matched_district": "ad-36",
-      "query": "California Assembly District 36 poll",
-      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
-      "last_seen": "2026-10-08T02:11:33.921731+00:00"
-    },
-    {
-      "title": "Poll shows Chris Jones \"within striking distance\" of Mike Naig - Bleeding Heartland",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNU2xhTXFKYkhKMExVN1Mzby1laWRzQ1NhTldSYVRFOWlTTHdaMW5wY3ZjZXZ3Rkg0amwxUmRUV0YzYmE1cmJGdGViVDM1RlZWUWNTUGpfNXpJOVZ1YkRQaVhCd3hqcXBHamFiMXp0a1RFaXRIeG5uaG9KQ3pZRmgwc0VnVFY2MWtQU0IwZjJtdk01NU96YzVJTGhVRG1IYnVHSXVzeFI2cXRBQQ?oc=5",
-      "date": "2026-08-12",
-      "source": "Google News",
-      "matched_district": "ad-27",
-      "query": "Mike poll memo",
-      "fetched_at": "2026-10-08T02:05:14.217022+00:00",
-      "last_seen": "2026-10-08T02:11:33.921731+00:00"
+      "verification_note": "Tulchin Research horse-race toplines reported (Obeso-Martinez 47%, Gonzalez 39%, undecided 13%; n=600 likely November voters). Field dates, MoE, and commissioning sponsor not stated in article — verify before released.json."
     }
-  ],
-  "filter_stats": {
-    "before_filter": 79,
-    "after_filter": 3,
-    "existing_before_merge": 79,
-    "new_candidates_this_run": 10
-  }
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-10-08T02:11:51.133155+00:00",
+  "updated_at": "2026-10-08T02:16:33.155142+00:00",
   "updated_by": "build_polling_latest.py",
   "gap_recent_days": 90,
   "released_path": "data/polls/released.json",
@@ -28,9 +28,31 @@
       "id": "ad-36",
       "code": "AD-36",
       "race_label": "Jeff Gonzalez (R) incumbent vs Ida S. Obeso-Martinez (D)",
-      "gap": {
-        "message": "No released poll in last 90 days",
-        "as_of": "2026-10-08"
+      "released_poll_ids": [
+        "ad-36-guidant-2026-09"
+      ],
+      "poll": {
+        "pollster": "Guidant Polling & Strategy",
+        "sponsor": "Legislative Bipartisan Action PAC (survey release)",
+        "sponsor_type": "ie",
+        "sponsor_party": null,
+        "field_start": "2026-09-19",
+        "field_end": "2026-09-23",
+        "sample_n": 300,
+        "population": "LV",
+        "mode": null,
+        "moe_pct": 5.65,
+        "source_url": "https://ukenreport.com/poll-shows-gonzalez-up-6-points-in-ad-36-race/",
+        "source_label": "Uken Report (PAC release write-up)",
+        "visibility": "public",
+        "margin": {
+          "leader_name": "Jeff Gonzalez",
+          "leader_party": "R",
+          "leader_pct": 46,
+          "trailer_name": "Ida S. Obeso-Martinez",
+          "trailer_party": "D",
+          "trailer_pct": 40
+        }
       }
     },
     {
