@@ -46,6 +46,17 @@ function parseToplines(raw) {
   return { ok: true, data: out };
 }
 
+/** @param {Array<{ pct: number }>} toplines @param {number | null} undecided */
+export function validateToplineSum(toplines, undecided) {
+  const cand = toplines.reduce((s, r) => s + Number(r.pct || 0), 0);
+  const u = undecided != null && undecided !== "" ? Number(undecided) : 0;
+  const total = cand + (Number.isFinite(u) ? u : 0);
+  if (total > 101) {
+    return { ok: false, error: `Toplines + undecided must sum to ≤101 (got ${total.toFixed(1)}).` };
+  }
+  return { ok: true };
+}
+
 function parseCrosstabs(raw) {
   if (raw == null || raw === "") return { ok: true, data: null };
   if (typeof raw === "string") {
@@ -104,12 +115,22 @@ export function validateInternalPollInput(body) {
   const crosstabs = parseCrosstabs(body.crosstabs);
   if (!crosstabs.ok) return crosstabs;
 
+  let undecided = null;
+  if (body.undecided_pct != null && body.undecided_pct !== "") {
+    undecided = Number(body.undecided_pct);
+    if (!Number.isFinite(undecided) || undecided < 0 || undecided > 100) {
+      return { ok: false, error: "undecided_pct must be 0–100." };
+    }
+  }
+  const sumCheck = validateToplineSum(toplines.data, undecided);
+  if (!sumCheck.ok) return sumCheck;
+
   let sampleN = null;
   if (body.sample_n != null && body.sample_n !== "") {
     sampleN = Number(body.sample_n);
-    if (!Number.isInteger(sampleN) || sampleN < 1 || sampleN > 50000) {
-      return { ok: false, error: "sample_n must be integer 1–50000." };
-    }
+  }
+  if (!Number.isInteger(sampleN) || sampleN < 1 || sampleN > 50000) {
+    return { ok: false, error: "sample_n is required (integer 1–50000)." };
   }
   let moe = null;
   if (body.moe_pct != null && body.moe_pct !== "") {
@@ -118,14 +139,6 @@ export function validateInternalPollInput(body) {
       return { ok: false, error: "moe_pct must be 0–30 when set." };
     }
   }
-  let undecided = null;
-  if (body.undecided_pct != null && body.undecided_pct !== "") {
-    undecided = Number(body.undecided_pct);
-    if (!Number.isFinite(undecided) || undecided < 0 || undecided > 100) {
-      return { ok: false, error: "undecided_pct must be 0–100." };
-    }
-  }
-
   const strField = (k, max) => {
     const v = body[k];
     if (v == null || v === "") return null;

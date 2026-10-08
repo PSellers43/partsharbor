@@ -1,4 +1,4 @@
-/* MajorityIQ — internal poll intake (session + CSRF) */
+/* MajorityIQ — internal poll intake (session + CSRF, mobile-friendly fields) */
 
 (function () {
   "use strict";
@@ -10,6 +10,10 @@
   const form = document.getElementById("poll-admin-form");
   const listEl = document.getElementById("poll-admin-list");
   const leadsEl = document.getElementById("poll-leads-list");
+  const candidateHost = document.getElementById("candidate-rows");
+  const districtSel = document.getElementById("district_id");
+
+  let roster = null;
 
   function setStatus(msg, isErr) {
     if (statusEl) {
@@ -29,13 +33,128 @@
     return json;
   }
 
-  function readForm() {
-    let toplines;
-    try {
-      toplines = JSON.parse(document.getElementById("toplines").value);
-    } catch {
-      throw new Error("Toplines must be valid JSON array.");
+  function districtCandidates(districtId) {
+    if (!roster || !roster.districts) return [];
+    const row = roster.districts.find((d) => d.id === districtId);
+    if (!row) return [];
+    if (row.open_seat) {
+      return (row.general_candidates || []).slice(0, 2).map((c) => ({ name: c.name, party: c.party }));
     }
+    const out = [];
+    if (row.incumbent && row.incumbent.name) {
+      out.push({ name: row.incumbent.name, party: row.incumbent.party });
+    }
+    const opp = (row.known_opponents || [])[0];
+    if (opp && opp.name) out.push({ name: opp.name, party: opp.party });
+    return out;
+  }
+
+  function candidateRowHtml(c, idx, extra) {
+    const name = c.name || "";
+    const party = c.party || "";
+    const pct = c.pct != null ? c.pct : "";
+    const extraCls = extra ? " candidate-row-extra" : "";
+    const removeBtn = extra
+      ? `<button type="button" class="btn" data-remove-row="${idx}" aria-label="Remove">×</button>`
+      : "";
+    return `<div class="candidate-row${extraCls}" data-cand-idx="${idx}">
+      <div><label class="sr-only">Name</label><input type="text" data-cand-name value="${escapeAttr(name)}" ${extra ? "" : "readonly"} maxlength="120"></div>
+      <div class="party-badge">${party || "—"}</div>
+      <div><label class="sr-only">Percent</label><input type="number" data-cand-pct value="${pct}" min="0" max="100" step="0.1" inputmode="decimal" placeholder="%" required></div>
+      ${removeBtn}
+      <input type="hidden" data-cand-party value="${escapeAttr(party)}">
+    </div>`;
+  }
+
+  function escapeAttr(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+  }
+
+  function renderCandidateRows(districtId, toplines) {
+    if (!candidateHost) return;
+    const base = districtCandidates(districtId);
+    const rows = [];
+    if (toplines && toplines.length) {
+      toplines.forEach((t, i) => {
+        const extra = i >= base.length;
+        rows.push(candidateRowHtml({ name: t.name, party: t.party, pct: t.pct }, i, extra));
+      });
+    } else {
+      base.forEach((c, i) => rows.push(candidateRowHtml(c, i, false)));
+      if (rows.length < 2) {
+        rows.push(candidateRowHtml({ name: "", party: "D", pct: "" }, 1, true));
+      }
+    }
+    candidateHost.innerHTML = rows.join("");
+    bindCandidateRowEvents();
+    updateSumHint();
+  }
+
+  function bindCandidateRowEvents() {
+    candidateHost.querySelectorAll("[data-cand-pct]").forEach((inp) => {
+      inp.addEventListener("input", updateSumHint);
+    });
+    document.getElementById("undecided_pct")?.addEventListener("input", updateSumHint);
+    candidateHost.querySelectorAll("[data-remove-row]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const row = btn.closest(".candidate-row");
+        row?.remove();
+        updateSumHint();
+      });
+    });
+  }
+
+  function readToplinesFromDom() {
+    const rows = candidateHost.querySelectorAll(".candidate-row");
+    const out = [];
+    rows.forEach((row) => {
+      const name = row.querySelector("[data-cand-name]")?.value.trim();
+      const party = row.querySelector("[data-cand-party]")?.value.trim().toUpperCase();
+      const pct = Number(row.querySelector("[data-cand-pct]")?.value);
+      if (!name) return;
+      if (!party || (party !== "R" && party !== "D")) throw new Error("Each candidate needs party R or D.");
+      if (!Number.isFinite(pct) || pct < 0 || pct > 100) throw new Error("Each candidate % must be 0–100.");
+      out.push({ name, party, pct });
+    });
+    if (out.length < 2) throw new Error("Enter at least two candidates with percentages.");
+    return out;
+  }
+
+  function updateSumHint() {
+    const hint = document.getElementById("topline-sum-hint");
+    if (!hint) return;
+    try {
+      const tops = readToplinesFromDom();
+      const u = Number(document.getElementById("undecided_pct")?.value || 0);
+      const sum = tops.reduce((s, t) => s + t.pct, 0) + (Number.isFinite(u) ? u : 0);
+      hint.textContent =
+        sum > 101
+          ? `Sum ${sum.toFixed(1)}% — must be ≤101 before save.`
+          : `Sum ${sum.toFixed(1)}% (candidate % + undecided must be ≤101).`;
+      hint.style.color = sum > 101 ? "#f87171" : "";
+    } catch {
+      hint.textContent = "Candidate % + undecided must not exceed 101.";
+      hint.style.color = "";
+    }
+  }
+
+  function readForm() {
+    const toplines = readToplinesFromDom();
+    const undecidedRaw = document.getElementById("undecided_pct").value;
+    let undecided_pct = null;
+    if (undecidedRaw !== "") {
+      undecided_pct = Number(undecidedRaw);
+      if (!Number.isFinite(undecided_pct) || undecided_pct < 0 || undecided_pct > 100) {
+        throw new Error("Undecided % must be 0–100.");
+      }
+    }
+    const sum =
+      toplines.reduce((s, t) => s + t.pct, 0) + (undecided_pct != null ? undecided_pct : 0);
+    if (sum > 101) throw new Error("Toplines + undecided must sum to ≤101.");
+
     let crosstabs = null;
     const ct = document.getElementById("crosstabs").value.trim();
     if (ct) {
@@ -45,20 +164,24 @@
         throw new Error("Crosstabs must be valid JSON.");
       }
     }
+
+    const sample_n = Number(document.getElementById("sample_n").value);
+    if (!Number.isInteger(sample_n) || sample_n < 1) throw new Error("Sample n is required (integer > 0).");
+
     return {
       id: document.getElementById("poll-id").value || undefined,
-      district_id: document.getElementById("district_id").value,
+      district_id: districtSel.value,
       pollster: document.getElementById("pollster").value.trim(),
       sponsor: document.getElementById("sponsor").value.trim() || null,
       sponsor_type: document.getElementById("sponsor_type").value,
       sponsor_party: document.getElementById("sponsor_party").value || null,
       field_start: document.getElementById("field_start").value,
       field_end: document.getElementById("field_end").value,
-      sample_n: document.getElementById("sample_n").value || null,
+      sample_n,
       population: document.getElementById("population").value.trim() || null,
       mode: document.getElementById("mode").value.trim() || null,
       moe_pct: document.getElementById("moe_pct").value || null,
-      undecided_pct: document.getElementById("undecided_pct").value || null,
+      undecided_pct: undecided_pct,
       toplines,
       crosstabs,
       verified_by: document.getElementById("verified_by").value.trim() || null,
@@ -68,9 +191,12 @@
   }
 
   function fillForm(poll) {
-    document.getElementById("poll-form-title").textContent = poll.id ? "Edit internal poll #" + poll.id : "Add internal poll";
+    document.getElementById("poll-form-title").textContent = poll.id
+      ? "Edit internal poll #" + poll.id
+      : "Add internal poll";
     document.getElementById("poll-id").value = poll.id || "";
-    document.getElementById("district_id").value = poll.district_id;
+    districtSel.value = poll.district_id || "ad-7";
+    renderCandidateRows(poll.district_id || districtSel.value, poll.toplines);
     document.getElementById("pollster").value = poll.pollster || "";
     document.getElementById("sponsor").value = poll.sponsor || "";
     document.getElementById("sponsor_type").value = poll.sponsor_type || "campaign";
@@ -82,10 +208,10 @@
     document.getElementById("mode").value = poll.mode || "";
     document.getElementById("moe_pct").value = poll.moe_pct != null ? poll.moe_pct : "";
     document.getElementById("undecided_pct").value = poll.undecided_pct != null ? poll.undecided_pct : "";
-    document.getElementById("toplines").value = JSON.stringify(poll.toplines || [], null, 2);
     document.getElementById("crosstabs").value = poll.crosstabs ? JSON.stringify(poll.crosstabs, null, 2) : "";
     document.getElementById("verified_by").value = poll.verified_by || "";
     document.getElementById("notes").value = poll.notes || "";
+    updateSumHint();
   }
 
   function renderList(polls) {
@@ -119,7 +245,10 @@
       btn.addEventListener("click", async () => {
         if (!confirm("Delete internal poll #" + btn.dataset.del + "?")) return;
         try {
-          await api("/internal/" + btn.dataset.del, { method: "DELETE", body: JSON.stringify({ _csrf: cfg.csrf }) });
+          await api("/internal/" + btn.dataset.del, {
+            method: "DELETE",
+            body: JSON.stringify({ _csrf: cfg.csrf }),
+          });
           await refresh();
           setStatus("Deleted.");
         } catch (e) {
@@ -135,7 +264,8 @@
       leadsEl.innerHTML = "<li class='muted'>No leads on file — run scripts/update-released-polls.sh.</li>";
       return;
     }
-    leadsEl.innerHTML = leads
+    const sorted = leads.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    leadsEl.innerHTML = sorted
       .slice(0, 40)
       .map(
         (l) => `<li>
@@ -148,18 +278,17 @@
     leadsEl.querySelectorAll("[data-promote]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const lead = JSON.parse(decodeURIComponent(btn.dataset.promote));
+        const did = lead.matched_district || districtSel.value;
         fillForm({
-          district_id: lead.matched_district || "ad-7",
-          pollster: "(verify from source)",
-          sponsor_type: "independent",
+          district_id: did,
+          pollster: "",
+          sponsor_type: "campaign",
           field_start: lead.date || "",
           field_end: lead.date || "",
           notes: "Promoted from lead: " + (lead.title || "") + " " + (lead.link || ""),
-          toplines: [
-            { name: "Candidate A", party: "R", pct: 0 },
-            { name: "Candidate B", party: "D", pct: 0 },
-          ],
+          toplines: null,
         });
+        renderCandidateRows(did, null);
         setStatus("Lead loaded — enter verified toplines before save.");
       });
     });
@@ -170,6 +299,20 @@
     renderList(data.polls || []);
     renderLeads(data.leads || []);
   }
+
+  districtSel?.addEventListener("change", () => {
+    if (!document.getElementById("poll-id").value) {
+      renderCandidateRows(districtSel.value, null);
+    }
+  });
+
+  document.getElementById("add-candidate-row")?.addEventListener("click", () => {
+    const idx = candidateHost.querySelectorAll(".candidate-row").length;
+    const div = document.createElement("div");
+    div.innerHTML = candidateRowHtml({ name: "", party: "D", pct: "" }, idx, true);
+    candidateHost.appendChild(div.firstElementChild);
+    bindCandidateRowEvents();
+  });
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -192,14 +335,17 @@
   });
 
   document.getElementById("poll-form-reset")?.addEventListener("click", () => {
-    fillForm({ district_id: "ad-7", sponsor_type: "campaign", toplines: [] });
     document.getElementById("poll-id").value = "";
+    fillForm({ district_id: districtSel.value, sponsor_type: "campaign" });
   });
 
   document.getElementById("poll-csv-import")?.addEventListener("click", async () => {
     const csv = document.getElementById("poll-csv").value;
     try {
-      const res = await api("/internal/import-csv", { method: "POST", body: JSON.stringify({ csv, _csrf: cfg.csrf }) });
+      const res = await api("/internal/import-csv", {
+        method: "POST",
+        body: JSON.stringify({ csv, _csrf: cfg.csrf }),
+      });
       setStatus("Imported " + res.imported + " poll(s).");
       await refresh();
     } catch (e) {
@@ -207,5 +353,17 @@
     }
   });
 
-  refresh().catch((e) => setStatus(e.message, true));
+  async function init() {
+    const rosterUrl = cfg.rosterUrl || "data/calaccess/beachheads.json";
+    try {
+      const res = await fetch(rosterUrl, { cache: "no-store" });
+      if (res.ok) roster = await res.json();
+    } catch {
+      roster = null;
+    }
+    renderCandidateRows(districtSel.value, null);
+    refresh().catch((e) => setStatus(e.message, true));
+  }
+
+  init();
 })();

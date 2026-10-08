@@ -334,7 +334,8 @@
     }
     if (note) {
       const asOf = root.updated_at ? formatAsOf(root.updated_at) : "—";
-      note.innerHTML = `As of <strong>${asOf}</strong> · Gap threshold <strong>${root.gap_recent_days || 90} days</strong> · ${root.notes || ""}`;
+      const hint = AE.pollingDesk && AE.pollingDesk.intakeHintHtml ? AE.pollingDesk.intakeHintHtml() : "";
+      note.innerHTML = `${hint}As of <strong>${asOf}</strong> · Gap threshold <strong>${root.gap_recent_days || 90} days</strong> · ${root.notes || ""}`;
     }
 
     const rows = (root.districts || []).slice().sort((a, b) => a.code.localeCompare(b.code));

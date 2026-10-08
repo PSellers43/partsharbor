@@ -16,6 +16,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 POLLS = ROOT / "data" / "polls"
 BEACH = ROOT / "data" / "calaccess" / "beachheads.json"
+SCRIPTS = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPTS))
+
+from lead_filter import filter_leads, is_relevant_lead  # noqa: E402
 
 POLL_KEYWORDS = re.compile(r"\b(poll|survey|memo|topline|ballot test)\b", re.I)
 DISTRICT_RE = re.compile(r"\b(?:AD|Assembly District)[\s-]*(\d{1,2})\b", re.I)
@@ -171,18 +175,19 @@ def main() -> int:
             blob = f"{item.get('title', '')} {item.get('link', '')}"
             if not POLL_KEYWORDS.search(blob):
                 continue
-            did = match_district(blob, beach) if feed.get("district_match") is not False else None
-            candidates.append(
-                {
-                    "title": item.get("title"),
-                    "link": item.get("link"),
-                    "date": item.get("date"),
-                    "source": feed["source"],
-                    "matched_district": did,
-                    "query": feed["url"],
-                    "fetched_at": now,
-                }
-            )
+            did = match_district(blob, beach)
+            row = {
+                "title": item.get("title"),
+                "link": item.get("link"),
+                "date": item.get("date"),
+                "source": feed["source"],
+                "matched_district": did,
+                "query": feed["url"],
+                "fetched_at": now,
+            }
+            if not is_relevant_lead(row, beach):
+                continue
+            candidates.append(row)
 
     for did, code, queries in district_queries(beach):
         seen_q = set()
@@ -200,31 +205,44 @@ def main() -> int:
                 if not POLL_KEYWORDS.search(blob):
                     continue
                 matched = match_district(blob, beach) or did
-                candidates.append(
-                    {
-                        "title": item.get("title"),
-                        "link": item.get("link"),
-                        "date": item.get("date"),
-                        "source": item.get("source") or "Google News",
-                        "matched_district": matched,
-                        "query": q,
-                        "fetched_at": now,
-                    }
-                )
+                row = {
+                    "title": item.get("title"),
+                    "link": item.get("link"),
+                    "date": item.get("date"),
+                    "source": item.get("source") or "Google News",
+                    "matched_district": matched,
+                    "query": q,
+                    "fetched_at": now,
+                }
+                if not is_relevant_lead(row, beach):
+                    continue
+                candidates.append(row)
 
     leads_path = POLLS / "leads.json"
     existing_payload = load_json(leads_path) if leads_path.exists() else {"leads": []}
+    before = len(existing_payload.get("leads") or [])
     merged = merge_leads(existing_payload.get("leads") or [], candidates)
+    filtered = filter_leads(merged, beach)
 
     payload = {
         "schema_version": 1,
         "updated_at": now,
         "notes": existing_payload.get("notes") or "Automated leads only — verify before released.json.",
-        "leads": merged,
+        "leads": filtered,
+        "filter_stats": {
+            "before_filter": len(merged),
+            "after_filter": len(filtered),
+            "existing_before_merge": before,
+            "new_candidates_this_run": len(candidates),
+        },
     }
     POLLS.mkdir(parents=True, exist_ok=True)
     leads_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Wrote {leads_path} ({len(merged)} leads, {len(candidates)} new candidates this run)")
+    print(
+        f"Wrote {leads_path} ({len(filtered)} leads after filter, "
+        f"{len(merged)} merged, {len(candidates)} new candidates this run)",
+        file=sys.stderr,
+    )
     return 0
 
 

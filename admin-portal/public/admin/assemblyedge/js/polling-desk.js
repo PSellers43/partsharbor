@@ -10,6 +10,7 @@ window.AE = window.AE || {};
   AE.pollingInternal = [];
   AE.pollingLeads = null;
   AE.pollingDeskLoadError = null;
+  AE.pollingDesk.adminSession = false;
 
   const PARTISAN_TYPES = { campaign: true, party: true, ie: true };
   const PARTISAN_WEIGHT = 0.5;
@@ -143,20 +144,47 @@ window.AE = window.AE || {};
     return body;
   };
 
+  AE.pollingDesk.intakeHintHtml = function () {
+    if (!AE.pollingDesk.adminSession) return "";
+    return `<p class="poll-intake-hint" style="margin:0 0 14px;font-size:13px;color:var(--text-muted)">How to add an internal poll: use the <a href="/admin/majorityiq/polls-admin">private intake form</a> (aggregate toplines only).</p>`;
+  };
+
   AE.pollingDesk.leadsSectionHtml = function () {
+    if (!AE.pollingDesk.adminSession) return "";
     const leads = (AE.pollingLeads && AE.pollingLeads.leads) || [];
     if (!leads.length) {
-      return `<div class="card method-card"><h3 class="card-title">Leads to verify <span class="chip chip-demo">Admin</span></h3><p class="muted">No RSS leads on file.</p></div>`;
+      return `<div class="card method-card poll-leads-admin"><h3 class="card-title">Leads to verify <span class="chip chip-gap">Admin</span></h3><p class="muted">No RSS leads on file — run <code>scripts/update-released-polls.sh</code>.</p></div>`;
     }
-    const rows = leads
+    const sorted = leads.slice().sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+    const rows = sorted
       .slice(0, 25)
       .map(
         (l) =>
           `<li><strong>${l.matched_district || "—"}</strong> · ${l.source || "—"} · ${l.date || "—"} — <a href="${l.link}" target="_blank" rel="noopener noreferrer">${l.title || "Link"}</a></li>`,
       )
       .join("");
-    return `<div class="card method-card poll-leads-admin"><h3 class="card-title">Leads to verify <span class="chip chip-gap">Admin desk</span></h3><p style="font-size:12px;color:var(--text-muted)">Automated RSS candidates — verify before adding to <code>released.json</code>. <a href="/admin/majorityiq/polls-admin">Open intake form</a></p><ul class="poll-leads-list">${rows}</ul></div>`;
+    const n = sorted.length;
+    return `<div class="card method-card poll-leads-admin"><h3 class="card-title">Leads to verify <span class="chip chip-gap">Admin</span> <span class="chip chip-demo">${n} lead${n === 1 ? "" : "s"}</span></h3><p style="font-size:12px;color:var(--text-muted)">Newest first — verify before adding to <code>released.json</code>. <a href="/admin/majorityiq/polls-admin">Open intake form</a></p><ul class="poll-leads-list">${rows}</ul></div>`;
   };
+
+  async function loadLeadsBundle() {
+    let json = null;
+    try {
+      const res = await fetch("./api/polls/leads", { credentials: "same-origin", cache: "no-store" });
+      if (res.ok) json = await res.json();
+    } catch {
+      /* try static */
+    }
+    if (!json) {
+      try {
+        const res = await fetch("data/polls/leads.json", { cache: "no-store" });
+        if (res.ok) json = await res.json();
+      } catch {
+        json = null;
+      }
+    }
+    AE.pollingLeads = json;
+  }
 
   function pollMovementScore(poll) {
     const margin = poll.margin || marginFromToplines(poll.toplines, poll.undecided_pct);
@@ -236,10 +264,18 @@ window.AE = window.AE || {};
       .catch(() => {
         AE.pollingReleased = null;
       });
+    const sessionProbe = fetch("./api/csrf", { credentials: "same-origin", cache: "no-store" })
+      .then((res) => {
+        AE.pollingDesk.adminSession = res.ok;
+      })
+      .catch(() => {
+        AE.pollingDesk.adminSession = false;
+      });
     const internal = fetch("./api/polls/internal", { credentials: "same-origin", cache: "no-store" })
       .then((res) => {
+        if (res.ok) AE.pollingDesk.adminSession = true;
         if (res.status === 401) return { polls: [] };
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (!res.ok) return { polls: [] };
         return res.json();
       })
       .then((json) => {
@@ -248,27 +284,8 @@ window.AE = window.AE || {};
       .catch(() => {
         AE.pollingInternal = [];
       });
-    const leads = fetch("./api/polls/leads", { credentials: "same-origin", cache: "no-store" })
-      .then(async (res) => {
-        if (res.ok) return res.json();
-        if (res.status === 401) {
-          const fallback = await fetch("data/polls/leads.json", { cache: "no-store" });
-          return fallback.ok ? fallback.json() : null;
-        }
-        return null;
-      })
-      .then((json) => {
-        AE.pollingLeads = json;
-      })
-      .catch(async () => {
-        try {
-          const fallback = await fetch("data/polls/leads.json", { cache: "no-store" });
-          AE.pollingLeads = fallback.ok ? await fallback.json() : null;
-        } catch {
-          AE.pollingLeads = null;
-        }
-      });
-    return Promise.all([base, released, internal, leads]).catch((err) => {
+    const leads = loadLeadsBundle();
+    return Promise.all([base, released, internal, leads, sessionProbe]).catch((err) => {
       AE.pollingDeskLoadError = String(err && err.message ? err.message : err);
     });
   };

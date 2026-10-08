@@ -3,7 +3,7 @@
  * Auth guard tests for MajorityIQ poll API (matches index.js requireDeskSession checks).
  * Full Worker integration requires wrangler; guards must return 401 JSON when no admin session.
  */
-import { validateInternalPollInput } from "../src/assemblyedge-internal-polls.js";
+import { validateInternalPollInput, validateToplineSum } from "../src/assemblyedge-internal-polls.js";
 
 function deskJsonAuthStatus(session) {
   if (!session?.admin?.id) return 401;
@@ -42,6 +42,28 @@ async function main() {
     ],
   });
   if (!good.ok) throw new Error(good.error);
+
+  const noN = validateInternalPollInput({
+    district_id: "ad-7",
+    pollster: "X",
+    sponsor_type: "campaign",
+    field_start: "2026-09-01",
+    field_end: "2026-09-05",
+    toplines: [
+      { name: "A", party: "R", pct: 48 },
+      { name: "B", party: "D", pct: 44 },
+    ],
+  });
+  if (noN.ok) throw new Error("expected sample_n required");
+
+  const overSum = validateToplineSum(
+    [
+      { pct: 55 },
+      { pct: 50 },
+    ],
+    0,
+  );
+  if (overSum.ok) throw new Error("expected sum > 101 to fail");
 
   console.log("OK test-internal-polls-auth");
 }
