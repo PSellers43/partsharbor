@@ -55,7 +55,7 @@ AE.districts = [
     name: "Davies",
     incumbent: "Laurie Davies",
     party: "R",
-    region: "Orange County",
+    region: "Orange / North San Diego",
     threatIndex: 54,
     delta24h: 0,
     delta7d: -2,

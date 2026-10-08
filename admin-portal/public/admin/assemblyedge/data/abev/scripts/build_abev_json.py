@@ -24,6 +24,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+import xml.etree.ElementTree as ET
 import zipfile
 from collections import defaultdict
 from datetime import date, datetime, timezone
@@ -45,11 +46,11 @@ BEACHHEADS = {
 # Counties that intersect beachhead ADs (from intra-district map build)
 COUNTIES_BY_AD: dict[str, list[int]] = {
     "7": [67, 61],
-    "27": [19, 39],
-    "36": [29, 37],
-    "47": [65],
-    "58": [65],
-    "74": [59],
+    "27": [19, 39, 47],
+    "36": [25, 65, 71],
+    "47": [65, 71],
+    "58": [65, 71],
+    "74": [59, 73],
 }
 
 ELECTIONS = {
@@ -67,10 +68,71 @@ ELECTIONS = {
     },
 }
 
-LIVE_VBM_PDF_CANDIDATES = [
-    "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/vbm-statistics.pdf",
-    "https://elections.cdn.sos.ca.gov/statewide-elections/2026-primary/vbm-statistics.pdf",
-]
+LIVE_BSR_XLSX = (
+    "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/bsr-statistics.xlsx"
+)
+XLSX_NS = {"m": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
+
+CA_COUNTY_NAME_TO_FIPS = {
+    "alameda": 1,
+    "alpine": 3,
+    "amador": 5,
+    "butte": 7,
+    "calaveras": 9,
+    "colusa": 11,
+    "contra costa": 13,
+    "del norte": 15,
+    "el dorado": 17,
+    "fresno": 19,
+    "glenn": 21,
+    "humboldt": 23,
+    "imperial": 25,
+    "inyo": 27,
+    "kern": 29,
+    "kings": 31,
+    "lake": 33,
+    "lassen": 35,
+    "los angeles": 37,
+    "madera": 39,
+    "marin": 41,
+    "mariposa": 43,
+    "mendocino": 45,
+    "merced": 47,
+    "modoc": 49,
+    "mono": 51,
+    "monterey": 53,
+    "napa": 55,
+    "nevada": 57,
+    "orange": 59,
+    "placer": 61,
+    "plumas": 63,
+    "riverside": 65,
+    "sacramento": 67,
+    "san benito": 69,
+    "san bernardino": 71,
+    "san diego": 73,
+    "san francisco": 75,
+    "san joaquin": 77,
+    "san luis obispo": 79,
+    "san mateo": 81,
+    "santa barbara": 83,
+    "santa clara": 85,
+    "santa cruz": 87,
+    "shasta": 89,
+    "sierra": 91,
+    "siskiyou": 93,
+    "solano": 95,
+    "sonoma": 97,
+    "stanislaus": 99,
+    "sutter": 101,
+    "tehama": 103,
+    "trinity": 105,
+    "tulare": 107,
+    "tuolumne": 109,
+    "ventura": 111,
+    "yolo": 113,
+    "yuba": 115,
+}
 
 PARTY_IDS = [
     ("dem", "DEM", "Democratic"),
@@ -229,26 +291,128 @@ def load_ror_registration() -> dict[str, int]:
     return out
 
 
-def probe_live_sos_vbm() -> dict:
-    """Best-effort HEAD on SOS VoteCal VBM PDFs (county-level; not AD)."""
-    for url in LIVE_VBM_PDF_CANDIDATES:
-        try:
-            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "MajorityIQ-abev-build/1.0"})
-            with urllib.request.urlopen(req, timeout=30) as resp:
-                if resp.status == 200:
-                    return {
-                        "status": "county_pdf_only",
-                        "source_url": url,
-                        "note": "SOS VoteCal VBM PDF is county-level; Assembly district live returns not in this feed.",
-                    }
-        except urllib.error.HTTPError as exc:
-            if exc.code == 404:
+def _col_letter(cell_ref: str) -> int:
+    m = re.match(r"^([A-Z]+)", cell_ref or "")
+    if not m:
+        return 0
+    letters = m.group(1)
+    n = 0
+    for ch in letters:
+        n = n * 26 + (ord(ch) - ord("A") + 1)
+    return n - 1
+
+
+def read_xlsx_rows(raw: bytes) -> list[tuple]:
+    with zipfile.ZipFile(io.BytesIO(raw)) as zf:
+        shared: list[str] = []
+        if "xl/sharedStrings.xml" in zf.namelist():
+            root = ET.fromstring(zf.read("xl/sharedStrings.xml"))
+            for si in root.findall("m:si", XLSX_NS):
+                parts = [t.text or "" for t in si.findall(".//m:t", XLSX_NS)]
+                shared.append("".join(parts))
+        sheet_name = next(
+            (n for n in zf.namelist() if n.startswith("xl/worksheets/sheet") and n.endswith(".xml")),
+            "xl/worksheets/sheet1.xml",
+        )
+        sheet = ET.fromstring(zf.read(sheet_name))
+        rows_out: list[tuple] = []
+        for row in sheet.findall("m:sheetData/m:row", XLSX_NS):
+            cells: dict[int, object] = {}
+            for c in row.findall("m:c", XLSX_NS):
+                ref = c.get("r", "A1")
+                col = _col_letter(ref)
+                t = c.get("t")
+                v_el = c.find("m:v", XLSX_NS)
+                if v_el is None or v_el.text is None:
+                    val = None
+                elif t == "s":
+                    val = shared[int(v_el.text)]
+                else:
+                    val = v_el.text
+                    try:
+                        val = float(val) if "." in str(val) else int(val)
+                    except (TypeError, ValueError):
+                        pass
+                cells[col] = val
+            if not cells:
+                rows_out.append(tuple())
                 continue
-        except Exception:
+            max_col = max(cells)
+            rows_out.append(tuple(cells.get(i) for i in range(max_col + 1)))
+        return rows_out
+
+
+def parse_bsr_counties(raw: bytes) -> tuple[list[dict], str | None]:
+    """Return county rows from SOS bsr-statistics.xlsx (county-level mail ballot status)."""
+    rows = read_xlsx_rows(raw)
+    header_idx = None
+    for i, row in enumerate(rows):
+        if not row:
             continue
+        joined = " ".join(str(c or "") for c in row).lower()
+        if "county" in joined and ("return" in joined or "received" in joined or "ballot" in joined):
+            header_idx = i
+            break
+    if header_idx is None:
+        header_idx = 0
+    header = [str(c or "").strip().lower() for c in rows[header_idx]]
+    col_county = next((i for i, h in enumerate(header) if "county" in h), 0)
+    col_returned = next(
+        (i for i, h in enumerate(header) if "return" in h or "received" in h or "complete" in h),
+        None,
+    )
+    col_issued = next((i for i, h in enumerate(header) if "issue" in h or "sent" in h or "mail" in h), None)
+    col_as_of = next((i for i, h in enumerate(header) if "as of" in h or "date" in h), None)
+    out: list[dict] = []
+    as_of = None
+    for row in rows[header_idx + 1 :]:
+        if not row or len(row) <= col_county:
+            continue
+        name_raw = row[col_county]
+        if not name_raw or not isinstance(name_raw, str):
+            continue
+        name_key = name_raw.strip().lower().replace(" county", "")
+        fips = CA_COUNTY_NAME_TO_FIPS.get(name_key)
+        if fips is None:
+            continue
+        returned = num(row[col_returned]) if col_returned is not None and len(row) > col_returned else 0
+        issued = num(row[col_issued]) if col_issued is not None and len(row) > col_issued else None
+        if returned <= 0 and (issued is None or issued <= 0):
+            continue
+        if col_as_of is not None and len(row) > col_as_of and row[col_as_of]:
+            as_of = str(row[col_as_of]).strip()
+        out.append(
+            {
+                "fips": fips,
+                "name": name_raw.strip(),
+                "returned": int(round(returned)),
+                "issued": int(round(issued)) if issued is not None else None,
+            }
+        )
+    return out, as_of
+
+
+def load_live_bsr() -> dict:
+    try:
+        raw = fetch_bytes(LIVE_BSR_XLSX)
+    except Exception as exc:
+        return {
+            "status": "not_published",
+            "note": f"Could not fetch SOS ballot status workbook: {exc}",
+        }
+    counties, as_of_cell = parse_bsr_counties(raw)
+    if not counties:
+        return {
+            "status": "parse_failed",
+            "source_url": LIVE_BSR_XLSX,
+            "note": "SOS bsr-statistics.xlsx downloaded but county rows could not be parsed.",
+        }
     return {
-        "status": "not_published",
-        "note": "No 2026 SOS VoteCal VBM statistics PDF found at expected URLs.",
+        "status": "county_level",
+        "source_url": LIVE_BSR_XLSX,
+        "as_of": as_of_cell or date.today().isoformat(),
+        "counties": counties,
+        "note": "County-level mail ballot return counts from CA SOS daily Ballot Status Report (not Assembly-district totals).",
     }
 
 
@@ -300,7 +464,7 @@ def main() -> int:
     all_gaps = gaps24 + gaps22
 
     ror_reg = load_ror_registration()
-    live_probe = probe_live_sos_vbm()
+    live_bsr = load_live_bsr()
 
     districts = []
     for dist_id, dist_no in BEACHHEADS.items():
@@ -313,24 +477,47 @@ def main() -> int:
         if p24 is not None and p22 is not None:
             pace_note = f"2024 final mail returns were {p24}% of SOV registration vs {p22}% in 2022 (SWDB All_VBM)."
 
+        dist_counties = COUNTIES_BY_AD.get(str(dist_no), [])
+        county_live = [
+            c
+            for c in (live_bsr.get("counties") or [])
+            if c.get("fips") in dist_counties
+        ]
+        if live_bsr.get("status") == "county_level" and county_live:
+            live_block = {
+                "status": "county_level",
+                "cycle": "2026",
+                "gap_label": "County-level SOS mail ballot returns (not AD totals)",
+                "detail": live_bsr.get("note"),
+                "source_url": live_bsr.get("source_url"),
+                "as_of": live_bsr.get("as_of"),
+                "counties": county_live,
+                "returned": None,
+                "issued": None,
+                "pct_of_registration": None,
+                "aggregation_note": "Do not sum counties — each row is the full county; AD spans partial counties.",
+            }
+        else:
+            live_block = {
+                "status": live_bsr.get("status", "not_published"),
+                "cycle": "2026",
+                "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
+                "detail": live_bsr.get("note"),
+                "source_url": live_bsr.get("source_url"),
+                "as_of": live_bsr.get("as_of"),
+                "counties": county_live or None,
+                "returned": None,
+                "issued": None,
+                "pct_of_registration": None,
+            }
+
         districts.append(
             {
                 "id": dist_id,
                 "code": f"AD-{dist_no}",
                 "registration_current": reg_current,
                 "registration_current_source": "CA SOS ROR (demography bundle)" if reg_current else None,
-                "live": {
-                    "status": live_probe["status"],
-                    "cycle": "2026",
-                    "gap_label": "Live 2026 ballot returns not available at Assembly-district granularity in free public feeds.",
-                    "detail": live_probe.get("note"),
-                    "sos_probe_url": live_probe.get("source_url"),
-                    "returned": None,
-                    "accepted": None,
-                    "issued": None,
-                    "as_of": None,
-                    "pct_of_registration": None,
-                },
+                "live": live_block,
                 "baselines": {
                     "primary_compare": "g24",
                     "prior": "g22",
@@ -358,10 +545,10 @@ def main() -> int:
                 "label": "CA SOS Report of Registration",
                 "via": str(DEMOGRAPHY.relative_to(ROOT.parent.parent)) if DEMOGRAPHY.is_file() else None,
             },
-            "live_sos_vbm": {
-                "label": "CA SOS VoteCal VBM statistics (county PDF)",
-                "pattern": "https://elections.cdn.sos.ca.gov/statewide-elections/{cycle}/vbm-statistics.pdf",
-                "assembly_district_limitation": "PDF is county-level; AD aggregation requires county feeds or SWDB-style precinct joins.",
+            "live_sos_bsr": {
+                "label": "CA SOS Ballot Status Report (county XLSX)",
+                "url": LIVE_BSR_XLSX,
+                "assembly_district_limitation": "Workbook is county-level; beachhead rows list intersecting counties only (not apportioned AD totals).",
             },
             "inspiration": {
                 "label": "Public statewide ballot-return trackers",

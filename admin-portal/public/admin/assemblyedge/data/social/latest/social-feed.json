@@ -145,8 +145,9 @@
             "impressions": 323
           },
           "article_title": "Breaking Down the 2026 California Ballot Propositions",
-          "sentiment": 0.12,
-          "sentiment_label": "neutral"
+          "sentiment": 0.05,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2105721156452168168",
@@ -167,8 +168,9 @@
             "quotes": 0,
             "impressions": 237
           },
-          "sentiment": 0.38,
-          "sentiment_label": "positive"
+          "sentiment": -0.539,
+          "sentiment_label": "negative",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2105526254342742480",
@@ -195,8 +197,9 @@
               "type": "quoted"
             }
           ],
-          "sentiment": 0.12,
-          "sentiment_label": "neutral"
+          "sentiment": 0.05,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107159547358093555",
@@ -217,8 +220,9 @@
             "quotes": 0,
             "impressions": 39
           },
-          "sentiment": 0.12,
-          "sentiment_label": "neutral"
+          "sentiment": 0.05,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107232503505580309",
@@ -241,8 +245,9 @@
           },
           "district": "AD-7",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         }
       ],
       "highlights": [
@@ -277,8 +282,9 @@
           },
           "district": "AD-27",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107264968731324747",
@@ -301,8 +307,9 @@
           },
           "district": "AD-27",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107940336400003161",
@@ -321,7 +328,10 @@
             "impressions": 13
           },
           "district": "AD-27",
-          "author_note": "Likely false positive"
+          "author_note": "Likely false positive",
+          "sentiment": 0.85,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         }
       ],
       "highlights": [
@@ -353,8 +363,9 @@
             "quotes": 0,
             "impressions": 77
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": 0.042,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107564817733296335",
@@ -375,8 +386,9 @@
             "quotes": 0,
             "impressions": 145
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": 0.325,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107193218702164289",
@@ -397,8 +409,9 @@
             "quotes": 0,
             "impressions": 256
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": 0.892,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2106821718920892795",
@@ -416,7 +429,8 @@
             "replies": 0,
             "quotes": 0,
             "impressions": 67
-          }
+          },
+          "sentiment_method": "lexicon_unscored"
         },
         {
           "id": "2106558503393587441",
@@ -437,8 +451,9 @@
             "quotes": 0,
             "impressions": 333
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": 0.892,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107898452596359388",
@@ -459,8 +474,9 @@
             "quotes": 0,
             "impressions": 88
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": -0.241,
+          "sentiment_label": "negative",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107513199901995110",
@@ -481,8 +497,9 @@
             "quotes": 0,
             "impressions": 306
           },
-          "sentiment": 0.12,
-          "sentiment_label": "neutral"
+          "sentiment": -0.833,
+          "sentiment_label": "negative",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107262052096205288",
@@ -503,8 +520,9 @@
             "quotes": 0,
             "impressions": 96
           },
-          "sentiment": 0.28,
-          "sentiment_label": "positive"
+          "sentiment": 0.325,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107931095748731091",
@@ -527,8 +545,9 @@
           },
           "district": "AD-36",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107583485544386848",
@@ -551,8 +570,9 @@
           },
           "district": "AD-36",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107262252382646446",
@@ -575,8 +595,9 @@
           },
           "district": "AD-36",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107280866666004756",
@@ -598,8 +619,9 @@
           },
           "district": "AD-36",
           "author_note": "Anonymous private account, 10 impressions; unsourced claim",
-          "sentiment": -0.72,
-          "sentiment_label": "negative"
+          "sentiment": -0.35,
+          "sentiment_label": "negative",
+          "sentiment_method": "lexicon"
         }
       ],
       "highlights": [
@@ -629,7 +651,8 @@
             "replies": 0,
             "quotes": 0,
             "impressions": 33
-          }
+          },
+          "sentiment_method": "lexicon_unscored"
         },
         {
           "id": "2107613530644267126",
@@ -647,7 +670,8 @@
             "replies": 0,
             "quotes": 0,
             "impressions": 183
-          }
+          },
+          "sentiment_method": "lexicon_unscored"
         },
         {
           "id": "2107256473831252259",
@@ -665,7 +689,8 @@
             "replies": 0,
             "quotes": 0,
             "impressions": 179
-          }
+          },
+          "sentiment_method": "lexicon_unscored"
         }
       ],
       "highlights": [
@@ -697,8 +722,9 @@
           },
           "district": "AD-58",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.03,
+          "sentiment_label": "neutral",
+          "sentiment_method": "lexicon"
         },
         {
           "id": "2107583238067872136",
@@ -721,8 +747,9 @@
           },
           "district": "AD-58",
           "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-          "sentiment": 0.05,
-          "sentiment_label": "neutral"
+          "sentiment": 0.293,
+          "sentiment_label": "positive",
+          "sentiment_method": "lexicon"
         }
       ],
       "highlights": [
@@ -765,8 +792,9 @@
       },
       "district": "AD-36",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107639105089917352",
@@ -789,8 +817,9 @@
       },
       "district": "AD-58",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107583485544386848",
@@ -813,8 +842,9 @@
       },
       "district": "AD-36",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107583238067872136",
@@ -837,8 +867,9 @@
       },
       "district": "AD-58",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.293,
+      "sentiment_label": "positive",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107568310623846605",
@@ -861,8 +892,9 @@
       },
       "district": "AD-27",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107264968731324747",
@@ -885,8 +917,9 @@
       },
       "district": "AD-27",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107262252382646446",
@@ -909,8 +942,9 @@
       },
       "district": "AD-36",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107232503505580309",
@@ -933,8 +967,9 @@
       },
       "district": "AD-7",
       "author_note": "Automated bot that posts Cal-Access F497 (24-hour contribution) filings",
-      "sentiment": 0.05,
-      "sentiment_label": "neutral"
+      "sentiment": 0.03,
+      "sentiment_label": "neutral",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107280866666004756",
@@ -956,8 +991,9 @@
       },
       "district": "AD-36",
       "author_note": "Anonymous private account, 10 impressions; unsourced claim",
-      "sentiment": -0.72,
-      "sentiment_label": "negative"
+      "sentiment": -0.35,
+      "sentiment_label": "negative",
+      "sentiment_method": "lexicon"
     },
     {
       "id": "2107940336400003161",
@@ -976,7 +1012,10 @@
         "impressions": 13
       },
       "district": "AD-27",
-      "author_note": "Likely false positive"
+      "author_note": "Likely false positive",
+      "sentiment": 0.85,
+      "sentiment_label": "positive",
+      "sentiment_method": "lexicon"
     }
   ],
   "run_notes": {
@@ -995,7 +1034,7 @@
       "date": "2026-09-30",
       "district": "AD-7",
       "candidate_posts": {
-        "avg": 0.12,
+        "avg": 0.05,
         "n": 1
       },
       "mentions": {
@@ -1003,20 +1042,20 @@
         "n": 0
       },
       "toward_r": {
-        "avg": 0.12,
+        "avg": 0.05,
         "n": 1
       },
       "toward_d": {
         "avg": null,
         "n": 0
       },
-      "net": 0.12
+      "net": 0.05
     },
     {
       "date": "2026-10-01",
       "district": "AD-7",
       "candidate_posts": {
-        "avg": 0.38,
+        "avg": -0.539,
         "n": 1
       },
       "mentions": {
@@ -1024,20 +1063,20 @@
         "n": 0
       },
       "toward_r": {
-        "avg": 0.38,
+        "avg": -0.539,
         "n": 1
       },
       "toward_d": {
         "avg": null,
         "n": 0
       },
-      "net": 0.38
+      "net": -0.539
     },
     {
       "date": "2026-10-02",
       "district": "AD-7",
       "candidate_posts": {
-        "avg": 0.12,
+        "avg": 0.05,
         "n": 1
       },
       "mentions": {
@@ -1045,20 +1084,20 @@
         "n": 0
       },
       "toward_r": {
-        "avg": 0.12,
+        "avg": 0.05,
         "n": 1
       },
       "toward_d": {
         "avg": null,
         "n": 0
       },
-      "net": 0.12
+      "net": 0.05
     },
     {
       "date": "2026-10-03",
       "district": "AD-36",
       "candidate_posts": {
-        "avg": 0.28,
+        "avg": 0.892,
         "n": 1
       },
       "mentions": {
@@ -1066,24 +1105,24 @@
         "n": 0
       },
       "toward_r": {
-        "avg": 0.28,
+        "avg": 0.892,
         "n": 1
       },
       "toward_d": {
         "avg": null,
         "n": 0
       },
-      "net": 0.28
+      "net": 0.892
     },
     {
       "date": "2026-10-05",
       "district": "AD-27",
       "candidate_posts": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "toward_r": {
@@ -1091,62 +1130,62 @@
         "n": 0
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 2
       },
-      "net": -0.05
+      "net": -0.03
     },
     {
       "date": "2026-10-05",
       "district": "AD-36",
       "candidate_posts": {
-        "avg": -0.027,
+        "avg": 0.224,
         "n": 4
       },
       "mentions": {
-        "avg": -0.335,
+        "avg": -0.16,
         "n": 2
       },
       "toward_r": {
-        "avg": -0.053,
+        "avg": 0.289,
         "n": 3
       },
       "toward_d": {
-        "avg": -0.207,
+        "avg": -0.097,
         "n": 3
       },
-      "net": 0.154
+      "net": 0.386
     },
     {
       "date": "2026-10-05",
       "district": "AD-7",
       "candidate_posts": {
-        "avg": 0.085,
+        "avg": 0.04,
         "n": 2
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "toward_r": {
-        "avg": 0.12,
+        "avg": 0.05,
         "n": 1
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 2
       },
-      "net": 0.07
+      "net": 0.02
     },
     {
       "date": "2026-10-06",
       "district": "AD-27",
       "candidate_posts": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "toward_r": {
@@ -1154,41 +1193,41 @@
         "n": 0
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 2
       },
-      "net": -0.05
+      "net": -0.03
     },
     {
       "date": "2026-10-06",
       "district": "AD-36",
       "candidate_posts": {
-        "avg": 0.15,
+        "avg": -0.159,
         "n": 3
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "toward_r": {
-        "avg": 0.2,
+        "avg": -0.254,
         "n": 2
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 2
       },
-      "net": 0.15
+      "net": -0.284
     },
     {
       "date": "2026-10-06",
       "district": "AD-58",
       "candidate_posts": {
-        "avg": 0.05,
+        "avg": 0.161,
         "n": 2
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.161,
         "n": 2
       },
       "toward_r": {
@@ -1196,31 +1235,56 @@
         "n": 0
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.161,
         "n": 4
       },
-      "net": -0.05
+      "net": -0.161
+    },
+    {
+      "date": "2026-10-07",
+      "district": "AD-27",
+      "candidate_posts": {
+        "avg": 0.85,
+        "n": 1
+      },
+      "mentions": {
+        "avg": 0.85,
+        "n": 1
+      },
+      "toward_r": {
+        "avg": null,
+        "n": 0
+      },
+      "toward_d": {
+        "avg": null,
+        "n": 0
+      },
+      "net": null
     },
     {
       "date": "2026-10-07",
       "district": "AD-36",
       "candidate_posts": {
-        "avg": 0.203,
+        "avg": -0.056,
         "n": 3
       },
       "mentions": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 1
       },
       "toward_r": {
-        "avg": 0.28,
+        "avg": -0.099,
         "n": 2
       },
       "toward_d": {
-        "avg": 0.05,
+        "avg": 0.03,
         "n": 2
       },
-      "net": 0.23
+      "net": -0.129
     }
-  ]
+  ],
+  "sentiment_scoring": {
+    "method": "lexicon",
+    "label": "Tone est. from post text (deterministic lexicon; not polling)"
+  }
 }

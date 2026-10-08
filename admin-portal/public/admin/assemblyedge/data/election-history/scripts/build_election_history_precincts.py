@@ -27,7 +27,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 
 from shapely.geometry import mapping, shape
-from shapely.ops import transform
+from shapely.ops import transform, unary_union
 from shapely.strtree import STRtree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,11 +38,11 @@ LATEST = ROOT / "latest"
 BEACHHEAD = {"7", "27", "36", "47", "58", "74"}
 COUNTY_FIPS = {
     "7": [67, 61],
-    "27": [19, 39],
-    "36": [25],  # Imperial (CRC AD-36); SOV addist filter — not Kern/LA
-    "47": [65],
-    "58": [65],
-    "74": [59],
+    "27": [19, 39, 47],  # Fresno, Madera, Merced
+    "36": [25, 65, 71],  # Imperial, Riverside, San Bernardino (CRC AD-36)
+    "47": [65, 71],
+    "58": [65, 71],
+    "74": [59, 73],  # Orange + San Diego (north county portion of AD)
 }
 
 RACES = {
@@ -401,66 +401,107 @@ def load_srprec_shapes(cid: int, cycle: str) -> list[dict]:
     return out
 
 
+def load_county_sov_by_cycle(dist: str, cid: int) -> tuple[dict[str, dict], dict[str, dict], list[str]]:
+    """Per county: g22/g24 SOV maps keyed by srprec + gap notes."""
+    gaps: list[str] = []
+    by_cycle: dict[str, dict[str, dict]] = {"g22": {}, "g24": {}}
+    for race_id, meta in RACES.items():
+        cycle = meta["cycle"]
+        sov_url = meta["sov_template"].format(cid=cid)
+        rows = load_county_sov(sov_url)
+        if not rows:
+            gaps.append(
+                f"AD-{dist}: missing {meta['label']} SOV in {CA_COUNTY_NAMES.get(cid, cid)} ({cid:03d})"
+            )
+            continue
+        by_cycle[cycle].update(sov_by_srprec(rows))
+    return by_cycle["g22"], by_cycle["g24"], gaps
+
+
+def clipped_precincts_for_county(ad_poly, cid: int, cycle: str) -> dict[tuple[int, str], object]:
+    """(county_fips, srprec) → shapely geometry clipped to AD."""
+    out: dict[tuple[int, str], object] = {}
+    try:
+        shapes = load_srprec_shapes(cid, cycle)
+    except Exception as exc:
+        print(f"    shape load {cycle} county {cid:03d} failed: {exc}", file=sys.stderr)
+        return out
+    for sh in shapes:
+        key = (cid, sh["srprec"])
+        if key in out:
+            continue
+        geom = sh["geom"]
+        if not ad_poly.intersects(geom):
+            continue
+        inter = fix_geom(ad_poly.intersection(geom))
+        if inter.is_empty or inter.area <= 0:
+            continue
+        out[key] = inter
+    return out
+
+
 def build_district(
     dist: str, ad_poly, places: list[dict], place_tree: STRtree | None
 ) -> tuple[dict, list[str], dict]:
     gaps: list[str] = []
-    race_stats: dict[str, dict[str, dict]] = {k: {} for k in RACES}
-    geometries: dict[tuple[int, str], dict] = {}
+    expected = COUNTY_FIPS.get(dist, [])
+    counties_loaded: set[int] = set()
+    county_sov_g22: dict[int, dict[str, dict]] = {}
+    county_sov_g24: dict[int, dict[str, dict]] = {}
+    geom_g22: dict[tuple[int, str], object] = {}
+    geom_g24: dict[tuple[int, str], object] = {}
 
-    for cid in COUNTY_FIPS.get(dist, []):
+    for cid in expected:
         print(f"  county {cid:03d} …")
-        for race_id, meta in RACES.items():
-            sov_url = meta["sov_template"].format(cid=cid)
-            rows = load_county_sov(sov_url)
-            if not rows:
-                gaps.append(f"AD-{dist}: missing SOV for {race_id} in county {cid:03d}")
-                continue
-            race_stats[race_id].update(sov_by_srprec(rows))
-
-        # Prefer g22 boundaries (stable, smaller); fall back to g24 if g22 shapes fail
-        shapes = []
-        for cycle in ("g22", "g24"):
-            try:
-                shapes = load_srprec_shapes(cid, cycle)
-                if shapes:
-                    break
-            except Exception as exc:
-                print(f"    shape load {cycle} failed: {exc}", file=sys.stderr)
-        if not shapes:
-            gaps.append(f"AD-{dist}: no SR precinct shapes for county {cid:03d}")
+        g22_map, g24_map, county_gaps = load_county_sov_by_cycle(dist, cid)
+        gaps.extend(county_gaps)
+        county_sov_g22[cid] = g22_map
+        county_sov_g24[cid] = g24_map
+        g22_shapes = clipped_precincts_for_county(ad_poly, cid, "g22")
+        g24_shapes = clipped_precincts_for_county(ad_poly, cid, "g24")
+        if not g22_shapes and not g24_shapes:
+            gaps.append(
+                f"AD-{dist}: no SR precinct shapes clipped in {CA_COUNTY_NAMES.get(cid, cid)} ({cid:03d})"
+            )
             continue
+        counties_loaded.add(cid)
+        geom_g22.update(g22_shapes)
+        geom_g24.update(g24_shapes)
 
-        for sh in shapes:
-            key = (cid, sh["srprec"])
-            if key in geometries:
-                continue
-            geom = sh["geom"]
-            if not ad_poly.intersects(geom):
-                continue
-            inter = fix_geom(ad_poly.intersection(geom))
-            if inter.is_empty or inter.area <= 0:
-                continue
-            geometries[key] = {"county_fips": cid, "srprec": sh["srprec"], "geom": inter}
-
+    all_keys = set(geom_g22.keys()) | set(geom_g24.keys())
     features = []
     place_matched_count = 0
-    for (cid, srprec), rec in sorted(geometries.items(), key=lambda x: (x[0][0], x[0][1])):
-        geom = rec["geom"]
-        precinct_area = geom.area
+    g24_with_results = 0
+    coverage_geoms: list = []
+
+    for key in sorted(all_keys, key=lambda k: (k[0], k[1])):
+        cid, srprec = key
+        geom_g22_here = geom_g22.get(key)
+        geom_g24_here = geom_g24.get(key)
+        stats_g22 = county_sov_g22.get(cid, {}).get(srprec)
+        stats_g24 = county_sov_g24.get(cid, {}).get(srprec)
+        display_geom = geom_g24_here or geom_g22_here
+        if display_geom is None:
+            continue
+        has_g22 = stats_g22 and stats_g22.get("votes_two_party", 0) > 0
+        has_g24 = stats_g24 and stats_g24.get("votes_two_party", 0) > 0
+        if not has_g22 and not has_g24:
+            continue
+
+        precinct_area = display_geom.area
         props = {
             "county_fips": cid,
             "srprec": srprec,
             "precinct_id": f"{cid:03d}-{srprec}",
         }
-        props.update(place_overlap_props(geom, precinct_area, places, place_tree, cid))
+        props.update(place_overlap_props(display_geom, precinct_area, places, place_tree, cid))
         matched_place = props.pop("place_matched", False)
-        props["bbox"] = geom_bbox(geom)
-        has_any = False
-        for race_id in RACES:
-            stats = race_stats[race_id].get(srprec)
-            if stats and stats.get("votes_two_party", 0) > 0:
-                has_any = True
+        props["bbox"] = geom_bbox(display_geom)
+        for race_id, stats, ok in (
+            ("g22_asm", stats_g22, has_g22),
+            ("g24_asm", stats_g24, has_g24),
+        ):
+            if ok and stats:
                 props[race_id] = {
                     "dem_pct": stats["dem_pct"],
                     "margin_dem": stats["margin_dem"],
@@ -469,20 +510,48 @@ def build_district(
                 }
             else:
                 props[race_id] = None
-        if not has_any:
-            continue
+        if has_g24:
+            g24_with_results += 1
         if matched_place:
             place_matched_count += 1
-        features.append(
-            {
-                "type": "Feature",
-                "properties": props,
-                "geometry": geom_to_geojson(geom, PRECINCT_MAX_PTS),
-            }
-        )
+        if geom_g22_here is not None:
+            coverage_geoms.append(geom_g22_here)
+        elif geom_g24_here is not None:
+            coverage_geoms.append(geom_g24_here)
+
+        feat = {
+            "type": "Feature",
+            "properties": props,
+            "geometry": geom_to_geojson(geom_g22_here or geom_g24_here, PRECINCT_MAX_PTS),
+        }
+        if geom_g24_here is not None and geom_g22_here is not None:
+            feat["geometry_g24"] = geom_to_geojson(geom_g24_here, PRECINCT_MAX_PTS)
+        elif geom_g24_here is not None and geom_g22_here is None:
+            feat["geometry"] = geom_to_geojson(geom_g24_here, PRECINCT_MAX_PTS)
+        features.append(feat)
 
     if not features:
         gaps.append(f"AD-{dist}: no precinct features with Assembly vote totals")
+
+    missing_counties = [c for c in expected if c not in counties_loaded]
+    for cid in missing_counties:
+        gaps.append(
+            f"AD-{dist}: county not loaded — {CA_COUNTY_NAMES.get(cid, cid)} ({cid:03d})"
+        )
+
+    area_coverage_pct = 0.0
+    if coverage_geoms and not ad_poly.is_empty:
+        try:
+            covered = fix_geom(unary_union(coverage_geoms))
+            area_coverage_pct = round(min(100.0, 100.0 * covered.area / ad_poly.area), 1)
+        except Exception:
+            area_coverage_pct = 0.0
+    if area_coverage_pct < 99.5:
+        gaps.append(
+            f"AD-{dist}: ~{area_coverage_pct}% of district area has SR precinct coverage in this bundle"
+        )
+
+    g24_results_pct = round(100.0 * g24_with_results / len(features), 1) if features else 0.0
 
     fc = {
         "type": "FeatureCollection",
@@ -508,6 +577,10 @@ def build_district(
         )
         if features
         else 0.0,
+        "area_coverage_pct": area_coverage_pct,
+        "g24_results_pct": g24_results_pct,
+        "counties_loaded": sorted(counties_loaded),
+        "counties_expected": list(expected),
     }
     return fc, gaps, place_stats
 
@@ -566,6 +639,10 @@ def main() -> int:
                 "precinct_count": len(fc["features"]),
                 "place_primary_matched": place_stats["place_primary_matched"],
                 "place_primary_matched_pct": place_stats["place_primary_matched_pct"],
+                "area_coverage_pct": place_stats["area_coverage_pct"],
+                "g24_results_pct": place_stats["g24_results_pct"],
+                "counties_loaded": place_stats["counties_loaded"],
+                "counties_expected": place_stats["counties_expected"],
                 "races": races_present,
                 "gaps": [g for g in gaps if g.startswith(f"AD-{dist}")],
             }

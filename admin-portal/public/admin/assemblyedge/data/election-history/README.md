@@ -51,15 +51,17 @@ Manifest rows include `place_primary_matched` and `place_primary_matched_pct` (s
 |----|-------------------------------|
 | 7 | Sacramento (067), Placer (061) |
 | 27 | Fresno (019), Madera (039) |
-| 36 | Imperial (025) — SOV `addist` filter (not Kern/LA) |
-| 47, 58 | Riverside (065) |
-| 74 | Orange (059) |
+| 27 | Fresno (019), Madera (039), Merced (047) |
+| 36 | Imperial (025), Riverside (065), San Bernardino (071) |
+| 47, 58 | Riverside (065), San Bernardino (071) |
+| 74 | Orange (059), San Diego (073) |
 
 If SWDB omits a county SOV or shapes, the manifest records a row in `gaps[]` and the UI shows a labeled banner.
 
 ## Limitations
 
-- **SR precinct** is the finest geography SWDB publishes statewide for free; precinct IDs can change between cycles — 2022 boundaries are drawn with g22 shapes, with g24 SOV joined on matching `srprec` within county.
+- **SR precinct** is the finest geography SWDB publishes statewide for free; precinct IDs can change between cycles — 2022 map uses g22 shapes; 2024 contest uses g24 shapes when they differ (`geometry_g24` on features).
+- Manifest rows include `area_coverage_pct` (union of clipped precinct area ÷ AD polygon) and `g24_results_pct`; sub-100% coverage shows an honest gap banner in the UI.
 - Two-party margin only (Dem + Rep); minor-party Assembly votes are excluded from the denominator.
 - Small masked precincts in SWDB may show no contest totals.
 - Static bundle size (~1.2 MB for six ADs) — extend beyond beachheads only with asset budget in mind.

@@ -39,7 +39,7 @@ BEACHHEADS = {
 }
 
 DEFAULT_ROR_XLSX = (
-    "https://elections.cdn.sos.ca.gov/ror/ror-odd-year-2025/assembly.xlsx"
+    "https://elections.cdn.sos.ca.gov/ror/60day-gen-2026/assembly.xlsx"
 )
 CENSUS_REPORTER = "https://api.censusreporter.org/1.0/data/show/latest"
 CENSUS_API = "https://api.census.gov/data/2023/acs/acs5"
@@ -519,8 +519,8 @@ def load_registration(source_url: str, raw_path: Path | None) -> tuple[dict[int,
         "source_url": source_url,
         "raw_file": data_path.name,
         "fetched_from": fetched_from,
-        "as_of": "2025-02-10",
-        "as_of_note": "Odd-year February 2025 statewide ROR (Assembly district worksheet)",
+        "as_of": "2026-09-04",
+        "as_of_note": "60-day Report of Registration before Nov 3, 2026 general (Assembly district worksheet)",
     }
     return parsed, meta
 
