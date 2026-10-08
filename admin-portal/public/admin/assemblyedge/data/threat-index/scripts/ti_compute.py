@@ -5,12 +5,13 @@ from __future__ import annotations
 import datetime as dt
 from typing import Any
 
-# Ad surge omitted (no free Assembly-race source). Polls may be excluded per district.
+# Polls may be excluded per district (weights renormalized). Ad surge uses Google weekly spend.
 BASE_WEIGHTS = {
-    "money": 0.3125,
-    "ie": 0.25,
-    "narrative": 0.25,
-    "polls": 0.1875,
+    "money": 0.25,
+    "ie": 0.20,
+    "ads": 0.20,
+    "narrative": 0.20,
+    "polls": 0.15,
 }
 
 # Back-compat name used in tests
@@ -48,6 +49,85 @@ def effective_weights(poll_included: bool) -> dict[str, float]:
     active = {k: v for k, v in BASE_WEIGHTS.items() if k != "polls"}
     total = sum(active.values())
     return {k: v / total for k, v in active.items()}
+
+
+def _weeks_are_consecutive(week_a: str | None, week_b: str | None) -> bool:
+    d1 = parse_date(week_a)
+    d2 = parse_date(week_b)
+    if not d1 or not d2:
+        return False
+    return (d2 - d1).days == 7
+
+
+def ad_surge_raw(weekly_rows: list[dict[str, Any]] | None) -> float:
+    """
+    Google weekly spend signal: recent level × week-over-week change.
+    Uses the two most recent weeks in the district rollup when they are consecutive
+    bundle weeks (7-day step). Missing weeks do not imply a drop.
+    """
+    if not weekly_rows or len(weekly_rows) < 1:
+        return 0.0
+    ordered = sorted(weekly_rows, key=lambda r: r.get("week_start") or "")
+    last = float(ordered[-1].get("spend_usd") or 0)
+    prior = 0.0
+    wow = 0.0
+    if len(ordered) >= 2:
+        prior_row = ordered[-2]
+        prior = float(prior_row.get("spend_usd") or 0)
+        if _weeks_are_consecutive(prior_row.get("week_start"), ordered[-1].get("week_start")):
+            if prior > 0:
+                wow = (last - prior) / prior
+            else:
+                wow = 0.0
+    import math
+
+    recent14 = sum(float(x.get("spend_usd") or 0) for x in ordered[-4:])
+    level = math.log1p(recent14)
+    return level * (1.0 + max(-0.5, min(2.0, wow)))
+
+
+def normalize_ad_scores(
+    ad_raw: dict[str, float],
+    has_matched_ads: dict[str, bool],
+) -> dict[str, float]:
+    """Districts with no matched Google ads get surge score 0 (not missing, not mid-rank)."""
+    with_ads = {did: ad_raw[did] for did in ad_raw if has_matched_ads.get(did)}
+    normed = normalize_across(with_ads) if with_ads else {}
+    out: dict[str, float] = {}
+    for did in ad_raw:
+        if not has_matched_ads.get(did):
+            out[did] = 0.0
+        else:
+            out[did] = normed.get(did, 0.0)
+    return out
+
+
+def ad_surge_blurb(weekly_rows: list[dict[str, Any]] | None, score: int) -> str:
+    if not weekly_rows:
+        return (
+            "No matched Google advertisers for this district in the transparency bundle. "
+            "Ad surge score 0 (no surge signal — not excluded from the composite). Meta not included."
+        )
+    ordered = sorted(weekly_rows, key=lambda r: r.get("week_start") or "")
+    last = ordered[-1]
+    prior = ordered[-2] if len(ordered) >= 2 else None
+    last_amt = float(last.get("spend_usd") or 0)
+    prior_amt = float(prior.get("spend_usd") or 0) if prior else 0.0
+    wow_pct = None
+    if prior and _weeks_are_consecutive(prior.get("week_start"), last.get("week_start")) and prior_amt > 0:
+        wow_pct = (last_amt - prior_amt) / prior_amt * 100.0
+    if wow_pct is not None:
+        wow_txt = f"{wow_pct:+.0f}% vs prior consecutive week"
+    elif prior and not _weeks_are_consecutive(prior.get("week_start"), last.get("week_start")):
+        wow_txt = "prior bundle week not consecutive (WoW not scored)"
+    else:
+        wow_txt = "prior week $0 or single week (WoW not scored)"
+    return (
+        "Google Political Ads Transparency weekly spend (US advertisers only). "
+        f"Formula: rank across six beachheads of log1p(≈14d spend) × (1 + clamp(WoW, −50%, +200%)). "
+        f"Latest week starting {last.get('week_start')}: ${last_amt:,.0f} ({wow_txt}). "
+        f"District score after cross-beachhead normalization: {score}. Meta not included."
+    )
 
 
 def narrative_score_from_count(count_7d: int) -> int:
@@ -196,6 +276,8 @@ def compute_district_ti(
     *,
     money_scores: dict[str, float],
     ie_scores: dict[str, float],
+    ad_scores: dict[str, float] | None = None,
+    ad_weekly_by_district: dict[str, list[dict[str, Any]]] | None = None,
 ) -> dict[str, Any]:
     narr_count = int(narrative_raw(news_items, as_of))
     narr_score = narrative_score_from_count(narr_count)
@@ -203,9 +285,13 @@ def compute_district_ti(
     poll_included = poll_is_recent(poll_row, gap_days, as_of)
     weights = effective_weights(poll_included)
 
+    ad_sc = (ad_scores or {}).get(district_id, 0.0)
+    weekly_rows = (ad_weekly_by_district or {}).get(district_id) or []
+
     factor_scores: dict[str, float] = {
         "money": money_scores.get(district_id, 50.0),
         "ie": ie_scores.get(district_id, 50.0),
+        "ads": float(ad_sc),
         "narrative": float(narr_score),
     }
     poll_blurb = poll_excluded_blurb(poll_row, gap_days, as_of)
@@ -245,11 +331,10 @@ def compute_district_ti(
         {
             "id": "ads",
             "label": "Ad surge",
-            "score": None,
-            "weight": 0.0,
-            "trend": "flat",
-            "blurb": "Excluded — no confirmed free Meta/Google source for CA Assembly advertisers.",
-            "unavailable": True,
+            "score": int(round(ad_sc)),
+            "weight": weights["ads"],
+            "trend": _ad_trend(weekly_rows),
+            "blurb": ad_surge_blurb(weekly_rows, int(round(ad_sc))),
         },
         {
             "id": "narrative",
@@ -324,6 +409,19 @@ def _trend_from_late(late_row: dict[str, Any] | None) -> str:
     if recent > prior * 1.1:
         return "up"
     if recent < prior * 0.9:
+        return "down"
+    return "flat"
+
+
+def _ad_trend(weekly_rows: list[dict[str, Any]] | None) -> str:
+    if not weekly_rows or len(weekly_rows) < 2:
+        return "flat"
+    ordered = sorted(weekly_rows, key=lambda r: r.get("week_start") or "")
+    last = float(ordered[-1].get("spend_usd") or 0)
+    prior = float(ordered[-2].get("spend_usd") or 0)
+    if last > prior * 1.1:
+        return "up"
+    if last < prior * 0.9:
         return "down"
     return "flat"
 

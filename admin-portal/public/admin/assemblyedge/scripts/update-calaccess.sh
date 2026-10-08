@@ -6,5 +6,6 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] update-calaccess starting"
 python3 data/calaccess/scripts/ingest_calaccess.py "$@"
+python3 data/calaccess/scripts/build_weekly_receipts.py || echo "[warn] weekly itemized receipts skipped (no ZIP or RCPT stream failed)"
 bash scripts/update-intel.sh
 echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] done → data/calaccess/latest/money-by-district.json + late-money-by-district.json + threat-index"

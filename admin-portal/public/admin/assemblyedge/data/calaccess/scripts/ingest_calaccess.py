@@ -1269,8 +1269,9 @@ def build_district_payload(
             "cash_on_hand_latest": rolled.get("cash_on_hand_latest"),
             "deltaReceipts": None,  # not computable without daily ledger
             "deltaSpend": None,
-            "series": candidate_series_placeholder(rolled["receipts"], rolled["spend"]),
-            "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
+            "series": None,
+            "series_note": "Weekly itemized receipts require build_weekly_receipts.py (RCPT_CD / S497)",
+            "weekly_receipts_insufficient": True,
             "match_quality": rolled.get("match_quality"),
             "match_score": rolled.get("match_score"),
             "match_reason": rolled.get("match_reason"),

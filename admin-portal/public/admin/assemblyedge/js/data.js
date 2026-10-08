@@ -111,7 +111,7 @@ AE.methodology = {
   },
   ads: {
     title: "Ad surge",
-    body: "Excluded from Threat Index until wired in this build. Ads tab shows availability state per district.",
+    body: "Google Political Ads Transparency weekly spend (build-time bundle). Ranked across six beachheads: log1p(≈14d spend) × (1 + clamp(latest-week WoW, −50%, +200%)). Meta not included — see Ads tab.",
   },
   narrative: {
     title: "Narrative heat",

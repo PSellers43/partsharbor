@@ -764,6 +764,82 @@ button {
 .spark.oppose polyline { stroke: var(--danger); }
 .spark.support polyline { stroke: var(--ok); }
 
+/* Ads — weekly spend (Google Transparency) */
+.ads-side-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+.ads-side-card {
+  margin-top: 0 !important;
+}
+.ads-weekly-wrap {
+  margin: 8px 0 4px;
+}
+.ads-weekly-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  min-height: 132px;
+  padding: 0 2px 0;
+  border-bottom: 1px solid var(--border);
+}
+.ads-weekly-bar {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  height: 132px;
+}
+.ads-weekly-bar-fill {
+  width: 100%;
+  max-width: 36px;
+  border-radius: 4px 4px 0 0;
+  transition: height 0.15s ease;
+}
+.ads-bar-rep {
+  background: var(--danger);
+}
+.ads-bar-dem {
+  background: var(--accent);
+}
+.ads-bar-ie {
+  background: var(--warn);
+}
+.ads-weekly-amt {
+  font-size: 9px;
+  line-height: 1.1;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ads-weekly-wk {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+.ads-weekly-latest {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+[data-theme="light"] .ads-bar-rep {
+  background: #dc2626;
+}
+[data-theme="light"] .ads-bar-dem {
+  background: #2563eb;
+}
+[data-theme="light"] .ads-bar-ie {
+  background: #b45309;
+}
+
 /* Ads */
 .ads-grid {
   display: grid;

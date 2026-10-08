@@ -1112,7 +1112,7 @@
           <h3 class="card-title">How to read</h3>
           <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">
             Threat Index is a <strong style="color:var(--text)">relative desk signal</strong>, not a prediction of seat outcome.
-            Elevated (≥65) means money, IE, narrative, or poll inputs combined high enough to warrant operator attention this week. Ad surge is not included (no free source).
+            Elevated (≥65) means money, IE, Google ad surge, narrative, or poll inputs combined high enough to warrant operator attention this week. Ad surge uses the Google Political Ads Transparency bundle (see Ads tab; Meta not included).
           </p>
           <ul style="margin:14px 0 0;padding-left:18px;color:var(--text-muted);font-size:13px;line-height:1.55">
             <li>24h/7d TI change requires daily snapshots — first day shows a history note instead of invented deltas.</li>
@@ -1189,6 +1189,9 @@
 
     if (useLive || weakLive) {
       const asOf = formatAsOf((AE.liveMoney && (AE.liveMoney.data_as_of || AE.liveMoney.generated_at)) || "");
+      const weeklyLabel =
+        (AE.liveMoney && AE.liveMoney.weekly_itemized && AE.liveMoney.weekly_itemized.label) ||
+        "Weekly itemized receipts (CAL-ACCESS)";
       const badge = useLive
         ? `<span class="chip chip-live">LIVE CAL-ACCESS</span>`
         : `<span class="chip chip-live-weak">CAL-ACCESS · weak match</span>`;
@@ -1205,8 +1208,10 @@
             const tag = r.live === false
               ? `<span class="chip chip-demo">Unmatched</span>`
               : `<span class="chip chip-live">Filed</span>`;
-            const series = Array.isArray(r.series) && r.series.length ? r.series : [0, 0, 0, 0, 0, 0, 0, 0];
-            const sparkCls = r.side === "oppose" ? "oppose" : r.side === "support" ? "support" : "";
+            const insufficient = r.weekly_receipts_insufficient || !Array.isArray(r.series) || !r.series.length;
+            const sparkCell = insufficient
+              ? `<span class="muted" title="${r.series_note || "Not enough itemized filings"}">not enough filings</span>`
+              : sparkline(r.series, r.side === "oppose" ? "oppose" : r.side === "support" ? "support" : "");
             const sub = r.committee_name
               ? `<div class="money-role">${role}${q}</div><div class="money-role" style="opacity:0.8">${r.committee_name}</div>`
               : `<div class="money-role">${role}${q}</div>`;
@@ -1215,7 +1220,7 @@
               <td class="mono">${formatMoneyExact(r.receipts)} ${tag}</td>
               <td class="mono">${formatMoneyExact(r.spend)}</td>
               <td>${deltaCell}</td>
-              <td>${sparkline(series, sparkCls)}</td>
+              <td>${sparkCell}</td>
             </tr>`;
           })
           .join("");
@@ -1232,14 +1237,14 @@
             ${weakLive ? " · <strong>Match weak — treat figures cautiously</strong>" : ""}
           </p>
           <table class="money-table">
-            <thead><tr><th>Entity</th><th>Receipts</th><th>Spend</th><th>Spend Δ</th><th>8w pace</th></tr></thead>
+            <thead><tr><th>Entity</th><th>Receipts</th><th>Spend</th><th>Spend Δ</th><th>Weekly receipts</th></tr></thead>
             <tbody>
               ${rows(liveDist.candidates || [])}
               ${rows(liveDist.ie || [])}
             </tbody>
           </table>
           <p class="money-source-note" style="margin-top:12px">
-            Provenance: Form 460 SMRY lines 5/11 (committee cycle period sums) + Form 496/S496 IE amounts.
+            ${weeklyLabel || "Weekly itemized receipts (CAL-ACCESS)"} — sparkline buckets are Mon-week sums from RCPT_CD + S497 (not Form 460 period totals).
             Candidate WoW is n/a from period summaries; IE WoW uses expenditure dates when present.
             Name↔district matching is imperfect — see <code>CALACCESS.md</code>.
           </p>
@@ -1431,6 +1436,9 @@
     if (AE.socialData && !AE.socialLoadError) {
       parts.push("X digest (paid API)");
     }
+    if (AE.adsData && !AE.adsLoadError) {
+      parts.push("Google Ads (" + (AE.adsData.as_of_pt || "bundle") + ")");
+    }
     return parts.length ? parts.join("; ") : "none — refresh static bundles";
   }
 
@@ -1556,34 +1564,14 @@
   }
 
   function renderAds(d) {
-    const el = $("#ads-panel");
-    const ads = AE.ads && AE.ads[d.id];
-    const unavail = AE.adsUnavailable || { message: "No free, reliable ad data source yet for CA Assembly races." };
-    if (!ads) {
-      el.innerHTML = `<div class="empty-state"><h3>Ad data unavailable</h3><p>${unavail.message}</p>
-        <p style="margin-top:12px;font-size:13px;color:var(--text-muted)">When a confirmed free Meta Ad Library / Google Ads Transparency feed covers these Assembly advertisers, this tab can wire creative counts here. Until then, no demo bands are shown.</p>
-        <p style="margin-top:12px"><a href="https://www.facebook.com/ads/library/" target="_blank" rel="noopener noreferrer">Meta Ad Library ↗</a> · <a href="https://adstransparency.google.com/" target="_blank" rel="noopener noreferrer">Google Ads Transparency ↗</a></p></div>`;
+    if (AE.ads && AE.ads.renderPanel) {
+      AE.ads.renderPanel(d.id);
       return;
     }
-    el.innerHTML = `
-      <div class="ads-grid">
-        ${ads
-          .map(
-            (a) => `
-          <div class="ad-card">
-            <div class="ad-platform">${a.platform} <span class="chip chip-demo">${a.note}</span></div>
-            <div class="ad-sponsor">${a.sponsor}</div>
-            <dl class="ad-stats">
-              <div><dt>Creatives</dt><dd>${a.creatives}</dd></div>
-              <div><dt>Spend band</dt><dd>${a.spendBand}</dd></div>
-              <div><dt>First seen</dt><dd>${a.firstSeen}</dd></div>
-              <div><dt>Last seen</dt><dd>${a.lastSeen}</dd></div>
-            </dl>
-            <a class="ad-link" href="${a.link}" target="_blank" rel="noopener noreferrer">Open ${a.platform === "Meta" ? "Ad Library" : "Ads Transparency"} ↗</a>
-          </div>`
-          )
-          .join("")}
-      </div>`;
+    const el = $("#ads-panel");
+    if (el) {
+      el.innerHTML = `<div class="empty-state"><h3>Ad module not loaded</h3></div>`;
+    }
   }
 
   function renderNarrative(d) {
@@ -2318,6 +2306,7 @@
       AE.focusMap.loadGeo(),
       AE.social && AE.social.load ? AE.social.load() : Promise.resolve(),
       AE.intel && AE.intel.load ? AE.intel.load() : Promise.resolve(),
+      AE.ads && AE.ads.load ? AE.ads.load() : Promise.resolve(),
     ]).then(() => {
       if (AE.pollingDesk && AE.pollingDesk.applyThreatIndexRuntime) AE.pollingDesk.applyThreatIndexRuntime();
       if (AE.intel && AE.intel.computeMaxSpend) AE.intel.computeMaxSpend();

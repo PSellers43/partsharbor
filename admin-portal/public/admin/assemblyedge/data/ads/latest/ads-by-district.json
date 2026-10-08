@@ -1,0 +1,4836 @@
+{
+  "schema_version": 1,
+  "product": "MajorityIQ",
+  "generated_at": "2026-10-08T02:50:55.896736Z",
+  "as_of_pt": "2026-10-07 13:51:37",
+  "source": {
+    "publisher": "Google",
+    "dataset": "Political Ads Transparency bundle",
+    "url": "https://storage.googleapis.com/political-csv/google-political-ads-transparency-bundle.zip",
+    "files_used": [
+      "google-political-ads-advertiser-weekly-spend.csv",
+      "google-political-ads-advertiser-stats.csv",
+      "google-political-ads-updated.csv",
+      "google-political-ads-creative-stats.csv"
+    ],
+    "commit_limits": {
+      "max_weeks": 16,
+      "max_advertisers_per_district": 10,
+      "max_advertisers_per_side": 6
+    },
+    "attribution": "Public Google Political Ads Transparency data. Not a Google endorsement of MajorityIQ."
+  },
+  "matching": {
+    "methods": [
+      "Candidate/committee name patterns from data/calaccess/beachheads.json",
+      "CAL-ACCESS IE committee names from money-by-district.json (normalized substring)",
+      "Geo_Targeting_Included in creative-stats when explicit CA Assembly district text appears"
+    ],
+    "limitations": "ZIP-level geo without district numbers is not mapped. Meta not included."
+  },
+  "districts": {
+    "ad-7": {
+      "id": "ad-7",
+      "code": "AD-7",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR14812347910385041409",
+          "advertiser_name": "Amy Slavensky for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 61900.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 400.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 22000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 31800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 7700.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR14812347910385041409?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07661785596624371713",
+          "advertiser_name": "HOOVER FOR ASSEMBLY 2024",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 56700.0,
+          "total_creatives": 8,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1900.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07661785596624371713?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10953842329240207361",
+          "advertiser_name": "KEEPING CALIFORNIANS WORKING, A COALITION OF INSURANCE AGENTS, TECHNOLOGY, ENERGY, AND HEALTH CARE PROVIDERS",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 46800.0,
+          "total_creatives": 11,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10953842329240207361?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR08108878334789681153",
+          "advertiser_name": "California Correctional Peace Officers Association Local Political Action Committee",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 25500.0,
+          "total_creatives": 3,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 1400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 5100.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 8300.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 8100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 2700.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR08108878334789681153?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13637375073017921537",
+          "advertiser_name": "CALIFORNIA CORRECTIONAL PEACE OFFICERS ASSOCIATION LOCAL POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 19100.0,
+          "total_creatives": 6,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13637375073017921537?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06098008078827913217",
+          "advertiser_name": "Legislative Action PAC",
+          "side": "IE",
+          "match_reasons": [
+            "curated_ie_name"
+          ],
+          "total_spend_usd": 12700.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5600.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 6800.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13500263464773353473",
+          "advertiser_name": "CITIZENS AND COMMUNITIES FOR FAIR GOVERNMENT",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12300.0,
+          "total_creatives": 1,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13500263464773353473?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR04385889150906138625",
+          "advertiser_name": "LEGISLATIVE ACTION VICTORY PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name",
+            "curated_ie_name"
+          ],
+          "total_spend_usd": 11800.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 1600.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 3700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 800.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1000.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04385889150906138625?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR12083667844781309953",
+          "advertiser_name": "Citizens and Communities for Fair Government, sponsored by California Commerce Club",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 10500.0,
+          "total_creatives": 1,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 2500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 3300.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3300.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 1300.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR12083667844781309953?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR14812347910385041409",
+          "advertiser_name": "Amy Slavensky for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 61900.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 400.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 22000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 31800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 7700.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR14812347910385041409?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07661785596624371713",
+          "advertiser_name": "HOOVER FOR ASSEMBLY 2024",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 56700.0,
+          "total_creatives": 8,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1900.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07661785596624371713?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10953842329240207361",
+          "advertiser_name": "KEEPING CALIFORNIANS WORKING, A COALITION OF INSURANCE AGENTS, TECHNOLOGY, ENERGY, AND HEALTH CARE PROVIDERS",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 46800.0,
+          "total_creatives": 11,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10953842329240207361?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR08108878334789681153",
+          "advertiser_name": "California Correctional Peace Officers Association Local Political Action Committee",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 25500.0,
+          "total_creatives": 3,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 1400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 5100.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 8300.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 8100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 2700.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR08108878334789681153?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13637375073017921537",
+          "advertiser_name": "CALIFORNIA CORRECTIONAL PEACE OFFICERS ASSOCIATION LOCAL POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 19100.0,
+          "total_creatives": 6,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13637375073017921537?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06098008078827913217",
+          "advertiser_name": "Legislative Action PAC",
+          "side": "IE",
+          "match_reasons": [
+            "curated_ie_name"
+          ],
+          "total_spend_usd": 12700.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5600.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 6800.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13500263464773353473",
+          "advertiser_name": "CITIZENS AND COMMUNITIES FOR FAIR GOVERNMENT",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12300.0,
+          "total_creatives": 1,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13500263464773353473?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2025-02-09",
+          "spend_usd": 100.0
+        },
+        {
+          "week_start": "2026-05-03",
+          "spend_usd": 1400.0
+        },
+        {
+          "week_start": "2026-05-10",
+          "spend_usd": 54100.0
+        },
+        {
+          "week_start": "2026-05-17",
+          "spend_usd": 202200.0
+        },
+        {
+          "week_start": "2026-05-24",
+          "spend_usd": 377200.0
+        },
+        {
+          "week_start": "2026-05-31",
+          "spend_usd": 86400.0
+        },
+        {
+          "week_start": "2026-09-06",
+          "spend_usd": 1600.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 4100.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 28000.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 47700.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 17500.0
+        }
+      ],
+      "by_side": {
+        "R": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR07661785596624371713",
+              "advertiser_name": "HOOVER FOR ASSEMBLY 2024",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 56700.0,
+              "total_creatives": 8,
+              "weekly": [
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 4900.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 5500.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 1900.0
+                }
+              ],
+              "first_seen": "2026-09-20",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR07661785596624371713?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1900.0
+            }
+          ]
+        },
+        "D": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR14812347910385041409",
+              "advertiser_name": "Amy Slavensky for Assembly 2026",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 61900.0,
+              "total_creatives": 12,
+              "weekly": [
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 400.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 22000.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 31800.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 7700.0
+                }
+              ],
+              "first_seen": "2026-09-13",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR14812347910385041409?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 400.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 22000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 31800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 7700.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR17958272735851315201",
+              "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 1771700.0,
+              "total_creatives": 91,
+              "weekly": [
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 46500.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 190600.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 365800.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 82400.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 100.0
+                }
+              ],
+              "first_seen": "2026-05-10",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR10953842329240207361",
+              "advertiser_name": "KEEPING CALIFORNIANS WORKING, A COALITION OF INSURANCE AGENTS, TECHNOLOGY, ENERGY, AND HEALTH CARE PROVIDERS",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 46800.0,
+              "total_creatives": 11,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR10953842329240207361?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR08108878334789681153",
+              "advertiser_name": "California Correctional Peace Officers Association Local Political Action Committee",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 25500.0,
+              "total_creatives": 3,
+              "weekly": [
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 1400.0
+                },
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 5100.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 8300.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 8100.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 2700.0
+                }
+              ],
+              "first_seen": "2026-05-03",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR08108878334789681153?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR13637375073017921537",
+              "advertiser_name": "CALIFORNIA CORRECTIONAL PEACE OFFICERS ASSOCIATION LOCAL POLITICAL ACTION COMMITTEE",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 19100.0,
+              "total_creatives": 6,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR13637375073017921537?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR06098008078827913217",
+              "advertiser_name": "Legislative Action PAC",
+              "side": "IE",
+              "match_reasons": [
+                "curated_ie_name"
+              ],
+              "total_spend_usd": 12700.0,
+              "total_creatives": 2,
+              "weekly": [
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 300.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 5600.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 6800.0
+                }
+              ],
+              "first_seen": "2026-09-20",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR13500263464773353473",
+              "advertiser_name": "CITIZENS AND COMMUNITIES FOR FAIR GOVERNMENT",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 12300.0,
+              "total_creatives": 1,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR13500263464773353473?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2025-02-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 1400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 54100.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 202200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 377200.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 86400.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 1600.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 3700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 1100.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 10400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 7900.0
+            }
+          ]
+        }
+      },
+      "matched_advertiser_count": 14,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
+    },
+    "ad-27": {
+      "id": "ad-27",
+      "code": "AD-27",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06076518845617537025",
+          "advertiser_name": "Brian Pacheco for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 102900.0,
+          "total_creatives": 52,
+          "weekly": [
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 14100.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 17300.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 14300.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 12400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 13600.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12500.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 14700.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 3700.0
+            }
+          ],
+          "first_seen": "2026-08-09",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06076518845617537025?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR04838560965689606145",
+          "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 2100.0,
+          "total_creatives": 2,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04838560965689606145?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR00766602905867255809",
+          "advertiser_name": "RPH",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 1800.0,
+          "total_creatives": 1,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR00766602905867255809?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06076518845617537025",
+          "advertiser_name": "Brian Pacheco for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 102900.0,
+          "total_creatives": 52,
+          "weekly": [
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 14100.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 17300.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 14300.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 12400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 13600.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12500.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 14700.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 3700.0
+            }
+          ],
+          "first_seen": "2026-08-09",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06076518845617537025?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR04838560965689606145",
+          "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 2100.0,
+          "total_creatives": 2,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04838560965689606145?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR00766602905867255809",
+          "advertiser_name": "RPH",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 1800.0,
+          "total_creatives": 1,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR00766602905867255809?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2026-08-09",
+          "spend_usd": 300.0
+        },
+        {
+          "week_start": "2026-08-16",
+          "spend_usd": 14100.0
+        },
+        {
+          "week_start": "2026-08-23",
+          "spend_usd": 17300.0
+        },
+        {
+          "week_start": "2026-08-30",
+          "spend_usd": 14300.0
+        },
+        {
+          "week_start": "2026-09-06",
+          "spend_usd": 12400.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 13600.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 12500.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 14700.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 3700.0
+        }
+      ],
+      "by_side": {
+        "R": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR00766602905867255809",
+              "advertiser_name": "RPH",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 1800.0,
+              "total_creatives": 1,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR00766602905867255809?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": []
+        },
+        "D": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR06076518845617537025",
+              "advertiser_name": "Brian Pacheco for Assembly 2026",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 102900.0,
+              "total_creatives": 52,
+              "weekly": [
+                {
+                  "week_start": "2026-08-09",
+                  "spend_usd": 300.0
+                },
+                {
+                  "week_start": "2026-08-16",
+                  "spend_usd": 14100.0
+                },
+                {
+                  "week_start": "2026-08-23",
+                  "spend_usd": 17300.0
+                },
+                {
+                  "week_start": "2026-08-30",
+                  "spend_usd": 14300.0
+                },
+                {
+                  "week_start": "2026-09-06",
+                  "spend_usd": 12400.0
+                },
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 13600.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 12500.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 14700.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 3700.0
+                }
+              ],
+              "first_seen": "2026-08-09",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR06076518845617537025?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 14100.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 17300.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 14300.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 12400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 13600.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12500.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 14700.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 3700.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR05085698194264817665",
+              "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 243700.0,
+              "total_creatives": 41,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR04838560965689606145",
+              "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 2100.0,
+              "total_creatives": 2,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR04838560965689606145?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": []
+        }
+      },
+      "matched_advertiser_count": 4,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually.",
+      "candidate_google_gaps": [
+        {
+          "candidate": "Mike Murphy (R)",
+          "note": "Bundle search (advertiser-stats + advertiser-weekly-spend): 'Mike Murphy for Assembly 2026', 'Murphy for Assembly 2026', 'Murphy for Assembly', 'Michael Murphy' + Assembly \u2014 no California AD-27 committee advertiser. Hits: CAROL MURPHY FOR ASSEMBLY (NJ), FRIENDS OF CHRIS MURPHY (federal), Jaden Murphy (non-Assembly)."
+        }
+      ]
+    },
+    "ad-36": {
+      "id": "ad-36",
+      "code": "AD-36",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR04821815206030082049",
+          "advertiser_name": "GROW CALIFORNIA",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name",
+            "curated_ie_name"
+          ],
+          "total_spend_usd": 2042000.0,
+          "total_creatives": 126,
+          "weekly": [
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 120200.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 311400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 362800.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 385100.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 387400.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 120800.0
+            },
+            {
+              "week_start": "2026-08-02",
+              "spend_usd": 61000.0
+            },
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 81200.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 78900.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 77100.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 12000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 34000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 10100.0
+            }
+          ],
+          "first_seen": "2026-04-26",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04821815206030082049?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07248653216408141825",
+          "advertiser_name": "Ida Obeso-Martinez for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 32700.0,
+          "total_creatives": 19,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 10900.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 9400.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 8300.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1800.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07248653216408141825?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10888295922802884609",
+          "advertiser_name": "California Chamber of Commerce",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 20700.0,
+          "total_creatives": 19,
+          "weekly": [
+            {
+              "week_start": "2025-04-06",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-04-13",
+              "spend_usd": 500.0
+            },
+            {
+              "week_start": "2025-04-20",
+              "spend_usd": 1000.0
+            },
+            {
+              "week_start": "2025-04-27",
+              "spend_usd": 700.0
+            },
+            {
+              "week_start": "2025-09-28",
+              "spend_usd": 4500.0
+            },
+            {
+              "week_start": "2025-10-05",
+              "spend_usd": 12500.0
+            },
+            {
+              "week_start": "2025-10-12",
+              "spend_usd": 1400.0
+            }
+          ],
+          "first_seen": "2025-04-06",
+          "last_seen": "2025-10-12",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10888295922802884609?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR11122148293545558017",
+          "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2026",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 16000.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4600.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1700.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11122148293545558017?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR02045088896064159745",
+          "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2024 % JENNIFER MITCHELL",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 11900.0,
+          "total_creatives": 4,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR03174385537922367489",
+          "advertiser_name": "California Environmental Voters",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 5300.0,
+          "total_creatives": 3,
+          "weekly": [
+            {
+              "week_start": "2025-02-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-02",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-30",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2026-02-08",
+              "spend_usd": 1500.0
+            },
+            {
+              "week_start": "2026-02-15",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-02-22",
+              "spend_usd": 1000.0
+            }
+          ],
+          "first_seen": "2025-02-09",
+          "last_seen": "2026-02-22",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR03174385537922367489?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR04838560965689606145",
+          "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 2100.0,
+          "total_creatives": 2,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04838560965689606145?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR05958943317025619969",
+          "advertiser_name": "JobsPAC, a Bi-Partisan Coalition of California Employers",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1700.0,
+          "total_creatives": 3,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05958943317025619969?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR04821815206030082049",
+          "advertiser_name": "GROW CALIFORNIA",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name",
+            "curated_ie_name"
+          ],
+          "total_spend_usd": 2042000.0,
+          "total_creatives": 126,
+          "weekly": [
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 120200.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 311400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 362800.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 385100.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 387400.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 120800.0
+            },
+            {
+              "week_start": "2026-08-02",
+              "spend_usd": 61000.0
+            },
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 81200.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 78900.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 77100.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 12000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 34000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 10100.0
+            }
+          ],
+          "first_seen": "2026-04-26",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04821815206030082049?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07248653216408141825",
+          "advertiser_name": "Ida Obeso-Martinez for Assembly 2026",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 32700.0,
+          "total_creatives": 19,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 10900.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 9400.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 8300.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1800.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07248653216408141825?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10888295922802884609",
+          "advertiser_name": "California Chamber of Commerce",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 20700.0,
+          "total_creatives": 19,
+          "weekly": [
+            {
+              "week_start": "2025-04-06",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-04-13",
+              "spend_usd": 500.0
+            },
+            {
+              "week_start": "2025-04-20",
+              "spend_usd": 1000.0
+            },
+            {
+              "week_start": "2025-04-27",
+              "spend_usd": 700.0
+            },
+            {
+              "week_start": "2025-09-28",
+              "spend_usd": 4500.0
+            },
+            {
+              "week_start": "2025-10-05",
+              "spend_usd": 12500.0
+            },
+            {
+              "week_start": "2025-10-12",
+              "spend_usd": 1400.0
+            }
+          ],
+          "first_seen": "2025-04-06",
+          "last_seen": "2025-10-12",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10888295922802884609?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR11122148293545558017",
+          "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2026",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 16000.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4600.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1700.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11122148293545558017?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR02045088896064159745",
+          "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2024 % JENNIFER MITCHELL",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 11900.0,
+          "total_creatives": 4,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR03174385537922367489",
+          "advertiser_name": "California Environmental Voters",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 5300.0,
+          "total_creatives": 3,
+          "weekly": [
+            {
+              "week_start": "2025-02-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-02-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-02",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-16",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-23",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2025-03-30",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2026-02-08",
+              "spend_usd": 1500.0
+            },
+            {
+              "week_start": "2026-02-15",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-02-22",
+              "spend_usd": 1000.0
+            }
+          ],
+          "first_seen": "2025-02-09",
+          "last_seen": "2026-02-22",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR03174385537922367489?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2026-04-26",
+          "spend_usd": 120200.0
+        },
+        {
+          "week_start": "2026-05-03",
+          "spend_usd": 311400.0
+        },
+        {
+          "week_start": "2026-05-10",
+          "spend_usd": 409300.0
+        },
+        {
+          "week_start": "2026-05-17",
+          "spend_usd": 575700.0
+        },
+        {
+          "week_start": "2026-05-24",
+          "spend_usd": 753200.0
+        },
+        {
+          "week_start": "2026-05-31",
+          "spend_usd": 203200.0
+        },
+        {
+          "week_start": "2026-08-02",
+          "spend_usd": 61000.0
+        },
+        {
+          "week_start": "2026-08-09",
+          "spend_usd": 81200.0
+        },
+        {
+          "week_start": "2026-08-16",
+          "spend_usd": 78900.0
+        },
+        {
+          "week_start": "2026-08-23",
+          "spend_usd": 77100.0
+        },
+        {
+          "week_start": "2026-08-30",
+          "spend_usd": 12000.0
+        },
+        {
+          "week_start": "2026-09-06",
+          "spend_usd": 2300.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 16100.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 14000.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 46700.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 13700.0
+        }
+      ],
+      "by_side": {
+        "R": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR11122148293545558017",
+              "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2026",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 16000.0,
+              "total_creatives": 12,
+              "weekly": [
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 5200.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 4600.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 4400.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 1700.0
+                }
+              ],
+              "first_seen": "2026-09-13",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR11122148293545558017?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR02045088896064159745",
+              "advertiser_name": "JEFF GONZALEZ FOR ASSEMBLY 2024 % JENNIFER MITCHELL",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 11900.0,
+              "total_creatives": 4,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR02045088896064159745?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4600.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1700.0
+            }
+          ]
+        },
+        "D": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR07248653216408141825",
+              "advertiser_name": "Ida Obeso-Martinez for Assembly 2026",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 32700.0,
+              "total_creatives": 19,
+              "weekly": [
+                {
+                  "week_start": "2026-09-06",
+                  "spend_usd": 2300.0
+                },
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 10900.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 9400.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 8300.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 1800.0
+                }
+              ],
+              "first_seen": "2026-09-06",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR07248653216408141825?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 10900.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 9400.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 8300.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1800.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR04821815206030082049",
+              "advertiser_name": "GROW CALIFORNIA",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name",
+                "curated_ie_name"
+              ],
+              "total_spend_usd": 2042000.0,
+              "total_creatives": 126,
+              "weekly": [
+                {
+                  "week_start": "2026-04-26",
+                  "spend_usd": 120200.0
+                },
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 311400.0
+                },
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 362800.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 385100.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 387400.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 120800.0
+                },
+                {
+                  "week_start": "2026-08-02",
+                  "spend_usd": 61000.0
+                },
+                {
+                  "week_start": "2026-08-09",
+                  "spend_usd": 81200.0
+                },
+                {
+                  "week_start": "2026-08-16",
+                  "spend_usd": 78900.0
+                },
+                {
+                  "week_start": "2026-08-23",
+                  "spend_usd": 77100.0
+                },
+                {
+                  "week_start": "2026-08-30",
+                  "spend_usd": 12000.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 34000.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 10100.0
+                }
+              ],
+              "first_seen": "2026-04-26",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR04821815206030082049?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR17958272735851315201",
+              "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 1771700.0,
+              "total_creatives": 91,
+              "weekly": [
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 46500.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 190600.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 365800.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 82400.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 100.0
+                }
+              ],
+              "first_seen": "2026-05-10",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR05085698194264817665",
+              "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 243700.0,
+              "total_creatives": 41,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR10888295922802884609",
+              "advertiser_name": "California Chamber of Commerce",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 20700.0,
+              "total_creatives": 19,
+              "weekly": [
+                {
+                  "week_start": "2025-04-06",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-04-13",
+                  "spend_usd": 500.0
+                },
+                {
+                  "week_start": "2025-04-20",
+                  "spend_usd": 1000.0
+                },
+                {
+                  "week_start": "2025-04-27",
+                  "spend_usd": 700.0
+                },
+                {
+                  "week_start": "2025-09-28",
+                  "spend_usd": 4500.0
+                },
+                {
+                  "week_start": "2025-10-05",
+                  "spend_usd": 12500.0
+                },
+                {
+                  "week_start": "2025-10-12",
+                  "spend_usd": 1400.0
+                }
+              ],
+              "first_seen": "2025-04-06",
+              "last_seen": "2025-10-12",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR10888295922802884609?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR03174385537922367489",
+              "advertiser_name": "California Environmental Voters",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 5300.0,
+              "total_creatives": 3,
+              "weekly": [
+                {
+                  "week_start": "2025-02-09",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-02-16",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-02-23",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-03-02",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-03-09",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-03-16",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-03-23",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2025-03-30",
+                  "spend_usd": 100.0
+                },
+                {
+                  "week_start": "2026-02-08",
+                  "spend_usd": 1500.0
+                },
+                {
+                  "week_start": "2026-02-15",
+                  "spend_usd": 2300.0
+                },
+                {
+                  "week_start": "2026-02-22",
+                  "spend_usd": 1000.0
+                }
+              ],
+              "first_seen": "2025-02-09",
+              "last_seen": "2026-02-22",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR03174385537922367489?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR04838560965689606145",
+              "advertiser_name": "Building a Healthy Future for CA Facilitated by Agricultural Council of CA",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 2100.0,
+              "total_creatives": 2,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR04838560965689606145?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-02-08",
+              "spend_usd": 1500.0
+            },
+            {
+              "week_start": "2026-02-15",
+              "spend_usd": 2300.0
+            },
+            {
+              "week_start": "2026-02-22",
+              "spend_usd": 1000.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 120200.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 311400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 409300.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 575700.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 753200.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 203200.0
+            },
+            {
+              "week_start": "2026-08-02",
+              "spend_usd": 61000.0
+            },
+            {
+              "week_start": "2026-08-09",
+              "spend_usd": 81200.0
+            },
+            {
+              "week_start": "2026-08-16",
+              "spend_usd": 78900.0
+            },
+            {
+              "week_start": "2026-08-23",
+              "spend_usd": 77100.0
+            },
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 12000.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 34000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 10200.0
+            }
+          ]
+        }
+      },
+      "matched_advertiser_count": 10,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
+    },
+    "ad-47": {
+      "id": "ad-47",
+      "code": "AD-47",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR01977332720363110401",
+          "advertiser_name": "California Leads",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 456100.0,
+          "total_creatives": 162,
+          "weekly": [
+            {
+              "week_start": "2026-04-05",
+              "spend_usd": 6200.0
+            },
+            {
+              "week_start": "2026-04-12",
+              "spend_usd": 36700.0
+            },
+            {
+              "week_start": "2026-04-19",
+              "spend_usd": 45300.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 43400.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 42400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 47300.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 63800.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 58600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 12300.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 16700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 34300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 40800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 8400.0
+            }
+          ],
+          "first_seen": "2026-04-05",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR01977332720363110401?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR11440338712286724097",
+          "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 174200.0,
+          "total_creatives": 9,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 36000.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 53900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 65500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 18900.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13989215495371358209",
+          "advertiser_name": "Opportunity PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 152800.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR12120243794863980545",
+          "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 87500.0,
+          "total_creatives": 21,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 58300.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17352186441601384449",
+          "advertiser_name": "Nurses and Educators for Healthy CA Communities sponsored by SEIU California State Council",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 81000.0,
+          "total_creatives": 6,
+          "weekly": [
+            {
+              "week_start": "2026-04-05",
+              "spend_usd": 1400.0
+            },
+            {
+              "week_start": "2026-04-12",
+              "spend_usd": 6500.0
+            },
+            {
+              "week_start": "2026-04-19",
+              "spend_usd": 5300.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 5500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 12400.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 25300.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 14500.0
+            }
+          ],
+          "first_seen": "2026-04-05",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17352186441601384449?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13864142354039963649",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, health care givers, faculty members, school employees, and public and private employee organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 55000.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13864142354039963649?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07278292399170781185",
+          "advertiser_name": "SERVICE EMPLOYEES INTERNATIONAL UNION LOCAL 721 CTW CLC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 53800.0,
+          "total_creatives": 29,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07278292399170781185?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07161482637477937153",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, nurses, faculty members, school employees, and public and private labor, health care, and environmental organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 50500.0,
+          "total_creatives": 5,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07161482637477937153?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR17958272735851315201",
+          "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 1771700.0,
+          "total_creatives": 91,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 46500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 190600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 365800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 82400.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 100.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR01977332720363110401",
+          "advertiser_name": "California Leads",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 456100.0,
+          "total_creatives": 162,
+          "weekly": [
+            {
+              "week_start": "2026-04-05",
+              "spend_usd": 6200.0
+            },
+            {
+              "week_start": "2026-04-12",
+              "spend_usd": 36700.0
+            },
+            {
+              "week_start": "2026-04-19",
+              "spend_usd": 45300.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 43400.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 42400.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 47300.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 63800.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 58600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 12300.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 16700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 34300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 40800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 8400.0
+            }
+          ],
+          "first_seen": "2026-04-05",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR01977332720363110401?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR05085698194264817665",
+          "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 243700.0,
+          "total_creatives": 41,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR11440338712286724097",
+          "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 174200.0,
+          "total_creatives": 9,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 36000.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 53900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 65500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 18900.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13989215495371358209",
+          "advertiser_name": "Opportunity PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 152800.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR12120243794863980545",
+          "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 87500.0,
+          "total_creatives": 21,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 58300.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17352186441601384449",
+          "advertiser_name": "Nurses and Educators for Healthy CA Communities sponsored by SEIU California State Council",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 81000.0,
+          "total_creatives": 6,
+          "weekly": [
+            {
+              "week_start": "2026-04-05",
+              "spend_usd": 1400.0
+            },
+            {
+              "week_start": "2026-04-12",
+              "spend_usd": 6500.0
+            },
+            {
+              "week_start": "2026-04-19",
+              "spend_usd": 5300.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 5500.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 12400.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 25300.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 14500.0
+            }
+          ],
+          "first_seen": "2026-04-05",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17352186441601384449?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13864142354039963649",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, health care givers, faculty members, school employees, and public and private employee organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 55000.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13864142354039963649?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2025-02-09",
+          "spend_usd": 100.0
+        },
+        {
+          "week_start": "2026-04-05",
+          "spend_usd": 7600.0
+        },
+        {
+          "week_start": "2026-04-12",
+          "spend_usd": 43200.0
+        },
+        {
+          "week_start": "2026-04-19",
+          "spend_usd": 50600.0
+        },
+        {
+          "week_start": "2026-04-26",
+          "spend_usd": 48600.0
+        },
+        {
+          "week_start": "2026-05-03",
+          "spend_usd": 48000.0
+        },
+        {
+          "week_start": "2026-05-10",
+          "spend_usd": 99800.0
+        },
+        {
+          "week_start": "2026-05-17",
+          "spend_usd": 266800.0
+        },
+        {
+          "week_start": "2026-05-24",
+          "spend_usd": 452800.0
+        },
+        {
+          "week_start": "2026-05-31",
+          "spend_usd": 174300.0
+        },
+        {
+          "week_start": "2026-06-07",
+          "spend_usd": 3700.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 57200.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 92900.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 122700.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 45200.0
+        }
+      ],
+      "by_side": {
+        "R": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR16014288941893025793",
+              "advertiser_name": "GREG WALLIS FOR ASSEMBLY 2026",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 17600.0,
+              "total_creatives": 16,
+              "weekly": [
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 4500.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 4700.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 4500.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 3900.0
+                }
+              ],
+              "first_seen": "2026-09-13",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR16014288941893025793?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 4500.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 4700.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 3900.0
+            }
+          ]
+        },
+        "D": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR05066640883206586369",
+              "advertiser_name": "Leila Namvar for Assembly 2026",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 15800.0,
+              "total_creatives": 14,
+              "weekly": [
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 7000.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 8800.0
+                }
+              ],
+              "first_seen": "2026-09-27",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR05066640883206586369?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 7000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 8800.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR17958272735851315201",
+              "advertiser_name": "UBER INNOVATION POLITICAL ACTION COMMITTEE",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 1771700.0,
+              "total_creatives": 91,
+              "weekly": [
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 46500.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 190600.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 365800.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 82400.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 100.0
+                }
+              ],
+              "first_seen": "2026-05-10",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR17958272735851315201?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR01977332720363110401",
+              "advertiser_name": "California Leads",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 456100.0,
+              "total_creatives": 162,
+              "weekly": [
+                {
+                  "week_start": "2026-04-05",
+                  "spend_usd": 6200.0
+                },
+                {
+                  "week_start": "2026-04-12",
+                  "spend_usd": 36700.0
+                },
+                {
+                  "week_start": "2026-04-19",
+                  "spend_usd": 45300.0
+                },
+                {
+                  "week_start": "2026-04-26",
+                  "spend_usd": 43400.0
+                },
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 42400.0
+                },
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 47300.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 63800.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 58600.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 12300.0
+                },
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 16700.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 34300.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 40800.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 8400.0
+                }
+              ],
+              "first_seen": "2026-04-05",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR01977332720363110401?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR05085698194264817665",
+              "advertiser_name": "Coalition to Restore California's Middle Class, Including Energy Companies who Produce Gas, Oil, Jobs and Pay Taxes",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 243700.0,
+              "total_creatives": 41,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR05085698194264817665?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR11440338712286724097",
+              "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 174200.0,
+              "total_creatives": 9,
+              "weekly": [
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 36000.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 53900.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 65500.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 18900.0
+                }
+              ],
+              "first_seen": "2026-09-13",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR13989215495371358209",
+              "advertiser_name": "Opportunity PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 152800.0,
+              "total_creatives": 8,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR12120243794863980545",
+              "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 87500.0,
+              "total_creatives": 21,
+              "weekly": [
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 200.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 3100.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 58300.0
+                }
+              ],
+              "first_seen": "2026-05-03",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2025-02-09",
+              "spend_usd": 100.0
+            },
+            {
+              "week_start": "2026-04-05",
+              "spend_usd": 7600.0
+            },
+            {
+              "week_start": "2026-04-12",
+              "spend_usd": 43200.0
+            },
+            {
+              "week_start": "2026-04-19",
+              "spend_usd": 50600.0
+            },
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 48600.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 48000.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 99800.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 266800.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 452800.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 174300.0
+            },
+            {
+              "week_start": "2026-06-07",
+              "spend_usd": 3700.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 52700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 88200.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 111200.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 32500.0
+            }
+          ]
+        }
+      },
+      "matched_advertiser_count": 18,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
+    },
+    "ad-58": {
+      "id": "ad-58",
+      "code": "AD-58",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR11440338712286724097",
+          "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 174200.0,
+          "total_creatives": 9,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 36000.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 53900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 65500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 18900.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13989215495371358209",
+          "advertiser_name": "Opportunity PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 152800.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR12120243794863980545",
+          "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 87500.0,
+          "total_creatives": 21,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 58300.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10378347094174859265",
+          "advertiser_name": "Clarissa Cervantes for Assembly",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 72000.0,
+          "total_creatives": 75,
+          "weekly": [
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 9700.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 10400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 21500.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12700.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 12900.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 4800.0
+            }
+          ],
+          "first_seen": "2026-08-30",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10378347094174859265?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13864142354039963649",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, health care givers, faculty members, school employees, and public and private employee organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 55000.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13864142354039963649?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07161482637477937153",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, nurses, faculty members, school employees, and public and private labor, health care, and environmental organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 50500.0,
+          "total_creatives": 5,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07161482637477937153?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR03624710402186674177",
+          "advertiser_name": "Clarissa Cervantes for Assembly 2024",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 43300.0,
+          "total_creatives": 7,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR03624710402186674177?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR16724815973059657729",
+          "advertiser_name": "UNITED DOMESTIC WORKERS OF AMERICA INDEPENDENT EXPENDITURE PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 20300.0,
+          "total_creatives": 4,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR16724815973059657729?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR04385889150906138625",
+          "advertiser_name": "LEGISLATIVE ACTION VICTORY PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 11800.0,
+          "total_creatives": 12,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 1600.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 3700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 800.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4800.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 1000.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR04385889150906138625?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR08469622774103539713",
+          "advertiser_name": "Unity PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 10000.0,
+          "total_creatives": 1,
+          "weekly": [
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 4900.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 5100.0
+            }
+          ],
+          "first_seen": "2026-09-27",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR08469622774103539713?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR11440338712286724097",
+          "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 174200.0,
+          "total_creatives": 9,
+          "weekly": [
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 36000.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 53900.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 65500.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 18900.0
+            }
+          ],
+          "first_seen": "2026-09-13",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13989215495371358209",
+          "advertiser_name": "Opportunity PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 152800.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR12120243794863980545",
+          "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 87500.0,
+          "total_creatives": 21,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 58300.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10378347094174859265",
+          "advertiser_name": "Clarissa Cervantes for Assembly",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 72000.0,
+          "total_creatives": 75,
+          "weekly": [
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 9700.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 10400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 21500.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12700.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 12900.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 4800.0
+            }
+          ],
+          "first_seen": "2026-08-30",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10378347094174859265?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR13864142354039963649",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, health care givers, faculty members, school employees, and public and private employee organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 55000.0,
+          "total_creatives": 8,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR13864142354039963649?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR07161482637477937153",
+          "advertiser_name": "Opportunity PAC - A coalition of teachers, nurses, faculty members, school employees, and public and private labor, health care, and environmental organizations",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 50500.0,
+          "total_creatives": 5,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR07161482637477937153?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR03624710402186674177",
+          "advertiser_name": "Clarissa Cervantes for Assembly 2024",
+          "side": "D",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 43300.0,
+          "total_creatives": 7,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR03624710402186674177?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR16724815973059657729",
+          "advertiser_name": "UNITED DOMESTIC WORKERS OF AMERICA INDEPENDENT EXPENDITURE PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 20300.0,
+          "total_creatives": 4,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR16724815973059657729?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2026-05-03",
+          "spend_usd": 200.0
+        },
+        {
+          "week_start": "2026-05-24",
+          "spend_usd": 3100.0
+        },
+        {
+          "week_start": "2026-05-31",
+          "spend_usd": 58300.0
+        },
+        {
+          "week_start": "2026-08-30",
+          "spend_usd": 9700.0
+        },
+        {
+          "week_start": "2026-09-06",
+          "spend_usd": 12000.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 61200.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 67400.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 88100.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 29800.0
+        }
+      ],
+      "by_side": {
+        "D": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR10378347094174859265",
+              "advertiser_name": "Clarissa Cervantes for Assembly",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 72000.0,
+              "total_creatives": 75,
+              "weekly": [
+                {
+                  "week_start": "2026-08-30",
+                  "spend_usd": 9700.0
+                },
+                {
+                  "week_start": "2026-09-06",
+                  "spend_usd": 10400.0
+                },
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 21500.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 12700.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 12900.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 4800.0
+                }
+              ],
+              "first_seen": "2026-08-30",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR10378347094174859265?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR03624710402186674177",
+              "advertiser_name": "Clarissa Cervantes for Assembly 2024",
+              "side": "D",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 43300.0,
+              "total_creatives": 7,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR03624710402186674177?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-08-30",
+              "spend_usd": 9700.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 10400.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 21500.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 12700.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 12900.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 4800.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR11440338712286724097",
+              "advertiser_name": "Opportunity PAC -- A coalition of teachers, health care workers, nurses, faculty members, school employees, and public and private labor organizations",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 174200.0,
+              "total_creatives": 9,
+              "weekly": [
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 36000.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 53900.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 65500.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 18900.0
+                }
+              ],
+              "first_seen": "2026-09-13",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR11440338712286724097?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR13989215495371358209",
+              "advertiser_name": "Opportunity PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 152800.0,
+              "total_creatives": 8,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR13989215495371358209?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR12120243794863980545",
+              "advertiser_name": "United Domestic Workers of America Independent Expenditure PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 87500.0,
+              "total_creatives": 21,
+              "weekly": [
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 200.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 3100.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 58300.0
+                }
+              ],
+              "first_seen": "2026-05-03",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR12120243794863980545?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR13864142354039963649",
+              "advertiser_name": "Opportunity PAC - A coalition of teachers, health care givers, faculty members, school employees, and public and private employee organizations",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 55000.0,
+              "total_creatives": 8,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR13864142354039963649?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR07161482637477937153",
+              "advertiser_name": "Opportunity PAC - A coalition of teachers, nurses, faculty members, school employees, and public and private labor, health care, and environmental organizations",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 50500.0,
+              "total_creatives": 5,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR07161482637477937153?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR16724815973059657729",
+              "advertiser_name": "UNITED DOMESTIC WORKERS OF AMERICA INDEPENDENT EXPENDITURE PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 20300.0,
+              "total_creatives": 4,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR16724815973059657729?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 200.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 3100.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 58300.0
+            },
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 1600.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 39700.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 54700.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 75200.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 25000.0
+            }
+          ]
+        }
+      },
+      "matched_advertiser_count": 10,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
+    },
+    "ad-74": {
+      "id": "ad-74",
+      "code": "AD-74",
+      "has_matched_ads": true,
+      "advertisers": [
+        {
+          "advertiser_id": "AR17077673495208394753",
+          "advertiser_name": "CALIFORNIA APARTMENT ASSOCIATION",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12702900.0,
+          "total_creatives": 308,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17077673495208394753?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10565397317962170369",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 54100.0,
+          "total_creatives": 5,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 2000.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 11100.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 16700.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 16400.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 7900.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10565397317962170369?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR09902254573618200577",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 53600.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 6700.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 17600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 20600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 8700.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR09902254573618200577?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17387607552287571969",
+          "advertiser_name": "LAURIE DAVIES FOR ASSEMBLY 2026",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 34600.0,
+          "total_creatives": 18,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2100.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 11800.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 11200.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 7000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 2300.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17387607552287571969?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR09308357353604644865",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 19300.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 3300.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 10600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 5400.0
+            }
+          ],
+          "first_seen": "2026-05-17",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR09308357353604644865?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06098008078827913217",
+          "advertiser_name": "Legislative Action PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12700.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5600.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 6800.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR15815947970639036417",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 4300.0,
+          "total_creatives": 1,
+          "weekly": [
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 1100.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 3200.0
+            }
+          ],
+          "first_seen": "2026-04-26",
+          "last_seen": "2026-05-03",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR15815947970639036417?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "top_advertisers": [
+        {
+          "advertiser_id": "AR17077673495208394753",
+          "advertiser_name": "CALIFORNIA APARTMENT ASSOCIATION",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12702900.0,
+          "total_creatives": 308,
+          "weekly": [],
+          "first_seen": null,
+          "last_seen": null,
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17077673495208394753?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR10565397317962170369",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 54100.0,
+          "total_creatives": 5,
+          "weekly": [
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 2000.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 11100.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 16700.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 16400.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 7900.0
+            }
+          ],
+          "first_seen": "2026-05-03",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR10565397317962170369?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR09902254573618200577",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 53600.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 6700.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 17600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 20600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 8700.0
+            }
+          ],
+          "first_seen": "2026-05-10",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR09902254573618200577?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR17387607552287571969",
+          "advertiser_name": "LAURIE DAVIES FOR ASSEMBLY 2026",
+          "side": "R",
+          "match_reasons": [
+            "advertiser_name"
+          ],
+          "total_spend_usd": 34600.0,
+          "total_creatives": 18,
+          "weekly": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2100.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 11800.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 11200.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 7000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 2300.0
+            }
+          ],
+          "first_seen": "2026-09-06",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR17387607552287571969?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR09308357353604644865",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 19300.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 3300.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 10600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 5400.0
+            }
+          ],
+          "first_seen": "2026-05-17",
+          "last_seen": "2026-05-31",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR09308357353604644865?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR06098008078827913217",
+          "advertiser_name": "Legislative Action PAC",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 12700.0,
+          "total_creatives": 2,
+          "weekly": [
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5600.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 6800.0
+            }
+          ],
+          "first_seen": "2026-09-20",
+          "last_seen": "2026-10-04",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        },
+        {
+          "advertiser_id": "AR15815947970639036417",
+          "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+          "side": "IE",
+          "match_reasons": [
+            "calaccess_ie_name"
+          ],
+          "total_spend_usd": 4300.0,
+          "total_creatives": 1,
+          "weekly": [
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 1100.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 3200.0
+            }
+          ],
+          "first_seen": "2026-04-26",
+          "last_seen": "2026-05-03",
+          "transparency_url": "https://adstransparency.google.com/advertiser/AR15815947970639036417?region=US",
+          "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+        }
+      ],
+      "weekly_total": [
+        {
+          "week_start": "2026-04-26",
+          "spend_usd": 1100.0
+        },
+        {
+          "week_start": "2026-05-03",
+          "spend_usd": 5200.0
+        },
+        {
+          "week_start": "2026-05-10",
+          "spend_usd": 17800.0
+        },
+        {
+          "week_start": "2026-05-17",
+          "spend_usd": 37600.0
+        },
+        {
+          "week_start": "2026-05-24",
+          "spend_usd": 47600.0
+        },
+        {
+          "week_start": "2026-05-31",
+          "spend_usd": 22000.0
+        },
+        {
+          "week_start": "2026-09-06",
+          "spend_usd": 2100.0
+        },
+        {
+          "week_start": "2026-09-13",
+          "spend_usd": 11800.0
+        },
+        {
+          "week_start": "2026-09-20",
+          "spend_usd": 11500.0
+        },
+        {
+          "week_start": "2026-09-27",
+          "spend_usd": 12600.0
+        },
+        {
+          "week_start": "2026-10-04",
+          "spend_usd": 9100.0
+        }
+      ],
+      "by_side": {
+        "R": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR17387607552287571969",
+              "advertiser_name": "LAURIE DAVIES FOR ASSEMBLY 2026",
+              "side": "R",
+              "match_reasons": [
+                "advertiser_name"
+              ],
+              "total_spend_usd": 34600.0,
+              "total_creatives": 18,
+              "weekly": [
+                {
+                  "week_start": "2026-09-06",
+                  "spend_usd": 2100.0
+                },
+                {
+                  "week_start": "2026-09-13",
+                  "spend_usd": 11800.0
+                },
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 11200.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 7000.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 2300.0
+                }
+              ],
+              "first_seen": "2026-09-06",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR17387607552287571969?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-09-06",
+              "spend_usd": 2100.0
+            },
+            {
+              "week_start": "2026-09-13",
+              "spend_usd": 11800.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 11200.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 7000.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 2300.0
+            }
+          ]
+        },
+        "IE": {
+          "advertisers": [
+            {
+              "advertiser_id": "AR17077673495208394753",
+              "advertiser_name": "CALIFORNIA APARTMENT ASSOCIATION",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 12702900.0,
+              "total_creatives": 308,
+              "weekly": [],
+              "first_seen": null,
+              "last_seen": null,
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR17077673495208394753?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR10565397317962170369",
+              "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 54100.0,
+              "total_creatives": 5,
+              "weekly": [
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 2000.0
+                },
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 11100.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 16700.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 16400.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 7900.0
+                }
+              ],
+              "first_seen": "2026-05-03",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR10565397317962170369?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR09902254573618200577",
+              "advertiser_name": "Advance California, Sponsored by California Apartment Association",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 53600.0,
+              "total_creatives": 2,
+              "weekly": [
+                {
+                  "week_start": "2026-05-10",
+                  "spend_usd": 6700.0
+                },
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 17600.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 20600.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 8700.0
+                }
+              ],
+              "first_seen": "2026-05-10",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR09902254573618200577?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR09308357353604644865",
+              "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 19300.0,
+              "total_creatives": 2,
+              "weekly": [
+                {
+                  "week_start": "2026-05-17",
+                  "spend_usd": 3300.0
+                },
+                {
+                  "week_start": "2026-05-24",
+                  "spend_usd": 10600.0
+                },
+                {
+                  "week_start": "2026-05-31",
+                  "spend_usd": 5400.0
+                }
+              ],
+              "first_seen": "2026-05-17",
+              "last_seen": "2026-05-31",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR09308357353604644865?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR06098008078827913217",
+              "advertiser_name": "Legislative Action PAC",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 12700.0,
+              "total_creatives": 2,
+              "weekly": [
+                {
+                  "week_start": "2026-09-20",
+                  "spend_usd": 300.0
+                },
+                {
+                  "week_start": "2026-09-27",
+                  "spend_usd": 5600.0
+                },
+                {
+                  "week_start": "2026-10-04",
+                  "spend_usd": 6800.0
+                }
+              ],
+              "first_seen": "2026-09-20",
+              "last_seen": "2026-10-04",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR06098008078827913217?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            },
+            {
+              "advertiser_id": "AR15815947970639036417",
+              "advertiser_name": "Advance California, Sponsored by California Apartment Association and California Life Sciences",
+              "side": "IE",
+              "match_reasons": [
+                "calaccess_ie_name"
+              ],
+              "total_spend_usd": 4300.0,
+              "total_creatives": 1,
+              "weekly": [
+                {
+                  "week_start": "2026-04-26",
+                  "spend_usd": 1100.0
+                },
+                {
+                  "week_start": "2026-05-03",
+                  "spend_usd": 3200.0
+                }
+              ],
+              "first_seen": "2026-04-26",
+              "last_seen": "2026-05-03",
+              "transparency_url": "https://adstransparency.google.com/advertiser/AR15815947970639036417?region=US",
+              "spend_note": "Weekly Spend_USD from google-political-ads-advertiser-weekly-spend.csv (Google-reported totals per week)."
+            }
+          ],
+          "weekly_total": [
+            {
+              "week_start": "2026-04-26",
+              "spend_usd": 1100.0
+            },
+            {
+              "week_start": "2026-05-03",
+              "spend_usd": 5200.0
+            },
+            {
+              "week_start": "2026-05-10",
+              "spend_usd": 17800.0
+            },
+            {
+              "week_start": "2026-05-17",
+              "spend_usd": 37600.0
+            },
+            {
+              "week_start": "2026-05-24",
+              "spend_usd": 47600.0
+            },
+            {
+              "week_start": "2026-05-31",
+              "spend_usd": 22000.0
+            },
+            {
+              "week_start": "2026-09-20",
+              "spend_usd": 300.0
+            },
+            {
+              "week_start": "2026-09-27",
+              "spend_usd": 5600.0
+            },
+            {
+              "week_start": "2026-10-04",
+              "spend_usd": 6800.0
+            }
+          ]
+        }
+      },
+      "matched_advertiser_count": 7,
+      "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
+    }
+  }
+}

@@ -44,13 +44,7 @@ window.AE = window.AE || {};
     AE.narrative = root.narrative || {};
     AE.rival = root.rival || {};
     AE.alerts = root.alerts || {};
-    AE.ads = AE.ads || {};
-    BEACHHEADS.forEach((id) => {
-      AE.ads[id] = null;
-    });
-    AE.adsUnavailable = root.ads_unavailable || {
-      message: "No free, reliable ad data source yet for CA Assembly races.",
-    };
+    AE.adsMeta = root.ads_meta || root.ads_unavailable || {};
 
     if (root.formula && root.inputs) {
       AE.intelMeta = { formula: root.formula, inputs: root.inputs, generated_at: root.generated_at, as_of_date: root.as_of_date };
@@ -59,7 +53,7 @@ window.AE = window.AE || {};
     const asOf = root.as_of_date || (root.generated_at || "").slice(0, 10);
     AE.DEMO_BANNER =
       "Real public data, refreshed manually — each panel shows its as-of time (PT). " +
-      "Computed: Threat Index, news (RSS), rival/alerts (CAL-ACCESS + SOS roster). " +
+      "Computed: Threat Index, news (RSS), rival/alerts (CAL-ACCESS + SOS roster), Google Ads (Ads tab). " +
       "2024 lean from CA SOS Statement of Vote. Estimates tagged EST; gaps tagged unavailable. " +
       (asOf ? "Intel as of " + asOf + " PT. " : "") +
       "Not official FPPC/SOS/caucus figures.";

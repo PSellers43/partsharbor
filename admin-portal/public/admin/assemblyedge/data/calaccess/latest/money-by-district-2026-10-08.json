@@ -1,16 +1,16 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-08T02:22:32.768316Z",
-  "data_as_of": "2026-10-08T02:22:20.754540Z",
+  "generated_at": "2026-10-08T02:07:45.810907Z",
+  "data_as_of": "2026-10-08T02:03:41.194819Z",
   "source": {
     "publisher": "California Secretary of State \u2014 Political Reform Division",
     "dataset": "CAL-ACCESS raw data (daily ZIP)",
     "url": "https://campaignfinance.cdn.sos.ca.gov/dbwebexport.zip",
     "page": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
     "update_cadence": "Once per day (SOS)",
-    "zip_path": "/workspace/admin-portal/public/admin/assemblyedge/data/calaccess/raw/dbwebexport-2026-10-07.zip",
-    "extract_dir": "/workspace/admin-portal/public/admin/assemblyedge/data/calaccess/extract/2026-10-07",
+    "zip_path": "/workspace/admin-portal/public/admin/assemblyedge/data/calaccess/raw/dbwebexport-2026-10-08.zip",
+    "extract_dir": "/workspace/admin-portal/public/admin/assemblyedge/data/calaccess/extract/2026-10-08",
     "tables_used": [
       "CVR_CAMPAIGN_DISCLOSURE_CD",
       "SMRY_CD",
@@ -47,15 +47,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            950.0,
-            200.0,
-            18000.0,
-            3605.0,
-            15822.4,
-            1000.0,
-            7359.0
+            96084.01,
+            192168.01,
+            288252.02,
+            384336.03,
+            480420.03,
+            576504.04,
+            672588.04,
+            768672.05
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~HOOVER FOR ASSEMBLY 2026,name~HOOVER,year=2026",
@@ -144,25 +145,11 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 11,
-          "weekly_receipts_last_day": "2026-08-10",
-          "weekly_expenditure_series": [
-            2000.0,
-            9000.0,
-            15500.0,
-            32600.0,
-            27700.0,
-            13300.0,
-            6000.0,
-            13000.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-16"
+          "live": true
         },
         {
           "role": "Opponent",
-          "name": "Amy L. Slavensky",
+          "name": "Amy Slavensky",
           "party": "D",
           "committee_name": "Amy Slavensky for Assembly 2026",
           "filer_id": "1484959",
@@ -172,10 +159,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            400.0,
-            155.0
+            110871.23,
+            221742.46,
+            332613.69,
+            443484.92,
+            554356.16,
+            665227.39,
+            776098.62,
+            886969.85
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~SLAVENSKY FOR ASSEMBLY 2026,name~SLAVENSKY,year=2026",
@@ -242,21 +235,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 2,
-          "weekly_receipts_last_day": "2026-01-27",
-          "weekly_expenditure_series": [
-            5900.0,
-            5900.0,
-            5900.0,
-            14300.0,
-            25200.0,
-            23600.0,
-            31100.0,
-            68600.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-18"
+          "live": true
         }
       ],
       "ie": [
@@ -279,7 +258,7 @@
             96144.09
           ],
           "targets": [
-            "Amy L. Slavensky"
+            "Amy Slavensky"
           ],
           "match_quality": "live",
           "provenance": {
@@ -316,7 +295,7 @@
             206581.79
           ],
           "targets": [
-            "Amy L. Slavensky"
+            "Amy Slavensky"
           ],
           "match_quality": "live",
           "provenance": {
@@ -347,7 +326,7 @@
             38597.0
           ],
           "targets": [
-            "Amy L. Slavensky"
+            "Amy Slavensky"
           ],
           "match_quality": "live",
           "provenance": {
@@ -642,12 +621,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            950.0,
-            1940.0,
-            1911.63,
-            24387.55
+            155797.6,
+            311595.2,
+            467392.79,
+            623190.39,
+            778987.99,
+            934785.58,
+            1090583.18,
+            1246380.78
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~WALLIS FOR ASSEMBLY 2026,name~WALLIS,year=2026",
@@ -736,21 +719,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 4,
-          "weekly_receipts_last_day": "2026-07-06",
-          "weekly_expenditure_series": [
-            20200.0,
-            6000.0,
-            11800.0,
-            4000.0,
-            40100.0,
-            58300.0,
-            16400.0,
-            64706.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-19"
+          "live": true
         },
         {
           "role": "Opponent",
@@ -763,8 +732,17 @@
           "cash_on_hand_latest": 82272.22,
           "deltaReceipts": null,
           "deltaSpend": null,
-          "series": null,
-          "series_note": "Not enough itemized filings for weekly chart",
+          "series": [
+            47578.55,
+            95157.09,
+            142735.64,
+            190314.18,
+            237892.73,
+            285471.28,
+            333049.82,
+            380628.37
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~NAMVAR FOR ASSEMBLY,name~NAMVAR,year=2026",
@@ -831,9 +809,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": true,
-          "weekly_receipts_row_count": 1
+          "live": true
         }
       ],
       "ie": [
@@ -1261,16 +1237,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            610.0,
-            320.0,
-            940.0,
-            200.0,
-            10000.0,
-            4000.0,
-            7500.0,
-            5900.0
+            35951.92,
+            71903.84,
+            107855.76,
+            143807.68,
+            179759.61,
+            215711.53,
+            251663.45,
+            287615.37
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~CASTILLO FOR ASSEMBLY 2026,name~CASTILLO,year=2026",
@@ -1359,21 +1335,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 10,
-          "weekly_receipts_last_day": "2026-09-27",
-          "weekly_expenditure_series": [
-            25700.0,
-            26600.0,
-            5900.0,
-            11800.0,
-            17900.0,
-            6000.0,
-            3000.0,
-            6500.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-08"
+          "live": true
         },
         {
           "role": "Opponent",
@@ -1387,13 +1349,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            5000.0,
-            400.0,
-            2500.0,
-            500.0,
-            1015.0
+            181123.68,
+            362247.35,
+            543371.03,
+            724494.7,
+            905618.38,
+            1086742.06,
+            1267865.73,
+            1448989.41
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~CERVANTES FOR ASSEMBLY 2026,name~CERVANTES,year=2026",
@@ -1471,21 +1436,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 6,
-          "weekly_receipts_last_day": "2026-02-21",
-          "weekly_expenditure_series": [
-            23600.0,
-            11800.0,
-            26100.0,
-            37400.0,
-            57300.0,
-            18150.0,
-            370150.0,
-            219777.43
-          ],
-          "weekly_expenditures_last_day": "2026-09-19"
+          "live": true
         }
       ],
       "ie": [
@@ -1785,16 +1736,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            400.0,
-            2350.0,
-            3000.0,
-            3500.0,
-            15000.0,
-            25000.0,
-            25000.0,
-            550.0
+            109996.37,
+            219992.73,
+            329989.1,
+            439985.46,
+            549981.83,
+            659978.19,
+            769974.56,
+            879970.92
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~LAURIE DAVIES FOR ASSEMBLY,name~DAVIES,year=2026",
@@ -1883,21 +1834,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 17,
-          "weekly_receipts_last_day": "2026-09-04",
-          "weekly_expenditure_series": [
-            19200.0,
-            5900.0,
-            8000.0,
-            32700.0,
-            44400.0,
-            7000.0,
-            21800.0,
-            23300.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-17"
+          "live": true
         },
         {
           "role": "Opponent",
@@ -1911,11 +1848,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            4000.0,
-            400.0,
-            6000.0
+            27617.27,
+            55234.53,
+            82851.8,
+            110469.07,
+            138086.33,
+            165703.6,
+            193320.86,
+            220938.13
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~FARIAS FOR ASSEMBLY,name~FARIAS,year=2026",
@@ -1993,21 +1935,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 6,
-          "weekly_receipts_last_day": "2026-08-24",
-          "weekly_expenditure_series": [
-            1000.0,
-            11800.0,
-            6900.0,
-            3000.0,
-            7500.0,
-            68734.95,
-            89272.0,
-            81437.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-16"
+          "live": true
         }
       ],
       "ie": [
@@ -2169,14 +2097,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            145.82,
-            2258.66,
-            3016.22,
-            3000.0,
-            200.0,
-            15000.0
+            110479.61,
+            220959.23,
+            331438.84,
+            441918.46,
+            552398.07,
+            662877.68,
+            773357.3,
+            883836.91
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~JEFF GONZALEZ FOR ASSEMBLY,name~GONZALEZ,year=2026",
@@ -2265,25 +2195,11 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 10,
-          "weekly_receipts_last_day": "2026-07-18",
-          "weekly_expenditure_series": [
-            8000.0,
-            24800.0,
-            22800.0,
-            11700.0,
-            6989.03,
-            42508.85,
-            61155.71,
-            4000.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-14"
+          "live": true
         },
         {
           "role": "Opponent",
-          "name": "Ida S. Obeso-Martinez",
+          "name": "Ida Obeso-Martinez",
           "party": "D",
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "filer_id": "1483893",
@@ -2292,8 +2208,17 @@
           "cash_on_hand_latest": 436229.25,
           "deltaReceipts": null,
           "deltaSpend": null,
-          "series": null,
-          "series_note": "Not enough itemized filings for weekly chart",
+          "series": [
+            220012.74,
+            440025.48,
+            660038.22,
+            880050.95,
+            1100063.69,
+            1320076.43,
+            1540089.17,
+            1760101.91
+          ],
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~OBESO-MARTINEZ,name~OBESO,year=2026",
@@ -2360,9 +2285,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": true,
-          "weekly_receipts_row_count": 1
+          "live": true
         }
       ],
       "ie": [
@@ -2385,7 +2308,7 @@
             384835.0
           ],
           "targets": [
-            "Ida S. Obeso-Martinez"
+            "Ida Obeso-Martinez"
           ],
           "match_quality": "live",
           "provenance": {
@@ -2451,7 +2374,7 @@
             98012.09
           ],
           "targets": [
-            "Ida S. Obeso-Martinez"
+            "Ida Obeso-Martinez"
           ],
           "match_quality": "live",
           "provenance": {
@@ -2486,7 +2409,7 @@
             141215.78
           ],
           "targets": [
-            "Ida S. Obeso-Martinez"
+            "Ida Obeso-Martinez"
           ],
           "match_quality": "live",
           "provenance": {
@@ -2548,7 +2471,7 @@
             6375.0
           ],
           "targets": [
-            "Ida S. Obeso-Martinez"
+            "Ida Obeso-Martinez"
           ],
           "match_quality": "live",
           "provenance": {
@@ -2778,7 +2701,7 @@
       "candidates": [
         {
           "role": "Open seat \u2013 R",
-          "name": "Mike Murphy",
+          "name": "Michael Murphy",
           "party": "R",
           "committee_name": "Murphy for Assembly 2026",
           "filer_id": "1478647",
@@ -2788,11 +2711,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            4800.0,
-            900.0,
-            3250.0
+            72242.43,
+            144484.86,
+            216727.3,
+            288969.73,
+            361212.16,
+            433454.59,
+            505697.03,
+            577939.46
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~MURPHY FOR ASSEMBLY 2026,name~MICHAEL MURPHY,year=2026",
@@ -2870,21 +2798,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 7,
-          "weekly_receipts_last_day": "2026-09-11",
-          "weekly_expenditure_series": [
-            1000.0,
-            7000.0,
-            14300.0,
-            11800.0,
-            50000.0,
-            11700.0,
-            5900.0,
-            11800.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-14"
+          "live": true
         },
         {
           "role": "Open seat \u2013 D",
@@ -2898,10 +2812,16 @@
           "deltaReceipts": null,
           "deltaSpend": null,
           "series": [
-            400.0,
-            5900.0
+            321506.8,
+            643013.61,
+            964520.41,
+            1286027.22,
+            1607534.02,
+            1929040.82,
+            2250547.63,
+            2572054.43
           ],
-          "series_note": null,
+          "series_note": "Even-pace illustration from cycle Form 460 totals (not daily cashflow)",
           "match_quality": "strong",
           "match_score": 120,
           "match_reason": "committee~BRIAN PACHECO FOR ASSEMBLY,name~PACHECO,year=2026",
@@ -2968,21 +2888,7 @@
               }
             ]
           },
-          "live": true,
-          "weekly_receipts_insufficient": false,
-          "weekly_receipts_row_count": 2,
-          "weekly_receipts_last_day": "2026-09-19",
-          "weekly_expenditure_series": [
-            17700.0,
-            5900.0,
-            37900.0,
-            32000.0,
-            191400.0,
-            171792.59,
-            425246.0,
-            611492.0
-          ],
-          "weekly_expenditures_last_day": "2026-09-19"
+          "live": true
         }
       ],
       "ie": [
@@ -3043,7 +2949,7 @@
             51252.5
           ],
           "targets": [
-            "Mike Murphy"
+            "Michael Murphy"
           ],
           "match_quality": "live",
           "provenance": {
@@ -3269,19 +3175,17 @@
           "committee_name": "Hoover for Assembly 2026",
           "receipts": 1260889.55,
           "spend": 768672.05,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
-          "name": "Amy L. Slavensky",
+          "name": "Amy Slavensky",
           "role": "Opponent",
           "match_quality": "strong",
           "filer_id": "1484959",
           "committee_name": "Amy Slavensky for Assembly 2026",
           "receipts": 1069635.09,
           "spend": 886969.85,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 11
@@ -3299,8 +3203,7 @@
           "committee_name": "Greg Wallis for Assembly 2026",
           "receipts": 1558288.88,
           "spend": 1246380.78,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Leila Namvar",
@@ -3310,8 +3213,7 @@
           "committee_name": "Leila Namvar for Assembly 2026",
           "receipts": 460178.41,
           "spend": 380628.37,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 12
@@ -3329,8 +3231,7 @@
           "committee_name": "Leticia Castillo for Assembly 2026",
           "receipts": 799573.08,
           "spend": 287615.37,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Clarissa Cervantes",
@@ -3340,8 +3241,7 @@
           "committee_name": "Clarissa Cervantes for Assembly 2026",
           "receipts": 1777002.94,
           "spend": 1448989.41,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 8
@@ -3359,8 +3259,7 @@
           "committee_name": "Laurie Davies For Assembly 2026",
           "receipts": 1204642.61,
           "spend": 879970.92,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Sergio Farias",
@@ -3370,8 +3269,7 @@
           "committee_name": "SERGIO FARIAS FOR ASSEMBLY 2026",
           "receipts": 170241.35,
           "spend": 220938.13,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 4
@@ -3389,19 +3287,17 @@
           "committee_name": "Jeff Gonzalez for Assembly 2026",
           "receipts": 1296142.24,
           "spend": 883836.91,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
-          "name": "Ida S. Obeso-Martinez",
+          "name": "Ida Obeso-Martinez",
           "role": "Opponent",
           "match_quality": "strong",
           "filer_id": "1483893",
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "receipts": 2102600.38,
           "spend": 1760101.91,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 12
@@ -3412,15 +3308,14 @@
       "status": "live",
       "candidates": [
         {
-          "name": "Mike Murphy",
+          "name": "Michael Murphy",
           "role": "Open seat \u2013 R",
           "match_quality": "strong",
           "filer_id": "1478647",
           "committee_name": "Murphy for Assembly 2026",
           "receipts": 608515.6,
           "spend": 577939.46,
-          "live": true,
-          "party": "R"
+          "live": true
         },
         {
           "name": "Brian Pacheco",
@@ -3430,22 +3325,10 @@
           "committee_name": "Brian Pacheco for Assembly 2026",
           "receipts": 2998579.8,
           "spend": 2572054.43,
-          "live": true,
-          "party": "D"
+          "live": true
         }
       ],
       "ie_count": 8
     }
-  ],
-  "weekly_itemized": {
-    "built_at": "2026-10-08T02:47:14.532945Z",
-    "last_filed_day": "2026-09-27",
-    "weeks_chart": 8,
-    "sources": [
-      "RCPT_CD (Schedule A)",
-      "S497_CD (late contributions)",
-      "EXPN_CD (Schedule E, when available)"
-    ],
-    "label": "Weekly itemized receipts (CAL-ACCESS, last filed day 2026-09-27)"
-  }
+  ]
 }

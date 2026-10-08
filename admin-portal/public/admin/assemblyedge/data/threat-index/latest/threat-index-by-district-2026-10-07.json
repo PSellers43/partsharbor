@@ -1,23 +1,26 @@
 {
   "schema_version": 1,
   "product": "MajorityIQ",
-  "generated_at": "2026-10-07T19:32:24-07:00",
+  "generated_at": "2026-10-07T19:50:58-07:00",
   "as_of_date": "2026-10-07",
   "formula": {
-    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, and narrative heat; poll movement included only when a public horse-race poll falls in the gap window. Ad surge excluded (no free source).",
+    "description": "Weighted composite 0\u2013100 of money velocity, IE pressure, Google ad surge, and narrative heat; poll movement included only when a verified horse-race poll falls in the gap window.",
     "base_weights": {
-      "money": 0.3125,
-      "ie": 0.25,
-      "narrative": 0.25,
-      "polls": 0.1875
+      "money": 0.25,
+      "ie": 0.2,
+      "ads": 0.2,
+      "narrative": 0.2,
+      "polls": 0.15
     },
-    "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/narrative weights renormalized to sum to 1.",
+    "poll_exclusion": "When no recent poll: poll factor excluded and money/IE/ads/narrative weights renormalized to sum to 1.",
+    "poll_sponsor_weight": "Independent polls: full movement score. Campaign, party/caucus, or IE-sponsored polls: same formula then \u00d70.5 (flagged partisan sponsor on factor card). Private internal polls are merged at runtime in the authenticated app only.",
+    "ad_surge_rule": "Rank log1p(\u224814d Google weekly spend) \u00d7 (1 + clamp(latest-week WoW, \u221250%, +200%)) across beachheads (~18\u201395). Source: Google Political Ads Transparency bundle.",
     "narrative_rule": "score = min(100, 20 \u00d7 headlines in last 7 days from build-time Google News RSS); 0 headlines \u2192 0.",
     "status_thresholds": {
       "elevated": 65,
       "watch": 45
     },
-    "normalization": "Money and IE ranked across the six beachheads (min-max ~18\u201395). Narrative uses the fixed headline rule above."
+    "normalization": "Money, IE, and ad surge ranked across the six beachheads (min-max ~18\u201395). Narrative uses the fixed headline rule above."
   },
   "inputs": {
     "money_late": {
@@ -29,23 +32,28 @@
       "data_as_of": "2026-10-08T02:22:20.754540Z"
     },
     "polling": {
-      "path": "data/polling/latest.json",
-      "updated_at": "2026-10-07T16:00:00-07:00"
+      "path": "data/polls/released.json",
+      "legacy_path": "data/polling/latest.json",
+      "updated_at": "2026-10-08T14:00:00-07:00"
     },
     "news": {
       "source": "Google News RSS (build-time fetch)",
-      "fetched_at": "2026-10-07T19:32:22-07:00"
+      "fetched_at": "2026-10-07T19:50:56-07:00"
     },
     "lean": {
       "path": "data/election-history/official/asm-2024-general-sov.json",
       "source": "2024 Assembly result (SOS SOV)"
+    },
+    "google_ads": {
+      "path": "data/ads/latest/ads-by-district.json",
+      "as_of_pt": "2026-10-07 13:51:37"
     }
   },
   "districts": {
     "ad-7": {
       "id": "ad-7",
       "code": "AD-7",
-      "threatIndex": 36,
+      "threatIndex": 34,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
@@ -66,7 +74,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 78,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
           "blurb": "7-day late contributions $123,539 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -74,24 +82,23 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 18,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "up",
           "blurb": "7-day anti-R IE $0 (pro-R $569,593; total 7-day IE $569,593). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 31,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $17,500 (-63% vs prior consecutive week). District score after cross-beachhead normalization: 31. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -101,7 +108,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -109,7 +116,7 @@
     "ad-27": {
       "id": "ad-27",
       "code": "AD-27",
-      "threatIndex": 57,
+      "threatIndex": 48,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
@@ -130,7 +137,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 74,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
           "blurb": "7-day late contributions $435,432 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -138,24 +145,23 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 93,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "up",
           "blurb": "7-day anti-R IE $92,154 (pro-R $65,256; total 7-day IE $157,410). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 18,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $3,700 (-75% vs prior consecutive week). District score after cross-beachhead normalization: 18. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -165,7 +171,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -173,7 +179,7 @@
     "ad-36": {
       "id": "ad-36",
       "code": "AD-36",
-      "threatIndex": 42,
+      "threatIndex": 36,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
@@ -194,7 +200,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 95,
-          "weight": 0.38461538461538464,
+          "weight": 0.25,
           "trend": "flat",
           "blurb": "7-day late contributions $230,685 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -202,42 +208,41 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 18,
-          "weight": 0.3076923076923077,
+          "weight": 0.2,
           "trend": "up",
           "blurb": "7-day anti-R IE $0 (pro-R $1,043,154; total 7-day IE $1,043,154). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 29,
+          "weight": 0.2,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $13,700 (-71% vs prior consecutive week). District score after cross-beachhead normalization: 29. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.2,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
         {
           "id": "polls",
           "label": "Poll movement",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
-          "unavailable": true
+          "score": 20,
+          "weight": 0.15,
+          "trend": "down",
+          "blurb": "Recent poll (Guidant Polling & Strategy, field end 2026-09-23) \u2014 in 90-day window. Partisan sponsor (ie) \u2014 poll factor at 50% weight.",
+          "partisan_sponsor": true
         }
       ]
     },
     "ad-47": {
       "id": "ad-47",
       "code": "AD-47",
-      "threatIndex": 64,
+      "threatIndex": 60,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
@@ -258,7 +263,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 89,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
           "blurb": "7-day late contributions $237,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -266,24 +271,23 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 95,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "up",
           "blurb": "7-day anti-R IE $120,314 (pro-R $673,512; total 7-day IE $793,826). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 50,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $45,200 (-63% vs prior consecutive week). District score after cross-beachhead normalization: 50. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -293,7 +297,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -301,7 +305,7 @@
     "ad-58": {
       "id": "ad-58",
       "code": "AD-58",
-      "threatIndex": 54,
+      "threatIndex": 52,
       "status": "watch",
       "delta24h": null,
       "delta7d": null,
@@ -322,7 +326,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 65,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
           "blurb": "7-day late contributions $280,274 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -330,24 +334,23 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 93,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "up",
           "blurb": "7-day anti-R IE $95,549 (pro-R $45,767; total 7-day IE $141,316). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 46,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $29,800 (-66% vs prior consecutive week). District score after cross-beachhead normalization: 46. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 0,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 0 headline(s) \u2192 0. Headlines from Google News RSS at build time."
         },
@@ -357,7 +360,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -365,7 +368,7 @@
     "ad-74": {
       "id": "ad-74",
       "code": "AD-74",
-      "threatIndex": 19,
+      "threatIndex": 37,
       "status": "stable",
       "delta24h": null,
       "delta7d": null,
@@ -386,7 +389,7 @@
           "id": "money",
           "label": "Money velocity",
           "score": 18,
-          "weight": 0.38461538461538464,
+          "weight": 0.2941176470588235,
           "trend": "flat",
           "blurb": "7-day late contributions $37,956 in FPPC 90-day window (CAL-ACCESS S497/S496 buckets)."
         },
@@ -394,24 +397,23 @@
           "id": "ie",
           "label": "IE pressure",
           "score": 18,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "7-day anti-R IE $0 (pro-R $39,092; total 7-day IE $39,092). TI IE factor = log1p(7-day anti-R only)."
         },
         {
           "id": "ads",
           "label": "Ad surge",
-          "score": null,
-          "weight": 0.0,
-          "trend": "flat",
-          "blurb": "Excluded \u2014 no confirmed free Meta/Google source for CA Assembly advertisers.",
-          "unavailable": true
+          "score": 95,
+          "weight": 0.23529411764705882,
+          "trend": "down",
+          "blurb": "Google Political Ads Transparency weekly spend (US advertisers only). Formula: rank across six beachheads of log1p(\u224814d spend) \u00d7 (1 + clamp(WoW, \u221250%, +200%)). Latest week starting 2026-10-04: $9,100 (-28% vs prior consecutive week). District score after cross-beachhead normalization: 95. Meta not included."
         },
         {
           "id": "narrative",
           "label": "Narrative heat",
           "score": 20,
-          "weight": 0.3076923076923077,
+          "weight": 0.23529411764705882,
           "trend": "flat",
           "blurb": "Rule: score = min(100, 20 \u00d7 headlines in last 7 days). This district: 1 headline(s) \u2192 20. Headlines from Google News RSS at build time."
         },
@@ -421,7 +423,7 @@
           "score": null,
           "weight": 0.0,
           "trend": "flat",
-          "blurb": "Excluded from composite \u2014 No public horse-race poll in the last 90 days.",
+          "blurb": "Excluded from composite \u2014 No released poll in last 90 days.",
           "unavailable": true
         }
       ]
@@ -947,7 +949,7 @@
   },
   "rival": {
     "ad-7": {
-      "opponent": "Amy Slavensky",
+      "opponent": "Amy L. Slavensky",
       "party": "D",
       "race_label": "Josh Hoover (R) incumbent vs Amy L. Slavensky (D)",
       "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
@@ -965,12 +967,12 @@
         },
         {
           "name": "Keeping Californians Working, a Coalition of Insurance Agents, Energy, Education, and Health Care Providers",
-          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy Slavensky (D)",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy L. Slavensky (D)",
           "spendBand": "$38,597 filed spend"
         },
         {
           "name": "Legislative Action Victory PAC",
-          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy Slavensky (D)",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Amy L. Slavensky (D)",
           "spendBand": "$352,528 filed spend"
         },
         {
@@ -1008,7 +1010,7 @@
         },
         {
           "name": "Committee to Support the Alliance of California's Farmers and Ranchers",
-          "role": "Anti-Republican (support D or oppose R) \u00b7 target Michael Murphy (R)",
+          "role": "Anti-Republican (support D or oppose R) \u00b7 target Mike Murphy (R)",
           "spendBand": "$51,252 filed spend"
         },
         {
@@ -1031,7 +1033,7 @@
       ]
     },
     "ad-36": {
-      "opponent": "Ida Obeso-Martinez",
+      "opponent": "Ida S. Obeso-Martinez",
       "party": "D",
       "race_label": "Jeff Gonzalez (R) incumbent vs Ida S. Obeso-Martinez (D)",
       "notes": "SOS certified 2026 roster + CAL-ACCESS Form 496/465 totals. IE side from target candidate party + support/oppose code.",
@@ -1055,7 +1057,7 @@
         },
         {
           "name": "Personal Insurance Federation of CA Agents & Employees PAC",
-          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida Obeso-Martinez (D)",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida S. Obeso-Martinez (D)",
           "spendBand": "$6,375 filed spend"
         },
         {
@@ -1065,7 +1067,7 @@
         },
         {
           "name": "Coalition to Restore California's Middle Class, Including Energy, Manufacturing and Technology Companies who Produce Gas",
-          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida Obeso-Martinez (D)",
+          "role": "Pro-Republican (support R or oppose D) \u00b7 target Ida S. Obeso-Martinez (D)",
           "spendBand": "$384,835 filed spend"
         },
         {
@@ -1289,7 +1291,9 @@
       }
     ]
   },
-  "ads_unavailable": {
-    "message": "No free, reliable Meta/Google political ad feed confirmed for CA Assembly races. Ads tab shows this state for all districts."
+  "ads_meta": {
+    "source": "Google Political Ads Transparency bundle (build-time)",
+    "as_of_pt": "2026-10-07 13:51:37",
+    "note": "Google ads only \u2014 Meta (Facebook/Instagram) not included; Meta Ad Library report can be added manually."
   }
 }

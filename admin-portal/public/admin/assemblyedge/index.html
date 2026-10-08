@@ -373,7 +373,7 @@
           <ul>
             <li>Money velocity — 7-day late contributions plus all 7-day IE dollars (both sides) in FPPC 90-day window (CAL-ACCESS S497/S496), ranked across beachheads</li>
             <li>IE pressure — log-scaled 7-day anti-Republican IE (<code>ie_seven_day_anti_r</code>); direction-aware pro/anti on rival tab</li>
-            <li>Ad surge — excluded (not in composite)</li>
+            <li>Ad surge — Google Political Ads Transparency weekly spend (Meta not in bundle; see Ads tab)</li>
             <li>Narrative heat — headline count in last 7 days (Google News RSS at build time)</li>
             <li>Poll movement — verified horse-race poll in 90-day window from <code>released.json</code>; independent full weight, campaign/party/IE at 50% (flagged)</li>
             <li>Polling &amp; gaps panel — <code>released.json</code> + optional internal polls (private, chipped)</li>
@@ -447,6 +447,7 @@
   <script src="js/abev.js"></script>
   <script src="js/late-money.js"></script>
   <script src="js/social.js"></script>
+  <script src="js/ads.js"></script>
   <script src="js/threat-index.js"></script>
   <script src="js/ask.js"></script>
   <script src="js/app.js"></script>
