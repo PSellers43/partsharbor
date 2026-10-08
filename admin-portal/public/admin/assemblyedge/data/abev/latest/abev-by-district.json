@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-08T01:34:56+00:00",
-  "built_on": "2026-10-08",
+  "updated_at": "2026-10-07T19:09:16-07:00",
+  "built_on": "2026-10-07",
   "scope": "Assembly beachhead districts (CRC 2020 lines)",
   "sources": {
     "swdb": {
@@ -40,12 +40,6 @@
         "source_url": "https://elections.cdn.sos.ca.gov/statewide-elections/2026-general/bsr-statistics.xlsx",
         "as_of": "2026-10-08",
         "counties": [
-          {
-            "fips": 61,
-            "name": "Placer",
-            "returned": 78,
-            "issued": 301715
-          },
           {
             "fips": 67,
             "name": "Sacramento",
@@ -91,26 +85,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 9672,
+              "pct": 4.8
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 884,
+              "pct": 0.44
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 2671,
+              "pct": 1.33
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 15235,
-              "pct": 7.56
+              "count": 2008,
+              "pct": 1.0
             }
           ],
           "source": {
@@ -148,26 +142,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 6464,
+              "pct": 4.05
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 568,
+              "pct": 0.36
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 2088,
+              "pct": 1.31
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 10678,
-              "pct": 6.69
+              "count": 1558,
+              "pct": 0.98
             }
           ],
           "source": {
@@ -248,26 +242,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 4721,
+              "pct": 3.97
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 381,
+              "pct": 0.32
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1044,
+              "pct": 0.88
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 7727,
-              "pct": 6.49
+              "count": 1581,
+              "pct": 1.33
             }
           ],
           "source": {
@@ -305,26 +299,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 2919,
+              "pct": 3.54
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 218,
+              "pct": 0.26
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 615,
+              "pct": 0.75
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 4554,
-              "pct": 5.52
+              "count": 802,
+              "pct": 0.97
             }
           ],
           "source": {
@@ -405,26 +399,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 5235,
+              "pct": 3.94
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 374,
+              "pct": 0.28
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1099,
+              "pct": 0.83
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 8307,
-              "pct": 6.25
+              "count": 1599,
+              "pct": 1.2
             }
           ],
           "source": {
@@ -462,26 +456,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 3172,
+              "pct": 3.59
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 201,
+              "pct": 0.23
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 617,
+              "pct": 0.7
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 5038,
-              "pct": 5.7
+              "count": 1048,
+              "pct": 1.19
             }
           ],
           "source": {
@@ -556,26 +550,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 10020,
+              "pct": 4.83
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 553,
+              "pct": 0.27
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1824,
+              "pct": 0.88
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 14521,
-              "pct": 7.0
+              "count": 2124,
+              "pct": 1.02
             }
           ],
           "source": {
@@ -613,26 +607,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 6486,
+              "pct": 4.14
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 347,
+              "pct": 0.22
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1270,
+              "pct": 0.81
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 9424,
-              "pct": 6.01
+              "count": 1321,
+              "pct": 0.84
             }
           ],
           "source": {
@@ -707,26 +701,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 5175,
+              "pct": 3.91
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 517,
+              "pct": 0.39
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1246,
+              "pct": 0.94
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 8870,
-              "pct": 6.7
+              "count": 1932,
+              "pct": 1.46
             }
           ],
           "source": {
@@ -764,26 +758,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 2915,
+              "pct": 3.41
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 250,
+              "pct": 0.29
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 731,
+              "pct": 0.85
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 4715,
-              "pct": 5.51
+              "count": 819,
+              "pct": 0.96
             }
           ],
           "source": {
@@ -858,26 +852,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 9311,
+              "pct": 4.81
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 678,
+              "pct": 0.35
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 2216,
+              "pct": 1.14
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 13693,
-              "pct": 7.07
+              "count": 1488,
+              "pct": 0.77
             }
           ],
           "source": {
@@ -915,26 +909,26 @@
             {
               "id": "aip",
               "label": "American Independent",
-              "count": 0,
-              "pct": 0.0
+              "count": 6062,
+              "pct": 3.97
             },
             {
               "id": "grn",
               "label": "Green",
-              "count": 0,
-              "pct": 0.0
+              "count": 394,
+              "pct": 0.26
             },
             {
               "id": "lib",
               "label": "Libertarian",
-              "count": 0,
-              "pct": 0.0
+              "count": 1622,
+              "pct": 1.06
             },
             {
               "id": "other",
               "label": "Other / minor",
-              "count": 8791,
-              "pct": 5.75
+              "count": 713,
+              "pct": 0.47
             }
           ],
           "source": {

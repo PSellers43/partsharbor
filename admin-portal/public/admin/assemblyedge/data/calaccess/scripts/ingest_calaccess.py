@@ -36,6 +36,10 @@ from urllib.request import Request, urlretrieve
 
 ROOT = Path(__file__).resolve().parents[1]  # data/calaccess/
 PROTO = ROOT.parent.parent  # assemblyedge-prototype/
+TI_SCRIPTS = ROOT.parent / "threat-index" / "scripts"
+if str(TI_SCRIPTS) not in sys.path:
+    sys.path.insert(0, str(TI_SCRIPTS))
+from ti_ie_direction import ie_effect  # noqa: E402
 BEACHHEADS_PATH = ROOT / "beachheads.json"
 RAW_DIR = ROOT / "raw"
 EXTRACT_ROOT = ROOT / "extract"
@@ -996,10 +1000,33 @@ def build_late_money_district_payload(
     ie_support = sum_amount([i for i in ie_items if i["side"] == "support"])
     ie_oppose = sum_amount([i for i in ie_items if i["side"] == "oppose"])
 
+    ie_pro_r = ie_anti_r = 0.0
+    ie_seven_pro = ie_seven_anti = 0.0
     seven_start = max(win_start, as_of_date - timedelta(days=6))
+    for item in ie_items:
+        effect = ie_effect(item.get("side") or "", item.get("target") or "", district)
+        if effect is None:
+            continue
+        amt = float(item.get("amount") or 0)
+        if effect == "pro_r":
+            ie_pro_r += amt
+        else:
+            ie_anti_r += amt
+        exp = item.get("exp_date")
+        if exp and seven_start.isoformat() <= exp <= as_of_date.isoformat():
+            if effect == "pro_r":
+                ie_seven_pro += amt
+            else:
+                ie_seven_anti += amt
+
+    contrib_dates = sorted({i.get("contrib_date") for i in period_items if i.get("contrib_date")})
+    last_filed_day_date = contrib_dates[-1] if contrib_dates else None
     last_24h_total = sum_amount(
         [i for i in period_items if i.get("contrib_date") == as_of_date.isoformat()]
     )
+    last_filed_day_total = sum_amount(
+        [i for i in period_items if i.get("contrib_date") == last_filed_day_date]
+    ) if last_filed_day_date else 0.0
     seven_day_total = sum_amount(
         [
             i for i in period_items
@@ -1007,7 +1034,12 @@ def build_late_money_district_payload(
             and seven_start.isoformat() <= i["contrib_date"] <= as_of_date.isoformat()
         ]
     )
+    exp_dates = sorted({i.get("exp_date") for i in ie_items if i.get("exp_date")})
+    last_ie_filed_day = exp_dates[-1] if exp_dates else None
     ie_last_24h = sum_amount([i for i in ie_items if i.get("exp_date") == as_of_date.isoformat()])
+    ie_last_filed_day = sum_amount(
+        [i for i in ie_items if i.get("exp_date") == last_ie_filed_day]
+    ) if last_ie_filed_day else 0.0
     ie_seven_day = sum_amount(
         [
             i for i in ie_items
@@ -1015,7 +1047,6 @@ def build_late_money_district_payload(
             and seven_start.isoformat() <= i["exp_date"] <= as_of_date.isoformat()
         ]
     )
-
     # Daily buckets across the full FPPC 90-day period (sparkline + timeline)
     day_cursor = win_start
     daily_buckets: List[dict] = []
@@ -1075,12 +1106,20 @@ def build_late_money_district_payload(
             "received": money(received_total),
             "made": money(made_total),
             "last_24h": money(last_24h_total),
+            "last_filed_day": money(last_filed_day_total),
+            "last_filed_day_date": last_filed_day_date,
             "seven_day": money(seven_day_total),
             "ie_period": money(ie_total),
             "ie_last_24h": money(ie_last_24h),
+            "ie_last_filed_day": money(ie_last_filed_day),
+            "ie_last_filed_day_date": last_ie_filed_day,
             "ie_seven_day": money(ie_seven_day),
+            "ie_seven_day_pro_r": money(ie_seven_pro),
+            "ie_seven_day_anti_r": money(ie_seven_anti),
             "ie_support": money(ie_support),
             "ie_oppose": money(ie_oppose),
+            "ie_pro_r": money(ie_pro_r),
+            "ie_anti_r": money(ie_anti_r),
             "ie_reports": len(ie_items),
         },
         "sparkline": sparkline,

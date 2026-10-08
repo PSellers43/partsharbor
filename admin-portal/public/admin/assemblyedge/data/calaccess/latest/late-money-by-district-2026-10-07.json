@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-07T21:43:49.626134Z",
-  "data_as_of": "2026-10-07T21:05:17.725231Z",
+  "generated_at": "2026-10-08T02:22:32.768316Z",
+  "data_as_of": "2026-10-08T02:22:20.754540Z",
   "election_date": "2026-11-03",
   "window_start": "2026-08-05",
   "window_end": "2026-11-03",
@@ -39,19 +39,27 @@
         "election_date": "2026-11-03",
         "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)"
       },
-      "linked_f497_filings": 213,
+      "linked_f497_filings": 211,
       "totals": {
         "period_contributions": 1298770.07,
         "period_contribution_reports": 154,
         "received": 1298770.07,
         "made": 0.0,
         "last_24h": 0.0,
+        "last_filed_day": 5900.0,
+        "last_filed_day_date": "2026-10-06",
         "seven_day": 123538.55,
         "ie_period": 1165712.93,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 333619.8,
+        "ie_last_filed_day_date": "2026-10-05",
         "ie_seven_day": 569592.66,
+        "ie_seven_day_pro_r": 569592.66,
+        "ie_seven_day_anti_r": 0.0,
         "ie_support": 568005.82,
         "ie_oppose": 597707.11,
+        "ie_pro_r": 1165712.93,
+        "ie_anti_r": 0.0,
         "ie_reports": 36
       },
       "sparkline": [
@@ -668,11 +676,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Rebecca Bauer Kahan for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207168",
@@ -691,7 +700,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207168",
@@ -710,7 +720,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207168",
@@ -729,7 +740,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207168",
@@ -748,7 +760,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206895",
@@ -763,11 +776,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "United Nurses Association of California/ Union of Health Care Professionals PAC (UNAC PAC) Small Contributor Committee",
           "entity_type": "SCC",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206830",
@@ -782,11 +796,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Cottie Petrie-Norris for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206150",
@@ -801,11 +816,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Liz Ortega-Toro for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206264",
@@ -824,7 +840,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206264",
@@ -843,7 +860,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206021",
@@ -858,11 +876,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206021",
@@ -877,11 +896,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206021",
@@ -896,11 +916,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206264",
@@ -919,7 +940,8 @@
           "side": null,
           "employer": "C00088591",
           "occupation": "Qualified Multicandidate Cmte",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206264",
@@ -938,7 +960,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206264",
@@ -957,7 +980,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206264",
@@ -976,7 +1000,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205875",
@@ -991,11 +1016,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Nurses Association PAC (CNA-PAC) Small Contributor Committee",
           "entity_type": "SCC",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205175",
@@ -1010,11 +1036,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Damon Connolly for Senate 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205075",
@@ -1033,7 +1060,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205075",
@@ -1052,7 +1080,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205255",
@@ -1067,11 +1096,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205255",
@@ -1086,11 +1116,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204734",
@@ -1105,11 +1136,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Angelique Ashby for Senate 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204770",
@@ -1124,11 +1156,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204362",
@@ -1147,7 +1180,8 @@
           "side": null,
           "employer": "n/a",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204258",
@@ -1162,11 +1196,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203015",
@@ -1181,11 +1216,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Kellen Sinclair",
           "entity_type": "IND",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": "Stawicki, Anderson & Sinclair, PC",
           "occupation": "Attorney",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202788",
@@ -1204,7 +1240,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202788",
@@ -1223,7 +1260,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202788",
@@ -1242,7 +1280,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203204",
@@ -1257,11 +1296,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203204",
@@ -1276,11 +1316,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203204",
@@ -1295,11 +1336,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202712",
@@ -1314,11 +1356,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "PACE of California School Employees Association Small Contributor Committee",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202792",
@@ -1333,11 +1376,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Jerold Diregolo",
           "entity_type": "IND",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": "n/a",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202792",
@@ -1352,11 +1396,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Jerold Diregolo",
           "entity_type": "IND",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": "n/a",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201747",
@@ -1371,11 +1416,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201885",
@@ -1394,7 +1440,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201885",
@@ -1413,7 +1460,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201885",
@@ -1432,7 +1480,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201743",
@@ -1447,11 +1496,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200982",
@@ -1470,7 +1520,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3200982",
@@ -1489,7 +1540,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3200932",
@@ -1504,11 +1556,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200932",
@@ -1523,11 +1576,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200932",
@@ -1542,11 +1596,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200932",
@@ -1561,11 +1616,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199463",
@@ -1580,11 +1636,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "Mark Gonzalez for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1599,11 +1656,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1618,11 +1676,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1637,11 +1696,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1656,11 +1716,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1675,11 +1736,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199638",
@@ -1694,11 +1756,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198518",
@@ -1713,11 +1776,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198518",
@@ -1732,11 +1796,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198518",
@@ -1751,11 +1816,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198518",
@@ -1770,11 +1836,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3197345",
@@ -1789,11 +1856,12 @@
           "committee_name": "Amy Slavensky for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Amy L. Slavensky",
+          "candidate": "Amy Slavensky",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         }
       ],
       "recent_ie": [
@@ -2052,19 +2120,27 @@
         "election_date": "2026-11-03",
         "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)"
       },
-      "linked_f497_filings": 196,
+      "linked_f497_filings": 185,
       "totals": {
         "period_contributions": 1334826.32,
         "period_contribution_reports": 151,
         "received": 1334826.32,
         "made": 0.0,
         "last_24h": 0.0,
+        "last_filed_day": 112000.0,
+        "last_filed_day_date": "2026-10-05",
         "seven_day": 237274.31,
         "ie_period": 2380954.11,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 38994.03,
+        "ie_last_filed_day_date": "2026-10-06",
         "ie_seven_day": 793826.28,
+        "ie_seven_day_pro_r": 673511.94,
+        "ie_seven_day_anti_r": 120314.34,
         "ie_support": 1351126.89,
         "ie_oppose": 1029827.22,
+        "ie_pro_r": 1869356.44,
+        "ie_anti_r": 511597.67,
         "ie_reports": 54
       },
       "sparkline": [
@@ -2685,7 +2761,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206857",
@@ -2704,7 +2781,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206857",
@@ -2723,7 +2801,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206191",
@@ -2742,7 +2821,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206221",
@@ -2761,7 +2841,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206193",
@@ -2780,7 +2861,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206193",
@@ -2799,7 +2881,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205330",
@@ -2818,7 +2901,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205349",
@@ -2837,7 +2921,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205330",
@@ -2856,7 +2941,8 @@
           "side": null,
           "employer": "JB Finish",
           "occupation": "Owner",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205330",
@@ -2875,7 +2961,8 @@
           "side": null,
           "employer": "Caress Insurance LLC",
           "occupation": "Broker",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205330",
@@ -2894,7 +2981,8 @@
           "side": null,
           "employer": "Hinkle Automotive Management Co.",
           "occupation": "President",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205330",
@@ -2913,7 +3001,8 @@
           "side": null,
           "employer": "Majestic Realty Co.",
           "occupation": "Real Estate Developer",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205257",
@@ -2932,7 +3021,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205257",
@@ -2951,7 +3041,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204768",
@@ -2970,7 +3061,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204768",
@@ -2989,7 +3081,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204768",
@@ -3008,7 +3101,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204768",
@@ -3027,7 +3121,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203738",
@@ -3046,7 +3141,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203738",
@@ -3065,7 +3161,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203738",
@@ -3084,7 +3181,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203192",
@@ -3103,7 +3201,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204347",
@@ -3122,7 +3221,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202697",
@@ -3141,7 +3241,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202697",
@@ -3160,7 +3261,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202697",
@@ -3179,7 +3281,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202697",
@@ -3198,7 +3301,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202796",
@@ -3217,7 +3321,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202796",
@@ -3236,7 +3341,8 @@
           "side": null,
           "employer": "Luminex",
           "occupation": "Engineer",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202796",
@@ -3255,7 +3361,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202796",
@@ -3274,7 +3381,8 @@
           "side": null,
           "employer": "VRAA",
           "occupation": "Owner",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201944",
@@ -3293,7 +3401,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202622",
@@ -3312,7 +3421,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202722",
@@ -3331,7 +3441,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201070",
@@ -3350,7 +3461,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201070",
@@ -3369,7 +3481,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201070",
@@ -3388,7 +3501,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201070",
@@ -3407,7 +3521,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201070",
@@ -3426,7 +3541,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202685",
@@ -3445,7 +3561,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200990",
@@ -3464,7 +3581,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3483,7 +3601,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3502,7 +3621,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3200823",
@@ -3521,7 +3641,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200823",
@@ -3540,7 +3661,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200823",
@@ -3559,7 +3681,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200823",
@@ -3578,7 +3701,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199893",
@@ -3597,7 +3721,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3616,7 +3741,8 @@
           "side": null,
           "employer": "Lambros and Associates LLC",
           "occupation": "Owner",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3635,7 +3761,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3654,7 +3781,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199893",
@@ -3673,7 +3801,8 @@
           "side": null,
           "employer": "BRC Advisors",
           "occupation": "Real Estate",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199785",
@@ -3692,7 +3821,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199785",
@@ -3711,7 +3841,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199785",
@@ -3730,7 +3861,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199785",
@@ -3749,7 +3881,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198442",
@@ -3768,7 +3901,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198536",
@@ -3787,7 +3921,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198536",
@@ -3806,7 +3941,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         }
       ],
       "recent_ie": [
@@ -4065,19 +4201,27 @@
         "election_date": "2026-11-03",
         "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)"
       },
-      "linked_f497_filings": 237,
+      "linked_f497_filings": 235,
       "totals": {
         "period_contributions": 1911058.96,
         "period_contribution_reports": 143,
         "received": 1911058.96,
         "made": 0.0,
         "last_24h": 0.0,
+        "last_filed_day": 16800.0,
+        "last_filed_day_date": "2026-10-06",
         "seven_day": 280273.63,
         "ie_period": 1216462.0,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 90889.87,
+        "ie_last_filed_day_date": "2026-10-05",
         "ie_seven_day": 141316.11,
+        "ie_seven_day_pro_r": 45767.0,
+        "ie_seven_day_anti_r": 95549.11,
         "ie_support": 561979.48,
         "ie_oppose": 654482.52,
+        "ie_pro_r": 552266.74,
+        "ie_anti_r": 664195.26,
         "ie_reports": 29
       },
       "sparkline": [
@@ -4698,7 +4842,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207037",
@@ -4717,7 +4862,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207076",
@@ -4736,7 +4882,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206378",
@@ -4755,7 +4902,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206378",
@@ -4774,7 +4922,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206378",
@@ -4793,7 +4942,8 @@
           "side": null,
           "employer": "Law Office of Gregory Brittain",
           "occupation": "Attorney",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207121",
@@ -4812,7 +4962,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207121",
@@ -4831,7 +4982,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207121",
@@ -4850,7 +5002,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207121",
@@ -4869,7 +5022,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207121",
@@ -4888,7 +5042,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207121",
@@ -4907,7 +5062,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3207138",
@@ -4926,7 +5082,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206164",
@@ -4945,7 +5102,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206033",
@@ -4964,7 +5122,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206033",
@@ -4983,7 +5142,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206017",
@@ -5002,7 +5162,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205425",
@@ -5021,7 +5182,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204731",
@@ -5040,7 +5202,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204663",
@@ -5059,7 +5222,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204565",
@@ -5078,7 +5242,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205258",
@@ -5097,7 +5262,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205258",
@@ -5116,7 +5282,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205258",
@@ -5135,7 +5302,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205042",
@@ -5154,7 +5322,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203937",
@@ -5173,7 +5342,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203574",
@@ -5192,7 +5362,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204259",
@@ -5211,7 +5382,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203252",
@@ -5230,7 +5402,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203910",
@@ -5249,7 +5422,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203252",
@@ -5268,7 +5442,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202832",
@@ -5287,7 +5462,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203349",
@@ -5306,7 +5482,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203349",
@@ -5325,7 +5502,8 @@
           "side": null,
           "employer": "Kaitlyn J. Krieger",
           "occupation": "Philanthropist",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203349",
@@ -5344,7 +5522,8 @@
           "side": null,
           "employer": "n/a",
           "occupation": "Homemaker",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203349",
@@ -5363,7 +5542,8 @@
           "side": null,
           "employer": "n/a",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203144",
@@ -5382,7 +5562,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203144",
@@ -5401,7 +5582,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202420",
@@ -5420,7 +5602,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202729",
@@ -5439,7 +5622,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202288",
@@ -5458,7 +5642,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202717",
@@ -5477,7 +5662,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201684",
@@ -5496,7 +5682,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201037",
@@ -5515,7 +5702,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201698",
@@ -5534,7 +5722,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201698",
@@ -5553,7 +5742,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201698",
@@ -5572,7 +5762,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199978",
@@ -5591,7 +5782,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3200850",
@@ -5610,7 +5802,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199420",
@@ -5629,7 +5822,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199691",
@@ -5648,7 +5842,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199691",
@@ -5667,7 +5862,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199691",
@@ -5686,7 +5882,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199691",
@@ -5705,7 +5902,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199691",
@@ -5724,7 +5922,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198590",
@@ -5743,7 +5942,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198590",
@@ -5762,7 +5962,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3197834",
@@ -5781,7 +5982,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198583",
@@ -5800,7 +6002,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3197220",
@@ -5819,7 +6022,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         }
       ],
       "recent_ie": [
@@ -6085,12 +6289,20 @@
         "received": 273772.26,
         "made": 25150.0,
         "last_24h": 0.0,
+        "last_filed_day": 25000.0,
+        "last_filed_day_date": "2026-10-05",
         "seven_day": 37955.88,
         "ie_period": 278999.95,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 39092.0,
+        "ie_last_filed_day_date": "2026-10-05",
         "ie_seven_day": 39092.0,
+        "ie_seven_day_pro_r": 39092.0,
+        "ie_seven_day_anti_r": 0.0,
         "ie_support": 27510.0,
         "ie_oppose": 251489.95,
+        "ie_pro_r": 271035.95,
+        "ie_anti_r": 7964.0,
         "ie_reports": 13
       },
       "sparkline": [
@@ -6711,7 +6923,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205688",
@@ -6730,7 +6943,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205688",
@@ -6749,7 +6963,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205346",
@@ -6768,7 +6983,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204975",
@@ -6787,7 +7003,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204358",
@@ -6806,7 +7023,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204358",
@@ -6825,7 +7043,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204358",
@@ -6844,7 +7063,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204399",
@@ -6863,7 +7083,8 @@
           "side": null,
           "employer": "N/A",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204399",
@@ -6882,7 +7103,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204358",
@@ -6901,7 +7123,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202786",
@@ -6920,7 +7143,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202786",
@@ -6939,7 +7163,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202786",
@@ -6958,7 +7183,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3202443",
@@ -6977,7 +7203,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202443",
@@ -6996,7 +7223,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201653",
@@ -7015,7 +7243,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201653",
@@ -7034,7 +7263,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201653",
@@ -7053,7 +7283,8 @@
           "side": null,
           "employer": "Retired",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201653",
@@ -7072,7 +7303,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201653",
@@ -7091,7 +7323,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201243",
@@ -7110,7 +7343,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3197492",
@@ -7129,7 +7363,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3197014",
@@ -7148,7 +7383,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3196564",
@@ -7167,7 +7403,8 @@
           "side": null,
           "employer": "N/A",
           "occupation": "Unemployed",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3196837",
@@ -7186,7 +7423,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3196837",
@@ -7205,7 +7443,8 @@
           "side": null,
           "employer": "Surlamer LLC",
           "occupation": "Owner",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3196837",
@@ -7224,7 +7463,8 @@
           "side": null,
           "employer": "Atomic Investments Inc.",
           "occupation": "President",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3195932",
@@ -7243,7 +7483,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3195932",
@@ -7262,7 +7503,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3194419",
@@ -7281,7 +7523,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3195248",
@@ -7300,7 +7543,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3194775",
@@ -7319,7 +7563,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3194775",
@@ -7338,7 +7583,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3194775",
@@ -7357,7 +7603,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3194775",
@@ -7376,7 +7623,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3193772",
@@ -7395,7 +7643,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3193772",
@@ -7414,7 +7663,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3193772",
@@ -7433,7 +7683,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3193434",
@@ -7452,7 +7703,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3193434",
@@ -7471,7 +7723,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3192722",
@@ -7490,7 +7743,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3192124",
@@ -7509,7 +7763,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3191984",
@@ -7528,7 +7783,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3191745",
@@ -7547,7 +7803,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3191745",
@@ -7566,7 +7823,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3191661",
@@ -7585,7 +7843,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3191661",
@@ -7604,7 +7863,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3191661",
@@ -7623,7 +7883,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3190850",
@@ -7642,7 +7903,8 @@
           "side": null,
           "employer": "Saddleback Cars",
           "occupation": "Auto Repair",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3189943",
@@ -7661,7 +7923,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3189943",
@@ -7680,7 +7943,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3189687",
@@ -7699,7 +7963,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3189687",
@@ -7718,7 +7983,8 @@
           "side": null,
           "employer": "Cbre",
           "occupation": "Sr VP",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3188794",
@@ -7737,7 +8003,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3188980",
@@ -7756,7 +8023,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3188980",
@@ -7775,7 +8043,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3188980",
@@ -7794,7 +8063,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3188686",
@@ -7813,7 +8083,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3188686",
@@ -7832,7 +8103,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         }
       ],
       "recent_ie": [
@@ -8007,19 +8279,27 @@
         "election_date": "2026-11-03",
         "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)"
       },
-      "linked_f497_filings": 266,
+      "linked_f497_filings": 225,
       "totals": {
         "period_contributions": 3404834.84,
         "period_contribution_reports": 213,
         "received": 3399834.84,
         "made": 5000.0,
         "last_24h": 0.0,
+        "last_filed_day": 5900.0,
+        "last_filed_day_date": "2026-10-06",
         "seven_day": 230685.16,
         "ie_period": 1887394.73,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 981023.56,
+        "ie_last_filed_day_date": "2026-10-05",
         "ie_seven_day": 1043153.81,
+        "ie_seven_day_pro_r": 1043153.81,
+        "ie_seven_day_anti_r": 0.0,
         "ie_support": 744893.01,
         "ie_oppose": 1142501.72,
+        "ie_pro_r": 1887394.73,
+        "ie_anti_r": 0.0,
         "ie_reports": 61
       },
       "sparkline": [
@@ -8636,11 +8916,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Rebecca Bauer Kahan for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206307",
@@ -8659,7 +8940,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206307",
@@ -8678,7 +8960,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206748",
@@ -8693,11 +8976,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Cottie Petrie-Norris for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206748",
@@ -8712,11 +8996,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Friends of Solache for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206140",
@@ -8731,11 +9016,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Liz Ortega-Toro for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205721",
@@ -8750,11 +9036,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Ash Kalra for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205721",
@@ -8769,11 +9056,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Nurses Association PAC (CNA-PAC) Small Contributor Committee",
           "entity_type": "SCC",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205721",
@@ -8788,11 +9076,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Marc Berman for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206153",
@@ -8807,11 +9096,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206153",
@@ -8826,11 +9116,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206153",
@@ -8845,11 +9136,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206153",
@@ -8864,11 +9156,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205337",
@@ -8887,7 +9180,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205337",
@@ -8906,7 +9200,8 @@
           "side": null,
           "employer": "Retired",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205337",
@@ -8925,7 +9220,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205337",
@@ -8944,7 +9240,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205265",
@@ -8959,11 +9256,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205265",
@@ -8978,11 +9276,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205265",
@@ -8997,11 +9296,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205265",
@@ -9016,11 +9316,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205334",
@@ -9039,7 +9340,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205334",
@@ -9058,7 +9360,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205036",
@@ -9073,11 +9376,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Planned Parenthood Action Fund of the Pacific Southwest PAC",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205036",
@@ -9092,11 +9396,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Professional Engineers in California Government PECG PAC Small Contributor Committee",
           "entity_type": "SCC",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205036",
@@ -9111,11 +9416,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "UAW Region 6 Western States PAC",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205029",
@@ -9130,11 +9436,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205029",
@@ -9149,11 +9456,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205029",
@@ -9168,11 +9476,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205029",
@@ -9187,11 +9496,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205029",
@@ -9206,11 +9516,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204301",
@@ -9225,11 +9536,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204301",
@@ -9244,11 +9556,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204301",
@@ -9263,11 +9576,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203189",
@@ -9282,11 +9596,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Patty Quillin",
           "entity_type": "IND",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": "n/a",
           "occupation": "Homemaker",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203189",
@@ -9301,11 +9616,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Elizabeth D. Simons",
           "entity_type": "IND",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": "n/a",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203189",
@@ -9320,11 +9636,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "The Democratic Party of Mendocino County",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203189",
@@ -9339,11 +9656,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Laura Skelton Yakovenko",
           "entity_type": "IND",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": "n/a",
           "occupation": "Not Employed",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203196",
@@ -9358,11 +9676,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201942",
@@ -9381,7 +9700,8 @@
           "side": null,
           "employer": "Retired",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201942",
@@ -9400,7 +9720,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201942",
@@ -9419,7 +9740,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201942",
@@ -9438,7 +9760,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3201804",
@@ -9453,11 +9776,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201804",
@@ -9472,11 +9796,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201804",
@@ -9491,11 +9816,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201804",
@@ -9510,11 +9836,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200901",
@@ -9529,11 +9856,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "Mark Gonzalez for Assembly 2026",
           "entity_type": "COM",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201808",
@@ -9548,11 +9876,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201808",
@@ -9567,11 +9896,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201808",
@@ -9586,11 +9916,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200994",
@@ -9609,7 +9940,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3200836",
@@ -9624,11 +9956,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200836",
@@ -9643,11 +9976,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200836",
@@ -9662,11 +9996,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200836",
@@ -9681,11 +10016,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200836",
@@ -9700,11 +10036,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198670",
@@ -9723,7 +10060,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199723",
@@ -9738,11 +10076,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199723",
@@ -9757,11 +10096,12 @@
           "committee_name": "Ida Obeso-Martinez for Assembly 2026",
           "entity": "California Democratic Party",
           "entity_type": "PTY",
-          "candidate": "Ida S. Obeso-Martinez",
+          "candidate": "Ida Obeso-Martinez",
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         }
       ],
       "recent_ie": [
@@ -10020,19 +10360,27 @@
         "election_date": "2026-11-03",
         "authority": "FPPC Manual 2 Ch. 11 (90-day election cycle, includes election day)"
       },
-      "linked_f497_filings": 321,
+      "linked_f497_filings": 247,
       "totals": {
-        "period_contributions": 3003867.55,
-        "period_contribution_reports": 177,
-        "received": 3003867.55,
+        "period_contributions": 2997967.55,
+        "period_contribution_reports": 174,
+        "received": 2997967.55,
         "made": 0.0,
         "last_24h": 0.0,
+        "last_filed_day": 9400.0,
+        "last_filed_day_date": "2026-10-06",
         "seven_day": 435432.36,
         "ie_period": 962521.61,
         "ie_last_24h": 0.0,
+        "ie_last_filed_day": 99282.02,
+        "ie_last_filed_day_date": "2026-10-05",
         "ie_seven_day": 157410.02,
+        "ie_seven_day_pro_r": 65256.0,
+        "ie_seven_day_anti_r": 92154.02,
         "ie_support": 499086.52,
         "ie_oppose": 463435.09,
+        "ie_pro_r": 412182.59,
+        "ie_anti_r": 550339.02,
         "ie_reports": 25
       },
       "sparkline": [
@@ -10051,11 +10399,11 @@
         12900.0,
         14800.0,
         0.0,
-        2900.0,
+        0.0,
         1000.0,
         0.0,
         0.0,
-        115500.0,
+        114000.0,
         75000.0,
         1698.53,
         26600.0,
@@ -10063,7 +10411,7 @@
         0.0,
         0.0,
         13763.0,
-        2500.0,
+        1000.0,
         8000.0,
         100031.65,
         33199.96,
@@ -10206,8 +10554,8 @@
         },
         {
           "date": "2026-08-20",
-          "amount": 2900.0,
-          "count": 1
+          "amount": 0.0,
+          "count": 0
         },
         {
           "date": "2026-08-21",
@@ -10226,8 +10574,8 @@
         },
         {
           "date": "2026-08-24",
-          "amount": 115500.0,
-          "count": 6
+          "amount": 114000.0,
+          "count": 5
         },
         {
           "date": "2026-08-25",
@@ -10266,8 +10614,8 @@
         },
         {
           "date": "2026-09-01",
-          "amount": 2500.0,
-          "count": 2
+          "amount": 1000.0,
+          "count": 1
         },
         {
           "date": "2026-09-02",
@@ -10649,11 +10997,12 @@
           "committee_name": "Murphy for Assembly 2026",
           "entity": "Wilbert Dean",
           "entity_type": "IND",
-          "candidate": "Mike Murphy",
+          "candidate": "Michael Murphy",
           "side": null,
           "employer": "Merced Chevrolet",
           "occupation": "Car Dealer",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207187",
@@ -10672,7 +11021,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3207080",
@@ -10691,7 +11041,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206671",
@@ -10710,7 +11061,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206671",
@@ -10729,7 +11081,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206671",
@@ -10748,7 +11101,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206671",
@@ -10767,7 +11121,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206671",
@@ -10786,7 +11141,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206165",
@@ -10805,7 +11161,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206261",
@@ -10820,11 +11177,12 @@
           "committee_name": "Murphy for Assembly 2026",
           "entity": "Noah Williams",
           "entity_type": "IND",
-          "candidate": "Mike Murphy",
+          "candidate": "Michael Murphy",
           "side": null,
           "employer": "TCW Group Inc",
           "occupation": "General Engineering Contractor",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3206162",
@@ -10843,7 +11201,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206182",
@@ -10862,7 +11221,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206182",
@@ -10881,7 +11241,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3206182",
@@ -10900,7 +11261,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205274",
@@ -10919,7 +11281,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205274",
@@ -10938,7 +11301,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205246",
@@ -10957,7 +11321,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204561",
@@ -10976,7 +11341,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205247",
@@ -10995,7 +11361,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205247",
@@ -11014,7 +11381,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203922",
@@ -11033,7 +11401,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203922",
@@ -11052,7 +11421,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3205209",
@@ -11071,7 +11441,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3205209",
@@ -11090,7 +11461,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203949",
@@ -11109,7 +11481,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203949",
@@ -11128,7 +11501,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203949",
@@ -11147,7 +11521,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203949",
@@ -11166,7 +11541,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203922",
@@ -11181,11 +11557,12 @@
           "committee_name": "Murphy for Assembly 2026",
           "entity": "Leslie Abasta Cummings",
           "entity_type": "IND",
-          "candidate": "Mike Murphy",
+          "candidate": "Michael Murphy",
           "side": null,
           "employer": "Lumira Healthcare",
           "occupation": "Chief Executive Officer",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203536",
@@ -11200,11 +11577,12 @@
           "committee_name": "Murphy for Assembly 2026",
           "entity": "Andrew Bradley",
           "entity_type": "IND",
-          "candidate": "Mike Murphy",
+          "candidate": "Michael Murphy",
           "side": null,
           "employer": "Gunderson Dettmer",
           "occupation": "Attorney",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203536",
@@ -11223,7 +11601,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3203536",
@@ -11242,7 +11621,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3204314",
@@ -11261,7 +11641,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3204314",
@@ -11280,7 +11661,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203140",
@@ -11299,7 +11681,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203188",
@@ -11318,7 +11701,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203188",
@@ -11337,7 +11721,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3203188",
@@ -11356,7 +11741,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202684",
@@ -11375,7 +11761,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202417",
@@ -11394,7 +11781,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202417",
@@ -11413,7 +11801,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3202755",
@@ -11432,7 +11821,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201720",
@@ -11451,7 +11841,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201720",
@@ -11470,7 +11861,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200937",
@@ -11489,7 +11881,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200937",
@@ -11508,7 +11901,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201779",
@@ -11527,7 +11921,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201779",
@@ -11546,7 +11941,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3201779",
@@ -11565,7 +11961,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200887",
@@ -11584,7 +11981,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200936",
@@ -11603,7 +12001,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200936",
@@ -11622,7 +12021,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3200936",
@@ -11641,7 +12041,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199439",
@@ -11660,7 +12061,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3198631",
@@ -11675,11 +12077,12 @@
           "committee_name": "Murphy for Assembly 2026",
           "entity": "Sharon Gerardi",
           "entity_type": "IND",
-          "candidate": "Mike Murphy",
+          "candidate": "Michael Murphy",
           "side": null,
           "employer": "Retired",
           "occupation": "Retired",
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3198631",
@@ -11698,7 +12101,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "R"
         },
         {
           "filing_id": "3199698",
@@ -11717,7 +12121,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199698",
@@ -11736,7 +12141,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199698",
@@ -11755,7 +12161,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         },
         {
           "filing_id": "3199698",
@@ -11774,7 +12181,8 @@
           "side": null,
           "employer": null,
           "occupation": null,
-          "in_period": true
+          "in_period": true,
+          "beneficiary_party": "D"
         }
       ],
       "recent_ie": [
@@ -12026,7 +12434,7 @@
     {
       "id": "ad-7",
       "code": "AD-7",
-      "linked_f497_filings": 213,
+      "linked_f497_filings": 211,
       "period_contribution_reports": 154,
       "period_contributions": 1298770.07,
       "seven_day": 123538.55,
@@ -12036,7 +12444,7 @@
     {
       "id": "ad-47",
       "code": "AD-47",
-      "linked_f497_filings": 196,
+      "linked_f497_filings": 185,
       "period_contribution_reports": 151,
       "period_contributions": 1334826.32,
       "seven_day": 237274.31,
@@ -12046,7 +12454,7 @@
     {
       "id": "ad-58",
       "code": "AD-58",
-      "linked_f497_filings": 237,
+      "linked_f497_filings": 235,
       "period_contribution_reports": 143,
       "period_contributions": 1911058.96,
       "seven_day": 280273.63,
@@ -12066,7 +12474,7 @@
     {
       "id": "ad-36",
       "code": "AD-36",
-      "linked_f497_filings": 266,
+      "linked_f497_filings": 225,
       "period_contribution_reports": 213,
       "period_contributions": 3404834.84,
       "seven_day": 230685.16,
@@ -12076,9 +12484,9 @@
     {
       "id": "ad-27",
       "code": "AD-27",
-      "linked_f497_filings": 321,
-      "period_contribution_reports": 177,
-      "period_contributions": 3003867.55,
+      "linked_f497_filings": 247,
+      "period_contribution_reports": 174,
+      "period_contributions": 2997967.55,
       "seven_day": 435432.36,
       "ie_reports": 25,
       "ie_period": 962521.61
