@@ -14,7 +14,8 @@
     "bootstrap-admin:remote": "node scripts/bootstrap-admin.js --remote",
     "db:migrate:local": "wrangler d1 migrations apply partsharbor-admin --local",
     "db:migrate:remote": "bash scripts/d1-migrate-remote.sh",
-    "test:push-social-feed": "bash scripts/test-push-social-feed-dry-run.sh"
+    "test:push-social-feed": "bash scripts/test-push-social-feed-dry-run.sh",
+    "test:internal-polls-auth": "node scripts/test-internal-polls-auth.mjs"
   },
   "dependencies": {
     "argon2id": "^1.0.1",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "argon2": "^0.41.1",
+    "playwright": "^1.49.1",
     "wrangler": "^4.0.0"
   }
 }

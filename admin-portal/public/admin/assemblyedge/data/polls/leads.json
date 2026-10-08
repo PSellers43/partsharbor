@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-08T14:00:00-07:00",
+  "notes": "Automated leads only — verify toplines before adding to data/polls/released.json. Never auto-import margins.",
+  "leads": [
+    {
+      "title": "New Poll Shows Obeso-Martinez Leads Gonzalez - Uken Report",
+      "link": "https://ukenreport.com/new-poll-shows-obeso-martinez-leads-gonzalez/",
+      "date": "2026-08-12",
+      "source": "Uken Report",
+      "matched_district": "ad-36",
+      "verification_note": "Tulchin Research horse-race toplines reported (Obeso-Martinez 47%, Gonzalez 39%, undecided 13%; n=600 likely November voters). Field dates, MoE, and commissioning sponsor not stated in article — verify before released.json."
+    }
+  ]
+}

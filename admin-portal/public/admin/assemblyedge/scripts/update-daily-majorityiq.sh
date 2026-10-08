@@ -4,5 +4,6 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] update-daily-majorityiq starting"
+./scripts/update-released-polls.sh
 ./scripts/update-abev.sh
-echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] done → data/abev/latest/abev-by-district.json (SOS BSR + SWDB baselines)"
+echo "[$(date '+%Y-%m-%d %H:%M:%S %Z')] done → polls leads/latest + data/abev/latest/abev-by-district.json (SOS BSR + SWDB baselines)"

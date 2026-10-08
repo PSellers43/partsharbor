@@ -106,7 +106,7 @@
       <div id="polling-infographic" class="polling-infographic" role="list"></div>
       <div class="card method-card" style="margin-top:16px">
         <h3 class="card-title">Refresh polling data</h3>
-        <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">Edit <code>data/polling/latest.json</code> and read <code>data/polling/README.md</code>. Bump <code>updated_at</code> after each refresh. Never paste election results or model forecasts as polls.</p>
+        <p style="margin:0;font-size:13px;color:var(--text-muted);line-height:1.55">Weekday <code>scripts/update-released-polls.sh</code> fetches RSS leads into <code>data/polls/leads.json</code> and rebuilds <code>data/polling/latest.json</code> from verified <code>data/polls/released.json</code>. Private campaign polls: <a href="/admin/majorityiq/polls-admin">internal intake</a> (session). Never paste election results or model forecasts as polls.</p>
       </div>
     </section>
 
@@ -348,13 +348,13 @@
           <h3>Sources in this build</h3>
           <ul>
             <li><strong>CAL-ACCESS</strong> — candidate &amp; IE filings, late contributions (static JSON; manual <code>scripts/update-calaccess.sh</code>)</li>
-            <li><strong>Threat Index + News + Rival + Alerts</strong> — computed from CAL-ACCESS + Google News RSS + curated polls (<code>scripts/update-intel.sh</code>)</li>
+            <li><strong>Threat Index + News + Rival + Alerts</strong> — computed from CAL-ACCESS + Google News RSS + verified polls (<code>scripts/update-intel.sh</code>)</li>
             <li><strong>2024 lean</strong> — CA SOS Statement of Vote Assembly totals (<code>data/election-history/official/asm-2024-general-sov.json</code>)</li>
             <li><strong>SWDB</strong> — precinct Assembly margins (2022/2024, addist-filtered), ABEV mail-return baselines (<code>update-election-history.sh</code> / <code>update-abev.sh</code>)</li>
             <li><strong>CA SOS ROR</strong> — registration by Assembly district (<code>update-demography.sh</code>)</li>
             <li><strong>CA SOS BSR</strong> — county mail ballot status XLSX (county rows in ABEV; not AD totals)</li>
             <li><strong>Public X digest</strong> — paid X API + bundled fallback; keyword tone estimate (not polling)</li>
-            <li><strong>Curated polls</strong> — hand-maintained <code>data/polling/latest.json</code> with explicit gap rows</li>
+            <li><strong>Released polls</strong> — verified <code>data/polls/released.json</code> + RSS leads; private internal polls via D1 intake (login only); builds <code>data/polling/latest.json</code></li>
             <li><strong>Ads tab</strong> — unavailable in this build until wired (no silent placeholders)</li>
           </ul>
           <p style="margin-top:12px">Panels show as-of stamps in Pacific Time. Missing bundles render explicit unavailable states — no fictional numbers. See <code>CALACCESS.md</code>.</p>
@@ -372,13 +372,18 @@
           <h3>Threat Index factors</h3>
           <ul>
             <li>Money velocity — 7-day late contributions plus all 7-day IE dollars (both sides) in FPPC 90-day window (CAL-ACCESS S497/S496), ranked across beachheads</li>
-            <li>IE pressure — 7-day IE with direction-aware anti-R vs pro-R totals</li>
+            <li>IE pressure — log-scaled 7-day anti-Republican IE (<code>ie_seven_day_anti_r</code>); direction-aware pro/anti on rival tab</li>
             <li>Ad surge — excluded (not in composite)</li>
             <li>Narrative heat — headline count in last 7 days (Google News RSS at build time)</li>
-            <li>Poll movement — included only when a curated public poll is inside the gap window</li>
+            <li>Poll movement — verified horse-race poll in 90-day window from <code>released.json</code>; independent full weight, campaign/party/IE at 50% (flagged)</li>
+            <li>Polling &amp; gaps panel — <code>released.json</code> + optional internal polls (private, chipped)</li>
             <li>Focus map — EST heuristic (40% TI + 35% money + 25% poll gap); drill adds addist-filtered SWDB precinct margins and ACS + SOS registration</li>
           </ul>
           <p style="margin-top:12px">Click any factor on a district Threat Index tab for the methodology drawer.</p>
+        </div>
+        <div class="card method-card">
+          <h3>Polls</h3>
+          <p>Public releases are verified by hand into <code>data/polls/released.json</code> (pollster, sponsor type, field dates, sample, MoE, cited toplines). Build-time RSS (<code>fetch_poll_leads.py</code>) adds <strong>leads to verify</strong> only — never auto-imports margins. Sponsor chips: Independent; Campaign internal (R/D); Party / caucus; IE committee. Threat Index poll factor uses the newest poll in the 90-day window; partisan sponsors count at <strong>50% weight</strong> and show a partisan flag. Campaign-shared internal polls stay in D1, merge in the authenticated app only, and are labeled <strong>Internal (private)</strong> — not committed to public JSON.</p>
         </div>
         <div class="card method-card">
           <h3>Decision chips</h3>
@@ -434,6 +439,7 @@
   <script src="js/data.js"></script>
   <script src="js/cm.js"></script>
   <script src="js/polling.js"></script>
+  <script src="js/polling-desk.js"></script>
   <script src="js/focus-map.js"></script>
   <script src="js/focus-drill.js"></script>
   <script src="js/demography.js"></script>

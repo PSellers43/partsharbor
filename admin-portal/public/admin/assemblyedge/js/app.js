@@ -241,6 +241,31 @@
   /* ——— Polling & gaps ——— */
   function pollRowHtml(row, compact) {
     const dMeta = AE.districts.find((x) => x.id === row.id);
+    if (AE.pollingDesk && AE.pollingDesk.districtBlockHtml) {
+      const gapMsg = (row.gap && row.gap.message) || "No released poll in last 90 days";
+      const recentAny =
+        AE.pollingDesk.allForDistrict(row.id).filter((p) => {
+          const end = p.field_end;
+          return end && AE.polling.isRecent({ field_end: end });
+        }).length > 0;
+      const bars = AE.pollingDesk.districtBlockHtml(row, compact);
+      const actions = compact
+        ? ""
+        : `<div class="poll-row-actions">
+          ${recentAny ? "" : `<span class="chip chip-gap">${gapMsg}</span>`}
+          <button type="button" class="btn" data-district-open="${row.id}">District detail</button>
+        </div>`;
+      return `
+      <article class="poll-row ${recentAny ? "" : "is-gap"}" role="listitem">
+        <div class="poll-row-head">
+          <div class="poll-code">${row.code}</div>
+          <div class="poll-race">${row.race_label || (dMeta ? dMeta.name + " · " + dMeta.region : "")}</div>
+          ${dMeta ? `<div class="poll-meta-chips" style="margin-top:8px"><span class="chip ${AE.intelLoaded ? "chip-live" : "chip-demo"}">TI ${dMeta.threatIndex}${AE.intelLoaded ? "" : " (loading)"}</span></div>` : ""}
+        </div>
+        <div class="poll-bars">${bars}</div>
+        ${actions}
+      </article>`;
+    }
     const poll = row.poll;
     const recent = poll && AE.polling.isRecent(poll);
     const hasPoll = !!poll;
@@ -343,11 +368,13 @@
     }
     if (note) {
       const asOf = root.updated_at ? formatAsOf(root.updated_at) : "—";
-      note.innerHTML = `As of <strong>${asOf}</strong> · Gap threshold <strong>${root.gap_recent_days || 90} days</strong> · ${root.notes || ""}`;
+      const hint = AE.pollingDesk && AE.pollingDesk.intakeHintHtml ? AE.pollingDesk.intakeHintHtml() : "";
+      note.innerHTML = `${hint}As of <strong>${asOf}</strong> · Gap threshold <strong>${root.gap_recent_days || 90} days</strong> · ${root.notes || ""}`;
     }
 
     const rows = (root.districts || []).slice().sort((a, b) => a.code.localeCompare(b.code));
-    el.innerHTML = rows.map((r) => pollRowHtml(r, false)).join("");
+    const leadsHtml = AE.pollingDesk && AE.pollingDesk.leadsSectionHtml ? AE.pollingDesk.leadsSectionHtml() : "";
+    el.innerHTML = rows.map((r) => pollRowHtml(r, false)).join("") + leadsHtml;
     el.querySelectorAll("[data-district-open]").forEach((btn) => {
       btn.addEventListener("click", () => navigate("district", { districtId: btn.dataset.districtOpen, tab: "threat" }));
     });
@@ -363,14 +390,29 @@
       if (badge) badge.textContent = "—";
       return;
     }
-    const gaps = root.districts.filter((row) => {
+    const total = root.districts.length;
+    let recentReleased = 0;
+    if (AE.pollingDesk && AE.pollingDesk.countRecentReleasedDistricts) {
+      recentReleased = AE.pollingDesk.countRecentReleasedDistricts();
+    } else {
+      recentReleased = root.districts.filter((row) => row.poll && AE.polling.isRecent(row.poll)).length;
+    }
+    const gaps = total - recentReleased;
+    if (badge) {
+      badge.textContent = recentReleased + " recent · " + gaps + " gap" + (gaps === 1 ? "" : "s");
+      badge.className = recentReleased > 0 ? "chip chip-live" : "chip chip-gap";
+    }
+    const gapRows = root.districts.filter((row) => {
+      const releasedRecent =
+        AE.pollingDesk &&
+        AE.pollingDesk.releasedForDistrict(row.id).some((p) => AE.polling.isRecent({ field_end: p.field_end }));
+      if (releasedRecent) return false;
       if (!row.poll) return true;
       return !AE.polling.isRecent(row.poll);
     });
-    if (badge) badge.textContent = gaps.length + " gap" + (gaps.length === 1 ? "" : "s");
-    body.innerHTML = `<div class="intel-gap-pills">${gaps
+    body.innerHTML = `<p style="margin:0 0 8px">${recentReleased}/${total} beachheads with a released poll in the last ${root.gap_recent_days || 90} days.</p><div class="intel-gap-pills">${gapRows
       .map((g) => `<span class="intel-gap-pill">${g.code}</span>`)
-      .join("")}</div><p style="margin:8px 0 0">${gaps.length}/${root.districts.length} districts without a recent public poll.</p>`;
+      .join("")}</div>`;
   }
 
   function renderDistrictPollingStrip(d) {
@@ -1049,6 +1091,8 @@
               <button type="button" class="factor-row" data-factor="${f.id}">
                 <div>
                   <div class="factor-label">${f.label}
+                    ${f.partisan_sponsor ? `<span class="chip chip-gap" style="margin-left:6px;font-size:10px">Partisan sponsor</span>` : ""}
+                    ${f.runtime_internal ? `<span class="chip chip-gap" style="margin-left:6px;font-size:10px">Internal poll est.</span>` : ""}
                     <span class="delta ${f.trend === "up" ? "delta-up" : f.trend === "down" ? "delta-down" : "delta-flat"}" style="margin-left:6px;font-size:11px">${f.trend === "up" ? "↑" : f.trend === "down" ? "↓" : "→"}</span>
                   </div>
                   <div class="factor-blurb">${f.blurb}</div>
@@ -2266,7 +2310,7 @@
     }
     Promise.all([
       loadLiveMoney(),
-      AE.polling.load(),
+      AE.pollingDesk && AE.pollingDesk.load ? AE.pollingDesk.load() : AE.polling.load(),
       AE.demography.load(),
       AE.electionHistory.loadIndex(),
       AE.abev.load(),
@@ -2275,6 +2319,7 @@
       AE.social && AE.social.load ? AE.social.load() : Promise.resolve(),
       AE.intel && AE.intel.load ? AE.intel.load() : Promise.resolve(),
     ]).then(() => {
+      if (AE.pollingDesk && AE.pollingDesk.applyThreatIndexRuntime) AE.pollingDesk.applyThreatIndexRuntime();
       if (AE.intel && AE.intel.computeMaxSpend) AE.intel.computeMaxSpend();
       refreshIntelViews();
       if (state.page === "portfolio") renderPortfolio();

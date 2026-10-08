@@ -6,11 +6,13 @@ Curated **horse-race** public polls for tracked Assembly districts. MajorityIQ n
 
 | Path | Purpose |
 |------|---------|
-| `latest.json` | One row per beachhead district (`ad-7`, `ad-47`, `ad-58`, `ad-74`, `ad-36`, `ad-27`) |
+| `latest.json` | Generated summary per beachhead (from `data/polls/released.json`) |
+| `../polls/released.json` | Hand-verified public horse-race polls |
+| `../polls/leads.json` | RSS leads to verify (no auto-toplines) |
 
 ## Refresh workflow (Patrick)
 
-1. Edit `latest.json` — bump `updated_at` (ISO-8601, UTC or with offset).
+1. Add verified rows to `data/polls/released.json`, then run `./scripts/update-released-polls.sh` (or weekday `update-daily-majorityiq.sh`).
 2. For each district, either:
    - **`poll`**: latest public horse-race survey with pollster, field dates, sample, margin (leader/trailer/undecided), MoE if published, and `source_url` + `source_label`.
    - **`gap`**: no qualifying public poll within `gap_recent_days` (default **90**). Gaps are first-class — do not delete the district row.

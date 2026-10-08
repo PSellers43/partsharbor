@@ -76,6 +76,7 @@ export function renderDashboard({ title, csrfToken, sessionMeta }) {
     <p class="subtitle">You are signed in to the PartsHarbor admin portal. Internal tools use the same session cookie—no second sign-in.</p>
     <div class="tool-links">
       <a class="btn btn-primary" href="/admin/assemblyedge/">Open MajorityIQ</a>
+      <a class="btn" href="/admin/majorityiq/polls-admin">Internal poll intake</a>
       <p class="tool-links-note">California Assembly war-room desk (Today&apos;s Board, Monday Brief, money / CAL-ACCESS panels). Same app at <code>/admin/majorityiq/</code>.</p>
     </div>
     <ul class="meta-list">

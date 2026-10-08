@@ -21,6 +21,9 @@ NARRATIVE_POINTS_PER_HEADLINE = 20
 ELEVATED_MIN = 65
 WATCH_MIN = 45
 
+PARTISAN_SPONSOR_TYPES = frozenset({"campaign", "party", "ie"})
+PARTISAN_POLL_WEIGHT = 0.5
+
 
 def parse_date(s: str | None) -> dt.date | None:
     if not s:
@@ -111,7 +114,13 @@ def poll_is_recent(poll_row: dict[str, Any] | None, gap_days: int, as_of: dt.dat
     return (as_of - end).days <= gap_days
 
 
-def poll_movement_score(poll_row: dict[str, Any], gap_days: int, as_of: dt.date) -> tuple[float, str]:
+def poll_sponsor_weight(sponsor_type: str | None) -> float:
+    if sponsor_type in PARTISAN_SPONSOR_TYPES:
+        return PARTISAN_POLL_WEIGHT
+    return 1.0
+
+
+def poll_movement_score(poll_row: dict[str, Any], gap_days: int, as_of: dt.date) -> tuple[float, str, bool]:
     """Score only when poll is recent; caller must gate with poll_is_recent."""
     poll = poll_row["poll"]
     margin = poll.get("margin") or {}
@@ -124,8 +133,19 @@ def poll_movement_score(poll_row: dict[str, Any], gap_days: int, as_of: dt.date)
         base = 42.0 - min(spread / 3.0, 12.0)
     else:
         base = 50.0
-    blurb = f"Recent public poll ({poll.get('pollster')}, field end {field_end}) — in {gap_days}-day window."
-    return base, blurb
+    sponsor_type = poll.get("sponsor_type")
+    wt = poll_sponsor_weight(sponsor_type)
+    partisan = wt < 1.0
+    if partisan:
+        base *= wt
+    blurb = (
+        f"Recent poll ({poll.get('pollster')}, field end {field_end}) — in {gap_days}-day window."
+    )
+    if partisan:
+        blurb += f" Partisan sponsor ({sponsor_type}) — poll factor at {int(PARTISAN_POLL_WEIGHT * 100)}% weight."
+    else:
+        blurb += " Independent sponsor — full poll factor weight."
+    return base, blurb, partisan
 
 
 def poll_excluded_blurb(poll_row: dict[str, Any] | None, gap_days: int, as_of: dt.date) -> str:
@@ -192,8 +212,9 @@ def compute_district_ti(
     poll_score_display: int | None = None
     poll_trend = "flat"
 
+    poll_partisan = False
     if poll_included and poll_row:
-        poll_val, poll_blurb = poll_movement_score(poll_row, gap_days, as_of)
+        poll_val, poll_blurb, poll_partisan = poll_movement_score(poll_row, gap_days, as_of)
         factor_scores["polls"] = poll_val
         poll_score_display = int(round(poll_val))
         poll_trend = "down" if poll_val < 45 else "up" if poll_val > 55 else "flat"
@@ -241,16 +262,17 @@ def compute_district_ti(
     ]
 
     if poll_included:
-        factors.append(
-            {
-                "id": "polls",
-                "label": "Poll movement",
-                "score": poll_score_display,
-                "weight": weights["polls"],
-                "trend": poll_trend,
-                "blurb": poll_blurb,
-            }
-        )
+        poll_factor: dict[str, Any] = {
+            "id": "polls",
+            "label": "Poll movement",
+            "score": poll_score_display,
+            "weight": weights["polls"],
+            "trend": poll_trend,
+            "blurb": poll_blurb,
+        }
+        if poll_partisan:
+            poll_factor["partisan_sponsor"] = True
+        factors.append(poll_factor)
     else:
         factors.append(
             {

@@ -188,6 +188,9 @@ window.AE = window.AE || {};
         AE.intelData = json;
         AE.intelLoadError = null;
         AE.intel.apply();
+        if (AE.pollingDesk && AE.pollingDesk.applyThreatIndexRuntime) {
+          AE.pollingDesk.applyThreatIndexRuntime();
+        }
       })
       .catch((err) => {
         AE.intelData = null;
